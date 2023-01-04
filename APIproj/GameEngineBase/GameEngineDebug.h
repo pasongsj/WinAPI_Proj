@@ -1,6 +1,7 @@
 #pragma once
 //#include <Windows.h>
 #include <assert.h>
+#include <string>
 
 // Ό³Έν :
 class GameEngineDebug
@@ -25,4 +26,4 @@ private:
 };
 
 
-#define MsgAssert(MsgText) MessageBoxA(nullptr, MsgText, "Error", MB_OK);	assert(false);
+#define MsgAssert(MsgText) std::string ErrorText = MsgText; MessageBoxA(nullptr, ErrorText.c_str(), "Error", MB_OK); assert(false);

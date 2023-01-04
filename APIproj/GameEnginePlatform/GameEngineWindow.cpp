@@ -146,7 +146,11 @@ int GameEngineWindow::WindowLoop(void(*_Start)(), void(*_Loop)(), void(*_End)())
         // => 게임은 쉴새없이 돌아야 하는데
         // GetMessage라는 함수는 => 윈도우에 무슨일이 생기면 리턴되는 함수
         // 윈도우에 무슨일이 생기게 만들어야 한다.
-        if (GetMessage(&msg, nullptr, 0, 0))
+        //if (GetMessage(&msg, nullptr, 0, 0))
+
+        // 메세지가 있으면 true 없으면 false를 return한다
+        // 콘솔게임에서 kbhit과 getch의 차이라고 생각하면 이해가 쉽다.
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
             if (nullptr != _Loop)
             {
