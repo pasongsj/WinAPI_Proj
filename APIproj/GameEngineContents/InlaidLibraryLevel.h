@@ -1,5 +1,8 @@
 #pragma once
-class InlaidLibraryLevel
+#include <GameEngineCore/GameEngineLevel.h>
+
+// 화려한 도서관 스테이지
+class InlaidLibraryLevel : public GameEngineLevel
 {
 public:
 	// constrcuter destructer

@@ -3,9 +3,15 @@
   <ItemGroup>
     <ClInclude Include="Player.h" />
     <ClInclude Include="ContentsGameCore.h" />
+    <ClInclude Include="MadForestLevel.h" />
+    <ClInclude Include="InlaidLibraryLevel.h" />
+    <ClInclude Include="TitleLevel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ContentsGameCore.cpp" />
+    <ClCompile Include="MadForestLevel.cpp" />
+    <ClCompile Include="InlaidLibraryLevel.cpp" />
+    <ClCompile Include="TitleLevel.cpp" />
   </ItemGroup>
 </Project>

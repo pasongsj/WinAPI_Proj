@@ -2,7 +2,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 
 // ±¤±âÀÇ ½£ ½ºÅ×ÀÌÁö
-class MadForestLevel : GameEngineLevel
+class MadForestLevel : public GameEngineLevel
 {
 public:
 	// constrcuter destructer

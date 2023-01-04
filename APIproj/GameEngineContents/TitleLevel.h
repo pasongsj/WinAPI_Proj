@@ -1,0 +1,23 @@
+#pragma once
+#include <GameEngineCore/GameEngineLevel.h>
+
+// 시작 시 보이는 타이틀 페이지
+class TitleLevel : public GameEngineLevel
+{
+public:
+	// constrcuter destructer
+	TitleLevel() ;
+	~TitleLevel();
+
+	// delete Function
+	TitleLevel(const TitleLevel& _Other) = delete;
+	TitleLevel(TitleLevel&& _Other) noexcept = delete;
+	TitleLevel& operator=(const TitleLevel& _Other) = delete;
+	TitleLevel& operator=(TitleLevel&& _Other) noexcept = delete;
+
+protected:
+
+private:
+
+};
+

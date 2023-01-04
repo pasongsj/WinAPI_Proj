@@ -26,6 +26,7 @@ public:
 	void CoreStart(HINSTANCE _instance);
 
 protected:
+
 	template<typename LevelType>
 	void CreateLevel(const std::string_view& _Name)
 	{
@@ -39,6 +40,8 @@ protected:
 		GameEngineLevel* Level = new LevelType();
 		Levels.insert(std::make_pair(_Name, Level));
 	}
+
+	
 
 	void ChangeLevel(const std::string_view& _Name);
 

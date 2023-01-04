@@ -10,7 +10,7 @@ public:
 	ContentsGameCore& operator=(const ContentsGameCore& _Other) = delete;
 	ContentsGameCore& operator=(ContentsGameCore&& _Other) noexcept = delete;
 
-	// ½Ì±ÛÅæ
+	// ½Ì±ÛÅæ ¹æ½Ä
 	static ContentsGameCore& GetInst()
 	{
 		return Core;
