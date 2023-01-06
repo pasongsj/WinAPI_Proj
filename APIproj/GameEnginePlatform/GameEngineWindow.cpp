@@ -16,7 +16,7 @@ LRESULT CALLBACK MessageFunction(HWND _hWnd, UINT _message, WPARAM _wParam, LPAR
 {
     switch (_message)
     {
-    case WM_MOUSEMOVE: // 마우스가 움직일 때
+    case WM_MOUSEMOVE:
     {
         int a = 0;
         break;
@@ -27,17 +27,17 @@ LRESULT CALLBACK MessageFunction(HWND _hWnd, UINT _message, WPARAM _wParam, LPAR
         int a = 0;
         break;
     }
-    case WM_ACTIVATE: // 창이 선택되었을 때
+    case WM_ACTIVATE:
     {
         int a = 0;
         break;
     }
-    case WM_KILLFOCUS: // 창 선택을 잃었을 떄
+    case WM_KILLFOCUS:
     {
         int a = 0;
         break;
     }
-    case WM_DESTROY: // x(닫기)를 누르는 경우
+    case WM_DESTROY:
     {
         // Message함수가 0을 리턴하게 만들어라.
         PostQuitMessage(0);
@@ -72,14 +72,14 @@ void GameEngineWindow::WindowCreate(HINSTANCE _hInstance, const std::string_view
     wcex.lpfnWndProc = MessageFunction;
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
-    wcex.hInstance = _hInstance; // OS에서 프로그램들을 구분하기 위한 ID
+    wcex.hInstance = _hInstance;
     // 넣어주지 않으면 윈도우 기본Icon이 됩니다.
-    wcex.hIcon = nullptr;//LoadIcon(_hInstance, MAKEINTRESOURCE(IDI_WINDOWSPROJECT1)); 하단바의 아이콘
-    wcex.hCursor = LoadCursor(nullptr, IDC_ARROW); // 마우스 커서 정보
+    wcex.hIcon = nullptr;//LoadIcon(_hInstance, MAKEINTRESOURCE(IDI_WINDOWSPROJECT1));
+    wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1); // 흰색 
     wcex.lpszMenuName = nullptr;//MAKEINTRESOURCEW(IDC_WINDOWSPROJECT1);
     wcex.lpszClassName = "GameEngineWindowDefault";
-    wcex.hIconSm = nullptr;//LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL)); 상단바의 아이콘
+    wcex.hIconSm = nullptr;//LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
     // 윈도우에게 이런 내용을 window클래스를 GameEngineWindowDefault라는 이름으로 등록해줘.
     // 나중에 윈도우 만들때 쓸꺼냐.
@@ -98,21 +98,21 @@ void GameEngineWindow::WindowCreate(HINSTANCE _hInstance, const std::string_view
     // (WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX)
 
     HWnd = CreateWindow("GameEngineWindowDefault", _TitleName.data(), WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, _hInstance, nullptr); // 창을 만들고 핸들러(랜덤number)를 return
+        CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, _hInstance, nullptr);
 
-    if (!HWnd)
+    if (nullptr == HWnd)
     {
         MsgAssert("윈도우 클래스 생성에 실패했습니다.");
         return;
     }
 
-    DrawHdc = GetDC(HWnd); //그림을 그릴 수 있는 권한
+    DrawHdc = GetDC(HWnd);
 
-    ShowWindow(HWnd, SW_SHOW); // render window
-    UpdateWindow(HWnd); //
+    ShowWindow(HWnd, SW_SHOW);
+    UpdateWindow(HWnd);
 
-    SettingWindowSize(_Size); // 창 크기 지정
-    SettingWindowPos(_Pos); // 창 시작 위치 지정
+    SettingWindowSize(_Size);
+    SettingWindowPos(_Pos);
 
     return;
 }
@@ -146,19 +146,31 @@ int GameEngineWindow::WindowLoop(void(*_Start)(), void(*_Loop)(), void(*_End)())
         // => 게임은 쉴새없이 돌아야 하는데
         // GetMessage라는 함수는 => 윈도우에 무슨일이 생기면 리턴되는 함수
         // 윈도우에 무슨일이 생기게 만들어야 한다.
-        //if (GetMessage(&msg, nullptr, 0, 0))
 
-        // 메세지가 있으면 true 없으면 false를 return한다
-        // 콘솔게임에서 kbhit과 getch의 차이라고 생각하면 이해가 쉽다.
+        // if (GetMessage(&msg, nullptr, 0, 0))
+        // 동기 메세지 있어? 없어? 있을때까지 기다릴께.
+
+        // 메세지가 있든 없든 리턴됩니다.
+        // 쌓여있는 메세지를 삭제하라는 명령입니다.
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+            // 동기 메세지 있어? 없어 난 갈께.
         {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+
+            // 메세지가 있을때도 게임을 실행합니다.
             if (nullptr != _Loop)
             {
                 _Loop();
             }
+            continue;
+        }
 
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
+        // 데드타임
+        // 데드타임에 게임을 실행하는것. 
+        if (nullptr != _Loop)
+        {
+            _Loop();
         }
     }
 
@@ -176,19 +188,19 @@ void GameEngineWindow::SettingWindowSize(float4 _Size)
     // 그 타이틀바와 프레임까지 고려해서 크기를 설정해줘야 한다.
 
     //          위치      크기
-    RECT Rc = { 0, 0, _Size.ix(), _Size.iy() }; // 어떻게 보자면 left top right bottom의 포인트??라고 이해됨
+    RECT Rc = { 0, 0, _Size.ix(), _Size.iy() };
 
     ScreenSize = _Size;
 
     // 내가 원하는 크기를 넣으면 타이틀바까지 고려한 크기를 리턴주는 함수.
     AdjustWindowRect(&Rc, WS_OVERLAPPEDWINDOW, FALSE);
 
-    WindowSize = { static_cast<float>(Rc.right - Rc.left), static_cast<float>(Rc.bottom - Rc.top) }; //x의 길이, y의 길이
+    WindowSize = { static_cast<float>(Rc.right - Rc.left), static_cast<float>(Rc.bottom - Rc.top) };
     // 0을 넣어주면 기존의 크기를 유지한다.
-    SetWindowPos(HWnd, nullptr, WindowPos.ix(), WindowPos.iy(), WindowSize.ix(), WindowSize.iy(), SWP_NOZORDER); // (SettingWindowPos보다 먼저 실행했기 때문에)여기서의 windowpos는 default값, windowsize값 update
+    SetWindowPos(HWnd, nullptr, WindowPos.ix(), WindowPos.iy(), WindowSize.ix(), WindowSize.iy(), SWP_NOZORDER);
 }
 void GameEngineWindow::SettingWindowPos(float4 _Pos)
 {
     WindowPos = _Pos;
-    SetWindowPos(HWnd, nullptr, WindowPos.ix(), WindowPos.iy(), WindowSize.ix(), WindowSize.iy(), SWP_NOZORDER); // windowpos값 update
+    SetWindowPos(HWnd, nullptr, WindowPos.ix(), WindowPos.iy(), WindowSize.ix(), WindowSize.iy(), SWP_NOZORDER);
 }

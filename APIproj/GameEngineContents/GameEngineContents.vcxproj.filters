@@ -3,15 +3,30 @@
   <ItemGroup>
     <ClInclude Include="Player.h" />
     <ClInclude Include="ContentsGameCore.h" />
-    <ClInclude Include="MadForestLevel.h" />
-    <ClInclude Include="InlaidLibraryLevel.h" />
     <ClInclude Include="TitleLevel.h" />
+    <ClInclude Include="InlaidLibraryLevel.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="MadForestLevel.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenningLevel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ContentsGameCore.cpp" />
-    <ClCompile Include="MadForestLevel.cpp" />
-    <ClCompile Include="InlaidLibraryLevel.cpp" />
     <ClCompile Include="TitleLevel.cpp" />
+    <ClCompile Include="InlaidLibraryLevel.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
+    <ClCompile Include="MadForestLevel.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenningLevel.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="stage">
+      <UniqueIdentifier>{5e27e026-62f8-47dc-8e2e-c82cd70f196a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

@@ -16,6 +16,8 @@ public:
 	InlaidLibraryLevel& operator=(InlaidLibraryLevel&& _Other) noexcept = delete;
 
 protected:
+	void Loading() override;
+	void Update() override;
 
 private:
 

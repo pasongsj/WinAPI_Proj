@@ -1,6 +1,7 @@
 #include "GameEngineCore.h"
-#include "GameEngineLevel.h"
+#include <GameEngineBase/GameEngineDebug.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
+#include "GameEngineLevel.h"
 
 GameEngineCore* Core;
 
@@ -18,6 +19,8 @@ void GameEngineCore::GlobalUpdate()
 		return;
 	}
 
+	Core->MainLevel->ActorsUpdate();
+	Core->MainLevel->ActorsRender();
 }
 
 void GameEngineCore::GlobalEnd()
@@ -25,16 +28,19 @@ void GameEngineCore::GlobalEnd()
 	Core->End();
 }
 
+
 GameEngineCore::GameEngineCore()
 {
 	GameEngineDebug::LeakCheck();
+	// 나는 자식중에 하나일수밖에 없다.
+	// 나는 절대만들어질수 없기 때문이다.
 	Core = this;
 }
 
 GameEngineCore::~GameEngineCore()
 {
-	std::map<std::string_view, GameEngineLevel*>::iterator StartIter = Levels.begin();
-	std::map<std::string_view, GameEngineLevel*>::iterator EndIter = Levels.end();
+	std::map<std::string, GameEngineLevel*>::iterator StartIter = Levels.begin();
+	std::map<std::string, GameEngineLevel*>::iterator EndIter = Levels.end();
 
 	for (size_t i = 0; StartIter != EndIter; ++StartIter)
 	{
@@ -47,7 +53,6 @@ GameEngineCore::~GameEngineCore()
 	Levels.clear();
 }
 
-
 void GameEngineCore::CoreStart(HINSTANCE _instance)
 {
 	GameEngineWindow::WindowCreate(_instance, "MainWindow", { 1280, 720 }, { 0, 0 });
@@ -56,7 +61,7 @@ void GameEngineCore::CoreStart(HINSTANCE _instance)
 
 void GameEngineCore::ChangeLevel(const std::string_view& _Name)
 {
-	std::map<std::string_view, GameEngineLevel*>::iterator FindIter = Levels.find(_Name);
+	std::map<std::string, GameEngineLevel*>::iterator FindIter = Levels.find(_Name.data());
 
 	if (FindIter == Levels.end())
 	{
@@ -66,4 +71,15 @@ void GameEngineCore::ChangeLevel(const std::string_view& _Name)
 	}
 
 	MainLevel = FindIter->second;
+}
+
+void GameEngineCore::LevelLoading(GameEngineLevel* _Level)
+{
+	if (nullptr == _Level)
+	{
+		MsgAssert("nullptr 인 레벨을 로딩하려고 했습니다.");
+		return;
+	}
+
+	_Level->Loading();
 }

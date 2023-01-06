@@ -16,6 +16,8 @@ public:
 	MadForestLevel& operator=(MadForestLevel&& _Other) noexcept = delete;
 
 protected:
+	void Loading() override;
+	void Update() override;
 
 private:
 
