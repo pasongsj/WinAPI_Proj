@@ -53,5 +53,11 @@ protected:
 
 private:
 	float4 Pos = { 0.0f, 0.0f };
+	int Order;
+
+	void SetOrder(int _Order)
+	{
+		Order = _Order;
+	}
 };
 
