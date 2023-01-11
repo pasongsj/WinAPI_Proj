@@ -1,9 +1,11 @@
 #pragma once
+
+// Ό³Έν :
 class GameEngineFile
 {
 public:
 	// constrcuter destructer
-	GameEngineFile() ;
+	GameEngineFile();
 	~GameEngineFile();
 
 	// delete Function
