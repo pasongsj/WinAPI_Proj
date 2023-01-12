@@ -3,24 +3,27 @@
 #include <Windows.h>
 #include <GameEngineBase/GameEngineMath.h>
 
+// 윈도우는 핸들 방식이라는것을 이용한다.
+// 핸들방식이란 우리에게 os가 관리한다는 증명으로 숫자 1를 줍니다.
+// 그 숫자를 핸들이라고 합니다.
 
 // 설명 :
 class GameEngineImage;
 class GameEngineWindow
 {
 public:
-	// 윈도우를 만들어 주는 기능
+	// 윈도우를 만들어 주는 기능입니다.
 	static void WindowCreate(HINSTANCE _hInstance, const std::string_view& _TitleName, float4 _Size, float4 _Pos);
+
 	static void SettingWindowSize(float4 _Size);
 	static void SettingWindowPos(float4 _Pos);
-
 
 	static float4 GetScreenSize()
 	{
 		return ScreenSize;
 	}
 
-	static HWND GetHWnd()
+	static HWND GetHWnd() 
 	{
 		return HWnd;
 	}
@@ -30,15 +33,20 @@ public:
 		return WindowBackBufferHdc;
 	}
 
-	// 백버퍼 이미지에 cpy하기 전 doublebuffer에 복사하여 모아둠.
 	static GameEngineImage* GetDoubleBufferImage()
 	{
 		return DoubleBufferImage;
 	}
 
 
-	static void DoubleBufferClear(); // doublebuffer의 background를 초기화 함
-	static void DoubleBufferRender(); // backbuffer로 복사
+	//static GameEngineImage* GetBackBufferImage()
+	//{
+	//	return BackBufferImage;
+	//}
+	// 윈도우에 그림을 그릴수 있는 권한.
+
+	static void DoubleBufferClear();
+	static void DoubleBufferRender();
 
 	// 오직 나는 외부에서 오는게 실행시켜주기만 하면 되게 만드는것.
 	// 그러면 다른 클래스나 컨텐츠와의 관련을 맺지 않고 오로지 시키는 일을 하는 클래스가 되는것
@@ -65,7 +73,6 @@ private:
 	static float4 WindowPos;
 	static HWND HWnd;
 	static HDC WindowBackBufferHdc; // 윈도우에 그림을 그릴수 있는 권한.
-
 	static GameEngineImage* BackBufferImage;
 	static GameEngineImage* DoubleBufferImage;
 };

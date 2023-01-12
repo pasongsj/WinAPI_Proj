@@ -6,7 +6,7 @@
 
 HWND GameEngineWindow::HWnd = nullptr;
 HDC GameEngineWindow::WindowBackBufferHdc = nullptr;
-float4 GameEngineWindow::WindowSize = { 800, 600 };
+float4 GameEngineWindow::WindowSize = {800, 600};
 float4 GameEngineWindow::WindowPos = { 100, 100 };
 float4 GameEngineWindow::ScreenSize = { 800, 600 };
 GameEngineImage* GameEngineWindow::BackBufferImage = nullptr;
@@ -25,7 +25,7 @@ LRESULT CALLBACK MessageFunction(HWND _hWnd, UINT _message, WPARAM _wParam, LPAR
         int a = 0;
         break;
     }
-    // 내 윈도우가 선택되었다.
+        // 내 윈도우가 선택되었다.
     case WM_SETFOCUS:
     {
         int a = 0;
@@ -55,18 +55,19 @@ LRESULT CALLBACK MessageFunction(HWND _hWnd, UINT _message, WPARAM _wParam, LPAR
     return 0;
 }
 
-GameEngineWindow::GameEngineWindow()
+GameEngineWindow::GameEngineWindow() 
 {
 }
 
-GameEngineWindow::~GameEngineWindow()
+GameEngineWindow::~GameEngineWindow() 
 {
-
+    
 }
 
 void GameEngineWindow::WindowCreate(HINSTANCE _hInstance, const std::string_view& _TitleName, float4 _Size, float4 _Pos)
 {
     // 윈도우를 찍어낼수 있는 class를 만들어내는 것이다.
+    // 나는 이러이러한 윈도우를 만들어줘...
     WNDCLASSEX wcex;
 
     wcex.cbSize = sizeof(WNDCLASSEX);
@@ -76,7 +77,7 @@ void GameEngineWindow::WindowCreate(HINSTANCE _hInstance, const std::string_view
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = _hInstance;
-    // 넣어주지 않으면 윈도우 기본Icon
+    // 넣어주지 않으면 윈도우 기본Icon이 됩니다.
     wcex.hIcon = nullptr;//LoadIcon(_hInstance, MAKEINTRESOURCE(IDI_WINDOWSPROJECT1));
     wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1); // 흰색 
@@ -110,7 +111,8 @@ void GameEngineWindow::WindowCreate(HINSTANCE _hInstance, const std::string_view
     }
 
     // 윈도우가 만들어지면서부터 만들어진 색깔의 2차원배열의 수정권한을 얻어오는 것이다.
-    WindowBackBufferHdc = GetDC(HWnd); //backbufferimg에 대한 hdc를 저장
+    WindowBackBufferHdc = GetDC(HWnd);
+
 
     ShowWindow(HWnd, SW_SHOW);
     UpdateWindow(HWnd);
@@ -119,11 +121,6 @@ void GameEngineWindow::WindowCreate(HINSTANCE _hInstance, const std::string_view
     SettingWindowPos(_Pos);
 
     // 크기 바꾸고 얻어온다.
-    if (nullptr != BackBufferImage)
-    {
-        MsgAssert("이미 BackBufferImage가 존재합니다.");
-        return;
-    }
     BackBufferImage = new GameEngineImage();
     BackBufferImage->ImageCreate(WindowBackBufferHdc);
 
@@ -140,7 +137,7 @@ void GameEngineWindow::DoubleBufferRender()
 {
     //static GameEngineImage* BackBufferImage;
     //static GameEngineImage* DoubleBufferImage;
-    BackBufferImage->BitCopy(DoubleBufferImage, { 0,0 }, WindowSize);
+    BackBufferImage->BitCopy(DoubleBufferImage, WindowSize.half(), WindowSize);
 }
 
 int GameEngineWindow::WindowLoop(void(*_Start)(), void(*_Loop)(), void(*_End)())
@@ -152,7 +149,7 @@ int GameEngineWindow::WindowLoop(void(*_Start)(), void(*_Loop)(), void(*_End)())
     {
         _Start();
     }
-
+    
 
     MSG msg;
 
@@ -179,7 +176,7 @@ int GameEngineWindow::WindowLoop(void(*_Start)(), void(*_Loop)(), void(*_End)())
         // 메세지가 있든 없든 리턴됩니다.
         // 쌓여있는 메세지를 삭제하라는 명령입니다.
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
-            // 동기 메세지 있어? 없어 난 갈께.
+        // 동기 메세지 있어? 없어 난 갈께.
         {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
@@ -190,7 +187,7 @@ int GameEngineWindow::WindowLoop(void(*_Start)(), void(*_Loop)(), void(*_End)())
                 _Loop();
             }
             continue;
-        }
+        } 
 
         // 데드타임
         // 데드타임에 게임을 실행하는것. 
@@ -230,7 +227,7 @@ void GameEngineWindow::SettingWindowSize(float4 _Size)
     // 내가 원하는 크기를 넣으면 타이틀바까지 고려한 크기를 리턴주는 함수.
     AdjustWindowRect(&Rc, WS_OVERLAPPEDWINDOW, FALSE);
 
-    WindowSize = { static_cast<float>(Rc.right - Rc.left), static_cast<float>(Rc.bottom - Rc.top) };
+    WindowSize = { static_cast<float>(Rc.right - Rc.left), static_cast<float>(Rc.bottom - Rc.top)};
     // 0을 넣어주면 기존의 크기를 유지한다.
     SetWindowPos(HWnd, nullptr, WindowPos.ix(), WindowPos.iy(), WindowSize.ix(), WindowSize.iy(), SWP_NOZORDER);
 

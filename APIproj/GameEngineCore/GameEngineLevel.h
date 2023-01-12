@@ -20,14 +20,24 @@ public:
 	GameEngineLevel& operator=(const GameEngineLevel& _Other) = delete;
 	GameEngineLevel& operator=(GameEngineLevel&& _Other) noexcept = delete;
 
+	/// <summary>
+	/// 액터를 만드는 함수
+	/// </summary>
+	/// <typeparam name="ActorType"> GameEngineActor를 상속받은 클래스 타입 </typeparam>
+	/// <param name="_Order"> Actor의 업데이트 순서 숫자가 작을수록 먼저 업데이트 됩니다. </param>
 	template<typename ActorType>
 	void CreateActor(int _Order = 0)
 	{
+		//if (Actors.end() == Actors.find(_Order))
+		//{
+		//	Actors.insert(std::make_pair(_Order, std::list<GameEngineActor*>()));
+		//}
+
 		GameEngineActor* Actor = new ActorType();
 
-		ActorStart(Actor,_Order);
+		ActorStart(Actor, _Order);
 
-		/*Actors.push_back(Actor);*/
+		// 맵의 새로운 문법
 		Actors[_Order].push_back(Actor);
 	}
 
@@ -42,7 +52,7 @@ private:
 	//std::list<Background*> Actors;
 
 	// 하나의 자료형으로 모든 화면내에 등장하는 것들을 표현할수 있게 됩니다.
-	//std::list<GameEngineActor*> Actors;
+	// 
 	std::map<int, std::list<GameEngineActor*>> Actors;
 
 	void ActorsUpdate();

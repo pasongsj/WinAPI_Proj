@@ -4,6 +4,7 @@
 #include "MadForestLevel.h"
 #include "InlaidLibraryLevel.h"
 #include "TitleLevel.h"
+#include "PlayLevel.h"
 
 // static√ ±‚»≠
 ContentsGameCore ContentsGameCore::Core;
@@ -27,7 +28,8 @@ void ContentsGameCore::Start()
 	//CreateLevel<MadForestLevel>("MadForest");
 	CreateLevel<InlaidLibraryLevel>("InlaidLibrary");
 	CreateLevel<TitleLevel>("Title");
-	ChangeLevel("MadForest");
+	CreateLevel<PlayLevel>("Play");
+	ChangeLevel("Play");
 }
 
 void ContentsGameCore::Update()
