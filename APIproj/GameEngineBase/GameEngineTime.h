@@ -31,6 +31,11 @@ public:
 
 	float TimeCheck(); // Current와 Prev사이 시간을 return하고 Prev를 현재시간으로 reset
 
+	inline float GetFloatDeltaTime()
+	{
+		return floatDeltaTime;
+	}
+
 protected:
 	
 
