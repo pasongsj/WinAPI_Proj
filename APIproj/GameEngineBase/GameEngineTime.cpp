@@ -4,6 +4,7 @@ GameEngineTime::GameEngineTime()
 {
 	// 1초를 기준으로한 정수 단위입니다. 
 	QueryPerformanceFrequency(&Second);
+	QueryPerformanceCounter(&Prev);
 }
 
 GameEngineTime::~GameEngineTime() 
