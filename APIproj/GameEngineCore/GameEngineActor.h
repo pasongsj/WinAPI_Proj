@@ -45,17 +45,23 @@ protected:
 	virtual void Start() {}
 
 	// 키입력을 받거나 인공지능을 점수를 계산하거나 하는 것들을 여기서 처리
-	virtual void Update() {}
+	virtual void Update(float _DeltaTime) {}
 
 	// 순서를 제어 함수를 한번 더실행하고 
-	virtual void LateUpdate() {}
+	virtual void LateUpdate(float _DeltaTime) {}
 
 	// 화면에 그려지는 기능들을 여기서 처리
-	virtual void Render() {}
+	virtual void Render(float _DeltaTime) {}
+
+	inline float GetLiveTime()
+	{
+		return LiveTime;
+	}
 
 private:
 	int Order;
 	float4 Pos = {0.0f, 0.0f};
+	float LiveTime = 0.0;
 
 	void SetOrder(int _Order)
 	{

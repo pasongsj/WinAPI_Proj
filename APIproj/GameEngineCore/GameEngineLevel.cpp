@@ -39,7 +39,7 @@ void GameEngineLevel::ActorStart(GameEngineActor* _Actor, int _Order)
 	_Actor->Start();
 }
 
-void GameEngineLevel::ActorsUpdate()
+void GameEngineLevel::ActorsUpdate(float _DeltaTime)
 {
 	{
 		std::map<int, std::list<GameEngineActor*>>::iterator GroupStartIter = Actors.begin();
@@ -84,7 +84,7 @@ void GameEngineLevel::ActorsUpdate()
 	}
 }
 
-void GameEngineLevel::ActorsRender() 
+void GameEngineLevel::ActorsRender(float _DeltaTime)
 {
 
 	{

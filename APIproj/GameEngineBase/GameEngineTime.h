@@ -15,6 +15,9 @@
 class GameEngineTime
 {
 public:
+
+	static GameEngineTime GlobalTime; // 프로그램의 글로벌타임
+
 	// constrcuter destructer
 	GameEngineTime();
 	~GameEngineTime();

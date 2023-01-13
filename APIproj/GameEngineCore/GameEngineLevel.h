@@ -55,8 +55,8 @@ private:
 	// 
 	std::map<int, std::list<GameEngineActor*>> Actors;
 
-	void ActorsUpdate();
-	void ActorsRender();
+	void ActorsUpdate(float _DeltaTime);
+	void ActorsRender(float _DeltaTime);
 
 
 	void ActorStart(GameEngineActor* _Actor, int _Order);

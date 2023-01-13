@@ -1,5 +1,7 @@
 #include "GameEngineTime.h"
 
+GameEngineTime GameEngineTime::GlobalTime;
+
 GameEngineTime::GameEngineTime() 
 {
 	// 1초를 기준으로한 정수 단위입니다. 
