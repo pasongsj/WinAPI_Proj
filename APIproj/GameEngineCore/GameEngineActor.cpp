@@ -7,6 +7,15 @@ GameEngineActor::GameEngineActor()
 
 GameEngineActor::~GameEngineActor() 
 {
+	for (GameEngineRender* _Render : RenderList)
+	{
+		if (nullptr == _Render)
+		{
+			continue;
+		}
+		delete _Render;
+		_Render = nullptr;
+	}
 }
 
 GameEngineRender* GameEngineActor::CreateRender(const std::string_view& _Image, int _Order)
