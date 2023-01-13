@@ -94,17 +94,8 @@ bool GameEngineImage::ImageLoad(const GameEnginePath& _Path)
 
 bool GameEngineImage::ImageLoad(const std::string_view& _Path) 
 {
-	//HDC ImageDC;
-	//HBITMAP BitMap;
-	//HBITMAP OldBitMap;
-	//BITMAP Info;
 
-	// 이미지중에 일부만 로드할수 있는데 0을 넣어주면 다 로드하겠다는 이야기가 도힙니다.
-	// LR_LOADFROMFILE 파일에서부터 로드하겠다는 의미가 됩니다.
-
-	// 이미지를 로드한 2차원 배열의 정보고
-	// 윈도우에게 new를 지시한것과 다름이 없다.
-	BitMap = static_cast<HBITMAP>(LoadImageA(nullptr, _Path.data(), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE));
+	BitMap = static_cast<HBITMAP>(LoadImageA(nullptr, _Path.data(), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE)); // 원하는 bitmap 불러오기
 
 	if (nullptr == BitMap)
 	{
@@ -113,7 +104,7 @@ bool GameEngineImage::ImageLoad(const std::string_view& _Path)
 		return false;
 	}
 
-	ImageDC = CreateCompatibleDC(nullptr);
+	ImageDC = CreateCompatibleDC(nullptr); // 1,1짜리 hdc를 가진 이미지 생성
 
 	if (nullptr == ImageDC)
 	{
@@ -122,12 +113,10 @@ bool GameEngineImage::ImageLoad(const std::string_view& _Path)
 		return false;
 	}
 
-	// ImageDC 1,1 배열이랑 연결되어 있다. 
 
-	// 1, 1
-	OldBitMap = static_cast<HBITMAP>(SelectObject(ImageDC, BitMap));
+	OldBitMap = static_cast<HBITMAP>(SelectObject(ImageDC, BitMap)); // 이미지에 hdc 붙히고 남은 1,1짜리 비트맵 return
 
-	ImageScaleCheck();
+	ImageScaleCheck(); // 이미지 크기 저장
 
 	return true;
 }
@@ -201,6 +190,31 @@ void GameEngineImage::Cut(int X, int Y)
 		}
 
 		Data.StartX = 0.0f;
+		Data.StartY += Data.SizeY;
+	}
+
+	IsCut = true;
+}
+
+void GameEngineImage::Cut(float4 _Start, float4 _End, int _X, int _Y)
+{
+	ImageCutData Data;
+
+	Data.SizeX = static_cast<float>((_End.x - _Start.x) / _X);
+	Data.SizeY = static_cast<float>((_End.y - _Start.y) / _Y);
+
+	Data.StartX = _Start.x;
+	Data.StartY = _Start.y;
+
+	for (size_t i = 0; i < _Y; i++)
+	{
+		for (size_t i = 0; i < _X; i++)
+		{
+			ImageCutDatas.push_back(Data);
+			Data.StartX += Data.SizeX;
+		}
+
+		Data.StartX = _Start.x;
 		Data.StartY += Data.SizeY;
 	}
 
