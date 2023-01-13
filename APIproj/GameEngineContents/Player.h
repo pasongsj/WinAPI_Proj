@@ -16,9 +16,10 @@ public:
 
 protected:
 	void Start() override;
-	void Update() override;
-	void Render() override;
+	void Update(float _DeltaTime) override;
+	void Render(float _DeltaTime) override;
 private:
-
+	float AccTime = 0.0f;
+	int StartFrame = 0;
 };
 

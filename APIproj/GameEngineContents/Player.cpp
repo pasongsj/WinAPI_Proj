@@ -16,13 +16,14 @@ void Player::Start()
 	SetMove(GameEngineWindow::GetScreenSize().half());
 }
 
-void Player::Update()
+void Player::Update(float _DeltaTime)
 {
-	SetMove(float4::Left * 0.0001f);
+	SetMove(float4::Left * 0.0001f* _DeltaTime);
 }
 
-void Player::Render()
+void Player::Render(float _DeltaTime)
 {
+	AccTime += _DeltaTime;
 	float4 PlayerPos = GetPos();
 
 	GameEngineImage* Image = GameEngineResources::GetInst().ImageFind("enemiesM.bmp");
