@@ -10,6 +10,7 @@ class GameEngineLevel;
 class GameEngineRender
 {
 	friend GameEngineLevel;
+	friend GameEngineActor;
 public:
 	// constrcuter destructer
 	GameEngineRender() ;
@@ -35,6 +36,8 @@ public:
 	{
 		return Order;
 	}
+
+	void SetImage(const std::string_view& _ImageName);
 
 protected:
 

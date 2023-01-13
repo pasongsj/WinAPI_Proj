@@ -1,5 +1,6 @@
 #include "GameEngineLevel.h"
 #include "GameEngineActor.h"
+#include "GameEngineRender.h"
 #include <GameEngineBase/GameEngineDebug.h>
 
 GameEngineLevel::GameEngineLevel() 
@@ -37,6 +38,7 @@ void GameEngineLevel::ActorStart(GameEngineActor* _Actor, int _Order)
 
 	_Actor->SetOrder(_Order);
 	_Actor->Start();
+	_Actor->Level = this;
 }
 
 void GameEngineLevel::ActorsUpdate(float _DeltaTime)
@@ -107,4 +109,15 @@ void GameEngineLevel::ActorsRender(float _DeltaTime)
 			}
 		}
 	}
+}
+
+void GameEngineLevel::PushRender(GameEngineRender* _Render)
+{
+	if (nullptr == _Render)
+	{
+		MsgAssert("nullptr인 랜더를 랜더링 그룹속에 넣으려고 했습니다.");
+	}
+
+	// 먼저 이미 들어가있을수도 있다.
+	Renders[_Render->GetOrder()].push_back(_Render);
 }
