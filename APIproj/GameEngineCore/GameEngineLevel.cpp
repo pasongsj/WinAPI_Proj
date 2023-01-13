@@ -57,7 +57,7 @@ void GameEngineLevel::ActorsUpdate(float _DeltaTime)
 					continue;
 				}
 
-				Actor->Update();
+				Actor->Update(_DeltaTime);
 			}
 		}
 	}
@@ -78,13 +78,13 @@ void GameEngineLevel::ActorsUpdate(float _DeltaTime)
 					continue;
 				}
 
-				Actor->LateUpdate();
+				Actor->LateUpdate(_DeltaTime);
 			}
 		}
 	}
 }
 
-void GameEngineLevel::ActorsRender(float _DeltaTime)
+void GameEngineLevel::ActorsRender(float _DeltaTime) 
 {
 
 	{
@@ -103,7 +103,7 @@ void GameEngineLevel::ActorsRender(float _DeltaTime)
 					continue;
 				}
 
-				Actor->Render();
+				Actor->Render(_DeltaTime);
 			}
 		}
 	}
