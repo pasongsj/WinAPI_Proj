@@ -30,7 +30,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ContentsEnums.h" />
     <ClInclude Include="ContentsGameCore.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="InlaidLibraryBack.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -39,10 +44,6 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="MadForestLevel.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="OpenningLevel.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -64,15 +65,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="InlaidLibraryBack.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="InlaidLibraryLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="MadForestLevel.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="OpenningLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>

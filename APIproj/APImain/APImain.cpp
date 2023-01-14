@@ -2,6 +2,7 @@
 //
 #include <Windows.h>
 #include <GameEngineContents/ContentsGameCore.h>
+#include <GameEngineBase/GameEngineTime.h>
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,

@@ -14,7 +14,7 @@ void TitleLevel::Loading()
 
 }
 
-void TitleLevel::Update()
+void TitleLevel::Update(float _DeltaTime)
 {
 
 }

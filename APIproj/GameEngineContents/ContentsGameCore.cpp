@@ -6,6 +6,8 @@
 #include "TitleLevel.h"
 #include "PlayLevel.h"
 
+#include <GameEnginePlatform/GameEngineWindow.h>
+
 // static초기화
 ContentsGameCore ContentsGameCore::Core;
 
@@ -24,11 +26,11 @@ void ContentsGameCore::Start()
 
 	new int(); // leak체크용
 
-	CreateLevel<MadForestLevel>("MadForestLevelt");
+	//CreateLevel<MadForestLevel>("MadForestLevelt");
 	CreateLevel<InlaidLibraryLevel>("InlaidLibraryLevel");
-	CreateLevel<TitleLevel>("TitleLevel");
+	//CreateLevel<TitleLevel>("TitleLevel");
 	CreateLevel<PlayLevel>("PlayLevel");
-	ChangeLevel("PlayLevel");
+	ChangeLevel("InlaidLibraryLevel");
 }
 
 void ContentsGameCore::Update()

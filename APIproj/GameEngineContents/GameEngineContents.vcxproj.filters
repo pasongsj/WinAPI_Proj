@@ -1,34 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="Player.h" />
     <ClInclude Include="ContentsGameCore.h" />
-    <ClInclude Include="TitleLevel.h" />
     <ClInclude Include="InlaidLibraryLevel.h">
       <Filter>stage</Filter>
     </ClInclude>
     <ClInclude Include="MadForestLevel.h">
       <Filter>stage</Filter>
     </ClInclude>
-    <ClInclude Include="OpenningLevel.h" />
-    <ClInclude Include="PlayLevel.h" />
+    <ClInclude Include="InlaidLibraryBack.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleLevel.h">
+      <Filter>Title</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentsEnums.h" />
+    <ClInclude Include="Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayLevel.h">
+      <Filter>Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="ContentsGameCore.cpp" />
-    <ClCompile Include="TitleLevel.cpp" />
     <ClCompile Include="InlaidLibraryLevel.cpp">
       <Filter>stage</Filter>
     </ClCompile>
     <ClCompile Include="MadForestLevel.cpp">
       <Filter>stage</Filter>
     </ClCompile>
-    <ClCompile Include="OpenningLevel.cpp" />
-    <ClCompile Include="PlayLevel.cpp" />
+    <ClCompile Include="InlaidLibraryBack.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleLevel.cpp">
+      <Filter>Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayLevel.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Filter Include="Title">
+      <UniqueIdentifier>{a3062415-cc4a-4959-bcea-605145497030}</UniqueIdentifier>
+    </Filter>
     <Filter Include="stage">
       <UniqueIdentifier>{5e27e026-62f8-47dc-8e2e-c82cd70f196a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{2b7aa004-f172-4523-bf6d-8da47f71dbd8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

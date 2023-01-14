@@ -29,10 +29,13 @@ public:
 
 	void CoreStart(HINSTANCE _instance);
 
+	void ChangeLevel(const std::string_view& _Name);
+
+	static GameEngineCore* GetInst();
 
 protected:
 	template<typename LevelType>
-	void CreateLevel(const std::string_view& _Name) 
+	void CreateLevel(const std::string_view& _Name)
 	{
 		// Title을 만들었는데
 		// 또 Title을 만들겠다고 한 상황
@@ -51,7 +54,6 @@ protected:
 		Levels.insert(std::make_pair(_Name.data(), Level));
 	}
 
-	void ChangeLevel(const std::string_view& _Name);
 
 	virtual void Start() = 0;
 	virtual void Update() = 0;
@@ -62,6 +64,8 @@ private:
 	// 레벨이라는것은 장면입니다.
 	// GameEngineLevel을 "어떠한 이름"으로 찾고 이름으로 실행시키고.
 	std::map<std::string, GameEngineLevel*> Levels;
+
+	GameEngineLevel* NextLevel = nullptr;
 
 	GameEngineLevel* MainLevel = nullptr;
 

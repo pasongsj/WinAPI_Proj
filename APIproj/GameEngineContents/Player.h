@@ -4,6 +4,8 @@
 class Player : public GameEngineActor
 {
 public:
+	static Player* MainPlayer;
+
 	// constrcuter destructer
 	Player() ;
 	~Player();
@@ -21,5 +23,6 @@ protected:
 private:
 	float AccTime = 0.0f;
 	int StartFrame = 0;
+	float MoveSpeed = 100.0f;
 };
 

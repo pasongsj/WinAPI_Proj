@@ -2,6 +2,9 @@
 
 #include <map>
 #include <string>
+
+#include "GameEngineObject.h"
+
 #include <GameEnginePlatform/GameEngineImage.h>
 
 // 사운드 이미지 전부다 이녀석이 관리하겠습니다.
@@ -9,7 +12,7 @@
 // 설명 :
 class GameEnginePath;
 class GameEngineImage;
-class GameEngineResources
+class GameEngineResources : public GameEngineObject
 {
 public:
 	GameEngineResources(const GameEngineResources& _Other) = delete;

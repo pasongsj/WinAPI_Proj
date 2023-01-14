@@ -1,10 +1,13 @@
 #pragma once
+
 #include <list>
 #include <string_view>
 
 #include <Windows.h>
 
+#include "GameEngineObject.h"
 #include <GameEngineBase/GameEngineMath.h>
+
 
 // 화면에 존재하고 위치가 있어야하는 모든것들의 기본기능을 지원해줄 겁니다.
 // 그려져야 한다.
@@ -12,7 +15,7 @@
 // 설명 :
 class GameEngineRender;
 class GameEngineLevel;
-class GameEngineActor
+class GameEngineActor : public GameEngineObject
 {
 	friend GameEngineLevel;
 
@@ -65,7 +68,6 @@ public:
 
 	GameEngineRender* CreateRender(const std::string_view& _Image, int _Order = 0);
 	GameEngineRender* CreateRender(int _Order = 0);
-
 
 protected:
 	// 안구현할수도 있다.

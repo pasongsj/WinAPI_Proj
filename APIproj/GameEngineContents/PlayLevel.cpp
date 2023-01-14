@@ -32,7 +32,7 @@ void PlayLevel::Loading()
 
 	{
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("enemiesM.BMP"));
-		Image->Cut(4, 8);
+		Image->Cut(32, 10);
 	}
 
 
@@ -43,7 +43,7 @@ void PlayLevel::Loading()
 	//float Time = NewTime.TimeCheckEnd();
 }
 
-void PlayLevel::Update()
+void PlayLevel::Update(float _DeltaTime)
 {
 
 }

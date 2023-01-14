@@ -35,8 +35,6 @@ GameEngineImage* GameEngineResources::ImageLoad(const GameEnginePath& _Path)
 
 GameEngineImage* GameEngineResources::ImageLoad(const std::string_view& _Path, const std::string_view& _Name)
 {
-	// D:\\Project\\AR45\\WINAPI\\APIApp\\ContentsResources\\Image\\Heros.BmP
-
 	std::string UpperName = GameEngineString::ToUpper(_Name);
 
 	if (AllImage.end() != AllImage.find(UpperName))
