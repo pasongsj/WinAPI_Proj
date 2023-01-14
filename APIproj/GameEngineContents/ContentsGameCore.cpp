@@ -20,16 +20,15 @@ ContentsGameCore::~ContentsGameCore()
 void ContentsGameCore::Start()
 {
 
-	GameEngineWindow::SettingWindowSize({ (900.0f / 1080.0f) * 1726.0f, (900.0f / 1080.0f) * 1080.0f }); //1726 x 1080
+	GameEngineWindow::SettingWindowSize({ (900.0f / 800.0f) * 1280.0f, (900.0f / 800.0f) * 800.0f }); 
 
 	new int(); // leakÃ¼Å©¿ë
 
-	CreateLevel<MadForestLevel>("MadForest");
-	//CreateLevel<MadForestLevel>("MadForest");
-	CreateLevel<InlaidLibraryLevel>("InlaidLibrary");
-	CreateLevel<TitleLevel>("Title");
-	CreateLevel<PlayLevel>("Play");
-	ChangeLevel("Play");
+	CreateLevel<MadForestLevel>("MadForestLevelt");
+	CreateLevel<InlaidLibraryLevel>("InlaidLibraryLevel");
+	CreateLevel<TitleLevel>("TitleLevel");
+	CreateLevel<PlayLevel>("PlayLevel");
+	ChangeLevel("PlayLevel");
 }
 
 void ContentsGameCore::Update()
