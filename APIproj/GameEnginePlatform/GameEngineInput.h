@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include <map>
 #include <string>
+#include <conio.h>
 
 // Ό³Έν :
 class GameEngineInput
@@ -26,6 +27,7 @@ public:
 
 		void Update(float _DeltaTime);
 	};
+
 
 public:
 

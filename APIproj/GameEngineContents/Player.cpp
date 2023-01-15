@@ -42,7 +42,25 @@ void Player::Start()
 
 void Player::Update(float _DeltaTime)
 {
-//	SetMove(float4::Left * 0.0001f* _DeltaTime);
+	if (true == GameEngineInput::IsPress("LeftMove"))
+	{
+		SetMove(float4::Left * MoveSpeed * _DeltaTime);
+	}
+
+	if (true == GameEngineInput::IsPress("RightMove"))
+	{
+		SetMove(float4::Right * MoveSpeed * _DeltaTime);
+	}
+
+	if (true == GameEngineInput::IsPress("UpMove"))
+	{
+		SetMove(float4::Up * MoveSpeed * _DeltaTime);
+	}
+
+	if (true == GameEngineInput::IsPress("DownMove"))
+	{
+		SetMove(float4::Down * MoveSpeed * _DeltaTime);
+	}
 }
 
 void Player::Render(float _DeltaTime)

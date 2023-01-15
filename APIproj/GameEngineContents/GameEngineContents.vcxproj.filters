@@ -21,6 +21,9 @@
     <ClInclude Include="PlayLevel.h">
       <Filter>Player</Filter>
     </ClInclude>
+    <ClInclude Include="TitleBack.h">
+      <Filter>Title</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsGameCore.cpp" />
@@ -41,6 +44,9 @@
     </ClCompile>
     <ClCompile Include="PlayLevel.cpp">
       <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleBack.cpp">
+      <Filter>Title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

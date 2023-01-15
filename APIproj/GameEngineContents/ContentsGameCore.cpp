@@ -28,9 +28,9 @@ void ContentsGameCore::Start()
 
 	//CreateLevel<MadForestLevel>("MadForestLevelt");
 	CreateLevel<InlaidLibraryLevel>("InlaidLibraryLevel");
-	//CreateLevel<TitleLevel>("TitleLevel");
+	CreateLevel<TitleLevel>("TitleLevel");
 	CreateLevel<PlayLevel>("PlayLevel");
-	ChangeLevel("InlaidLibraryLevel");
+	ChangeLevel("TitleLevel");
 }
 
 void ContentsGameCore::Update()
