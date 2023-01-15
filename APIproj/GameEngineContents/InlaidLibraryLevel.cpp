@@ -39,7 +39,7 @@ void InlaidLibraryLevel::Loading()
 		Dir.Move("ContentsResources");
 		Dir.Move("Image");
 		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("enemiesM.BMP"));
-		Image2->Cut(32, 10);
+		//Image2->Cut(32, 10);
 	}
 	CreateActor<InlaidLibraryBack>();
 	CreateActor<Player>();

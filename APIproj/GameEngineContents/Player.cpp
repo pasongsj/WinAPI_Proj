@@ -35,7 +35,7 @@ void Player::Start()
 	{
 		GameEngineRender* Render = CreateRender("enemiesM.bmp", BubbleRenderOrder::BackGround);
 		Render->SetScale({ 100, 100 });
-		Render->SetFrame(0);
+		//Render->SetFrame(0);
 	}
 	/*SetMove(GameEngineWindow::GetScreenSize().half());*/
 }
