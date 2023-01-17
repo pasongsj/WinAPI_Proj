@@ -48,6 +48,11 @@ public:
 	static bool IsPress(const std::string_view& _Name);
 	static bool IsFree(const std::string_view& _Name);
 	static float GetPressTime(const std::string_view& _Name);
+	
+	static bool IsAnyKey()
+	{
+		return IsAnyKeyValue;
+	}
 
 protected:
 
@@ -58,6 +63,18 @@ private:
 
 	//      PlayerJump       A
 	static std::map<std::string, GameEngineKey> Keys;
+
+	static bool IsAnyKeyValue;
+
+	static bool IsAnyKeyOn()
+	{
+		IsAnyKeyValue = true;
+	}
+
+	static bool IsAnyKeyOff()
+	{
+		IsAnyKeyValue = false;
+	}
 
 };
 
