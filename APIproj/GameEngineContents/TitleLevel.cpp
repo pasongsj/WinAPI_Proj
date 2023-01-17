@@ -17,10 +17,10 @@ void TitleLevel::Loading()
 {
 	// 만들어야할 것들을 만드는 시점이 Loading시점
 	// 
-	if (false == GameEngineInput::IsKey("LevelChange"))
+	/*if (false == GameEngineInput::IsKey("LevelChange"))
 	{
 		GameEngineInput::CreateKey("LevelChange", 'P');
-	}
+	}*/
 	// back이미지 로드
 
 	GameEngineDirectory Dir;
@@ -37,7 +37,7 @@ void TitleLevel::Loading()
 
 void TitleLevel::Update(float _DeltaTime)
 {
-	if (true == GameEngineInput::IsDown("LevelChange"))
+	if (true == GameEngineInput::IsAnyKey())
 	{
 		GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
 	}

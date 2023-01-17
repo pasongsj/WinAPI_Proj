@@ -42,7 +42,7 @@ LRESULT CALLBACK GameEngineWindow::MessageFunction(HWND _hWnd, UINT _message, WP
     }
     case WM_KEYDOWN:
     {
-        // GameEngineInput::IsAnyKeyOn();
+         GameEngineInput::IsAnyKeyOn();
         break;
     }
     case WM_DESTROY:
@@ -190,6 +190,7 @@ int GameEngineWindow::WindowLoop(void(*_Start)(), void(*_Loop)(), void(*_End)())
             {
                 _Loop();
             }
+            GameEngineInput::IsAnyKeyOff();
             continue;
         } 
 
@@ -199,6 +200,7 @@ int GameEngineWindow::WindowLoop(void(*_Start)(), void(*_Loop)(), void(*_End)())
         {
             _Loop();
         }
+        GameEngineInput::IsAnyKeyOff();
     }
 
     if (nullptr != _End)

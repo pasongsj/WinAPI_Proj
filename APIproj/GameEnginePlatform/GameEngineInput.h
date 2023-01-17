@@ -5,8 +5,10 @@
 #include <conio.h>
 
 // Ό³Έν :
+class GameEngineWindow;
 class GameEngineInput
 {
+	friend GameEngineWindow;
 public:
 	class GameEngineKey
 	{
@@ -66,12 +68,12 @@ private:
 
 	static bool IsAnyKeyValue;
 
-	static bool IsAnyKeyOn()
+	static void IsAnyKeyOn()
 	{
 		IsAnyKeyValue = true;
 	}
 
-	static bool IsAnyKeyOff()
+	static void IsAnyKeyOff()
 	{
 		IsAnyKeyValue = false;
 	}
