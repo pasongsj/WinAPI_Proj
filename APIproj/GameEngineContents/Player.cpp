@@ -32,10 +32,17 @@ void Player::Start()
 		GameEngineInput::CreateKey("UpMove", 'W');
 	}
 
-	{
-		GameEngineRender* Render = CreateRender("enemiesM.bmp", BubbleRenderOrder::BackGround);
+	/*{
+		GameEngineRender* Render = CreateRender("RightAntonio.bmp", BubbleRenderOrder::BackGround);
 		Render->SetScale({ 100, 100 });
-		//Render->SetFrame(0);
+		Render->SetFrame(0);
+	}*/
+
+	{
+		GameEngineRender* AnimationRender = CreateRender(BubbleRenderOrder::Player);
+		AnimationRender->SetScale({ 100, 100 });
+		AnimationRender->CreateAnimation({ .AnimationName = "Test0",  .ImageName = "RightAntonio.bmp", .Start = 0, .End = 3 });
+		AnimationRender->ChangeAnimation("Test0");
 	}
 	/*SetMove(GameEngineWindow::GetScreenSize().half());*/
 	/*{ // 예시내용

@@ -31,15 +31,24 @@ void InlaidLibraryLevel::Loading()
 		Dir.Move("ContentsResources");
 		Dir.Move("Image");
 		Dir.Move("InlaidLibrary");
-		GameEngineImage* Image1 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("InlaidLibraryStage.BMP"));
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("InlaidLibraryStage.BMP"));
 	}
 
 	{
 		Dir.MoveParentToDirectory("ContentsResources");
 		Dir.Move("ContentsResources");
 		Dir.Move("Image");
-		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("enemiesM.BMP"));
-		//Image2->Cut(32, 10);
+		Dir.Move("Player");
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightAntonio.BMP"));
+		Image->Cut(4, 1);
+	}
+	{
+		Dir.MoveParentToDirectory("ContentsResources");
+		Dir.Move("ContentsResources");
+		Dir.Move("Image");
+		Dir.Move("Player");
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftAntonio.BMP"));
+		Image->Cut(4, 1);
 	}
 	CreateActor<InlaidLibraryBack>();
 	CreateActor<Player>();
