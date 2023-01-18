@@ -39,42 +39,33 @@ void Player::Start()
 	}*/
 
 	{
-		GameEngineRender* AnimationRender = CreateRender(BubbleRenderOrder::Player);
+		AnimationRender = CreateRender(BubbleRenderOrder::Player);
 		AnimationRender->SetScale({ 100, 100 });
-		AnimationRender->CreateAnimation({ .AnimationName = "Test0",  .ImageName = "RightAntonio.bmp", .Start = 0, .End = 3 });
-		AnimationRender->ChangeAnimation("Test0");
-	}
-	/*SetMove(GameEngineWindow::GetScreenSize().half());*/
-	/*{ // 예시내용
-		AnimationRender = CreateRender(BubbleRenderOrder::BackGround);
-		AnimationRender->SetScale({ 100, 100 });
+		AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "RightAntonio.bmp" });
+		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "RightAntonio.bmp", .Start = 0, .End = 2, .InterTime = 0.1f });
 
-		AnimationRender->CreateAnimation({ .AnimationName = "Test0",  .ImageName = "Heros.bmp", .Start = 0, .End = 5 });
-		AnimationRender->CreateAnimation({ .AnimationName = "Test1",  .ImageName = "Heros.bmp", .Start = 20, .End = 26 });
-		AnimationRender->ChangeAnimation("Test0");
-	}*/
+		
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = "LeftAntonio.bmp" });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "LeftAntonio.bmp", .Start = 0, .End = 2, .InterTime = 0.1f });
+	}
+	ChangeState(PlayerState::IDLE);
 }
 
 void Player::Update(float _DeltaTime)
 {
-	if (true == GameEngineInput::IsPress("LeftMove"))
-	{
-		SetMove(float4::Left * MoveSpeed * _DeltaTime);
-	}
+	DirCheck();
+	UpdateState(_DeltaTime);
+}
 
-	if (true == GameEngineInput::IsPress("RightMove"))
+void Player::DirCheck()
+{
+	if (GameEngineInput::IsPress("LeftMove"))
 	{
-		SetMove(float4::Right * MoveSpeed * _DeltaTime);
+		DirString = "Left_";
 	}
-
-	if (true == GameEngineInput::IsPress("UpMove"))
+	else if (GameEngineInput::IsPress("RightMove"))
 	{
-		SetMove(float4::Up * MoveSpeed * _DeltaTime);
-	}
-
-	if (true == GameEngineInput::IsPress("DownMove"))
-	{
-		SetMove(float4::Down * MoveSpeed * _DeltaTime);
+		DirString = "Right_";
 	}
 }
 

@@ -48,6 +48,9 @@
     <ClCompile Include="TitleBack.cpp">
       <Filter>Title</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

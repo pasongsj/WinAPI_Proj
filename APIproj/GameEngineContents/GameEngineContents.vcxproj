@@ -85,6 +85,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="PlayLevel.cpp">
       <SubType>
       </SubType>

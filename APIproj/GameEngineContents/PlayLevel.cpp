@@ -13,14 +13,6 @@ PlayLevel::~PlayLevel()
 }
 void PlayLevel::Loading()
 {
-//	GameEngineTime NewTime;
-
-//	NewTime.TimeCheckStart();
-
-	// 이런 경로를 절대 경로.
-	// "D:\Project\AR45\WINAPI\APIApp\ContentsResources\Iamge\Heros.bmp";
-
-	// std::string Text = "D:\Project\AR45\WINAPI\APIApp\ContentsResources\Iamge\Heros.bmp";
 
 	GameEngineDirectory Dir;
 
