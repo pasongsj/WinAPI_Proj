@@ -78,6 +78,11 @@ public:
 		return Scale;
 	}
 
+	inline void SetTransColor(int _Color)
+	{
+		TransColor = _Color;
+	}
+
 	void CreateAnimation(const FrameAnimationParameter& _Paramter);
 	void ChangeAnimation(const std::string_view& _AnimationName);
 
@@ -92,6 +97,8 @@ private:
 	GameEngineImage* Image = nullptr;
 
 	int Frame = 0;
+
+	int TransColor = RGB(255, 0, 255); // 제거할 배경 RGB값 
 
 	void SetOrder(int _Order);
 

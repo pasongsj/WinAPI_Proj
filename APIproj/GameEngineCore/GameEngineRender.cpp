@@ -64,7 +64,7 @@ void GameEngineRender::FrameAnimation::Render(float _DeltaTime)
 				CurrentIndex = 0;
 			}
 			else {
-				CurrentIndex = FrameIndex.size() - 1;
+				CurrentIndex = static_cast<int>(FrameIndex.size()) - 1;
 			}
 		}
 
@@ -85,11 +85,11 @@ void GameEngineRender::Render(float _DeltaTime)
 
 	if (true == Image->IsImageCutting())
 	{
-		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, Frame, RenderPos, Scale);
+		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, Frame, RenderPos, Scale, TransColor);
 	}
 	else
 	{
-		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, RenderPos, Scale, { 0, 0 }, Image->GetImageScale());
+		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, RenderPos, Scale, { 0, 0 }, Image->GetImageScale(), TransColor);
 	}
 }
 
