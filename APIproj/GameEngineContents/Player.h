@@ -24,5 +24,7 @@ private:
 	float AccTime = 0.0f;
 	int StartFrame = 0;
 	float MoveSpeed = 100.0f;
+
+	GameEngineRender* AnimationRender;
 };
 

@@ -38,6 +38,14 @@ void Player::Start()
 		//Render->SetFrame(0);
 	}
 	/*SetMove(GameEngineWindow::GetScreenSize().half());*/
+	/*{ // 예시내용
+		AnimationRender = CreateRender(BubbleRenderOrder::BackGround);
+		AnimationRender->SetScale({ 100, 100 });
+
+		AnimationRender->CreateAnimation({ .AnimationName = "Test0",  .ImageName = "Heros.bmp", .Start = 0, .End = 5 });
+		AnimationRender->CreateAnimation({ .AnimationName = "Test1",  .ImageName = "Heros.bmp", .Start = 20, .End = 26 });
+		AnimationRender->ChangeAnimation("Test0");
+	}*/
 }
 
 void Player::Update(float _DeltaTime)
