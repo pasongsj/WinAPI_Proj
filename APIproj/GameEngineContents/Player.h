@@ -37,7 +37,7 @@ private:
 	PlayerState StateValue = PlayerState::IDLE;
 	std::string DirString = "Right_";
 
-	void DirCheck();// 방향체크
+	void DirCheck(const std::string_view& _AnimationName);// 방향체크
 
 	// State
 	void ChangeState(PlayerState _State); // Idle, Move 상태전환

@@ -53,12 +53,13 @@ void Player::Start()
 
 void Player::Update(float _DeltaTime)
 {
-	DirCheck();
 	UpdateState(_DeltaTime);
 }
 
-void Player::DirCheck()
+void Player::DirCheck(const std::string_view& _AnimationName)
 {
+	std::string PrevDirString = DirString;
+	AnimationRender->ChangeAnimation(DirString + _AnimationName.data());
 	if (GameEngineInput::IsPress("LeftMove"))
 	{
 		DirString = "Left_";
@@ -66,6 +67,10 @@ void Player::DirCheck()
 	else if (GameEngineInput::IsPress("RightMove"))
 	{
 		DirString = "Right_";
+	}
+	if (PrevDirString != DirString)
+	{
+		AnimationRender->ChangeAnimation(DirString + _AnimationName.data());
 	}
 }
 
