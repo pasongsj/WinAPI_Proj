@@ -17,7 +17,7 @@ public:
 	bool IsUpdate()
 	{
 		//         조건          ?              true 일때                                      :         false 일때
-		return nullptr != Parent ? ((ObjectUpdate && false == IsDeath()) || Parent->IsUpdate()) : (ObjectUpdate && false == ObjectDeath);
+		return nullptr != Parent ? ((ObjectUpdate && false == IsDeath()) && Parent->IsUpdate()) : (ObjectUpdate && false == ObjectDeath);
 
 		// return nullptr != Parent ? 1000 : 200;
 	}
