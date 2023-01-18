@@ -32,11 +32,6 @@ void Player::Start()
 		GameEngineInput::CreateKey("UpMove", 'W');
 	}
 
-	/*{
-		GameEngineRender* Render = CreateRender("RightAntonio.bmp", BubbleRenderOrder::BackGround);
-		Render->SetScale({ 100, 100 });
-		Render->SetFrame(0);
-	}*/
 
 	{
 		AnimationRender = CreateRender(BubbleRenderOrder::Player);

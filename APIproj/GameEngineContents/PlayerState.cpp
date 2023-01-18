@@ -64,6 +64,7 @@ void Player::IdleStart()
 }
 void Player::IdleUpdate(float _Time)
 {
+	DirCheck("Idle");
 	if (GameEngineInput::IsPress("LeftMove") || GameEngineInput::IsPress("RightMove"))
 	{
 		ChangeState(PlayerState::MOVE);
@@ -80,6 +81,7 @@ void Player::MoveStart()
 }
 void Player::MoveUpdate(float _Time)
 {
+	DirCheck("Move");
 	if (
 		false == GameEngineInput::IsPress("LeftMove") &&
 		false == GameEngineInput::IsPress("RightMove")
@@ -89,25 +91,31 @@ void Player::MoveUpdate(float _Time)
 		ChangeState(PlayerState::IDLE);
 		return;
 	}
+	float4 MoveRange;
 
 	if (true == GameEngineInput::IsPress("LeftMove"))
 	{
-		SetMove(float4::Left * MoveSpeed * _Time);
+		MoveRange += float4::Left;
+		//SetMove(float4::Left * MoveSpeed * _Time);
 	}
 
-	else if (true == GameEngineInput::IsPress("RightMove"))
+	if (true == GameEngineInput::IsPress("RightMove"))
 	{
-		SetMove(float4::Right * MoveSpeed * _Time);
+		MoveRange += float4::Right;
+		//SetMove(float4::Right * MoveSpeed * _Time);
 	}
 
 	if (true == GameEngineInput::IsPress("UpMove"))
 	{
-		SetMove(float4::Up * MoveSpeed * _Time);
+		MoveRange += float4::Up;
+		//SetMove(float4::Up * MoveSpeed * _Time);
 	}
 	else if (true == GameEngineInput::IsPress("DownMove"))
 	{
-		SetMove(float4::Down * MoveSpeed * _Time);
+		MoveRange += float4::Down;
+		//SetMove(float4::Down * MoveSpeed * _Time);
 	}
+	SetMove(MoveRange * MoveSpeed * _Time);
 }
 void Player::MoveEnd() {
 
