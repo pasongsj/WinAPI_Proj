@@ -2,14 +2,8 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="ContentsGameCore.h" />
-    <ClInclude Include="InlaidLibraryLevel.h">
-      <Filter>stage</Filter>
-    </ClInclude>
     <ClInclude Include="MadForestLevel.h">
-      <Filter>stage</Filter>
-    </ClInclude>
-    <ClInclude Include="InlaidLibraryBack.h">
-      <Filter>stage</Filter>
+      <Filter>MadForestStage</Filter>
     </ClInclude>
     <ClInclude Include="TitleLevel.h">
       <Filter>Title</Filter>
@@ -24,17 +18,17 @@
     <ClInclude Include="TitleBack.h">
       <Filter>Title</Filter>
     </ClInclude>
+    <ClInclude Include="InlaidLibraryBack.h">
+      <Filter>InlaidLibraryStage</Filter>
+    </ClInclude>
+    <ClInclude Include="InlaidLibraryLevel.h">
+      <Filter>InlaidLibraryStage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsGameCore.cpp" />
-    <ClCompile Include="InlaidLibraryLevel.cpp">
-      <Filter>stage</Filter>
-    </ClCompile>
     <ClCompile Include="MadForestLevel.cpp">
-      <Filter>stage</Filter>
-    </ClCompile>
-    <ClCompile Include="InlaidLibraryBack.cpp">
-      <Filter>stage</Filter>
+      <Filter>MadForestStage</Filter>
     </ClCompile>
     <ClCompile Include="TitleLevel.cpp">
       <Filter>Title</Filter>
@@ -51,16 +45,25 @@
     <ClCompile Include="PlayerState.cpp">
       <Filter>Player</Filter>
     </ClCompile>
+    <ClCompile Include="InlaidLibraryBack.cpp">
+      <Filter>InlaidLibraryStage</Filter>
+    </ClCompile>
+    <ClCompile Include="InlaidLibraryLevel.cpp">
+      <Filter>InlaidLibraryStage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">
       <UniqueIdentifier>{a3062415-cc4a-4959-bcea-605145497030}</UniqueIdentifier>
     </Filter>
-    <Filter Include="stage">
-      <UniqueIdentifier>{5e27e026-62f8-47dc-8e2e-c82cd70f196a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Player">
       <UniqueIdentifier>{2b7aa004-f172-4523-bf6d-8da47f71dbd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="InlaidLibraryStage">
+      <UniqueIdentifier>{df3cc6fb-daea-47ac-a268-26a1eb7f3654}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MadForestStage">
+      <UniqueIdentifier>{5e27e026-62f8-47dc-8e2e-c82cd70f196a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

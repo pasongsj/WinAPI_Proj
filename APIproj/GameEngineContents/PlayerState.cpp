@@ -65,7 +65,7 @@ void Player::IdleStart()
 void Player::IdleUpdate(float _Time)
 {
 	DirCheck("Idle");
-	if (GameEngineInput::IsPress("LeftMove") || GameEngineInput::IsPress("RightMove"))
+	if (GameEngineInput::IsPress("LeftMove") || GameEngineInput::IsPress("RightMove") || GameEngineInput::IsPress("DownMove") || GameEngineInput::IsPress("UpMove"))
 	{
 		ChangeState(PlayerState::MOVE);
 		return; // 보통 스테이트를 체인지하면 아래 코드를 실행되면 
@@ -84,7 +84,9 @@ void Player::MoveUpdate(float _Time)
 	DirCheck("Move");
 	if (
 		false == GameEngineInput::IsPress("LeftMove") &&
-		false == GameEngineInput::IsPress("RightMove")
+		false == GameEngineInput::IsPress("RightMove") &&
+		false == GameEngineInput::IsPress("DownMove") &&
+		false == GameEngineInput::IsPress("UpMove")
 		)
 	{
 		// 
