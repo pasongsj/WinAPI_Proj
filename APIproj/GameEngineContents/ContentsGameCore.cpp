@@ -22,7 +22,7 @@ ContentsGameCore::~ContentsGameCore()
 void ContentsGameCore::Start()
 {
 
-	GameEngineWindow::SettingWindowSize({ (900.0f / 800.0f) * 1280.0f, (900.0f / 800.0f) * 800.0f }); 
+	GameEngineWindow::SettingWindowSize({ 1536.0f, 960.0f });  // // 1536 x 960 1280x800
 
 	new int(); // leakÃ¼Å©¿ë
 
