@@ -70,7 +70,7 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 	}
 
 	//
-	float CameraMoveSpeed = 100.0f;
+	/*float CameraMoveSpeed = 100.0f;
 	float4 CameraMoveResult = float4::Zero;
 	if (true == GameEngineInput::IsPress("CameraLeftMove"))
 	{
@@ -88,6 +88,6 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 	{
 		CameraMoveResult += float4::Up;
 	}
-	SetCameraMove(CameraMoveResult * _DeltaTime * CameraMoveSpeed);
+	SetCameraMove(CameraMoveResult * _DeltaTime * CameraMoveSpeed);*/
 
 }

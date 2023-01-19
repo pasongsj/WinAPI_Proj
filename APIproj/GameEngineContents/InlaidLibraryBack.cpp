@@ -19,4 +19,6 @@ void InlaidLibraryBack::Start()
 	GameEngineRender* Render = CreateRender("InlaidLibraryStage.bmp", BubbleRenderOrder::BackGround);
 	Render->SetPosition(GameEngineWindow::GetScreenSize().half());
 	Render->SetScale(GameEngineWindow::GetScreenSize()); // 464
+	Render->SetImgScale(GameEngineWindow::GetScreenSize());
+	Render->SetImgStartPos(GameEngineWindow::GetScreenSize().half());
 }

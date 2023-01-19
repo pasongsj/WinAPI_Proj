@@ -35,15 +35,6 @@ public:
 		Actors[_Order].push_back(Actor);
 	}
 
-protected:
-	virtual void Loading() = 0;
-	virtual void Update(float _DeltaTime) = 0;
-
-	// 내가 이제 다른 레벨로 교체된다.
-	virtual void LevelChangeEnd(GameEngineLevel* _NextLevel) = 0;
-	// 내가 이제 새로운 눈에 보이는 레벨이 될거다.
-	virtual void LevelChangeStart(GameEngineLevel* _PrevLevel) = 0;
-
 	inline void SetCameraMove(const float4& _MoveValue) {
 		CameraPos += _MoveValue;
 	}
@@ -55,6 +46,17 @@ protected:
 	{
 		return CameraPos;
 	}
+
+protected:
+	virtual void Loading() = 0;
+	virtual void Update(float _DeltaTime) = 0;
+
+	// 내가 이제 다른 레벨로 교체된다.
+	virtual void LevelChangeEnd(GameEngineLevel* _NextLevel) = 0;
+	// 내가 이제 새로운 눈에 보이는 레벨이 될거다.
+	virtual void LevelChangeStart(GameEngineLevel* _PrevLevel) = 0;
+
+	
 
 private:
 

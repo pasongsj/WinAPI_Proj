@@ -88,6 +88,8 @@ void GameEngineRender::Render(float _DeltaTime)
 	float4 CameraPos = GetActor()->GetLevel()->GetCameraPos();
 	float4 RenderPos = GetActor()->GetPos() + Position - CameraPos;
 
+	ImgStartPos = CameraPos;
+
 	if (true == Image->IsImageCutting())
 	{
 		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, Frame, RenderPos, Scale, TransColor);
@@ -95,7 +97,8 @@ void GameEngineRender::Render(float _DeltaTime)
 	else
 	{
 		//GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, RenderPos, Scale, { 0, 0 }, Image->GetImageScale(), TransColor);
-		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, GameEngineWindow::GetScreenSize().half(), GameEngineWindow::GetScreenSize(), RenderPos, GameEngineWindow::GetScreenSize(), TransColor);
+		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, GameEngineWindow::GetScreenSize().half(), Scale, ImgStartPos, ImgScale, TransColor);
+		//GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, GameEngineWindow::GetScreenSize().half(), GameEngineWindow::GetScreenSize(), RenderPos, GameEngineWindow::GetScreenSize(), TransColor);
 	}
 }
 

@@ -162,14 +162,14 @@ void GameEngineImage::TransCopy(const GameEngineImage* _OtherImage, float4 _Copy
 {
 
 	TransparentBlt(ImageDC, // 여기에 그려라.
-		_CopyCenterPos.ix() - _CopySize.hix(), // 여기를 시작으로
+		_CopyCenterPos.ix() - _CopySize.hix(), //실제 보여지는 화면 스크린 
 		_CopyCenterPos.iy() - _CopySize.hiy(),
-		_CopySize.ix(), // 이 크기로
+		_CopySize.ix(), // screensize()
 		_CopySize.iy(),
 		_OtherImage->GetImageDC(),
-		_OtherImagePos.ix(),// 이미지의 x y에서부터
+		_OtherImagePos.ix(),// 비트맵 이미지의 x y에서부터
 		_OtherImagePos.iy(),
-		_OtherImageSize.ix(), // 이미지의 x y까지의 위치를
+		_OtherImageSize.ix(), // 비트맵 이미지의 x y까지의 위치를
 		_OtherImageSize.iy(),
 		_Color);
 }

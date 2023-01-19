@@ -1,10 +1,11 @@
-#include "Player.h"
-#include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineBase/GameEnginePath.h>
-#include <GameEngineCore/GameEngineResources.h>
-#include <GameEngineCore/GameEngineRender.h>
+#include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEngineCore/GameEngineResources.h>
+#include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineRender.h>
 #include "ContentsEnums.h"
+#include "Player.h"
 
 
 // State
@@ -98,26 +99,23 @@ void Player::MoveUpdate(float _Time)
 	if (true == GameEngineInput::IsPress("LeftMove"))
 	{
 		MoveRange += float4::Left;
-		//SetMove(float4::Left * MoveSpeed * _Time);
 	}
 
 	if (true == GameEngineInput::IsPress("RightMove"))
 	{
 		MoveRange += float4::Right;
-		//SetMove(float4::Right * MoveSpeed * _Time);
 	}
 
 	if (true == GameEngineInput::IsPress("UpMove"))
 	{
 		MoveRange += float4::Up;
-		//SetMove(float4::Up * MoveSpeed * _Time);
 	}
 	else if (true == GameEngineInput::IsPress("DownMove"))
 	{
 		MoveRange += float4::Down;
-		//SetMove(float4::Down * MoveSpeed * _Time);
 	}
 	SetMove(MoveRange * MoveSpeed * _Time);
+	GetLevel()->SetCameraMove( MoveRange * MoveSpeed * _Time);
 }
 void Player::MoveEnd() {
 
