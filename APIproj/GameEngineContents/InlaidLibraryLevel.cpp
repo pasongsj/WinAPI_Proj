@@ -24,6 +24,14 @@ void InlaidLibraryLevel::Loading()
 		GameEngineInput::CreateKey("LevelChange", 'P');
 	}
 
+	if (false == GameEngineInput::IsKey("CameraLeftMove"))
+	{
+		GameEngineInput::CreateKey("CameraLeftMove", VK_LEFT);
+		GameEngineInput::CreateKey("CameraRightMove", VK_RIGHT);
+		GameEngineInput::CreateKey("CameraDownMove", VK_DOWN);
+		GameEngineInput::CreateKey("CameraUpMove", VK_UP);
+	}
+
 	// 이미지 로드
 	GameEngineDirectory Dir;
 	{
@@ -60,4 +68,26 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 	{
 		GameEngineCore::GetInst()->ChangeLevel("TitleLevel");
 	}
+
+	//
+	float CameraMoveSpeed = 100.0f;
+	float4 CameraMoveResult = float4::Zero;
+	if (true == GameEngineInput::IsPress("CameraLeftMove"))
+	{
+		CameraMoveResult += float4::Left;
+	}
+	if (true == GameEngineInput::IsPress("CameraRightMove"))
+	{
+		CameraMoveResult += float4::Right;
+	}
+	if (true == GameEngineInput::IsPress("CameraDownMove"))
+	{
+		CameraMoveResult += float4::Down;
+	}
+	if (true == GameEngineInput::IsPress("CameraUpMove"))
+	{
+		CameraMoveResult += float4::Up;
+	}
+	SetCameraMove(CameraMoveResult * _DeltaTime * CameraMoveSpeed);
+
 }

@@ -93,7 +93,7 @@ void Player::MoveUpdate(float _Time)
 		ChangeState(PlayerState::IDLE);
 		return;
 	}
-	float4 MoveRange;
+	float4 MoveRange = float4::Zero;
 
 	if (true == GameEngineInput::IsPress("LeftMove"))
 	{

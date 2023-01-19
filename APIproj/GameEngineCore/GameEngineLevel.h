@@ -2,6 +2,7 @@
 #include <list>
 #include <map>
 
+#include <GameEngineBase/GameEngineMath.h>
 #include <GameEngineCore/GameEngineObject.h>
 // 설명 :
 class GameEngineCore;
@@ -43,7 +44,21 @@ protected:
 	// 내가 이제 새로운 눈에 보이는 레벨이 될거다.
 	virtual void LevelChangeStart(GameEngineLevel* _PrevLevel) = 0;
 
+	inline void SetCameraMove(const float4& _MoveValue) {
+		CameraPos += _MoveValue;
+	}
+
+	inline void SetCameraPos(const float4& _Pos) {
+		CameraPos = _Pos;
+	}
+	inline float4 GetCameraPos()
+	{
+		return CameraPos;
+	}
+
 private:
+
+	float4 CameraPos = float4::Zero;
 	// 행동순서를 담은 map
 	std::map<int, std::list<GameEngineActor*>> Actors;
 

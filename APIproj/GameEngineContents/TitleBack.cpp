@@ -20,6 +20,6 @@ void TitleBack::Start()
 	Render->SetPosition(GameEngineWindow::GetScreenSize().half());
 	Render->SetScale(GameEngineWindow::GetScreenSize());
 	Render->SetImage("TitleBackground.bmp");
-
+	Render->SetPosition(float4::Zero);
 	//titleBG
 }
