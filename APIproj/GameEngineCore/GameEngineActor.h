@@ -5,9 +5,8 @@
 
 #include <Windows.h>
 
-#include "GameEngineObject.h"
 #include <GameEngineBase/GameEngineMath.h>
-
+#include "GameEngineObject.h"
 
 // 화면에 존재하고 위치가 있어야하는 모든것들의 기본기능을 지원해줄 겁니다.
 // 그려져야 한다.
@@ -45,10 +44,7 @@ public:
 		Pos += _MovePos;
 	}
 
-	inline GameEngineLevel* GetLevel()
-	{
-		return Level;
-	}
+	GameEngineLevel* GetLevel();
 
 #pragma region CreateRenderEnumOverLoadings
 
@@ -91,10 +87,11 @@ protected:
 	}
 
 private:
+
 	int Order;
 	float4 Pos = {0.0f, 0.0f};
 	float LiveTime = 0.0;
-	GameEngineLevel* Level;
+
 	std::list<GameEngineRender*> RenderList; // actor에 포함된 추가 img를 포함한 list ex) player와 hp바
 
 	void SetOrder(int _Order)

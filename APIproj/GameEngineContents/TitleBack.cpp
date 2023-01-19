@@ -19,4 +19,7 @@ void TitleBack::Start()
 	GameEngineRender* Render = CreateRender("TitleBackground.bmp", BubbleRenderOrder::BackGround);
 	Render->SetPosition(GameEngineWindow::GetScreenSize().half());
 	Render->SetScale(GameEngineWindow::GetScreenSize());
+	Render->SetImage("TitleBackground.bmp");
+
+	//titleBG
 }

@@ -2,11 +2,12 @@
 #include <list>
 #include <map>
 
+#include <GameEngineCore/GameEngineObject.h>
 // Ό³Έν :
-class GameEngineRender;
 class GameEngineCore;
+class GameEngineRender;
 class GameEngineActor;
-class GameEngineLevel
+class GameEngineLevel : public GameEngineObject
 {
 	friend GameEngineCore;
 	friend GameEngineRender;

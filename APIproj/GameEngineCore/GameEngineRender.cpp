@@ -1,9 +1,9 @@
-#include "GameEngineRender.h"
-#include "GameEngineActor.h"
-#include "GameEngineLevel.h"
+#include <GameEngineBase/GameEngineString.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineResources.h>
-#include <GameEngineBase/GameEngineString.h>
+#include "GameEngineLevel.h"
+#include "GameEngineActor.h"
+#include "GameEngineRender.h"
 
 GameEngineRender::GameEngineRender()
 {
@@ -11,6 +11,11 @@ GameEngineRender::GameEngineRender()
 
 GameEngineRender::~GameEngineRender()
 {
+}
+
+GameEngineActor* GameEngineRender::GetActor()
+{
+	return GetOwner<GameEngineActor>();
 }
 
 void GameEngineRender::SetImage(const std::string_view& _ImageName)
@@ -21,7 +26,7 @@ void GameEngineRender::SetImage(const std::string_view& _ImageName)
 void GameEngineRender::SetOrder(int _Order)
 {
 	Order = _Order;
-	Owner->GetLevel()->PushRender(this);
+	GetActor()->GetLevel()->PushRender(this);
 }
 
 void GameEngineRender::SetFrame(int _Frame)
@@ -81,7 +86,7 @@ void GameEngineRender::Render(float _DeltaTime)
 		Image = CurrentAnimation->Image;
 	}
 
-	float4 RenderPos = Owner->GetPos() + Position;
+	float4 RenderPos = GetActor()->GetPos() + Position;
 
 	if (true == Image->IsImageCutting())
 	{

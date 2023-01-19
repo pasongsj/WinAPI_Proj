@@ -1,5 +1,6 @@
 #include "GameEngineActor.h"
 #include "GameEngineRender.h"
+#include "GameEngineLevel.h"
 
 GameEngineActor::GameEngineActor() 
 {
@@ -19,18 +20,23 @@ GameEngineActor::~GameEngineActor()
 	}
 }
 
+GameEngineLevel* GameEngineActor::GetLevel()
+{
+	return GetOwner<GameEngineLevel>();
+}
+
 GameEngineRender* GameEngineActor::CreateRender(const std::string_view& _Image, int _Order /*= 0*/)
 {
 	GameEngineRender* Render = CreateRender(_Order);
 	Render->SetImage(_Image);
+	Render->SetOwner(this);
 	return Render;
 }
 
 GameEngineRender* GameEngineActor::CreateRender(int _Order /*= 0*/)
 {
 	GameEngineRender* Render = new GameEngineRender();
-	Render->SetParent(this);
-	Render->Owner = this;
+	Render->SetOwner(this);
 	Render->SetOrder(_Order);
 	RenderList.push_back(Render);
 	return Render;
