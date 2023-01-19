@@ -3,6 +3,7 @@
 #include <map>
 
 #include <GameEngineBase/GameEngineMath.h>
+#include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineObject.h>
 // 설명 :
 class GameEngineCore;
@@ -60,7 +61,7 @@ protected:
 
 private:
 
-	float4 CameraPos = float4::Zero;
+	float4 CameraPos = float4::Zero;/*GameEngineWindow::GetScreenSize().half();*/
 	// 행동순서를 담은 map
 	std::map<int, std::list<GameEngineActor*>> Actors;
 
