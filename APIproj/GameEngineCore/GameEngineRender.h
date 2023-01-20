@@ -85,14 +85,6 @@ public:
 		TransColor = _Color;
 	}
 
-	inline void SetImgStartPos(const float4& _Position) {
-		ImgStartPos = _Position;
-	}
-	
-	inline void SetImgScale(const float4& _Scale) {
-		ImgScale = _Scale;
-	}
-
 	GameEngineActor* GetActor();
 
 	void CreateAnimation(const FrameAnimationParameter& _Paramter);
@@ -107,8 +99,6 @@ private:
 	float4 Scale = float4::Zero;
 	GameEngineImage* Image = nullptr;
 
-	float4 ImgStartPos = float4::Zero;
-	float4 ImgScale = float4::Zero;
 
 	int Frame = 0;
 

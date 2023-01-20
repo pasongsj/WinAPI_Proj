@@ -97,7 +97,7 @@ void GameEngineRender::Render(float _DeltaTime)
 	else
 	{
 		//GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, RenderPos, Scale, { 0, 0 }, Image->GetImageScale(), TransColor);
-		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, GameEngineWindow::GetScreenSize().half(), Scale, CameraPos, ImgScale, TransColor);
+		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, GameEngineWindow::GetScreenSize().half(), Scale, CameraPos, Scale, TransColor);
 		//GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, GameEngineWindow::GetScreenSize().half(), GameEngineWindow::GetScreenSize(), RenderPos, GameEngineWindow::GetScreenSize(), TransColor);
 	}
 }
