@@ -55,11 +55,15 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="TitleBack.h">
+    <ClInclude Include="TitleLevel.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="TitleLevel.h">
+    <ClInclude Include="TitleMainBack.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TitleSubBack.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -90,11 +94,15 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="TitleBack.cpp">
+    <ClCompile Include="TitleLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="TitleLevel.cpp">
+    <ClCompile Include="TitleMainBack.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TitleSubBack.cpp">
       <SubType>
       </SubType>
     </ClCompile>

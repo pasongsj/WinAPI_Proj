@@ -15,14 +15,17 @@
     <ClInclude Include="PlayLevel.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="TitleBack.h">
-      <Filter>Title</Filter>
-    </ClInclude>
     <ClInclude Include="InlaidLibraryBack.h">
       <Filter>InlaidLibraryStage</Filter>
     </ClInclude>
     <ClInclude Include="InlaidLibraryLevel.h">
       <Filter>InlaidLibraryStage</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleMainBack.h">
+      <Filter>Title</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleSubBack.h">
+      <Filter>Title</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -39,9 +42,6 @@
     <ClCompile Include="PlayLevel.cpp">
       <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="TitleBack.cpp">
-      <Filter>Title</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerState.cpp">
       <Filter>Player</Filter>
     </ClCompile>
@@ -50,6 +50,12 @@
     </ClCompile>
     <ClCompile Include="InlaidLibraryLevel.cpp">
       <Filter>InlaidLibraryStage</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleMainBack.cpp">
+      <Filter>Title</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleSubBack.cpp">
+      <Filter>Title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
