@@ -27,13 +27,15 @@ public:
 
 	
 	template<typename ActorType>
-	void CreateActor(int _Order = 0)
+	ActorType* CreateActor(int _Order = 0)
 	{
 		GameEngineActor* Actor = new ActorType();
 
 		ActorStart(Actor, _Order);
 
 		Actors[_Order].push_back(Actor);
+
+		return dynamic_cast<ActorType*>(Actor);
 	}
 
 	inline void SetCameraMove(const float4& _MoveValue) {

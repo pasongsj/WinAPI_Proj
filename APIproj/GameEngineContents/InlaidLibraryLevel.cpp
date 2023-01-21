@@ -1,6 +1,7 @@
 #include "InlaidLibraryLevel.h"
 #include "InlaidLibraryBack.h"
 #include "Player.h"
+#include "InlaidLibraryCollideMap.h"
 #include <GameEngineBase/GameEngineDirectory.h>
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEnginePlatform/GameEngineInput.h>
@@ -34,12 +35,14 @@ void InlaidLibraryLevel::Loading()
 
 	// 이미지 로드
 	GameEngineDirectory Dir;
+
 	{
 		Dir.MoveParentToDirectory("ContentsResources");
 		Dir.Move("ContentsResources");
 		Dir.Move("Image");
 		Dir.Move("InlaidLibrary");
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("InlaidLibraryStage.BMP"));
+		GameEngineImage* ColImage = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("InlaidLibraryCollision.BMP"));
 	}
 
 	{
@@ -47,19 +50,18 @@ void InlaidLibraryLevel::Loading()
 		Dir.Move("ContentsResources");
 		Dir.Move("Image");
 		Dir.Move("Player");
-		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightAntonio.BMP"));
-		Image->Cut(4, 1);
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightAntonio.BMP"));
+			Image->Cut(4, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftAntonio.BMP"));
+			Image->Cut(4, 1);
+		}
 	}
-	{
-		Dir.MoveParentToDirectory("ContentsResources");
-		Dir.Move("ContentsResources");
-		Dir.Move("Image");
-		Dir.Move("Player");
-		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftAntonio.BMP"));
-		Image->Cut(4, 1);
-	}
-	CreateActor<InlaidLibraryBack>();
-	CreateActor<Player>();
+	InlaidLibraryCollideMap* MapCollision = CreateActor<InlaidLibraryCollideMap>();
+	InlaidLibraryBack* BackGround = CreateActor<InlaidLibraryBack>();
+	Player* NewPlayer = CreateActor<Player>();
 }
 
 void InlaidLibraryLevel::Update(float _DeltaTime)
@@ -68,26 +70,5 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 	{
 		GameEngineCore::GetInst()->ChangeLevel("TitleLevel");
 	}
-
-	//
-	/*float CameraMoveSpeed = 100.0f;
-	float4 CameraMoveResult = float4::Zero;
-	if (true == GameEngineInput::IsPress("CameraLeftMove"))
-	{
-		CameraMoveResult += float4::Left;
-	}
-	if (true == GameEngineInput::IsPress("CameraRightMove"))
-	{
-		CameraMoveResult += float4::Right;
-	}
-	if (true == GameEngineInput::IsPress("CameraDownMove"))
-	{
-		CameraMoveResult += float4::Down;
-	}
-	if (true == GameEngineInput::IsPress("CameraUpMove"))
-	{
-		CameraMoveResult += float4::Up;
-	}
-	SetCameraMove(CameraMoveResult * _DeltaTime * CameraMoveSpeed);*/
 
 }
