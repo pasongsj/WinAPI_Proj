@@ -85,7 +85,12 @@ void GameEngineRender::Render(float _DeltaTime)
 		Frame = CurrentAnimation->FrameIndex[CurrentAnimation->CurrentIndex];
 		Image = CurrentAnimation->Image;
 	}
-	float4 CameraPos = GetActor()->GetLevel()->GetCameraPos();
+	
+	float4 CameraPos = float4::Zero;
+	if (true == IsCameraEffect) 
+	{
+		CameraPos = GetActor()->GetLevel()->GetCameraPos();
+	}
 	float4 RenderPos = GetActor()->GetPos() + Position - CameraPos;
 
 	//ImgStartPos = CameraPos;

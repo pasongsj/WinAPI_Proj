@@ -87,6 +87,11 @@ public:
 
 	GameEngineActor* GetActor();
 
+	inline void EffectCameraOff()
+	{
+		IsCameraEffect = false;
+	}
+
 	void CreateAnimation(const FrameAnimationParameter& _Paramter);
 	void ChangeAnimation(const std::string_view& _AnimationName);
 
@@ -98,7 +103,7 @@ private:
 	float4 Position = float4::Zero;
 	float4 Scale = float4::Zero;
 	GameEngineImage* Image = nullptr;
-
+	bool IsCameraEffect = true;
 
 	int Frame = 0;
 
