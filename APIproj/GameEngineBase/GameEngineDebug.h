@@ -25,5 +25,5 @@ private:
 
 };
 
-
+// MessageBoxA 메시지박스를 띄워주는 기능,  assert 오류를 검출하기 위해 추가
 #define MsgAssert(MsgText) std::string ErrorText = MsgText; MessageBoxA(nullptr, ErrorText.c_str(), "Error", MB_OK); assert(false);

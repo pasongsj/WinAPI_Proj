@@ -4,7 +4,7 @@
 #include "GameEnginePath.h"
 
 
-// 설명 :
+// 설명 : directory를 관리하는 class
 class GameEngineFile;
 class GameEngineDirectory
 {

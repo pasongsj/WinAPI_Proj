@@ -15,9 +15,6 @@
     <ClInclude Include="PlayLevel.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="InlaidLibraryBack.h">
-      <Filter>InlaidLibraryStage</Filter>
-    </ClInclude>
     <ClInclude Include="InlaidLibraryLevel.h">
       <Filter>InlaidLibraryStage</Filter>
     </ClInclude>
@@ -27,8 +24,11 @@
     <ClInclude Include="TitleSubBack.h">
       <Filter>Title</Filter>
     </ClInclude>
+    <ClInclude Include="InlaidLibraryBack.h">
+      <Filter>InlaidLibraryStage\InlaidLibraryContents</Filter>
+    </ClInclude>
     <ClInclude Include="InlaidLibraryCollideMap.h">
-      <Filter>InlaidLibraryStage</Filter>
+      <Filter>InlaidLibraryStage\InlaidLibraryContents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -48,9 +48,6 @@
     <ClCompile Include="PlayerState.cpp">
       <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="InlaidLibraryBack.cpp">
-      <Filter>InlaidLibraryStage</Filter>
-    </ClCompile>
     <ClCompile Include="InlaidLibraryLevel.cpp">
       <Filter>InlaidLibraryStage</Filter>
     </ClCompile>
@@ -60,8 +57,11 @@
     <ClCompile Include="TitleSubBack.cpp">
       <Filter>Title</Filter>
     </ClCompile>
+    <ClCompile Include="InlaidLibraryBack.cpp">
+      <Filter>InlaidLibraryStage\InlaidLibraryContents</Filter>
+    </ClCompile>
     <ClCompile Include="InlaidLibraryCollideMap.cpp">
-      <Filter>InlaidLibraryStage</Filter>
+      <Filter>InlaidLibraryStage\InlaidLibraryContents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +76,9 @@
     </Filter>
     <Filter Include="MadForestStage">
       <UniqueIdentifier>{5e27e026-62f8-47dc-8e2e-c82cd70f196a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="InlaidLibraryStage\InlaidLibraryContents">
+      <UniqueIdentifier>{618dcd09-1408-4d0c-ad5d-7d82e9e747b3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

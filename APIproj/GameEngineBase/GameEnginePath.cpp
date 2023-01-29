@@ -53,7 +53,7 @@ void GameEnginePath::MoveParent()
 
 void GameEnginePath::MoveParentToChildPath(const std::string_view& _String)
 {
-	while (false == IsRoot())
+	while (false == IsRoot()) // root에 원하는 file이 없다는 가정
 	{
 		if (true == IsExistsToPlusString(_String))
 		{
