@@ -4,11 +4,11 @@
 // final 더이상 상속내릴지 못한다.
 // 상속도 못하고 만들지도 못하게 만든 상태로
 
-class GameEngineMath final
+class GameEngineMath final // final은 상속, override를 막는다.
 {
 public:
 	static const float PIE;
-	static const float PIE2;
+	static const float PIE2; // pie * 2
 
 private:
 	virtual ~GameEngineMath() = 0;
@@ -33,6 +33,7 @@ public:
 	float w = 1.0f;
 	// 마지막이 1인지는 3d 때 배우게 될겁니다.
 
+	// 정수값
 	int ix() const
 	{
 		return static_cast<int>(x);
@@ -53,6 +54,7 @@ public:
 		return static_cast<int>(w);
 	}
 
+	// half값
 	int hix() const
 	{
 		return static_cast<int>(x * 0.5f);
@@ -78,11 +80,13 @@ public:
 		return {x * 0.5f,y * 0.5f,z * 0.5f,w};
 	}
 
+	// vector크기가 0인지 확인
 	bool IsZero() const
 	{
 		return x == 0.0f && y == 0.0f && z == 0.0f;
 	}
 
+	// operator
 	float4 operator *(const float _Value) const
 	{
 		float4 Return;

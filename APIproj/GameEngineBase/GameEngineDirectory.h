@@ -22,7 +22,7 @@ public:
 	// 이 디렉토리에 이 파일이 있어?
 	bool IsFile(const std::string_view& _FileName);
 
-	bool MoveParent();
+	bool MoveParent(); // 부모 dir로 이동
 
 	void MoveParentToDirectory(const std::string_view& _String);
 

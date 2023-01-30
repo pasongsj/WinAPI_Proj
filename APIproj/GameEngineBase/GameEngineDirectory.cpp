@@ -8,6 +8,7 @@ GameEngineDirectory::GameEngineDirectory()
 GameEngineDirectory::~GameEngineDirectory() 
 {
 }
+
 void GameEngineDirectory::MoveParentToDirectory(const std::string_view& _String)
 {
 	std::string MovePath = "\\";
@@ -44,4 +45,8 @@ bool GameEngineDirectory::MoveParent()
 	Path.MoveParent();
 
 	return true;
+}
+
+bool GameEngineDirectory::IsFile(const std::string_view& _FileName) { // 임시 추가
+	return Path.IsExistsToPlusString(_FileName);
 }

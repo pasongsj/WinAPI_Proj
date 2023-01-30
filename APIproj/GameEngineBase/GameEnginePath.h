@@ -19,25 +19,18 @@ public:
 	GameEnginePath& operator=(GameEnginePath&& _Other) noexcept = delete;
 
 	std::string GetFileName() const; // path에서 파일이름 return, ??왜 옮겼지?? 
-=
 	std::string GetPathToString() const; // path전체를 return
 
 
 	void MoveParent();//상위 dir로 이동
-	// 원하는 file 또는 dir이 있을 때 까지 상위 폴더로 move , root 도착 시(존재하지 않을 시) assert
-	void MoveParentToChildPath(const std::string_view& _String); 
+	void MoveParentToChildPath(const std::string_view& _String); // 원하는 file 또는 dir이 있을 때 까지 상위 폴더로 move , root 도착 시(존재하지 않을 시) assert
 
-	//현재 path가 올바른 경로인지 확인
-	bool IsExists();
-	// _string으로 이동하는 것이 올바른 경로인지 확인
-	bool IsExistsToPlusString(const std::string_view& _String);
-	// 현재 dir가 root인지 확인
-	bool IsRoot(); 
-	// dir 이동
-	bool Move(const std::string_view& _Path);
+	bool IsExists(); //현재 path가 올바른 경로인지 확인
+	bool IsExistsToPlusString(const std::string_view& _String); // _string으로 이동하는 것이 올바른 경로인지 확인
+	bool IsRoot(); // 현재 dir가 root인지 확인
+	bool Move(const std::string_view& _Path);	// dir 이동
 
-	// Path설정
-	void SetPath(const std::string_view& _Path);
+	void SetPath(const std::string_view& _Path); 	// Path설정
 
 
 protected:
