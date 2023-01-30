@@ -18,5 +18,6 @@ void InlaidLibraryCollideMap::Start()
 
 	GameEngineRender* Render = CreateRender("InlaidLibraryCollision.bmp", BubbleRenderOrder::BackGround);
 	Render->SetPosition(GameEngineWindow::GetScreenSize().half());
-	Render->SetScale(Render->GetImage()->GetImageScale());
+	//Render->SetScale(Render->GetImage()->GetImageScale());
+	Render->SetScaleToImage();
 }

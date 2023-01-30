@@ -63,7 +63,7 @@ void InlaidLibraryLevel::Loading()
 		InlaidLibraryBack* BackGround = CreateActor<InlaidLibraryBack>(); // 가시적 배경
 	}
 	{
-		InlaidLibraryCollideMap* MapCollision = CreateActor<InlaidLibraryCollideMap>(); // 충돌 배경 
+		//InlaidLibraryCollideMap* MapCollision = CreateActor<InlaidLibraryCollideMap>(); // 충돌 배경 
 	}
 	{
 		Player* NewPlayer = CreateActor<Player>(); // 플레이어

@@ -52,6 +52,8 @@ public:
 		Scale = _Scale;
 	}
 
+	void SetScaleToImage();
+	
 	void SetFrame(int _Frame);
 
 	inline GameEngineImage* GetImage()

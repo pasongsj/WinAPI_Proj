@@ -23,6 +23,16 @@ void GameEngineRender::SetImage(const std::string_view& _ImageName)
 	Image = GameEngineResources::GetInst().ImageFind(_ImageName);
 }
 
+void GameEngineRender::SetScaleToImage()
+{
+	if (nullptr == Image)
+	{
+		MsgAssert("이미지를 세팅하지 않았는데 이미지의 크기로 변경하려고 했습니다.");
+	}
+
+	Scale = Image->GetImageScale();
+}
+
 void GameEngineRender::SetOrder(int _Order)
 {
 	Order = _Order;

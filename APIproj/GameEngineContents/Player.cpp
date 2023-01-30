@@ -23,7 +23,8 @@ void Player::Start()
 	MainPlayer = this;
 
 	SetMove(GameEngineWindow::GetScreenSize().half());
-
+	SetPos(GameEngineWindow::GetScreenSize().half());
+	//SetMove(float4{2048,948});
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
@@ -81,7 +82,10 @@ void Player::Movecalculation(float _DeltaTime)
 		Check = false;
 		// MoveDir = float4::Zero;
 	}
-
+	if (false == Check) 
+	{
+		MoveVec = float4::Zero;
+	}
 	//if (false == Check)
 	//{
 	//	while (true)
