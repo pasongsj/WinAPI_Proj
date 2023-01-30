@@ -114,8 +114,9 @@ void Player::MoveUpdate(float _Time)
 	{
 		MoveRange += float4::Down;
 	}
-	SetMove(MoveRange * MoveSpeed * _Time);
-	GetLevel()->SetCameraMove( MoveRange * MoveSpeed * _Time);
+	MoveVec = MoveRange * MoveSpeed;
+	/*SetMove(MoveRange * MoveSpeed * _Time);
+	GetLevel()->SetCameraMove( MoveRange * MoveSpeed * _Time);*/
 }
 void Player::MoveEnd() {
 

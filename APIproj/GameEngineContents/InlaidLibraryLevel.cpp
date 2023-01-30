@@ -59,10 +59,16 @@ void InlaidLibraryLevel::Loading()
 			Image->Cut(4, 1);
 		}
 	}
-	InlaidLibraryCollideMap* MapCollision = CreateActor<InlaidLibraryCollideMap>(); // 충돌 배경 
-	InlaidLibraryBack* BackGround = CreateActor<InlaidLibraryBack>(); // 가시적 배경
+	{
+		InlaidLibraryBack* BackGround = CreateActor<InlaidLibraryBack>(); // 가시적 배경
+	}
+	{
+		InlaidLibraryCollideMap* MapCollision = CreateActor<InlaidLibraryCollideMap>(); // 충돌 배경 
+	}
+	{
+		Player* NewPlayer = CreateActor<Player>(); // 플레이어
+	}
 
-	Player* NewPlayer = CreateActor<Player>(); // 플레이어
 }
 
 void InlaidLibraryLevel::Update(float _DeltaTime)
