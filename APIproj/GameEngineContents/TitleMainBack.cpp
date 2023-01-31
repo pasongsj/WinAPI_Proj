@@ -15,7 +15,7 @@ TitleMainBack::~TitleMainBack()
 
 void TitleMainBack::Start()
 {
-	GameEngineRender* Render = CreateRender("TitleMainBackGround.bmp", BubbleRenderOrder::BackGround);
+	GameEngineRender* Render = CreateRender("TitleMainBackGround.bmp", VSRenderOrder::BackGround);
 	Render->SetPosition(GameEngineWindow::GetScreenSize().half());
 	Render->SetScale(GameEngineWindow::GetScreenSize());
 }

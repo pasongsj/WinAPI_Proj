@@ -36,7 +36,7 @@ void Player::Start()
 
 
 	{
-		AnimationRender = CreateRender(BubbleRenderOrder::Player);
+		AnimationRender = CreateRender(VSRenderOrder::Player);
 		AnimationRender->SetScale({ 100, 100 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "RightAntonio.bmp" });
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "RightAntonio.bmp", .Start = 0, .End = 2, .InterTime = 0.1f });
@@ -65,7 +65,7 @@ void Player::Movecalculation(float _DeltaTime)
 	while (NextPos.x < 0) {
 		NextPos.x += ColliImage->GetImageScale().x;
 	}
-	NextPos.x = (NextPos.ix()) % (ColliImage->GetImageScale().ix());
+	NextPos.x = static_cast<float>((NextPos.ix()) % (ColliImage->GetImageScale().ix()));
 
 	
 

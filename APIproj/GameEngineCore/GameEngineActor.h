@@ -88,15 +88,9 @@ protected:
 
 private:
 
-	int Order;
 	float4 Pos = {0.0f, 0.0f};
 	float LiveTime = 0.0;
 
 	std::list<GameEngineRender*> RenderList; // actor에 포함된 추가 img를 포함한 list ex) player와 hp바
-
-	void SetOrder(int _Order)
-	{
-		Order = _Order;
-	}
 };
 

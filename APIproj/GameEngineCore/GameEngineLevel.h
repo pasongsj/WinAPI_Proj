@@ -25,7 +25,12 @@ public:
 	GameEngineLevel& operator=(const GameEngineLevel& _Other) = delete;
 	GameEngineLevel& operator=(GameEngineLevel&& _Other) noexcept = delete;
 
-	
+	template<typename ActorType, typename EnumType> // Enum을 모르기 때문에 int로 캐스팅하는 작업
+	ActorType* CreateActor(EnumType _Order)
+	{
+		return CreateActor<ActorType>(static_cast<int>(_Order));
+	}
+
 	template<typename ActorType>
 	ActorType* CreateActor(int _Order = 0)
 	{

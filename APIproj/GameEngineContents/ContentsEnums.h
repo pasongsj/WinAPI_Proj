@@ -1,8 +1,9 @@
 #pragma once
 
-enum class BubbleRenderOrder
+enum class VSRenderOrder
 {
 	BackGround,
 	Map,
 	Player,
+	Monster,
 };

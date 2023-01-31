@@ -51,6 +51,15 @@ public:
 	{
 		Parent = _Parent;
 	}
+	virtual void SetOrder(int _Order)
+	{
+		Order = _Order;
+	}
+
+	int GetOrder()
+	{
+		return Order;
+	}
 
 	template<typename ConvertType>
 	ConvertType* GetOwner()
@@ -68,6 +77,7 @@ protected:
 private:
 	GameEngineObject* Parent = nullptr;
 
+	int Order;
 	bool ObjectDeath = false;
 	bool ObjectUpdate = true;
 

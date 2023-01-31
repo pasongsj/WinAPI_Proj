@@ -1,11 +1,12 @@
 #include "InlaidLibraryLevel.h"
-#include "InlaidLibraryBack.h"
-#include "Player.h"
 #include <GameEngineBase/GameEngineDirectory.h>
 #include <GameEngineCore/GameEngineResources.h>
-#include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCore.h>
+#include <GameEnginePlatform/GameEngineInput.h>
 
+#include "InlaidLibraryBack.h"
+#include "Player.h"
+#include "ContentsEnums.h"
 InlaidLibraryLevel::InlaidLibraryLevel()
 {
 }
@@ -57,7 +58,7 @@ void InlaidLibraryLevel::Loading()
 	//	//InlaidLibraryCollideMap* MapCollision = CreateActor<InlaidLibraryCollideMap>(); // 충돌 배경 렌더 확인용
 	//}
 	{
-		Player* NewPlayer = CreateActor<Player>(); // 플레이어
+		Player* NewPlayer = CreateActor<Player>(VSRenderOrder::Player); // 플레이어
 	}
 
 }

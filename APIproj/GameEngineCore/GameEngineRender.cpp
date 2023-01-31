@@ -35,7 +35,7 @@ void GameEngineRender::SetScaleToImage()
 
 void GameEngineRender::SetOrder(int _Order)
 {
-	Order = _Order;
+	GameEngineObject::SetOrder(_Order);
 	GetActor()->GetLevel()->PushRender(this);
 }
 
