@@ -122,8 +122,8 @@ void GameEngineRender::Render(float _DeltaTime)
 void GameEngineRender::CreateAnimation(const FrameAnimationParameter& _Paramter)
 {
 	// 애니메이션을 만들기 위해서 이미지를 검증한다.
-	GameEngineImage* Image = GameEngineResources::GetInst().ImageFind(_Paramter.ImageName);
-
+	//GameEngineImage* Image = GameEngineResources::GetInst().ImageFind(_Paramter.ImageName);
+	Image = GameEngineResources::GetInst().ImageFind(_Paramter.ImageName);
 	if (nullptr == Image)
 	{
 		MsgAssert("존재하지 않는 이미지로 애니메이션을 만들려고 했습니다.");
