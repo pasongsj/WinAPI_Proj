@@ -23,7 +23,7 @@ void Player::Start()
 	MainPlayer = this;
 
 	SetMove(GameEngineWindow::GetScreenSize().half());
-	SetPos(GameEngineWindow::GetScreenSize().half());
+	//SetPos(GameEngineWindow::GetScreenSize().half());
 	//SetMove(float4{2048,948});
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
@@ -51,60 +51,33 @@ void Player::Start()
 void Player::Movecalculation(float _DeltaTime)
 {
 
-	if (false == GameEngineInput::IsPress("LeftMove") && false == GameEngineInput::IsPress("RightMove") && false == GameEngineInput::IsPress("DownMove") && false == GameEngineInput::IsPress("UpMove"))
-	{
-		MoveVec *= 0.01f;
-	}
-
-	// ColMap.BMP 이걸 변수로하면 
-	GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("InlaidLibraryCollision.BMP");
-	if (nullptr == ColImage)
+	// collision.bmp 기준으로 collision 체크
+	GameEngineImage* ColliImage = GameEngineResources::GetInst().ImageFind("InlaidLibraryCollision.BMP");
+	if (nullptr == ColliImage)
 	{
 		MsgAssert("충돌용 맵 이미지가 없습니다.");
 	}
 
 
-	// 내 미래의 위치는 여기인데/.
+	float4 NextPos = GetPos() + MoveVec * _DeltaTime; // 이동할 위치
 
-	bool Check = true;
-	float4 NextPos = GetPos() + MoveVec * _DeltaTime;
-
-	//NextPos -= GetLevel()->GetCameraPos();
-	/*float4 CameraPos = float4::Zero;
-	if (true == IsCameraEffect)
-	{
-		CameraPos = GetActor()->GetLevel()->GetCameraPos();
+	// 무한확장맵 collision Image 위치 맞추기  <inlaid library기준>
+	while (NextPos.x < 0) {
+		NextPos.x += ColliImage->GetImageScale().x;
 	}
-	float4 RenderPos = GetActor()->GetPos() + Position - CameraPos;*/
+	NextPos.x = (NextPos.ix()) % (ColliImage->GetImageScale().ix());
 
-	if (RGB(0, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 0, 0)))
+	
+
+	if (RGB(0, 0, 0) == ColliImage->GetPixelColor(NextPos, RGB(0, 0, 0))) // 다음 위치로 이동하지 못한다면
 	{
-		Check = false;
-		// MoveDir = float4::Zero;
+		MoveVec = float4::Zero; // 이동값 zero
 	}
-	if (false == Check) 
-	{
-		MoveVec = float4::Zero;
-	}
-	//if (false == Check)
-	//{
-	//	while (true)
-	//	{
-	//		MoveVec.y -= 1;
 
-	//		float4 NextPos = GetPos() + MoveVec * _DeltaTime;
-
-	//		if (RGB(0, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 0, 0)))
-	//		{
-	//			continue;
-	//		}
-
-	//		break;
-	//	}
-	//}
 
 	SetMove(MoveVec * _DeltaTime);
 	GetLevel()->SetCameraMove(MoveVec * _DeltaTime);
+	MoveVec = float4::Zero; // 이동 완료수 이동벡터값 초기화
 }
 
 void Player::Update(float _DeltaTime)
@@ -133,9 +106,5 @@ void Player::DirCheck(const std::string_view& _AnimationName)
 
 void Player::Render(float _DeltaTime)
 {
-	/*AccTime += _DeltaTime;
-	float4 PlayerPos = GetPos();
 
-	GameEngineImage* Image = GameEngineResources::GetInst().ImageFind("InlaidLibraryStage.bmp");
-	GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, 0, PlayerPos, { 100, 200 });*/
 }

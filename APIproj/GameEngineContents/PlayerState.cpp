@@ -94,29 +94,29 @@ void Player::MoveUpdate(float _Time)
 		ChangeState(PlayerState::IDLE);
 		return;
 	}
-	float4 MoveRange = float4::Zero;
+
+	MoveVec = float4::Zero;
+	//float4 MoveRange = float4::Zero;
 
 	if (true == GameEngineInput::IsPress("LeftMove"))
 	{
-		MoveRange += float4::Left;
+		MoveVec += float4::Left * MoveSpeed;
 	}
 
 	if (true == GameEngineInput::IsPress("RightMove"))
 	{
-		MoveRange += float4::Right;
+		MoveVec += float4::Right * MoveSpeed;
 	}
 
 	if (true == GameEngineInput::IsPress("UpMove"))
 	{
-		MoveRange += float4::Up;
+		MoveVec += float4::Up * MoveSpeed;
 	}
 	else if (true == GameEngineInput::IsPress("DownMove"))
 	{
-		MoveRange += float4::Down;
+		MoveVec += float4::Down * MoveSpeed;
 	}
-	MoveVec = MoveRange * MoveSpeed;
-	/*SetMove(MoveRange * MoveSpeed * _Time);
-	GetLevel()->SetCameraMove( MoveRange * MoveSpeed * _Time);*/
+
 }
 void Player::MoveEnd() {
 

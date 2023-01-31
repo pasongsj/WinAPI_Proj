@@ -39,10 +39,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="InlaidLibraryCollideMap.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="InlaidLibraryLevel.h">
       <SubType>
       </SubType>
@@ -78,10 +74,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="InlaidLibraryBack.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="InlaidLibraryCollideMap.cpp">
       <SubType>
       </SubType>
     </ClCompile>

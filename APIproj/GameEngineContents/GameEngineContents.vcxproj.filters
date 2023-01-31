@@ -27,9 +27,6 @@
     <ClInclude Include="InlaidLibraryBack.h">
       <Filter>InlaidLibraryStage\InlaidLibraryContents</Filter>
     </ClInclude>
-    <ClInclude Include="InlaidLibraryCollideMap.h">
-      <Filter>InlaidLibraryStage\InlaidLibraryContents</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsGameCore.cpp" />
@@ -58,9 +55,6 @@
       <Filter>Title</Filter>
     </ClCompile>
     <ClCompile Include="InlaidLibraryBack.cpp">
-      <Filter>InlaidLibraryStage\InlaidLibraryContents</Filter>
-    </ClCompile>
-    <ClCompile Include="InlaidLibraryCollideMap.cpp">
       <Filter>InlaidLibraryStage\InlaidLibraryContents</Filter>
     </ClCompile>
   </ItemGroup>

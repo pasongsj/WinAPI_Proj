@@ -1,7 +1,6 @@
 #include "InlaidLibraryLevel.h"
 #include "InlaidLibraryBack.h"
 #include "Player.h"
-#include "InlaidLibraryCollideMap.h"
 #include <GameEngineBase/GameEngineDirectory.h>
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEnginePlatform/GameEngineInput.h>
@@ -24,14 +23,6 @@ void InlaidLibraryLevel::Loading()
 	{
 		GameEngineInput::CreateKey("LevelChange", 'P');
 	}
-
-	/*if (false == GameEngineInput::IsKey("CameraLeftMove")) // 시점(카메라) 버튼 이동
-	{
-		GameEngineInput::CreateKey("CameraLeftMove", VK_LEFT);
-		GameEngineInput::CreateKey("CameraRightMove", VK_RIGHT);
-		GameEngineInput::CreateKey("CameraDownMove", VK_DOWN);
-		GameEngineInput::CreateKey("CameraUpMove", VK_UP);
-	}*/
 
 	// 이미지 로드
 	{
@@ -62,9 +53,9 @@ void InlaidLibraryLevel::Loading()
 	{
 		InlaidLibraryBack* BackGround = CreateActor<InlaidLibraryBack>(); // 가시적 배경
 	}
-	{
-		//InlaidLibraryCollideMap* MapCollision = CreateActor<InlaidLibraryCollideMap>(); // 충돌 배경 
-	}
+	//{
+	//	//InlaidLibraryCollideMap* MapCollision = CreateActor<InlaidLibraryCollideMap>(); // 충돌 배경 렌더 확인용
+	//}
 	{
 		Player* NewPlayer = CreateActor<Player>(); // 플레이어
 	}
