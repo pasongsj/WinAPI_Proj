@@ -86,16 +86,29 @@ public:
 		return x == 0.0f && y == 0.0f && z == 0.0f;
 	}
 
-	// operator
-	float4 operator *(const float _Value) const
+	static float4 Lerp(const float4& Start, const float4& End, float Ratio)
 	{
-		float4 Return;
-		Return.x = x * _Value;
-		Return.y = y * _Value;
-		Return.z = z * _Value;
-		return Return;
+		// 1.5 + 0.5 * 2.5;
+		return Start * (1.0f - Ratio) + (End * Ratio);
 	}
 
+	static float4 LerpClamp(const float4& Start, const float4& End, float Ratio)
+	{
+		if (0 >= Ratio)
+		{
+			Ratio = 0.0f;
+		}
+
+		if (1.0f <= Ratio)
+		{
+			Ratio = 1.0f;
+		}
+
+		return Lerp(Start, End, Ratio);
+	}
+
+	// operator
+	//산술 연산자
 	float4 operator +(const float4 _Value) const
 	{
 		float4 Return;
@@ -114,7 +127,16 @@ public:
 		return Return;
 	}
 
+	float4 operator *(const float _Value) const
+	{
+		float4 Return;
+		Return.x = x * _Value;
+		Return.y = y * _Value;
+		Return.z = z * _Value;
+		return Return;
+	}
 
+	//할당 연산자
 	float4& operator +=(const float4& _Other) 
 	{
 		x += _Other.x;
@@ -122,17 +144,13 @@ public:
 		z += _Other.z;
 		return *this;
 	}
+
 	float4& operator -=(const float4& _Other)
 	{
 		x -= _Other.x;
 		y -= _Other.y;
 		z -= _Other.z;
 		return *this;
-	}
-
-	float4 operator -() const
-	{
-		return { -x, -y, -z, 1.0f };
 	}
 
 	float4& operator *=(const float _Other)
@@ -143,4 +161,9 @@ public:
 		return *this;
 	}
 
+	//단항 연산자
+	float4 operator -() const
+	{
+		return { -x, -y, -z, 1.0f };
+	}
 };
