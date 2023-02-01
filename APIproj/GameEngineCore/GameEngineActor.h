@@ -13,6 +13,7 @@
 
 // 설명 :
 class GameEngineRender;
+class GameEngineCollision;
 class GameEngineLevel;
 class GameEngineActor : public GameEngineObject
 {
@@ -65,6 +66,15 @@ public:
 	GameEngineRender* CreateRender(const std::string_view& _Image, int _Order = 0);
 	GameEngineRender* CreateRender(int _Order = 0);
 
+	template<typename EnumType>
+	GameEngineCollision* CreateCollision(EnumType _GroupIndex)
+	{
+		return CreateCollision(static_cast<int>(_GroupIndex));
+	}
+
+	GameEngineCollision* CreateCollision(int _GroupIndex = 0);
+
+
 protected:
 	// 안구현할수도 있다.
 	// ex) 나무는 Update를 안구현할수도 있다.
@@ -92,5 +102,6 @@ private:
 	float LiveTime = 0.0;
 
 	std::list<GameEngineRender*> RenderList; // actor에 포함된 추가 img를 포함한 list ex) player와 hp바
+	std::list<GameEngineCollision*> CollisionList;
 };
 

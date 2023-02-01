@@ -1,6 +1,7 @@
 #include "GameEngineActor.h"
 #include "GameEngineRender.h"
 #include "GameEngineLevel.h"
+#include "GameEngineCollision.h"
 
 GameEngineActor::GameEngineActor() 
 {
@@ -40,4 +41,14 @@ GameEngineRender* GameEngineActor::CreateRender(int _Order /*= 0*/)
 	Render->SetOrder(_Order);
 	RenderList.push_back(Render);
 	return Render;
+}
+
+GameEngineCollision* GameEngineActor::CreateCollision(int _GroupIndex)
+{
+	GameEngineCollision* Collision = new GameEngineCollision();
+	// 분명뭔가 좀 보기 좋지 않다.
+	Collision->SetOwner(this);
+	Collision->SetOrder(_GroupIndex);
+	CollisionList.push_back(Collision);
+	return Collision;
 }
