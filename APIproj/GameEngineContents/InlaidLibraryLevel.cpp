@@ -7,6 +7,8 @@
 #include "InlaidLibraryBack.h"
 #include "Player.h"
 #include "ContentsEnums.h"
+#include "Monster.h"
+
 InlaidLibraryLevel::InlaidLibraryLevel()
 {
 }
@@ -52,6 +54,29 @@ void InlaidLibraryLevel::Loading()
 			Image->Cut(4, 1);
 		}
 	}
+	
+	{
+		Dir.MoveParentToDirectory("Monster");
+		Dir.Move("Monster");
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightDustElemental.BMP"));
+			Image->Cut(2, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftDustElemental.BMP"));
+			Image->Cut(2, 1);
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightDustElementalDead.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftDustElementalDead.BMP"));
+			Image->Cut(5, 2);
+		}
+	}
+
 	{
 		InlaidLibraryBack* BackGround = CreateActor<InlaidLibraryBack>(); // 가시적 배경
 	}
@@ -63,6 +88,14 @@ void InlaidLibraryLevel::Loading()
 		NewPlayer->SetMove(BGSize.half()); // 화면 중간위치로 이동
 	}
 	SetCameraPos((BGSize - GameEngineWindow::GetScreenSize()).half()); // 카메라 위치 중간으로 이동
+
+	{
+		Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
+
+		Actor->SetMove(
+			BGSize.half() + float4(static_cast<float>(rand() % GameEngineWindow::GetScreenSize().hix()), static_cast<float>(rand() % GameEngineWindow::GetScreenSize().hiy()))
+		);
+	}
 
 }
 
