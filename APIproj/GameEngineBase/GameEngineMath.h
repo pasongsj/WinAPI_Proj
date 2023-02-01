@@ -32,8 +32,27 @@ public:
 	float z = 0.0f;
 	float w = 1.0f;
 	// 마지막이 1인지는 3d 때 배우게 될겁니다.
+	// half 실수값 
+	float hx() const
+	{
+		return (x * 0.5f);
+	}
 
-	// 정수값
+	float hy() const
+	{
+		return (y * 0.5f);
+	}
+
+	float hz() const
+	{
+		return (z * 0.5f);
+	}
+
+	float hw() const
+	{
+		return (w * 0.5f);
+	}
+	// 정수 값
 	int ix() const
 	{
 		return static_cast<int>(x);
@@ -54,7 +73,7 @@ public:
 		return static_cast<int>(w);
 	}
 
-	// half값
+	// half 정수 값
 	int hix() const
 	{
 		return static_cast<int>(x * 0.5f);
@@ -179,5 +198,15 @@ public:
 	float4 operator -() const
 	{
 		return { -x, -y, -z, 1.0f };
+	}
+	
+	//비교 연산자
+	bool operator ==(const float4& _Other) const
+	{
+		return x == _Other.x && y == _Other.y && z == _Other.z;
+	}
+	bool operator !=(const float4& _Other) const
+	{
+		return !(*this == _Other);
 	}
 };

@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-#include <set>
+#include <vector>
 class InlaidLibraryBack  : public GameEngineActor
 {
 public:
@@ -19,8 +19,11 @@ protected:
 	void Update(float _DeltaTime) override;
 	     
 private:
+	GameEngineRender* MainBackGroundRender;
+	GameEngineRender* RemainBackGroundRender;
 	float4 BGSize = float4::Zero;
-	std::set<int> IsRanderPos;
-	int RenPos;
+	float lim = 0;
+	/*std::set<int> IsRanderPos;
+	int RenPos;*/
 };
 

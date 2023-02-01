@@ -25,7 +25,7 @@
       <Filter>Title</Filter>
     </ClInclude>
     <ClInclude Include="InlaidLibraryBack.h">
-      <Filter>InlaidLibraryStage\InlaidLibraryContents</Filter>
+      <Filter>InlaidLibraryStage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -55,7 +55,7 @@
       <Filter>Title</Filter>
     </ClCompile>
     <ClCompile Include="InlaidLibraryBack.cpp">
-      <Filter>InlaidLibraryStage\InlaidLibraryContents</Filter>
+      <Filter>InlaidLibraryStage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -70,9 +70,6 @@
     </Filter>
     <Filter Include="MadForestStage">
       <UniqueIdentifier>{5e27e026-62f8-47dc-8e2e-c82cd70f196a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="InlaidLibraryStage\InlaidLibraryContents">
-      <UniqueIdentifier>{618dcd09-1408-4d0c-ad5d-7d82e9e747b3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
