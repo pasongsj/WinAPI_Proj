@@ -21,5 +21,6 @@ protected:
 private:
 	float4 BGSize = float4::Zero;
 	std::set<int> IsRanderPos;
+	int RenPos;
 };
 
