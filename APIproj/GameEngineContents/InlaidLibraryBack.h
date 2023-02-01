@@ -19,8 +19,8 @@ protected:
 	void Update(float _DeltaTime) override;
 	     
 private:
-	GameEngineRender* MainBackGroundRender;
-	GameEngineRender* RemainBackGroundRender;
+	GameEngineRender* MainBackGroundRender = nullptr;
+	GameEngineRender* RemainBackGroundRender = nullptr;
 	float4 BGSize = float4::Zero;
 	float lim = 0;
 	/*std::set<int> IsRanderPos;

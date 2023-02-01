@@ -16,10 +16,7 @@ public:
 
 	inline bool IsUpdate()
 	{
-		//         조건          ?              true 일때                                      :         false 일때
 		return nullptr != Parent ? ((ObjectUpdate && false == IsDeath()) && Parent->IsUpdate()) : (ObjectUpdate && false == ObjectDeath);
-
-		// return nullptr != Parent ? 1000 : 200;
 	}
 
 	inline bool IsDeath()
@@ -27,16 +24,16 @@ public:
 		return nullptr != Parent ? (true == ObjectDeath || Parent->IsDeath()) : (true == ObjectDeath);
 	}
 
-	inline void Death()
+	inline void Death() //죽이는 기능
 	{
 		ObjectDeath = true;
 	}
 
-	inline void On()
+	inline void On() // update on
 	{
 		ObjectUpdate = true;
 	}
-	inline void Off()
+	inline void Off() // update off
 	{
 		ObjectUpdate = false;
 	}
@@ -46,11 +43,6 @@ public:
 		ObjectUpdate = !ObjectUpdate;
 	}
 
-
-	inline void SetOwner(GameEngineObject* _Parent)
-	{
-		Parent = _Parent;
-	}
 	virtual void SetOrder(int _Order)
 	{
 		Order = _Order;
@@ -59,6 +51,11 @@ public:
 	int GetOrder()
 	{
 		return Order;
+	}
+
+	inline void SetOwner(GameEngineObject* _Parent)
+	{
+		Parent = _Parent;
 	}
 
 	template<typename ConvertType>

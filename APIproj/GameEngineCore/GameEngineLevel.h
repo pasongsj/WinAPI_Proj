@@ -1,6 +1,7 @@
 #pragma once
 #include <list>
 #include <map>
+#include <vector>
 
 #include <GameEngineBase/GameEngineMath.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
@@ -53,6 +54,28 @@ public:
 	inline float4 GetCameraPos()
 	{
 		return CameraPos;
+	}
+
+	template<typename EnumType>
+	std::vector<GameEngineActor*> GetActors(EnumType _GroupIndex) // _GroupIndex에 해당하는 다운캐스팅된 actor list를 return
+	{
+		return GetActors(static_cast<int>(_GroupIndex));
+	}
+
+	std::vector<GameEngineActor*> GetActors(int _GroupIndex)
+	{
+		std::vector<GameEngineActor*> Result;
+
+		// 어떤 
+		std::list<GameEngineActor*>& Group = Actors[_GroupIndex];
+		Result.reserve(Group.size());
+
+		for (GameEngineActor* ActorPtr : Group)
+		{
+			Result.push_back(ActorPtr);
+		}
+
+		return Result;
 	}
 
 protected:

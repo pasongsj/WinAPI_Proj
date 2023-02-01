@@ -35,6 +35,10 @@ void InlaidLibraryBack::Start()
 
 void InlaidLibraryBack::Update(float _DeltaTime)
 {
+	if (nullptr == MainBackGroundRender || nullptr == RemainBackGroundRender) {
+		MsgAssert("InlaidLibraryStage 배경이 렌더되지 않았습니다.");
+		return;
+	}
 	float CamX = (GetLevel()->GetCameraPos()).x + GameEngineWindow::GetScreenSize().hx(); // player의 위치 
 	if ((RemainBackGroundRender->GetPosition() - BGSize.half()).x < CamX && CamX < (RemainBackGroundRender->GetPosition() + BGSize.half()).x) {
 		GameEngineRender* tmp = MainBackGroundRender;
