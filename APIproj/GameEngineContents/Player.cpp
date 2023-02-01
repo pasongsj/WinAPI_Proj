@@ -22,7 +22,7 @@ void Player::Start()
 {
 	MainPlayer = this;
 
-	SetMove(GameEngineWindow::GetScreenSize().half());
+	//SetMove(GameEngineWindow::GetScreenSize().half());
 	//SetPos(GameEngineWindow::GetScreenSize().half());
 	//SetMove(float4{2048,948});
 
@@ -38,13 +38,16 @@ void Player::Start()
 	{
 		AnimationRender = CreateRender(VSRenderOrder::Player);
 		AnimationRender->SetScale({ 130, 130 });
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "RightAntonio.bmp" });
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "RightAntonio.bmp", .Start = 0, .End = 2, .InterTime = 0.1f });
-
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = "LeftAntonio.bmp" });
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "LeftAntonio.bmp", .Start = 0, .End = 2, .InterTime = 0.1f });
+		{
+			AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "RightAntonio.bmp" });
+			AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "RightAntonio.bmp", .Start = 0, .End = 2, .InterTime = 0.1f });
+		}
+		{
+			AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = "LeftAntonio.bmp" });
+			AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "LeftAntonio.bmp", .Start = 0, .End = 2, .InterTime = 0.1f });
+		}
 	}
-	ChangeState(PlayerState::IDLE);
+	ChangeState(PlayerState::IDLE); // 시작 시 기본 상태 설정
 }
 
 void Player::Movecalculation(float _DeltaTime)

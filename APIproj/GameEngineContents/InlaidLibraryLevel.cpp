@@ -24,23 +24,24 @@ void InlaidLibraryLevel::Loading()
 	{
 		GameEngineInput::CreateKey("LevelChange", 'P');
 	}
-
+	float4 BGSize = float4::Zero;
 	// 이미지 로드
+	GameEngineDirectory Dir;
+	Dir.MoveParentToDirectory("ContentsResources");
+	Dir.Move("ContentsResources");
+	Dir.Move("Image");
 	{
-		GameEngineDirectory Dir; // 배경이미지 로드
-		Dir.MoveParentToDirectory("ContentsResources");
-		Dir.Move("ContentsResources");
-		Dir.Move("Image");
+		// 배경이미지 로드
+		Dir.MoveParentToDirectory("InlaidLibrary");
 		Dir.Move("InlaidLibrary");
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("InlaidLibraryStage.BMP"));
 		GameEngineImage* ColImage = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("InlaidLibraryCollision.BMP"));
+		BGSize = Image->GetImageScale();
 	}
 
 	{
-		GameEngineDirectory Dir; // 캐릭터 이미지 로드
-		Dir.MoveParentToDirectory("ContentsResources");
-		Dir.Move("ContentsResources");
-		Dir.Move("Image");
+		// 캐릭터 이미지 로드
+		Dir.MoveParentToDirectory("Player");
 		Dir.Move("Player");
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightAntonio.BMP"));
@@ -59,7 +60,9 @@ void InlaidLibraryLevel::Loading()
 	//}
 	{
 		Player* NewPlayer = CreateActor<Player>(VSRenderOrder::Player); // 플레이어
+		NewPlayer->SetMove(BGSize.half()); // 화면 중간위치로 이동
 	}
+	SetCameraPos((BGSize - GameEngineWindow::GetScreenSize()).half()); // 카메라 위치 중간으로 이동
 
 }
 

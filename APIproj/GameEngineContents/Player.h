@@ -30,7 +30,7 @@ protected:
 private:
 	float AccTime = 0.0f;
 	int StartFrame = 0;
-	float MoveSpeed = 500.0f;
+	float MoveSpeed = 1000.0f;
 	float4 MoveVec = float4::Zero;
 
 	GameEngineRender* AnimationRender = nullptr;
