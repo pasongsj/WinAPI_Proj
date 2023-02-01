@@ -1,5 +1,5 @@
 #pragma once
-
+#include <cmath>
 
 // final 더이상 상속내릴지 못한다.
 // 상속도 못하고 만들지도 못하게 만든 상태로
@@ -84,6 +84,20 @@ public:
 	bool IsZero() const
 	{
 		return x == 0.0f && y == 0.0f && z == 0.0f;
+	}
+
+	float Size() const
+	{
+		return sqrtf(x * x + y * y);
+	}
+
+	void Normalize()
+	{
+		float SizeValue = Size();
+		x /= SizeValue;
+		y /= SizeValue;
+		z /= SizeValue;
+
 	}
 
 	static float4 Lerp(const float4& Start, const float4& End, float Ratio)

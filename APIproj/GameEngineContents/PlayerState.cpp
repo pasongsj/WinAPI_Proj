@@ -100,23 +100,25 @@ void Player::MoveUpdate(float _Time)
 
 	if (true == GameEngineInput::IsPress("LeftMove"))
 	{
-		MoveVec += float4::Left * MoveSpeed;
+		MoveVec += float4::Left;
 	}
 
 	if (true == GameEngineInput::IsPress("RightMove"))
 	{
-		MoveVec += float4::Right * MoveSpeed;
+		MoveVec += float4::Right;
 	}
 
 	if (true == GameEngineInput::IsPress("UpMove"))
 	{
-		MoveVec += float4::Up * MoveSpeed;
-	}
-	else if (true == GameEngineInput::IsPress("DownMove"))
-	{
-		MoveVec += float4::Down * MoveSpeed;
+		MoveVec += float4::Up;
 	}
 
+	if (true == GameEngineInput::IsPress("DownMove"))
+	{
+		MoveVec += float4::Down ;
+	}
+	MoveVec.Normalize();
+	MoveVec *= MoveSpeed;
 }
 void Player::MoveEnd() {
 
