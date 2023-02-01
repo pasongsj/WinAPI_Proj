@@ -9,7 +9,7 @@ class GameEngineWindow;
 class GameEngineInput
 {
 	friend GameEngineWindow;
-public:
+private:
 	class GameEngineKey
 	{
 		friend GameEngineInput;

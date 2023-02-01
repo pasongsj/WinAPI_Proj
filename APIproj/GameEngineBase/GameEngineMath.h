@@ -169,6 +169,15 @@ public:
 		return Return;
 	}
 
+	float4 operator /(const float4 _Value) const
+	{
+		float4 Return;
+		Return.x = x / _Value.x;
+		Return.y = y / _Value.y;
+		Return.z = z / _Value.z;
+		return Return;
+	}
+
 	//할당 연산자
 	float4& operator +=(const float4& _Other) 
 	{
@@ -191,6 +200,22 @@ public:
 		x *= _Other;
 		y *= _Other;
 		z *= _Other;
+		return *this;
+	}
+
+	float4& operator /=(const float4& _Other)
+	{
+		x /= _Other.x;
+		y /= _Other.y;
+		z /= _Other.z;
+		return *this;
+	}
+
+	float4& operator /=(const float& _Other)
+	{
+		x /= _Other;
+		y /= _Other;
+		z /= _Other;
 		return *this;
 	}
 
