@@ -34,6 +34,7 @@ private:
 	float4 MoveVec = float4::Zero;
 
 	GameEngineRender* AnimationRender = nullptr;
+	GameEngineCollision* BodyCollision = nullptr;
 
 	PlayerState StateValue = PlayerState::IDLE;
 	std::string DirString = "Right_";

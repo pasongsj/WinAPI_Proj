@@ -6,7 +6,7 @@
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineRender.h>
-
+#include <GameEngineCore/GameEngineCollision.h>
 Player* Player::MainPlayer;
 
 Player::Player()
@@ -37,7 +37,7 @@ void Player::Start()
 
 	{
 		AnimationRender = CreateRender(VSRenderOrder::Player);
-		AnimationRender->SetScale({ 130, 130 });
+		AnimationRender->SetScale({ 130, 130 }); // 실제 크기 64 x 64
 		{
 			AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "RightAntonio.bmp" });
 			AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "RightAntonio.bmp", .Start = 0, .End = 2, .InterTime = 0.1f });
@@ -45,6 +45,11 @@ void Player::Start()
 		{
 			AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = "LeftAntonio.bmp" });
 			AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "LeftAntonio.bmp", .Start = 0, .End = 2, .InterTime = 0.1f });
+		}
+
+		{
+			BodyCollision = CreateCollision(VSRenderOrder::Player);
+			BodyCollision->SetScale({ 64, 64 });
 		}
 	}
 	ChangeState(PlayerState::IDLE); // 시작 시 기본 상태 설정

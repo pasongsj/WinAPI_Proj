@@ -19,6 +19,17 @@ GameEngineActor::~GameEngineActor()
 		delete _Render;
 		_Render = nullptr;
 	}
+
+	for (GameEngineCollision* _Collision : CollisionList)
+	{
+		if (nullptr == _Collision)
+		{
+			continue;
+		}
+
+		delete _Collision;
+		_Collision = nullptr;
+	}
 }
 
 GameEngineLevel* GameEngineActor::GetLevel()
@@ -46,7 +57,6 @@ GameEngineRender* GameEngineActor::CreateRender(int _Order /*= 0*/)
 GameEngineCollision* GameEngineActor::CreateCollision(int _GroupIndex)
 {
 	GameEngineCollision* Collision = new GameEngineCollision();
-	// 분명뭔가 좀 보기 좋지 않다.
 	Collision->SetOwner(this);
 	Collision->SetOrder(_GroupIndex);
 	CollisionList.push_back(Collision);

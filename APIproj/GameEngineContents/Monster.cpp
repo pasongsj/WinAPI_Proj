@@ -1,6 +1,7 @@
 #include "Monster.h"
 
 #include <GameEngineCore/GameEngineRender.h>
+#include <GameEngineCore/GameEngineCollision.h>
 #include "ContentsEnums.h"
 #include "Player.h"
 Monster::Monster()
@@ -14,7 +15,7 @@ Monster::~Monster()
 void Monster::Start()
 {
 	AnimationRender = CreateRender(VSRenderOrder::Monster);
-	AnimationRender->SetScale({ 130, 130 });
+	AnimationRender->SetScale({ 160, 160 });
 
 	{
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "RightDustElemental.bmp", .Start = 0, .End = 1, .InterTime = 0.1f });
@@ -24,6 +25,10 @@ void Monster::Start()
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = "LeftDustElemental.bmp", .Start = 0, .End = 1, .InterTime = 0.1f });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Dead",  .ImageName = "LeftDustElementalDead.bmp", .Start = 0, .End = 9, .InterTime = 0.1f, .Loop = false });
 	}
+	BodyCollision = CreateCollision(VSRenderOrder::Monster);
+	BodyCollision->SetScale({ 50,50 });
+
+
 	AnimationRender->ChangeAnimation("Right_Idle");
 	//ChangeState(MonsterState::IDLE); // 시작 시 기본 상태 설정
 }
