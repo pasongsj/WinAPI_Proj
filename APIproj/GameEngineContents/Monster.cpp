@@ -44,19 +44,16 @@ void Monster::Update(float _DeltaTime)
 
 
 
-	//std::vector<GameEngineCollision*> Collision;
-	//if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(BubbleCollisionOrder::Player) }, Collision))
-	//{
-	//	for (size_t i = 0; i < Collision.size(); i++)
-	//	{
-	//		// Monster* FindMonster = Collision[i]->GetOwner<Monster>();
+	std::vector<GameEngineCollision*> Collision;
+	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Player) }, Collision))
+	{
+		for (size_t i = 0; i < Collision.size(); i++)
+		{
+			GameEngineActor* ColActor = Collision[i]->GetActor();
+			int a = 0;
 
-	//		GameEngineActor* ColActor = Collision[i]->GetActor();
-
-
-	//		int a = 0;
-	//	}
-	//}
+		}
+	}
 
 	//std::vector<GameEngineActor*> Actors = GetLevel()->GetActors(BubbleRenderOrder::Player);
 

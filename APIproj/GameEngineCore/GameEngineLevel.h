@@ -111,5 +111,7 @@ private:
 	std::map<int, std::list<GameEngineCollision*>> Collisions;
 
 	void PushCollision(GameEngineCollision* _Collision);
+
+	void Release();
 };
 

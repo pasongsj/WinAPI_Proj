@@ -59,6 +59,8 @@ void GameEngineCore::GlobalUpdate()
 
 	Core->MainLevel->ActorsRender(TimeDeltaTime);
 	GameEngineWindow::DoubleBufferRender();
+
+	Core->MainLevel->Release();
 }
 
 void GameEngineCore::GlobalEnd() 
