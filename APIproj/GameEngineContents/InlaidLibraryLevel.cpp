@@ -90,6 +90,14 @@ void InlaidLibraryLevel::Loading()
 	SetCameraPos((BGSize - GameEngineWindow::GetScreenSize()).half()); // 카메라 위치 중간으로 이동
 
 	{
+		/*for (int i = 0;i < 10;i++) {
+			Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
+
+			Actor->SetMove(
+				BGSize.half() + float4(static_cast<float>(rand() % GameEngineWindow::GetScreenSize().hix()), static_cast<float>(rand() % GameEngineWindow::GetScreenSize().hiy()))
+			);
+		}
+		}*/
 		Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
 
 		Actor->SetMove(

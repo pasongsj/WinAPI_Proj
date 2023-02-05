@@ -7,6 +7,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineCollision.h>
+
 Player* Player::MainPlayer;
 
 Player::Player()
@@ -89,6 +90,17 @@ void Player::Movecalculation(float _DeltaTime)
 
 void Player::Update(float _DeltaTime)
 {
+	std::vector<GameEngineCollision*> Collision;
+	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster) }, Collision))
+	{
+		for (size_t i = 0; i < Collision.size(); i++)
+		{
+			// Monster* FindMonster = Collision[i]->GetOwner<Monster>();
+
+			GameEngineActor* ColActor = Collision[i]->GetActor();
+			ColActor->Death();
+		}
+	}
 	UpdateState(_DeltaTime);
 	Movecalculation(_DeltaTime);
 }
