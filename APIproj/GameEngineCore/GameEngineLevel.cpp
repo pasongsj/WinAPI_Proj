@@ -1,6 +1,7 @@
 #include "GameEngineLevel.h"
 #include "GameEngineActor.h"
 #include "GameEngineRender.h"
+#include "GameEngineCollision.h"
 #include <GameEngineBase/GameEngineDebug.h>
 
 GameEngineLevel::GameEngineLevel()
@@ -142,4 +143,15 @@ void GameEngineLevel::PushRender(GameEngineRender* _Render)
 
 	// 먼저 이미 들어가있을수도 있다.
 	Renders[_Render->GetOrder()].push_back(_Render);
+}
+
+void GameEngineLevel::PushCollision(GameEngineCollision* _Collision)
+{
+	if (nullptr == _Collision)
+	{
+		MsgAssert("nullptr인 충돌체를 충돌 그룹속에 넣으려고 했습니다.");
+	}
+
+	// 먼저 이미 들어가있을수도 있다.
+	Collisions[_Collision->GetOrder()].push_back(_Collision);
 }

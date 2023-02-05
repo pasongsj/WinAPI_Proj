@@ -10,10 +10,12 @@
 class GameEngineCore;
 class GameEngineRender;
 class GameEngineActor;
+class GameEngineCollision;
 class GameEngineLevel : public GameEngineObject
 {
 	friend GameEngineCore;
 	friend GameEngineRender;
+	friend GameEngineCollision;
 
 public:
 	// constrcuter destructer
@@ -106,6 +108,8 @@ private:
 
 	void PushRender(GameEngineRender* _Render);
 
+	std::map<int, std::list<GameEngineCollision*>> Collisions;
 
+	void PushCollision(GameEngineCollision* _Collision);
 };
 

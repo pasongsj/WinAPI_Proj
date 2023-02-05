@@ -3,7 +3,8 @@
 
 #include <GameEnginePlatform/GameEngineImage.h>
 
-#include "GameEngineObject.h"
+//#include "GameEngineObject.h"
+#include "GameEngineComponent.h"
  // 랜더링에 관련된 기능을 모두 집약한다.
  // 액터를 하나를 랜더링 할 때 같이 따라오는 이미지가 있다 ex) player에 따라오는 HP bar
  // actor에서 render를 list로 보관하여 연쇄적으로 랜더링 할 수 있도록
@@ -25,7 +26,7 @@ public:
 
 class GameEngineActor;
 class GameEngineLevel;
-class GameEngineRender : public GameEngineObject
+class GameEngineRender : public GameEngineComponent
 {
 	friend GameEngineLevel;
 	friend GameEngineActor;
@@ -42,15 +43,15 @@ public:
 	
 	void SetImage(const std::string_view& _ImageName);
 
-	inline void SetPosition(float4 _Position)
-	{
-		Position = _Position;
-	}
+	//inline void SetPosition(float4 _Position)
+	//{
+	//	Position = _Position;
+	//}
 
-	inline void SetScale(float4 _Scale)
-	{
-		Scale = _Scale;
-	}
+	//inline void SetScale(float4 _Scale)
+	//{
+	//	Scale = _Scale;
+	//}
 
 	void SetScaleToImage();
 	
@@ -67,28 +68,29 @@ public:
 	}
 
 
-	inline float4 GetPosition()
-	{
-		return Position;
-	}
+	//inline float4 GetPosition()
+	//{
+	//	return Position;
+	//}
 
-	inline float4 GetScale()
-	{
-		return Scale;
-	}
+	//inline float4 GetScale()
+	//{
+	//	return Scale;
+	//}
 
 	inline void SetTransColor(int _Color)
 	{
 		TransColor = _Color;
 	}
 
-	GameEngineActor* GetActor();
+	//GameEngineActor* GetActor();
 
 	inline void EffectCameraOff()
 	{
 		IsCameraEffect = false;
 	}
 
+	bool IsAnimationEnd();
 	void CreateAnimation(const FrameAnimationParameter& _Paramter);
 	void ChangeAnimation(const std::string_view& _AnimationName);
 
@@ -120,6 +122,8 @@ private:
 		int CurrentIndex = 0;
 		float CurrentTime = 0.0f;
 		bool Loop = true;
+
+		bool IsEnd();
 
 		void Render(float _DeltaTime);
 

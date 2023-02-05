@@ -13,10 +13,10 @@ GameEngineRender::~GameEngineRender()
 {
 }
 
-GameEngineActor* GameEngineRender::GetActor()
-{
-	return GetOwner<GameEngineActor>();
-}
+//GameEngineActor* GameEngineRender::GetActor()
+//{
+//	return GetOwner<GameEngineActor>();
+//}
 
 void GameEngineRender::SetImage(const std::string_view& _ImageName)
 {
@@ -30,7 +30,8 @@ void GameEngineRender::SetScaleToImage()
 		MsgAssert("이미지를 세팅하지 않았는데 이미지의 크기로 변경하려고 했습니다.");
 	}
 
-	Scale = Image->GetImageScale();
+	SetScale(Image->GetImageScale());
+	//Scale = Image->GetImageScale();
 }
 
 void GameEngineRender::SetOrder(int _Order)
@@ -57,6 +58,12 @@ void GameEngineRender::SetFrame(int _Frame)
 	}
 
 	Frame = _Frame;
+}
+
+bool GameEngineRender::FrameAnimation::IsEnd()
+{
+	int Value = (static_cast<int>(FrameIndex.size()) - 1);
+	return CurrentIndex == Value;
 }
 
 void GameEngineRender::FrameAnimation::Render(float _DeltaTime)
@@ -104,20 +111,24 @@ void GameEngineRender::Render(float _DeltaTime)
 	{
 		CameraPos = GetActor()->GetLevel()->GetCameraPos();
 	}
-	float4 RenderPos = GetActor()->GetPos() + Position - CameraPos;
+	float4 RenderPos = GetActorPlusPos() - CameraPos;
 
 	//ImgStartPos = CameraPos;
 
 	if (true == Image->IsImageCutting())
 	{
-		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, Frame, RenderPos, Scale, TransColor);
+		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, Frame, RenderPos, GetScale(), TransColor);
 	}
 	else
 	{
-		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, RenderPos, Scale, { 0, 0 }, Image->GetImageScale(), TransColor);
+		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, RenderPos, GetScale(), { 0, 0 }, Image->GetImageScale(), TransColor);
 	}
 }
 
+bool GameEngineRender::IsAnimationEnd()
+{
+	return CurrentAnimation->IsEnd();
+}
 
 void GameEngineRender::CreateAnimation(const FrameAnimationParameter& _Paramter)
 {
