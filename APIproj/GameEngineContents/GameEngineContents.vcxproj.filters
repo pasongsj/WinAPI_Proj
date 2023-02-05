@@ -30,6 +30,7 @@
     <ClInclude Include="Monster.h">
       <Filter>Monster</Filter>
     </ClInclude>
+    <ClInclude Include="PlayGameUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsGameCore.cpp" />
@@ -63,6 +64,7 @@
     <ClCompile Include="Monster.cpp">
       <Filter>Monster</Filter>
     </ClCompile>
+    <ClCompile Include="PlayGameUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

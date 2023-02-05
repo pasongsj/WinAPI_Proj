@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "ContentsEnums.h"
 #include "Monster.h"
+#include "PlayGameUI.h"
 
 InlaidLibraryLevel::InlaidLibraryLevel()
 {
@@ -78,11 +79,21 @@ void InlaidLibraryLevel::Loading()
 	}
 
 	{
+		Dir.MoveParentToDirectory("Title");
+		Dir.Move("Title");
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExpBar.BMP"));
+		Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExpBarBlue.BMP"));
+	}
+
+	{
 		InlaidLibraryBack* BackGround = CreateActor<InlaidLibraryBack>(); // 가시적 배경
 	}
-	//{
-	//	//InlaidLibraryCollideMap* MapCollision = CreateActor<InlaidLibraryCollideMap>(); // 충돌 배경 렌더 확인용
-	//}
+
+	{
+		PlayGameUI* NewUI = CreateActor<PlayGameUI>();
+	}
+
+
 	{
 		Player* NewPlayer = CreateActor<Player>(VSRenderOrder::Player); // 플레이어
 		NewPlayer->SetMove(BGSize.half()); // 화면 중간위치로 이동
