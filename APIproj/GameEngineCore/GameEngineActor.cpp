@@ -62,3 +62,13 @@ GameEngineCollision* GameEngineActor::CreateCollision(int _GroupIndex)
 	CollisionList.push_back(Collision);
 	return Collision;
 }
+
+void GameEngineActor::LevelChangeEnd(GameEngineLevel* _PrevLevel)
+{
+
+}
+
+void GameEngineActor::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
+
+}

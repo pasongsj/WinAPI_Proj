@@ -57,6 +57,7 @@ void InlaidLibraryLevel::Loading()
 	}
 	
 	{
+		// 몬스터 이미지 로드
 		Dir.MoveParentToDirectory("Monster");
 		Dir.Move("Monster");
 		{
@@ -79,10 +80,11 @@ void InlaidLibraryLevel::Loading()
 	}
 
 	{
+		// UI 이미지 로드
 		Dir.MoveParentToDirectory("Title");
 		Dir.Move("Title");
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExpBar.BMP"));
-		Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExpBarBlue.BMP"));
+		//Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExpBarBlue.BMP"));
 	}
 
 	{
@@ -93,27 +95,22 @@ void InlaidLibraryLevel::Loading()
 		PlayGameUI* NewUI = CreateActor<PlayGameUI>();
 	}
 
-
 	{
 		Player* NewPlayer = CreateActor<Player>(VSRenderOrder::Player); // 플레이어
 		NewPlayer->SetMove(BGSize.half()); // 화면 중간위치로 이동
 	}
+
 	SetCameraPos((BGSize - GameEngineWindow::GetScreenSize()).half()); // 카메라 위치 중간으로 이동
 
 	{
-		/*for (int i = 0;i < 10;i++) {
+		for (int i = 0;i < 1;i++) 
+		{
 			Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
 
 			Actor->SetMove(
 				BGSize.half() + float4(static_cast<float>(rand() % GameEngineWindow::GetScreenSize().hix()), static_cast<float>(rand() % GameEngineWindow::GetScreenSize().hiy()))
 			);
 		}
-		}*/
-		Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
-
-		Actor->SetMove(
-			BGSize.half() + float4(static_cast<float>(rand() % GameEngineWindow::GetScreenSize().hix()), static_cast<float>(rand() % GameEngineWindow::GetScreenSize().hiy()))
-		);
 	}
 
 }
@@ -125,4 +122,9 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 		GameEngineCore::GetInst()->ChangeLevel("TitleLevel");
 	}
 
+}
+
+void InlaidLibraryLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
+	int a = 0;
 }

@@ -41,7 +41,8 @@ public:
 	GameEngineRender& operator=(const GameEngineRender& _Other) = delete;
 	GameEngineRender& operator=(GameEngineRender&& _Other) noexcept = delete;
 	
-	void SetImage(const std::string_view& _ImageName);
+	void SetImage
+	(const std::string_view& _ImageName);
 
 	//inline void SetPosition(float4 _Position)
 	//{
