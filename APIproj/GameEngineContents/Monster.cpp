@@ -27,6 +27,7 @@ void Monster::Start()
 	}
 	BodyCollision = CreateCollision(VSRenderOrder::Monster);
 	BodyCollision->SetScale({ 50,50 });
+	BodyCollision->SetDamage(10);
 
 
 	AnimationRender->ChangeAnimation("Right_Idle");
@@ -50,6 +51,7 @@ void Monster::Update(float _DeltaTime)
 		for (size_t i = 0; i < Collision.size(); i++)
 		{
 			GameEngineActor* ColActor = Collision[i]->GetActor();
+			ColActor->Attack(BodyCollision->GetDamage());
 			int a = 0;
 
 		}

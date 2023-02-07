@@ -54,6 +54,7 @@ void Player::Start()
 		}
 	}
 	ChangeState(PlayerState::IDLE); // 시작 시 기본 상태 설정
+	SetHp(100);
 }
 
 void Player::Movecalculation(float _DeltaTime)
@@ -103,6 +104,10 @@ void Player::Update(float _DeltaTime)
 	}
 	UpdateState(_DeltaTime);
 	Movecalculation(_DeltaTime);
+
+	if (GetHp() < 0) {
+		int a = 0;
+	}
 }
 
 void Player::DirCheck(const std::string_view& _AnimationName)

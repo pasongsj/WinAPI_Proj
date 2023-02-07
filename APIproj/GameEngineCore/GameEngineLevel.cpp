@@ -3,6 +3,10 @@
 #include "GameEngineRender.h"
 #include "GameEngineCollision.h"
 #include <GameEngineBase/GameEngineDebug.h>
+#include <GameEnginePlatform/GameEngineWindow.h>
+
+
+bool GameEngineLevel::IsDebugRender = false;
 
 GameEngineLevel::GameEngineLevel()
 {
@@ -27,6 +31,15 @@ GameEngineLevel::~GameEngineLevel()
 	}
 
 	Actors.clear();
+}
+
+float4 GameEngineLevel::GetMousePos()
+{
+	return GameEngineWindow::GetMousePosition();
+}
+float4 GameEngineLevel::GetMousePosToCamera()
+{
+	return GameEngineWindow::GetMousePosition() + CameraPos;
 }
 
 void GameEngineLevel::ActorStart(GameEngineActor* _Actor, int _Order)
@@ -270,6 +283,7 @@ void GameEngineLevel::Release()
 				// Actors.erase()
 				if (nullptr != ReleaseActor && false == ReleaseActor->IsDeath())
 				{
+					ReleaseActor->Release();
 					++ActorIterStart;
 					continue;
 				}

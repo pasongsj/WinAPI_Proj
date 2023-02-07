@@ -74,6 +74,17 @@ public:
 
 	GameEngineCollision* CreateCollision(int _GroupIndex = 0);
 
+	inline void Attack(int _Att) {
+		Hp -= _Att;
+	}
+	inline void SetHp(int _Hp) {
+		Hp = _Hp;
+	}
+
+	int GetHp() {
+		return Hp;
+	}
+
 
 protected:
 	// 안구현할수도 있다.
@@ -107,5 +118,8 @@ private:
 
 	std::list<GameEngineRender*> RenderList; // actor에 포함된 추가 img를 포함한 list ex) player와 hp바
 	std::list<GameEngineCollision*> CollisionList;
+
+	void Release();
+	int Hp = 0;
 };
 

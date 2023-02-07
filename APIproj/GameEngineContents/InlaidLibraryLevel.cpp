@@ -27,6 +27,12 @@ void InlaidLibraryLevel::Loading()
 	{
 		GameEngineInput::CreateKey("LevelChange", 'P');
 	}
+
+	if (false == GameEngineInput::IsKey("DebugRenderSwitch"))
+	{
+		GameEngineInput::CreateKey("DebugRenderSwitch", 'R');
+	}
+
 	float4 BGSize = float4::Zero;
 	// 이미지 로드
 	GameEngineDirectory Dir;
@@ -103,7 +109,7 @@ void InlaidLibraryLevel::Loading()
 	SetCameraPos((BGSize - GameEngineWindow::GetScreenSize()).half()); // 카메라 위치 중간으로 이동
 
 	{
-		for (int i = 0;i < 1;i++) 
+		for (int i = 0;i < 15;i++) 
 		{
 			Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
 
@@ -122,6 +128,11 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 		GameEngineCore::GetInst()->ChangeLevel("TitleLevel");
 	}
 
+	if (GameEngineInput::IsDown("DebugRenderSwitch"))
+	{
+		DebugRenderSwitch();
+		// Player::MainPlayer->Death()p;
+	}
 }
 
 void InlaidLibraryLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)

@@ -255,3 +255,13 @@ void GameEngineWindow::SettingWindowPos(float4 _Pos)
     WindowPos = _Pos;
     SetWindowPos(HWnd, nullptr, WindowPos.ix(), WindowPos.iy(), WindowSize.ix(), WindowSize.iy(), SWP_NOZORDER);
 }
+
+float4 GameEngineWindow::GetMousePosition()
+{
+    POINT MoniterPoint;
+    LPPOINT PointPtr = &MoniterPoint;
+    GetCursorPos(PointPtr);
+    ScreenToClient(HWnd, PointPtr);
+
+    return { static_cast<float>(MoniterPoint.x),static_cast<float>(MoniterPoint.y) };
+}

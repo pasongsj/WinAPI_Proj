@@ -28,6 +28,14 @@ public:
 	GameEngineLevel& operator=(const GameEngineLevel& _Other) = delete;
 	GameEngineLevel& operator=(GameEngineLevel&& _Other) noexcept = delete;
 
+	static void DebugRenderSwitch()
+	{
+		IsDebugRender = !IsDebugRender;
+	}
+
+	float4 GetMousePos();
+	float4 GetMousePosToCamera();
+
 	template<typename ActorType, typename EnumType> // Enum을 모르기 때문에 int로 캐스팅하는 작업
 	ActorType* CreateActor(EnumType _Order)
 	{
@@ -92,6 +100,8 @@ protected:
 	
 
 private:
+
+	static bool IsDebugRender;
 
 	float4 CameraPos = float4::Zero;/*GameEngineWindow::GetScreenSize().half();*/
 	// 행동순서를 담은 map

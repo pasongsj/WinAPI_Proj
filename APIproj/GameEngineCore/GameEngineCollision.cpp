@@ -13,6 +13,10 @@ public:
 	CollisionFunctionInit()
 	{
 		ColFunctionPtr[CT_CirCle][CT_CirCle] = GameEngineCollision::CollisionCirCleToCirCle;
+		ColFunctionPtr[CT_CirCle][CT_Point] = GameEngineCollision::CollisionCirCleToPoint;
+		ColFunctionPtr[CT_Rect][CT_Rect] = GameEngineCollision::CollisionRectToRect;
+		ColFunctionPtr[CT_Rect][CT_Point] = GameEngineCollision::CollisionRectToPoint;
+
 	}
 	~CollisionFunctionInit()
 	{
@@ -37,6 +41,64 @@ bool GameEngineCollision::CollisionCirCleToCirCle(const CollisionData& _Left, co
 	float Size = Len.Size();
 	float RadiusSum = _Left.Scale.hx() + _Right.Scale.hx();
 	return RadiusSum > Size;
+}
+
+bool GameEngineCollision::CollisionCirCleToPoint(const CollisionData& _Left, const CollisionData& _Right)
+{
+	float4 Len = _Left.Position - _Right.Position;
+	float Size = Len.Size();
+	float RadiusSum = _Left.Scale.hx();
+	return RadiusSum > Size;
+}
+
+bool GameEngineCollision::CollisionRectToRect(const CollisionData& _Left, const CollisionData& _Right)
+{
+	if (_Left.Bot() <= _Right.Top())
+	{
+		return false;
+	}
+
+	if (_Left.Top() >= _Right.Bot())
+	{
+		return false;
+	}
+
+	if (_Left.Left() >= _Right.Right())
+	{
+		return false;
+	}
+
+	if (_Left.Right() <= _Right.Left())
+	{
+		return false;
+	}
+
+	return true;
+}
+
+bool GameEngineCollision::CollisionRectToPoint(const CollisionData& _Left, const CollisionData& _Right)
+{
+	if (_Left.Bot() <= _Right.Position.y)
+	{
+		return false;
+	}
+
+	if (_Left.Top() >= _Right.Position.y)
+	{
+		return false;
+	}
+
+	if (_Left.Left() >= _Right.Position.x)
+	{
+		return false;
+	}
+
+	if (_Left.Right() <= _Right.Position.x)
+	{
+		return false;
+	}
+
+	return true;
 }
 
 void GameEngineCollision::SetOrder(int _Order)
@@ -87,6 +149,8 @@ bool GameEngineCollision::Collision(const CollisionCheckParameter& _Parameter, s
 
 	std::list<GameEngineCollision*>& _TargetGroup = GetActor()->GetLevel()->Collisions[_Parameter.TargetGroup];
 
+	SetDebugRenderType(_Parameter.ThisColType);
+
 	for (GameEngineCollision* OtherCollision : _TargetGroup)
 	{
 		if (false == OtherCollision->IsUpdate())
@@ -96,6 +160,8 @@ bool GameEngineCollision::Collision(const CollisionCheckParameter& _Parameter, s
 
 		CollisionType Type = _Parameter.ThisColType;
 		CollisionType OtherType = _Parameter.TargetColType;
+
+		OtherCollision->SetDebugRenderType(OtherType);
 
 		if (nullptr == ColFunctionPtr[Type][OtherType])
 		{
@@ -150,3 +216,4 @@ void GameEngineCollision::DebugRender()
 		break;
 	}
 }
+
