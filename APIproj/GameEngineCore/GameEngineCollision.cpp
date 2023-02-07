@@ -2,6 +2,7 @@
 #include "GameEngineActor.h"
 #include "GameEngineLevel.h"
 #include <GameEngineBase/GameEngineDebug.h>
+#include <GameEnginePlatform/GameEngineImage.h>
 
 static bool(*ColFunctionPtr[CT_Max][CT_Max])(const CollisionData& _Left, const CollisionData& _Right);
 
@@ -46,10 +47,19 @@ void GameEngineCollision::SetOrder(int _Order)
 
 bool GameEngineCollision::Collision(const CollisionCheckParameter& _Parameter)
 {
+	if (false == IsUpdate())
+	{
+		return false;
+	}
 	std::list<GameEngineCollision*>& _TargetGroup = GetActor()->GetLevel()->Collisions[_Parameter.TargetGroup];
 
 	for (GameEngineCollision* OtherCollision : _TargetGroup)
 	{
+		if (false == OtherCollision->IsUpdate())
+		{
+			continue;
+		}
+
 		CollisionType Type = _Parameter.ThisColType;
 		CollisionType OtherType = _Parameter.TargetColType;
 
@@ -68,6 +78,11 @@ bool GameEngineCollision::Collision(const CollisionCheckParameter& _Parameter)
 
 bool GameEngineCollision::Collision(const CollisionCheckParameter& _Parameter, std::vector<GameEngineCollision*>& _Collision)
 {
+	if (false == IsUpdate())
+	{
+		return false;
+	}
+
 	_Collision.clear();
 
 	std::list<GameEngineCollision*>& _TargetGroup = GetActor()->GetLevel()->Collisions[_Parameter.TargetGroup];
@@ -99,4 +114,39 @@ bool GameEngineCollision::Collision(const CollisionCheckParameter& _Parameter, s
 CollisionData GameEngineCollision::GetCollisionData()
 {
 	return { GetActorPlusPos(), GetScale() };
+}
+
+
+void GameEngineCollision::DebugRender()
+{
+	HDC BackBufferDc = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
+	float4 DebugRenderPos = GetActorPlusPos() - GetActor()->GetLevel()->GetCameraPos();
+	switch (DebugRenderType)
+	{
+	case CT_Point:
+		break;
+	case CT_CirCle:
+	{
+		int Radius = GetScale().hix();
+		Ellipse(BackBufferDc,
+			DebugRenderPos.ix() - Radius,
+			DebugRenderPos.iy() - Radius,
+			DebugRenderPos.ix() + Radius,
+			DebugRenderPos.iy() + Radius);
+		break;
+	}
+	case CT_Rect:
+	{
+		Rectangle(BackBufferDc,
+			DebugRenderPos.ix() - GetScale().hix(),
+			DebugRenderPos.iy() - GetScale().hiy(),
+			DebugRenderPos.ix() + GetScale().hix(),
+			DebugRenderPos.iy() + GetScale().hiy());
+		break;
+	}
+	case CT_Max:
+		break;
+	default:
+		break;
+	}
 }

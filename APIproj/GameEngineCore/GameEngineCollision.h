@@ -51,10 +51,17 @@ public:
 
 	CollisionData GetCollisionData();
 
+	void DebugRender();
+
+	void SetDebugRenderType(CollisionType _DebugRenderType)
+	{
+		DebugRenderType = _DebugRenderType;
+	}
+
 protected:
 
 private:
-
+	CollisionType DebugRenderType = CollisionType::CT_CirCle;
 
 };
 

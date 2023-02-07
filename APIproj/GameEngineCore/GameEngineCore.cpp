@@ -97,6 +97,11 @@ GameEngineCore::~GameEngineCore()
 
 void GameEngineCore::CoreStart(HINSTANCE _instance)
 {
+	if (false == GameEngineInput::IsKey("EngineMouseLeft"))
+	{
+		GameEngineInput::CreateKey("EngineMouseLeft", VK_LBUTTON);
+		GameEngineInput::CreateKey("EngineMouseRight", VK_RBUTTON);
+	}
 	GameEngineWindow::WindowCreate(_instance, "MainWindow", { 1280, 720 }, { 0, 0 });
 	GameEngineWindow::WindowLoop(GameEngineCore::GlobalStart, GameEngineCore::GlobalUpdate, GameEngineCore::GlobalEnd);
 }

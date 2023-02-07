@@ -35,6 +35,8 @@ void TitleLevel::Loading()
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("TitleMainBackGround.BMP"));
 
 		Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("TitleBackGround.BMP"));
+
+		Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("startbutton.BMP"));
 	}
 
 	CreateActor<TitleSubBack>();
@@ -42,9 +44,10 @@ void TitleLevel::Loading()
 
 void TitleLevel::Update(float _DeltaTime)
 {
-	if (true == GameEngineInput::IsAnyKey())
+	if (!IsMainBack && true == GameEngineInput::IsAnyKey())
 	{
 		CreateActor<TitleMainBack>();
+		IsMainBack = true;
 	}
 
 	if (true == GameEngineInput::IsDown("LevelChange"))

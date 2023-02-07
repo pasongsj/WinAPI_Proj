@@ -23,6 +23,6 @@ protected:
 	void LevelChangeStart(GameEngineLevel* _PrevLevel) override {}
 
 private:
-
+	bool IsMainBack = false;
 };
 
