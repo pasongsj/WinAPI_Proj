@@ -26,8 +26,9 @@ void Monster::Start()
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Dead",  .ImageName = "LeftDustElementalDead.bmp", .Start = 0, .End = 9, .InterTime = 0.1f, .Loop = false });
 	}
 	BodyCollision = CreateCollision(VSRenderOrder::Monster);
-	BodyCollision->SetScale({ 50,50 });
+	BodyCollision->SetScale({ 60,60 });
 	BodyCollision->SetDamage(10);
+	BodyCollision->SetPosition({ 0, -BodyCollision->GetScale().hy() });
 
 
 	AnimationRender->ChangeAnimation("Right_Idle");
@@ -48,6 +49,7 @@ void Monster::Update(float _DeltaTime)
 	std::vector<GameEngineCollision*> Collision;
 	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Player) }, Collision))
 	{
+		BodyCollision->Off(); // 계속 collision되는 것을 막기 위해
 		for (size_t i = 0; i < Collision.size(); i++)
 		{
 			GameEngineActor* ColActor = Collision[i]->GetActor();
@@ -55,6 +57,14 @@ void Monster::Update(float _DeltaTime)
 			int a = 0;
 
 		}
+	}
+
+	if (BodyCollision->IsUpdate() == false) { // off상태라면
+		CollisionOffTime += _DeltaTime;
+	}
+	if (CollisionOffTime > 1.0f) { // 1초 후 collsion on시킴
+		BodyCollision->On();
+		CollisionOffTime = 0.0f;
 	}
 
 	//std::vector<GameEngineActor*> Actors = GetLevel()->GetActors(BubbleRenderOrder::Player);

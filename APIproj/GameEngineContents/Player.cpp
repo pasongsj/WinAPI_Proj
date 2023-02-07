@@ -51,6 +51,7 @@ void Player::Start()
 		{
 			BodyCollision = CreateCollision(VSRenderOrder::Player);
 			BodyCollision->SetScale({ 64, 64 });
+			BodyCollision->SetPosition({ 0, -BodyCollision->GetScale().hy()});
 		}
 	}
 	ChangeState(PlayerState::IDLE); // 시작 시 기본 상태 설정
@@ -91,23 +92,21 @@ void Player::Movecalculation(float _DeltaTime)
 
 void Player::Update(float _DeltaTime)
 {
-	std::vector<GameEngineCollision*> Collision;
-	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster) }, Collision))
-	{
-		for (size_t i = 0; i < Collision.size(); i++)
-		{
-			// Monster* FindMonster = Collision[i]->GetOwner<Monster>();
+	//std::vector<GameEngineCollision*> Collision;
+	//if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster) }, Collision))
+	//{
+	//	for (size_t i = 0; i < Collision.size(); i++)
+	//	{
+	//		// Monster* FindMonster = Collision[i]->GetOwner<Monster>();
 
-			GameEngineActor* ColActor = Collision[i]->GetActor();
-			ColActor->Death();
-		}
-	}
+	//		GameEngineActor* ColActor = Collision[i]->GetActor();
+	//		ColActor->Death();
+	//	}
+	//}
 	UpdateState(_DeltaTime);
 	Movecalculation(_DeltaTime);
 
-	if (GetHp() < 0) {
-		int a = 0;
-	}
+
 }
 
 void Player::DirCheck(const std::string_view& _AnimationName)

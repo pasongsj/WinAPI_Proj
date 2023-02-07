@@ -27,5 +27,6 @@ protected:
 private:
 	GameEngineRender* AnimationRender = nullptr;
 	GameEngineCollision* BodyCollision = nullptr;
+	float CollisionOffTime = 0.0f;
 };
 
