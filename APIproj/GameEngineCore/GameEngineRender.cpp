@@ -21,6 +21,11 @@ GameEngineRender::~GameEngineRender()
 void GameEngineRender::SetImage(const std::string_view& _ImageName)
 {
 	Image = GameEngineResources::GetInst().ImageFind(_ImageName);
+}
+
+void GameEngineRender::SetImageToScaleToImage(const std::string_view& _ImageName)
+{
+	Image = GameEngineResources::GetInst().ImageFind(_ImageName);
 	SetScaleToImage();
 }
 
@@ -108,7 +113,7 @@ void GameEngineRender::Render(float _DeltaTime)
 		MsgAssert("이미지를 세팅해주지 않았습니다.");
 	}
 	float4 CameraPos = float4::Zero;
-	if (true == IsCameraEffect) 
+	if (true == IsEffectCamera)
 	{
 		CameraPos = GetActor()->GetLevel()->GetCameraPos();
 	}

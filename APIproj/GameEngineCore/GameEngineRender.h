@@ -41,18 +41,9 @@ public:
 	GameEngineRender& operator=(const GameEngineRender& _Other) = delete;
 	GameEngineRender& operator=(GameEngineRender&& _Other) noexcept = delete;
 	
-	void SetImage
-	(const std::string_view& _ImageName);
+	void SetImage(const std::string_view& _ImageName);
 
-	//inline void SetPosition(float4 _Position)
-	//{
-	//	Position = _Position;
-	//}
-
-	//inline void SetScale(float4 _Scale)
-	//{
-	//	Scale = _Scale;
-	//}
+	void SetImageToScaleToImage(const std::string_view& _ImageName);
 
 	void SetScaleToImage();
 	
@@ -68,27 +59,25 @@ public:
 		return Frame;
 	}
 
-
-	//inline float4 GetPosition()
-	//{
-	//	return Position;
-	//}
-
-	//inline float4 GetScale()
-	//{
-	//	return Scale;
-	//}
-
 	inline void SetTransColor(int _Color)
 	{
 		TransColor = _Color;
 	}
 
 	//GameEngineActor* GetActor();
+	inline void SetEffectCamera(bool _Effect)
+	{
+		IsEffectCamera = _Effect;
+	}
 
 	inline void EffectCameraOff()
 	{
-		IsCameraEffect = false;
+		SetEffectCamera(false);
+	}
+
+	inline void EffectCameraOn()
+	{
+		SetEffectCamera(true);
 	}
 
 	bool IsAnimationEnd();
@@ -104,7 +93,7 @@ private:
 	float4 Position = float4::Zero;
 	float4 Scale = float4::Zero;
 	GameEngineImage* Image = nullptr;
-	bool IsCameraEffect = true;
+	bool IsEffectCamera = true;
 
 	int Frame = 0;
 
