@@ -74,17 +74,6 @@ public:
 
 	GameEngineCollision* CreateCollision(int _GroupIndex = 0);
 
-	inline void Attack(int _Att) {
-		Hp -= _Att;
-	}
-	inline void SetHp(int _Hp) {
-		Hp = _Hp;
-	}
-
-	int GetHp() {
-		return Hp;
-	}
-
 
 protected:
 	// 안구현할수도 있다.
@@ -120,6 +109,5 @@ private:
 	std::list<GameEngineCollision*> CollisionList;
 
 	void Release();
-	int Hp = 0;
 };
 

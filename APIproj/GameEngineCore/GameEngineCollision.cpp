@@ -185,6 +185,9 @@ CollisionData GameEngineCollision::GetCollisionData()
 
 void GameEngineCollision::DebugRender()
 {
+	if (IsDmg == false) {
+		return;
+	}
 	HDC BackBufferDc = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
 	float4 DebugRenderPos = GetActorPlusPos() - GetActor()->GetLevel()->GetCameraPos();
 	switch (DebugRenderType)

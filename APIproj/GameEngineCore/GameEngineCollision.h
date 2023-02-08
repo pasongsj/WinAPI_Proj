@@ -84,7 +84,28 @@ public:
 	}
 
 	int GetDamage() {
-		return Damage;
+		return (IsDmg ? Damage : 0);
+	}
+	
+	inline void DmgOff(float _OffTime = 30.0f) {
+		IsDmg = false;
+		OffTime = _OffTime;
+	}
+
+	/*inline void DmgOn() {
+		IsDmg = true;
+	}*/
+	bool GetIsDmg() {
+		if (OffTime < 0.0f)
+		{
+			IsDmg = true;
+			OffTime = 0.0f;
+		}
+		return IsDmg;
+	}
+
+	void CheckOffTime(float _Time) {
+		OffTime -= _Time;
 	}
 
 protected:
@@ -92,6 +113,7 @@ protected:
 private:
 	CollisionType DebugRenderType = CollisionType::CT_CirCle;
 	int Damage = 0;
-
+	bool IsDmg = true;
+	float OffTime = 0;
 };
 

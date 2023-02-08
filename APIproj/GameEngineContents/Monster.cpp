@@ -1,5 +1,6 @@
 #include "Monster.h"
-
+#include <ctime>
+#include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include "ContentsEnums.h"
@@ -27,10 +28,14 @@ void Monster::Start()
 	}
 	BodyCollision = CreateCollision(VSRenderOrder::Monster);
 	BodyCollision->SetScale({ 60,60 });
-	BodyCollision->SetDamage(10);
 	BodyCollision->SetPosition({ 0, -BodyCollision->GetScale().hy() });
+	BodyCollision->SetDamage(10);
 
-
+	//srand(time(0));
+	float4 CamPos = GetLevel()->GetCameraPos();
+	SetMove(
+		CamPos + float4(static_cast<float>(rand() % GameEngineWindow::GetScreenSize().ix()), static_cast<float>(rand() % GameEngineWindow::GetScreenSize().iy()))
+	);
 	AnimationRender->ChangeAnimation("Right_Idle");
 	//ChangeState(MonsterState::IDLE); // 시작 시 기본 상태 설정
 }
@@ -44,27 +49,20 @@ void Monster::Update(float _DeltaTime)
 	Dir.Normalize();
 	SetMove(Dir * 200.0f * _DeltaTime);
 
-
+	if (false == BodyCollision->GetIsDmg()) {
+		BodyCollision->CheckOffTime(_DeltaTime);
+	}
 
 	std::vector<GameEngineCollision*> Collision;
 	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Player) }, Collision))
 	{
-		BodyCollision->Off(); // 계속 collision되는 것을 막기 위해
+		//BodyCollision->Off(); // 계속 collision되는 것을 막기 위해
 		for (size_t i = 0; i < Collision.size(); i++)
 		{
 			GameEngineActor* ColActor = Collision[i]->GetActor();
-			ColActor->Attack(BodyCollision->GetDamage());
 			int a = 0;
 
 		}
-	}
-
-	if (BodyCollision->IsUpdate() == false) { // off상태라면
-		CollisionOffTime += _DeltaTime;
-	}
-	if (CollisionOffTime > 1.0f) { // 1초 후 collsion on시킴
-		BodyCollision->On();
-		CollisionOffTime = 0.0f;
 	}
 
 	//std::vector<GameEngineActor*> Actors = GetLevel()->GetActors(BubbleRenderOrder::Player);

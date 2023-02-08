@@ -22,6 +22,17 @@ public:
 	Player& operator=(const Player& _Other) = delete;
 	Player& operator=(Player&& _Other) noexcept = delete;
 
+	inline void Attack(int _Att) {
+		Hp -= _Att;
+	}
+	inline void SetHp(int _Hp) {
+		Hp = _Hp;
+	}
+
+	int GetHp() {
+		return Hp;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -32,6 +43,8 @@ private:
 	int StartFrame = 0;
 	float MoveSpeed = 1000.0f;
 	float4 MoveVec = float4::Zero;
+
+	int Hp = 0;
 
 	GameEngineRender* AnimationRender = nullptr;
 	GameEngineCollision* BodyCollision = nullptr;
