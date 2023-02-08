@@ -92,6 +92,12 @@ void InlaidLibraryLevel::Loading()
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExpBar.BMP"));
 		//Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExpBarBlue.BMP"));
 	}
+	{ // UI - 맵 숫자 이미지 로드
+		Dir.MoveParentToDirectory("InlaidLibrary");
+		Dir.Move("InlaidLibrary");
+		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Number.BMP"));
+		Image2->Cut(10, 1);
+	}
 
 	{
 		InlaidLibraryBack* BackGround = CreateActor<InlaidLibraryBack>(); // 가시적 배경

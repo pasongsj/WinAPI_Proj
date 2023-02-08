@@ -14,7 +14,6 @@ InlaidLibraryBack::~InlaidLibraryBack()
 
 void InlaidLibraryBack::Start()
 {
-	//float4 Size = GameEngineWindow::GetScreenSize();
 	{
 		MainBackGroundRender = CreateRender("InlaidLibraryStage.bmp", VSRenderOrder::BackGround);
 		MainBackGroundRender->SetPosition(MainBackGroundRender->GetImage()->GetImageScale().half());

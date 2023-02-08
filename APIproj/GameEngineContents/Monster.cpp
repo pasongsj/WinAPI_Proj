@@ -49,9 +49,9 @@ void Monster::Update(float _DeltaTime)
 	Dir.Normalize();
 	SetMove(Dir * 200.0f * _DeltaTime);
 
-	if (false == BodyCollision->GetIsDmg()) {
+	/*if (false == BodyCollision->GetIsDmg()) {
 		BodyCollision->CheckOffTime(_DeltaTime);
-	}
+	}*/
 
 	std::vector<GameEngineCollision*> Collision;
 	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Player) }, Collision))

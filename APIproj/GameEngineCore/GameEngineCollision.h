@@ -96,16 +96,16 @@ public:
 		IsDmg = true;
 	}*/
 	bool GetIsDmg() {
-		if (OffTime < 0.0f)
-		{
-			IsDmg = true;
-			OffTime = 0.0f;
-		}
 		return IsDmg;
 	}
 
 	void CheckOffTime(float _Time) {
 		OffTime -= _Time;
+		if (OffTime < 0.0f)
+		{
+			IsDmg = true;
+			OffTime = 0.0f;
+		}
 	}
 
 protected:

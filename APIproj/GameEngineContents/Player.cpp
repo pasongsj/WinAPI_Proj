@@ -101,8 +101,8 @@ void Player::Update(float _DeltaTime)
 
 			GameEngineActor* ColActor = Collision[i]->GetActor();
 
-			Hp -= Collision[i]->GetDamage(); // 임시 공격
-			Collision[i]->DmgOff(0.5f);
+			//Hp -= Collision[i]->GetDamage(); // 임시 공격
+			//Collision[i]->DmgOff(0.5f);
 		}
 	}
 	if (Hp<80){

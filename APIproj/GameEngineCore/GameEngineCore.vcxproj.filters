@@ -23,6 +23,9 @@
     <ClCompile Include="GameEngineComponent.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="NumberRenderObject.cpp">
+      <Filter>BasicContents\SubClass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngineCore.h" />
@@ -47,6 +50,9 @@
     <ClInclude Include="GameEngineComponent.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="NumberRenderObject.h">
+      <Filter>BasicContents\SubClass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Object">
@@ -60,6 +66,12 @@
     </Filter>
     <Filter Include="Object\Collision">
       <UniqueIdentifier>{f0b3533c-7584-47bd-b63f-06bbad905450}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BasicContents">
+      <UniqueIdentifier>{571960ed-f540-427a-8db6-77da8e63c22c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BasicContents\SubClass">
+      <UniqueIdentifier>{7f311cd6-f65c-44e9-af48-36ed7a81a7a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

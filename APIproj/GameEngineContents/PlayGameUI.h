@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+#include <GameEngineCore/NumberRenderObject.h>
 
 class PlayGameUI : public GameEngineActor
 {
@@ -19,6 +20,9 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
+	float StageTime = 0.0f;
 	GameEngineRender* UIRender = nullptr;
+
+	NumberRenderObject StageTimerNum;
 };
 

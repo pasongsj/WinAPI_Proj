@@ -1,5 +1,6 @@
 #pragma once
 #include <cmath>
+#include <vector>
 
 // final 더이상 상속내릴지 못한다.
 // 상속도 못하고 만들지도 못하게 만든 상태로
@@ -7,6 +8,8 @@
 class GameEngineMath final // final은 상속, override를 막는다.
 {
 public:
+	static std::vector<unsigned int> GetDigits(int _Value);
+	static unsigned int GetLenth(int _Value);
 	static const float PIE;
 	static const float PIE2; // pie * 2
 
