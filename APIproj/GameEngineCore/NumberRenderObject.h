@@ -39,7 +39,10 @@ public:
 	inline void SetPos(const float4& _Pos) {
 		Pos = _Pos;
 	}
-	
+
+	inline void SetNumOfDigits(int _Num) {
+		NumOfDigits = _Num;
+	}
 
 protected:
 
@@ -52,9 +55,10 @@ private:
 	Align AlignState = Align::Left;
 	// GameEngineImage* NumberImage;
 
+	int NumOfDigits = -1;
+
 	std::string_view ImageName = std::string_view();
 
 	std::vector<GameEngineRender*> NumberRenders = std::vector<GameEngineRender*>();
 
 };
-

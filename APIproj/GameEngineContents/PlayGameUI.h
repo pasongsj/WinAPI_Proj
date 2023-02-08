@@ -23,6 +23,8 @@ private:
 	float StageTime = 0.0f;
 	GameEngineRender* UIRender = nullptr;
 
-	NumberRenderObject StageTimerNum;
+	NumberRenderObject StageTimerMin;
+	NumberRenderObject StageTimerSec;
+
 };
 
