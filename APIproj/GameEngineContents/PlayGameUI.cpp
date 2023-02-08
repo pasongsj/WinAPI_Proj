@@ -29,12 +29,22 @@ void PlayGameUI::Start()
 	}
 	{
 		BarPos.y += 50;
+		BarPos.x += 35;
+		StageTimerSec.SetOwner(this);
+		StageTimerSec.SetImage("Number.BMp", { 30, 35 }, static_cast<int>(VSRenderOrder::UI), RGB(255, 0, 255));
+		StageTimerSec.SetRenderPos(BarPos);
+		StageTimerSec.SetAlign(Align::Left);
+		StageTimerSec.SetNumOfDigits(2);
+		StageTimerSec.SetValue(static_cast<int>(StageTime)%60);
+	}
+	{
+		BarPos.x -= 70;
 		StageTimerMin.SetOwner(this);
 		StageTimerMin.SetImage("Number.BMp", { 30, 35 }, static_cast<int>(VSRenderOrder::UI), RGB(255, 0, 255));
 		StageTimerMin.SetRenderPos(BarPos);
-		StageTimerMin.SetAlign(Align::Right);
+		StageTimerMin.SetAlign(Align::Left);
 		StageTimerMin.SetNumOfDigits(2);
-		StageTimerMin.SetValue(static_cast<int>(StageTime));
+		StageTimerMin.SetValue(static_cast<int>(StageTime)/60);
 	}
 
 }
@@ -42,6 +52,7 @@ void PlayGameUI::Start()
 void PlayGameUI::Update(float _DeltaTime)
 {
 	StageTime += _DeltaTime;
-	StageTimerMin.SetValue(static_cast<int>(StageTime));
+	StageTimerSec.SetValue(static_cast<int>(StageTime) % 60);
+	StageTimerMin.SetValue(static_cast<int>(StageTime) / 60);
 }
 
