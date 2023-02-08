@@ -30,11 +30,11 @@ void PlayGameUI::Start()
 	{
 		BarPos.y += 50;
 		StageTimerMin.SetOwner(this);
-		StageTimerMin.SetImage("Number.BMp", { 30, 30 }, static_cast<int>(VSRenderOrder::UI), RGB(255, 0, 255));
-		StageTimerMin.SetPos(BarPos);
-		StageTimerMin.SetValue(static_cast<int>(StageTime));
-		StageTimerMin.SetAlign(Align::Left);
+		StageTimerMin.SetImage("Number.BMp", { 30, 35 }, static_cast<int>(VSRenderOrder::UI), RGB(255, 0, 255));
+		StageTimerMin.SetRenderPos(BarPos);
+		StageTimerMin.SetAlign(Align::Right);
 		StageTimerMin.SetNumOfDigits(2);
+		StageTimerMin.SetValue(static_cast<int>(StageTime));
 	}
 
 }

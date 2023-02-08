@@ -29,15 +29,20 @@ public:
 	void SetValue(int _Value);
 
 	void SetMove(float4 _RenderPos);
-	void SetAlign(int _Align);
 	void SetAlign(Align _Align);
 
 	inline int GetValue()
 	{
 		return Value;
 	}
-	inline void SetPos(const float4& _Pos) {
+
+	inline void SetRenderPos(const float4& _Pos) {
 		Pos = _Pos;
+	}
+
+	void SetCameraEffect(bool _EffectSetting)
+	{
+		CameraEffect = _EffectSetting;
 	}
 
 	inline void SetNumOfDigits(int _Num) {
@@ -56,6 +61,8 @@ private:
 	// GameEngineImage* NumberImage;
 
 	int NumOfDigits = -1;
+
+	bool CameraEffect = false;
 
 	std::string_view ImageName = std::string_view();
 

@@ -141,12 +141,20 @@ void NumberRenderObject::SetValue(int _Value)
 		MsgAssert("액터만이 NumberRenderObject의 부모가 될수 있습니다.");
 	}
 
+	if (-1 != NumOfDigits && Numbers.size() > NumOfDigits)
+	{
+		int a = 0;
+		MsgAssert("NumOfDigits이 value값 보다 작습니다.");
+	}
+
+	int Digits = (NumOfDigits == -1 ? Numbers.size() : NumOfDigits);
+	
 	//            자리수가 바뀌었고                  3자리 랜더하고 있었는데 5자리가 됐다면
-	if (NumberRenders.size() != Numbers.size() && NumberRenders.size() < Numbers.size())
+	if (NumberRenders.size() != Digits && NumberRenders.size() < Digits)
 	{
 		size_t CurRenderSize = NumberRenders.size();
 		//                       5                   3
-		for (size_t i = 0; i < (Numbers.size() - CurRenderSize); i++)
+		for (size_t i = 0; i < (Digits - CurRenderSize); i++)
 		{
 			NumberRenders.push_back(Actor->CreateRender(Order));
 		}
@@ -155,9 +163,9 @@ void NumberRenderObject::SetValue(int _Value)
 
 	float4 RenderPos;
 
-	for (size_t i = 0; i < NumberRenders.size(); i++)
-	{
-		GameEngineRender* Render = NumberRenders[i];
+	size_t index = 0;
+	for (; index < Digits - Numbers.size(); ++index) {
+		GameEngineRender* Render = NumberRenders[index];
 
 		if (nullptr == Render)
 		{
@@ -168,8 +176,26 @@ void NumberRenderObject::SetValue(int _Value)
 		Render->SetPosition(Pos + RenderPos);
 		Render->SetImage(ImageName);
 		Render->SetScale(NumberScale);
-		Render->SetFrame(Numbers[i]);
-		Render->EffectCameraOff();
+		Render->SetFrame(0);
+		Render->SetEffectCamera(CameraEffect);
+		RenderPos.x += NumberScale.x;
+	}
+	
+	for (int i = 0; index < NumberRenders.size(); ++index)
+	{
+		GameEngineRender* Render = NumberRenders[index];
+
+		if (nullptr == Render)
+		{
+			MsgAssert("숫자랜더러가 nullptr 입니다");
+		}
+
+		Render->SetTransColor(TransColor);
+		Render->SetPosition(Pos + RenderPos);
+		Render->SetImage(ImageName);
+		Render->SetScale(NumberScale);
+		Render->SetFrame(Numbers[i++]);
+		Render->SetEffectCamera(CameraEffect);
 		RenderPos.x += NumberScale.x;
 	}
 
@@ -196,10 +222,6 @@ void NumberRenderObject::SetMove(float4 _RenderPos)
 	}
 }
 
-void NumberRenderObject::SetAlign(int _Align)
-{
-	AlignState = static_cast<Align>(_Align);
-}
 
 void NumberRenderObject::SetAlign(Align _Align)
 {

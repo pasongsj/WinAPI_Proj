@@ -13,10 +13,6 @@ GameEngineRender::~GameEngineRender()
 {
 }
 
-//GameEngineActor* GameEngineRender::GetActor()
-//{
-//	return GetOwner<GameEngineActor>();
-//}
 
 void GameEngineRender::SetImage(const std::string_view& _ImageName)
 {
@@ -37,7 +33,6 @@ void GameEngineRender::SetScaleToImage()
 	}
 
 	SetScale(Image->GetImageScale());
-	//Scale = Image->GetImageScale();
 }
 
 void GameEngineRender::SetOrder(int _Order)
@@ -74,11 +69,6 @@ bool GameEngineRender::FrameAnimation::IsEnd()
 
 void GameEngineRender::FrameAnimation::Render(float _DeltaTime)
 {
-	//if (CurrentTime <= 0.0f)
-	//{
-	//	CurrentTime = FrameTime[]
-	//}
-
 	CurrentTime -= _DeltaTime;
 
 	if (CurrentTime <= 0.0f)
@@ -112,14 +102,15 @@ void GameEngineRender::Render(float _DeltaTime)
 	{
 		MsgAssert("이미지를 세팅해주지 않았습니다.");
 	}
+
 	float4 CameraPos = float4::Zero;
+
 	if (true == IsEffectCamera)
 	{
 		CameraPos = GetActor()->GetLevel()->GetCameraPos();
 	}
-	float4 RenderPos = GetActorPlusPos() - CameraPos;
 
-	//ImgStartPos = CameraPos;
+	float4 RenderPos = GetActorPlusPos() - CameraPos;
 
 	if (true == Image->IsImageCutting())
 	{
