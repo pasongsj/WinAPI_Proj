@@ -32,7 +32,7 @@ void ContentsGameCore::Start()
 	CreateLevel<TitleLevel>("TitleLevel");
 	CreateLevel<PlayLevel>("PlayLevel");
 	CreateLevel< OpeningLevel>("OpeningLevel");
-	ChangeLevel("TitleLevel");
+	ChangeLevel("OpeningLevel");
 }
 
 void ContentsGameCore::Update()

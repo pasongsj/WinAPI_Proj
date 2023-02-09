@@ -18,7 +18,7 @@ TitleLevel::~TitleLevel()
 {
 }
 
-void ClickStartbutton()
+void ClickStartButton()
 {
 	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
 }
@@ -62,18 +62,15 @@ void TitleLevel::Loading()
 
 	CreateActor<TitleMainBack>();
 
-	Button* NewButton = CreateActor<Button>();
-	float4 StartBPos = { 774, 610 };
-	/*NewButton->GetButtonRender()->EffectCameraOff();
-	NewButton->SetPos(StartBPos);
-	NewButton->SetHoverImage("startbutton.BMP");
-	NewButton->SetPressImage("CollectionButton.BMP");
-	NewButton->SetReleaseImage("OptionButton.BMP");
-	NewButton->SetScale({ 270, 84 });
-	NewButton->SetClickCallBack(ClickStartbutton);*/
-	//NewButton->GetButtonCollision()->SetDebugRenderType(CollisionType::CT_Rect);
-	NewButton->setting("startbutton.BMP", "OptionButton.BMP", "CollectionButton.BMP", StartBPos, { 270, 84 }, static_cast<int>(VSRenderOrder::UI), false);
-	NewButton->SetClickCallBack(ClickStartbutton);
+	Button* NewStartButton = CreateActor<Button>();
+	float4 StartBPos = { 768, 610 };
+	NewStartButton->setting("startbutton.BMP", "OptionButton.BMP", "CollectionButton.BMP", StartBPos, { 268, 83 }, static_cast<int>(VSRenderOrder::UI), false);
+	NewStartButton->SetClickCallBack(ClickStartButton);
+
+
+	Button* NewReinForceButton = CreateActor<Button>();
+	float4 ReinForceBPos = { 768, 780 };
+	NewReinForceButton->setting("ReinforceButton.BMP", "OptionButton.BMP", "CollectionButton.BMP", ReinForceBPos, { 221, 83 }, static_cast<int>(VSRenderOrder::UI), false);
 }
 
 void TitleLevel::Update(float _DeltaTime)
