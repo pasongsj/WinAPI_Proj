@@ -1,7 +1,7 @@
 #include "GameEngineCollision.h"
 #include "GameEngineActor.h"
 #include "GameEngineLevel.h"
-#include <GameEngineBase/GameEngineDebug.h>
+#include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineImage.h>
 
 static bool(*ColFunctionPtr[CT_Max][CT_Max])(const CollisionData& _Left, const CollisionData& _Right);
@@ -18,7 +18,6 @@ public:
 		ColFunctionPtr[CT_Rect][CT_Point] = GameEngineCollision::CollisionRectToPoint;
 		ColFunctionPtr[CT_Point][CT_CirCle] = GameEngineCollision::CollisionPointToCirCle;
 		ColFunctionPtr[CT_Point][CT_Rect] = GameEngineCollision::CollisionPointToRect;
-
 	}
 	~CollisionFunctionInit()
 	{
@@ -36,20 +35,19 @@ GameEngineCollision::~GameEngineCollision()
 {
 }
 
+bool GameEngineCollision::CollisionCirCleToPoint(const CollisionData& _Left, const CollisionData& _Right)
+{
+	float4 Len = _Left.Position - _Right.Position;
+	float Size = Len.Size();
+	float RadiusSum = _Left.Scale.hx();
+	return RadiusSum > Size;
+}
 
 bool GameEngineCollision::CollisionCirCleToCirCle(const CollisionData& _Left, const CollisionData& _Right)
 {
 	float4 Len = _Left.Position - _Right.Position;
 	float Size = Len.Size();
 	float RadiusSum = _Left.Scale.hx() + _Right.Scale.hx();
-	return RadiusSum > Size;
-}
-
-bool GameEngineCollision::CollisionCirCleToPoint(const CollisionData& _Left, const CollisionData& _Right)
-{
-	float4 Len = _Left.Position - _Right.Position;
-	float Size = Len.Size();
-	float RadiusSum = _Left.Scale.hx();
 	return RadiusSum > Size;
 }
 
@@ -102,13 +100,11 @@ bool GameEngineCollision::CollisionRectToPoint(const CollisionData& _Left, const
 
 	return true;
 }
-
-bool GameEngineCollision::CollisionPointToCirCle(const CollisionData& _Left, const CollisionData& _Right) 
+bool GameEngineCollision::CollisionPointToCirCle(const CollisionData& _Left, const CollisionData& _Right)
 {
 	return CollisionCirCleToPoint(_Right, _Left);
 }
-
-bool GameEngineCollision::CollisionPointToRect(const CollisionData& _Left, const CollisionData& _Right) 
+bool GameEngineCollision::CollisionPointToRect(const CollisionData& _Left, const CollisionData& _Right)
 {
 	return CollisionRectToPoint(_Right, _Left);
 }
@@ -125,10 +121,16 @@ bool GameEngineCollision::Collision(const CollisionCheckParameter& _Parameter)
 	{
 		return false;
 	}
+
 	std::list<GameEngineCollision*>& _TargetGroup = GetActor()->GetLevel()->Collisions[_Parameter.TargetGroup];
 
 	for (GameEngineCollision* OtherCollision : _TargetGroup)
 	{
+		if (OtherCollision == this)
+		{
+			continue;
+		}
+
 		if (false == OtherCollision->IsUpdate())
 		{
 			continue;
@@ -194,7 +196,6 @@ CollisionData GameEngineCollision::GetCollisionData()
 	return { GetActorPlusPos(), GetScale() };
 }
 
-
 void GameEngineCollision::DebugRender()
 {
 	HDC BackBufferDc = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
@@ -228,4 +229,3 @@ void GameEngineCollision::DebugRender()
 		break;
 	}
 }
-

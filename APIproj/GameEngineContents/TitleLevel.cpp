@@ -59,26 +59,21 @@ void TitleLevel::Loading()
 		Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ReinforceButton.BMP"));
 	}
 	MouseObject* MouseObjectInst = CreateActor<MouseObject>();
-	MouseObjectInst->GetMouseCollision()->SetScale({ 10,10 });
-	/*MouseObjectInst->GetMouseRender()->EffectCameraOff();
-	MouseObjectInst->GetMouseRender()->SetOrder(100);
-	MouseObjectInst->GetMouseRender()->SetScale({ 20, 20 });*/
 
-	//CreateActor<TitleSubBack>();
 	CreateActor<TitleMainBack>();
 
 	Button* NewButton = CreateActor<Button>();
 	float4 StartBPos = { 774, 610 };
-	NewButton->GetButtonRender()->EffectCameraOff();
+	/*NewButton->GetButtonRender()->EffectCameraOff();
 	NewButton->SetPos(StartBPos);
 	NewButton->SetHoverImage("startbutton.BMP");
 	NewButton->SetPressImage("CollectionButton.BMP");
 	NewButton->SetReleaseImage("OptionButton.BMP");
 	NewButton->SetScale({ 270, 84 });
+	NewButton->SetClickCallBack(ClickStartbutton);*/
+	//NewButton->GetButtonCollision()->SetDebugRenderType(CollisionType::CT_Rect);
+	NewButton->setting("startbutton.BMP", "OptionButton.BMP", "CollectionButton.BMP", StartBPos, { 270, 84 }, static_cast<int>(VSRenderOrder::UI), false);
 	NewButton->SetClickCallBack(ClickStartbutton);
-	NewButton->GetButtonCollision()->SetDebugRenderType(CollisionType::CT_Rect);
-	//NewButton->setting("startbutton.BMP", "startbutton.BMP", "startbutton.BMP", StartBPos, { 270, 84 }, static_cast<int>(VSRenderOrder::UI), false);
-	//NewButton->SetClickCallBack(ClickStartbutton);
 }
 
 void TitleLevel::Update(float _DeltaTime)

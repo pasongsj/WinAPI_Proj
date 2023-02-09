@@ -100,14 +100,12 @@ void Player::Update(float _DeltaTime)
 			// Monster* FindMonster = Collision[i]->GetOwner<Monster>();
 
 			GameEngineActor* ColActor = Collision[i]->GetActor();
-
+			ColActor->Death();
 			//Hp -= Collision[i]->GetDamage(); // 임시 공격
 			//Collision[i]->DmgOff(0.5f);
 		}
 	}
-	if (Hp<80){
-		int a = 0;
-	}
+	
 	UpdateState(_DeltaTime);
 	Movecalculation(_DeltaTime);
 }

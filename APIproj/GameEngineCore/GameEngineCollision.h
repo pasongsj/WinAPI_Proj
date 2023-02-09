@@ -1,7 +1,6 @@
 #pragma once
-#include "GameEngineComponent.h"
-//#include <GameEngineBase/GameEngineMath.h>
 #include <vector>
+#include "GameEngineComponent.h"
 
 enum CollisionType
 {
@@ -14,16 +13,18 @@ enum CollisionType
 class CollisionCheckParameter
 {
 public:
-	int TargetGroup = -342367842; // 초기화를 하지 않으면 터트릴 수 있도록
+	// 여러분들이 제대로 어떤 그룹과 충돌할지 안해주면
+	int TargetGroup = -342367842;
 	CollisionType TargetColType = CollisionType::CT_CirCle;
 	CollisionType ThisColType = CollisionType::CT_CirCle;
 };
 
+// 
 class CollisionData
 {
 public:
 	float4 Position;
-	float4 Scale; // circle은 x값이 원의 반지름값
+	float4 Scale; // x만 원의 반지름으로 보겠습니다.
 
 	float Left() const
 	{
@@ -43,10 +44,14 @@ public:
 	}
 };
 
+// 설명 :
 class CollisionFunctionInit;
 class GameEngineCollision : public GameEngineComponent
 {
 	friend CollisionFunctionInit;
+
+private:
+
 public:
 	static bool CollisionCirCleToCirCle(const CollisionData& _Left, const CollisionData& _Right);
 	static bool CollisionCirCleToPoint(const CollisionData& _Left, const CollisionData& _Right);
@@ -56,9 +61,8 @@ public:
 
 	static bool CollisionPointToCirCle(const CollisionData& _Left, const CollisionData& _Right);
 	static bool CollisionPointToRect(const CollisionData& _Left, const CollisionData& _Right);
-
 	// constrcuter destructer
-	GameEngineCollision() ;
+	GameEngineCollision();
 	~GameEngineCollision();
 
 	// delete Function
@@ -66,6 +70,8 @@ public:
 	GameEngineCollision(GameEngineCollision&& _Other) noexcept = delete;
 	GameEngineCollision& operator=(const GameEngineCollision& _Other) = delete;
 	GameEngineCollision& operator=(GameEngineCollision&& _Other) noexcept = delete;
+
+	// GetOrder를 통해서 내가 어떤 충돌 그룹인지는 내가 
 
 	bool Collision(const CollisionCheckParameter& _CollisionCheck);
 
@@ -75,16 +81,17 @@ public:
 
 	CollisionData GetCollisionData();
 
-	void DebugRender();
-
 	void SetDebugRenderType(CollisionType _DebugRenderType)
 	{
 		DebugRenderType = _DebugRenderType;
 	}
 
+	void DebugRender();
+
 protected:
 
 private:
 	CollisionType DebugRenderType = CollisionType::CT_CirCle;
+
 };
 

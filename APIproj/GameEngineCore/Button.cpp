@@ -43,9 +43,10 @@ void Button::SetScale(float4 _Scale)
 void Button::Update(float _DeltaTime)
 {
 	State = ButtonState::Release;
-
+	ButtonCollision->SetDebugRenderType(ButtonCollisionType);
 	if (true == ButtonCollision->Collision({ .TargetGroup = PointTargetGroup, .TargetColType = CollisionType::CT_Point, .ThisColType = ButtonCollisionType }))
 	{
+		int a = 0;
 		if (true == GameEngineInput::IsUp("EngineMouseLeft") && nullptr != ClickPtr)
 		{
 			ClickPtr();
