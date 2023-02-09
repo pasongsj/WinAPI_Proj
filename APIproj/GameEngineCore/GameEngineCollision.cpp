@@ -16,6 +16,8 @@ public:
 		ColFunctionPtr[CT_CirCle][CT_Point] = GameEngineCollision::CollisionCirCleToPoint;
 		ColFunctionPtr[CT_Rect][CT_Rect] = GameEngineCollision::CollisionRectToRect;
 		ColFunctionPtr[CT_Rect][CT_Point] = GameEngineCollision::CollisionRectToPoint;
+		ColFunctionPtr[CT_Point][CT_CirCle] = GameEngineCollision::CollisionPointToCirCle;
+		ColFunctionPtr[CT_Point][CT_Rect] = GameEngineCollision::CollisionPointToRect;
 
 	}
 	~CollisionFunctionInit()
@@ -99,6 +101,16 @@ bool GameEngineCollision::CollisionRectToPoint(const CollisionData& _Left, const
 	}
 
 	return true;
+}
+
+bool GameEngineCollision::CollisionPointToCirCle(const CollisionData& _Left, const CollisionData& _Right) 
+{
+	return CollisionCirCleToPoint(_Right, _Left);
+}
+
+bool GameEngineCollision::CollisionPointToRect(const CollisionData& _Left, const CollisionData& _Right) 
+{
+	return CollisionRectToPoint(_Right, _Left);
 }
 
 void GameEngineCollision::SetOrder(int _Order)
@@ -185,9 +197,6 @@ CollisionData GameEngineCollision::GetCollisionData()
 
 void GameEngineCollision::DebugRender()
 {
-	if (IsDmg == false) {
-		return;
-	}
 	HDC BackBufferDc = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
 	float4 DebugRenderPos = GetActorPlusPos() - GetActor()->GetLevel()->GetCameraPos();
 	switch (DebugRenderType)

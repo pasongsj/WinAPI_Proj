@@ -54,6 +54,9 @@ public:
 	static bool CollisionRectToRect(const CollisionData& _Left, const CollisionData& _Right);
 	static bool CollisionRectToPoint(const CollisionData& _Left, const CollisionData& _Right);
 
+	static bool CollisionPointToCirCle(const CollisionData& _Left, const CollisionData& _Right);
+	static bool CollisionPointToRect(const CollisionData& _Left, const CollisionData& _Right);
+
 	// constrcuter destructer
 	GameEngineCollision() ;
 	~GameEngineCollision();
@@ -78,42 +81,10 @@ public:
 	{
 		DebugRenderType = _DebugRenderType;
 	}
-	
-	inline void SetDamage(int _Damage) {
-		Damage = _Damage;
-	}
-
-	int GetDamage() {
-		return (IsDmg ? Damage : 0);
-	}
-	
-	inline void DmgOff(float _OffTime = 30.0f) {
-		IsDmg = false;
-		OffTime = _OffTime;
-	}
-
-	/*inline void DmgOn() {
-		IsDmg = true;
-	}*/
-	bool GetIsDmg() {
-		return IsDmg;
-	}
-
-	void CheckOffTime(float _Time) {
-		OffTime -= _Time;
-		if (OffTime < 0.0f)
-		{
-			IsDmg = true;
-			OffTime = 0.0f;
-		}
-	}
 
 protected:
 
 private:
 	CollisionType DebugRenderType = CollisionType::CT_CirCle;
-	int Damage = 0;
-	bool IsDmg = true;
-	float OffTime = 0;
 };
 

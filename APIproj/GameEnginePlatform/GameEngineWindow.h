@@ -44,12 +44,6 @@ public:
 	{
 		IsWindowUpdate = false;
 	}
-
-
-	//static GameEngineImage* GetBackBufferImage()
-	//{
-	//	return BackBufferImage;
-	//}
 	// 윈도우에 그림을 그릴수 있는 권한.
 
 	static void DoubleBufferClear();

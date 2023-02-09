@@ -25,16 +25,21 @@ void ClickStartbutton()
 
 void TitleLevel::Loading()
 {
+
+	if (false == GameEngineInput::IsKey("DebugRenderSwitch"))
+	{
+		GameEngineInput::CreateKey("DebugRenderSwitch", 'R');
+	}
 	// 만들어야할 것들을 만드는 시점이 Loading시점
 	// 
-	if (false == GameEngineInput::IsKey("LevelChange"))
+	/*if (false == GameEngineInput::IsKey("LevelChange"))
 	{
 		GameEngineInput::CreateKey("LevelChange", 'P');
-	}
+	}*/
 	// back이미지 로드
 
-	GameEngineDirectory Dir;
 	{
+		GameEngineDirectory Dir;
 		Dir.MoveParentToDirectory("ContentsResources");
 		Dir.Move("ContentsResources");
 		Dir.Move("Image");
@@ -54,7 +59,7 @@ void TitleLevel::Loading()
 		Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ReinforceButton.BMP"));
 	}
 	MouseObject* MouseObjectInst = CreateActor<MouseObject>();
-
+	MouseObjectInst->GetMouseCollision()->SetScale({ 10,10 });
 	/*MouseObjectInst->GetMouseRender()->EffectCameraOff();
 	MouseObjectInst->GetMouseRender()->SetOrder(100);
 	MouseObjectInst->GetMouseRender()->SetScale({ 20, 20 });*/
@@ -63,21 +68,26 @@ void TitleLevel::Loading()
 	CreateActor<TitleMainBack>();
 
 	Button* NewButton = CreateActor<Button>();
+	float4 StartBPos = { 774, 610 };
 	NewButton->GetButtonRender()->EffectCameraOff();
-	float4 ButtonPos = GameEngineWindow::GetScreenSize().half();
-	ButtonPos.y += GameEngineWindow::GetScreenSize().half().hy();
-	NewButton->SetPos(ButtonPos);
+	NewButton->SetPos(StartBPos);
 	NewButton->SetHoverImage("startbutton.BMP");
-	NewButton->SetPressImage("startbutton.BMP");
-	NewButton->SetReleaseImage("startbutton.BMP");
+	NewButton->SetPressImage("CollectionButton.BMP");
+	NewButton->SetReleaseImage("OptionButton.BMP");
 	NewButton->SetScale({ 270, 84 });
 	NewButton->SetClickCallBack(ClickStartbutton);
-	NewButton->SetOrder(static_cast<int>(VSRenderOrder::UI));
+	NewButton->GetButtonCollision()->SetDebugRenderType(CollisionType::CT_Rect);
+	//NewButton->setting("startbutton.BMP", "startbutton.BMP", "startbutton.BMP", StartBPos, { 270, 84 }, static_cast<int>(VSRenderOrder::UI), false);
+	//NewButton->SetClickCallBack(ClickStartbutton);
 }
 
 void TitleLevel::Update(float _DeltaTime)
 {
-
+	if (GameEngineInput::IsDown("DebugRenderSwitch"))
+	{
+		DebugRenderSwitch();
+		// Player::MainPlayer->Death()p;
+	}
 	//if (true == GameEngineInput::IsDown("LevelChange"))
 	//{
 	//	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");

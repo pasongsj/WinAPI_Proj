@@ -31,7 +31,6 @@
       <Filter>Monster</Filter>
     </ClInclude>
     <ClInclude Include="PlayGameUI.h" />
-    <ClInclude Include="FightUnit.h" />
     <ClInclude Include="MouseObject.h">
       <Filter>Global</Filter>
     </ClInclude>
@@ -72,7 +71,6 @@
       <Filter>Monster</Filter>
     </ClCompile>
     <ClCompile Include="PlayGameUI.cpp" />
-    <ClCompile Include="FightUnit.cpp" />
     <ClCompile Include="MouseObject.cpp">
       <Filter>Global</Filter>
     </ClCompile>

@@ -9,7 +9,6 @@ class GameEngineMath final // final은 상속, override를 막는다.
 {
 public:
 	static std::vector<unsigned int> GetDigits(int _Value);
-	//static std::vector<unsigned int> GetZeroDigits(int _Value, int _Digits = -1);
 	static unsigned int GetLenth(int _Value);
 	static const float PIE;
 	static const float PIE2; // pie * 2

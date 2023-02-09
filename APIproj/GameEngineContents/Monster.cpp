@@ -29,7 +29,6 @@ void Monster::Start()
 	BodyCollision = CreateCollision(VSRenderOrder::Monster);
 	BodyCollision->SetScale({ 60,60 });
 	BodyCollision->SetPosition({ 0, -BodyCollision->GetScale().hy() });
-	BodyCollision->SetDamage(10);
 
 	//srand(time(0));
 	float4 CamPos = GetLevel()->GetCameraPos();
