@@ -5,6 +5,7 @@
 #include "InlaidLibraryLevel.h"
 #include "TitleLevel.h"
 #include "PlayLevel.h"
+#include "OpeningLevel.h"
 
 #include <GameEnginePlatform/GameEngineWindow.h>
 
@@ -30,7 +31,8 @@ void ContentsGameCore::Start()
 	CreateLevel<InlaidLibraryLevel>("InlaidLibraryLevel");
 	CreateLevel<TitleLevel>("TitleLevel");
 	CreateLevel<PlayLevel>("PlayLevel");
-	ChangeLevel("TitleLevel");
+	CreateLevel< OpeningLevel>("OpeningLevel");
+	ChangeLevel("OpeningLevel");
 }
 
 void ContentsGameCore::Update()

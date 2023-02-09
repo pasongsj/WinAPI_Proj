@@ -1,19 +1,18 @@
 #pragma once
 #include <GameEngineCore/GameEngineLevel.h>
 
-// 시작 시 보이는 타이틀 페이지
-class TitleLevel : public GameEngineLevel
+class OpeningLevel : public GameEngineLevel
 {
 public:
 	// constrcuter destructer
-	TitleLevel() ;
-	~TitleLevel();
+	OpeningLevel() ;
+	~OpeningLevel();
 
 	// delete Function
-	TitleLevel(const TitleLevel& _Other) = delete;
-	TitleLevel(TitleLevel&& _Other) noexcept = delete;
-	TitleLevel& operator=(const TitleLevel& _Other) = delete;
-	TitleLevel& operator=(TitleLevel&& _Other) noexcept = delete;
+	OpeningLevel(const OpeningLevel& _Other) = delete;
+	OpeningLevel(OpeningLevel&& _Other) noexcept = delete;
+	OpeningLevel& operator=(const OpeningLevel& _Other) = delete;
+	OpeningLevel& operator=(OpeningLevel&& _Other) noexcept = delete;
 
 protected:
 	void Loading() override;
@@ -23,5 +22,6 @@ protected:
 	void LevelChangeStart(GameEngineLevel* _PrevLevel) override {}
 
 private:
+
 };
 

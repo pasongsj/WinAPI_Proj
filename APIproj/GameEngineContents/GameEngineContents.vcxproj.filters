@@ -32,6 +32,12 @@
     </ClInclude>
     <ClInclude Include="PlayGameUI.h" />
     <ClInclude Include="FightUnit.h" />
+    <ClInclude Include="MouseObject.h">
+      <Filter>Global</Filter>
+    </ClInclude>
+    <ClInclude Include="OpeningLevel.h">
+      <Filter>Title</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsGameCore.cpp" />
@@ -67,6 +73,12 @@
     </ClCompile>
     <ClCompile Include="PlayGameUI.cpp" />
     <ClCompile Include="FightUnit.cpp" />
+    <ClCompile Include="MouseObject.cpp">
+      <Filter>Global</Filter>
+    </ClCompile>
+    <ClCompile Include="OpeningLevel.cpp">
+      <Filter>Title</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">
@@ -83,6 +95,9 @@
     </Filter>
     <Filter Include="Monster">
       <UniqueIdentifier>{afafb31c-4e88-4817-85c1-a20ea1d74433}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Global">
+      <UniqueIdentifier>{a774b052-f794-4771-929a-4996e51c95ff}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -55,6 +55,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="MouseObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="OpeningLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Player.h">
       <SubType>
       </SubType>
@@ -102,6 +110,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="MouseObject.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="OpeningLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>

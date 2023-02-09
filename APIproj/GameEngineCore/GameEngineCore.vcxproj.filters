@@ -26,6 +26,9 @@
     <ClCompile Include="NumberRenderObject.cpp">
       <Filter>BasicContents\SubClass</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>BasicContents\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngineCore.h" />
@@ -53,6 +56,9 @@
     <ClInclude Include="NumberRenderObject.h">
       <Filter>BasicContents\SubClass</Filter>
     </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>BasicContents\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Object">
@@ -72,6 +78,9 @@
     </Filter>
     <Filter Include="BasicContents\SubClass">
       <UniqueIdentifier>{7f311cd6-f65c-44e9-af48-36ed7a81a7a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BasicContents\Actor">
+      <UniqueIdentifier>{cbd7f671-7a9d-4027-b91b-4dddf4d852ad}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
