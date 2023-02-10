@@ -90,8 +90,11 @@ void InlaidLibraryLevel::Loading()
 		Dir.MoveParentToDirectory("Title");
 		Dir.Move("Title");
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExpBar.BMP"));
+		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("colon.BMP"));
+		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LV.BMP"));
 		//Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExpBarBlue.BMP"));
 	}
+
 	{ // UI - 맵 숫자 이미지 로드
 		Dir.MoveParentToDirectory("InlaidLibrary");
 		Dir.Move("InlaidLibrary");

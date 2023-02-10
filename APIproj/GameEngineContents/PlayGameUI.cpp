@@ -16,6 +16,14 @@ PlayGameUI::~PlayGameUI()
 void PlayGameUI::Start()
 {
 	float4 BarPos = float4::Zero;
+	{
+		BarPos.x = 1495;
+		BarPos.y = 17.5;
+		GameEngineRender* Render = CreateRender("LV.BMP", VSRenderOrder::UI);
+		Render->SetScaleToImage();
+		Render->SetPosition(BarPos);
+		Render->EffectCameraOff();
+	}
 
 	{
 		UIRender = CreateRender("ExpBar.BMP", VSRenderOrder::UI);
@@ -23,28 +31,35 @@ void PlayGameUI::Start()
 		BarPos.x = GameEngineWindow::GetScreenSize().hx();
 		BarPos.y = UIRender->GetScale().hy();
 		UIRender->SetPosition(BarPos);
-
 		UIRender->EffectCameraOff();
 		//GameEngineRender* Render = CreateRender("ExpBarBlue.BMP", VSRenderOrder::UI);
 	}
 	{
 		BarPos.y += 50;
-		BarPos.x += 35;
-		StageTimerSec.SetOwner(this);
-		StageTimerSec.SetImage("Number.BMp", { 30, 35 }, static_cast<int>(VSRenderOrder::UI), RGB(255, 0, 255));
-		StageTimerSec.SetRenderPos(BarPos);
-		StageTimerSec.SetAlign(Align::Left);
-		StageTimerSec.SetNumOfDigits(2);
-		StageTimerSec.SetValue(static_cast<int>(StageTime)%60);
+		GameEngineRender* Render = CreateRender("colon.BMP", VSRenderOrder::UI);
+		Render->SetScaleToImage();
+		Render->SetPosition(BarPos);
+		Render->EffectCameraOff();
 	}
+
 	{
-		BarPos.x -= 70;
+		BarPos.x -= 55;
 		StageTimerMin.SetOwner(this);
-		StageTimerMin.SetImage("Number.BMp", { 30, 35 }, static_cast<int>(VSRenderOrder::UI), RGB(255, 0, 255));
+		StageTimerMin.SetImage("Number.BMp", { 25, 30 }, static_cast<int>(VSRenderOrder::UI), RGB(255, 0, 255));
 		StageTimerMin.SetRenderPos(BarPos);
-		StageTimerMin.SetAlign(Align::Left);
+		StageTimerMin.SetAlign(Align::Center);
 		StageTimerMin.SetNumOfDigits(2);
 		StageTimerMin.SetValue(static_cast<int>(StageTime)/60);
+	}
+
+	{
+		BarPos.x += 95;
+		StageTimerSec.SetOwner(this);
+		StageTimerSec.SetImage("Number.BMp", { 25, 30 }, static_cast<int>(VSRenderOrder::UI), RGB(255, 0, 255));
+		StageTimerSec.SetRenderPos(BarPos);
+		StageTimerSec.SetAlign(Align::Center);
+		StageTimerSec.SetNumOfDigits(2);
+		StageTimerSec.SetValue(static_cast<int>(StageTime)%60);
 	}
 
 }
@@ -52,7 +67,7 @@ void PlayGameUI::Start()
 void PlayGameUI::Update(float _DeltaTime)
 {
 	StageTime += _DeltaTime;
-	StageTimerSec.SetValue(static_cast<int>(StageTime) % 60);
 	StageTimerMin.SetValue(static_cast<int>(StageTime) / 60);
+	StageTimerSec.SetValue(static_cast<int>(StageTime) % 60);
 }
 
