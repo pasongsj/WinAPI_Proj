@@ -23,20 +23,23 @@ void ClickStartButton()
 	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
 }
 
-void TitleLevel::Loading()
-{
 
-	if (false == GameEngineInput::IsKey("DebugRenderSwitch"))
+void TitleLevel::SoundLoad()
+{
+	GameEngineDirectory Dir;
+	Dir.MoveParentToDirectory("ContentsResources");
+	Dir.Move("ContentsResources");
+	Dir.Move("Sound");
+
 	{
-		GameEngineInput::CreateKey("DebugRenderSwitch", 'R');
+		GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("Intro.mp3"));
 	}
-	// 만들어야할 것들을 만드는 시점이 Loading시점
-	// 
-	/*if (false == GameEngineInput::IsKey("LevelChange"))
-	{
-		GameEngineInput::CreateKey("LevelChange", 'P');
-	}*/
-	// back이미지 로드
+
+	// GameEngineResources::GetInst().SoundPlay("Appear.wav");
+
+}
+void TitleLevel::ImageLoad()
+{
 
 	{
 		GameEngineDirectory Dir;
@@ -44,20 +47,54 @@ void TitleLevel::Loading()
 		Dir.Move("ContentsResources");
 		Dir.Move("Image");
 		Dir.Move("Title");
-		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("TitleMainBackGround.BMP"));
+		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("TitleMainBackGround.BMP"));
 
 		//Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("TitleBackGround.BMP"));
 
-		Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("startbutton.BMP"));
+		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("startbutton.BMP"));
 
-		Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("CollectionButton.BMP"));
+		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("CollectionButton.BMP"));
 
-		Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExitButton.BMP"));
+		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExitButton.BMP"));
 
-		Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("OptionButton.BMP"));
+		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("OptionButton.BMP"));
 
-		Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ReinforceButton.BMP"));
+		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ReinforceButton.BMP"));
 	}
+
+}
+
+void TitleLevel::Loading()
+{
+	SoundLoad();
+	ImageLoad();
+
+	if (false == GameEngineInput::IsKey("DebugRenderSwitch"))
+	{
+		GameEngineInput::CreateKey("DebugRenderSwitch", 'R');
+	}
+
+	// back이미지 로드
+	//{
+	//	GameEngineDirectory Dir;
+	//	Dir.MoveParentToDirectory("ContentsResources");
+	//	Dir.Move("ContentsResources");
+	//	Dir.Move("Image");
+	//	Dir.Move("Title");
+	//	GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("TitleMainBackGround.BMP"));
+
+	//	//Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("TitleBackGround.BMP"));
+
+	//	Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("startbutton.BMP"));
+
+	//	Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("CollectionButton.BMP"));
+
+	//	Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExitButton.BMP"));
+
+	//	Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("OptionButton.BMP"));
+
+	//	Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ReinforceButton.BMP"));
+	//}
 	MouseObject* MouseObjectInst = CreateActor<MouseObject>();
 
 	CreateActor<TitleMainBack>();
@@ -85,4 +122,11 @@ void TitleLevel::Update(float _DeltaTime)
 	//	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
 	//}
 	
+}
+
+void TitleLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
+	BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("Appear.wav");
+	BGMPlayer.LoopCount(100);
+	BGMPlayer.Volume(0.2f);
 }

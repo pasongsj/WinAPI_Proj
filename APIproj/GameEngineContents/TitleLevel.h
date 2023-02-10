@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineResources.h>
 
 // 시작 시 보이는 타이틀 페이지
 class TitleLevel : public GameEngineLevel
@@ -20,8 +21,14 @@ protected:
 	void Update(float _DeltaTime) override;
 
 	void LevelChangeEnd(GameEngineLevel* _NextLevel) override {}
-	void LevelChangeStart(GameEngineLevel* _PrevLevel) override {}
+	void LevelChangeStart(GameEngineLevel* _PrevLevel);
+
+	GameEngineSoundPlayer BGMPlayer;
+
 
 private:
+	void SoundLoad();
+	void ImageLoad();
+
 };
 

@@ -3,9 +3,10 @@
 #include "GameEngineResources.h"
 
 #include <GameEngineBase/GameEngineDebug.h>
-#include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineTime.h>
+#include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 GameEngineCore* Core;
 
@@ -43,6 +44,7 @@ void GameEngineCore::GlobalUpdate()
 
 	// 프레임 시작할때 한번 델타타임을 정하고
 	float TimeDeltaTime = GameEngineTime::GlobalTime.TimeCheck();
+	GameEngineSound::SoundUpdate();
 	GameEngineInput::Update(TimeDeltaTime);
 
 	Core->Update();
