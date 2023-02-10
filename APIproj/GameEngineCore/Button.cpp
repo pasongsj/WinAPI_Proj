@@ -26,7 +26,6 @@ void Button::Start()
 {
 	ButtonRender = CreateRender();
 	ButtonCollision = CreateCollision();
-	ButtonCollision->SetDebugRenderType(ButtonCollisionType);
 }
 
 void Button::SetRenderOrder(int _Value)

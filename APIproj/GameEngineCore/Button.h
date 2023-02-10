@@ -38,7 +38,6 @@ public:
 	void SetButtonCollisionType(CollisionType _ButtonCollisionType)
 	{
 		ButtonCollisionType = _ButtonCollisionType;
-		ButtonCollision->SetDebugRenderType(ButtonCollisionType);
 	}
 
 	void SetHoverImage(const std::string_view& _Name)

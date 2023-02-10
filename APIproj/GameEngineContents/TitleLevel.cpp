@@ -10,6 +10,10 @@
 #include "MouseObject.h"
 #include "ContentsEnums.h"
 
+//weapontest
+//
+#include <GameEngineContents/WeaponInfo.h>
+
 TitleLevel::TitleLevel()
 {
 }
@@ -66,7 +70,14 @@ void TitleLevel::ImageLoad()
 
 void TitleLevel::Loading()
 {
-	SoundLoad();
+	//weapon test
+	// 
+	// 
+	WeaponInfo::CreateWeapon("testweapon");
+
+
+
+	//SoundLoad();
 	ImageLoad();
 
 	if (false == GameEngineInput::IsKey("DebugRenderSwitch"))
