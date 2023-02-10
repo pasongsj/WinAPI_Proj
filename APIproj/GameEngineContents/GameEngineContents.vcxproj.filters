@@ -30,12 +30,17 @@
     <ClInclude Include="Monster.h">
       <Filter>Monster</Filter>
     </ClInclude>
-    <ClInclude Include="PlayGameUI.h" />
     <ClInclude Include="MouseObject.h">
       <Filter>Global</Filter>
     </ClInclude>
     <ClInclude Include="OpeningLevel.h">
       <Filter>Title</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayGameUI.h">
+      <Filter>PlayUI</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponInfo.h">
+      <Filter>Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -70,12 +75,17 @@
     <ClCompile Include="Monster.cpp">
       <Filter>Monster</Filter>
     </ClCompile>
-    <ClCompile Include="PlayGameUI.cpp" />
     <ClCompile Include="MouseObject.cpp">
       <Filter>Global</Filter>
     </ClCompile>
     <ClCompile Include="OpeningLevel.cpp">
       <Filter>Title</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayGameUI.cpp">
+      <Filter>PlayUI</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponInfo.cpp">
+      <Filter>Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +106,9 @@
     </Filter>
     <Filter Include="Global">
       <UniqueIdentifier>{a774b052-f794-4771-929a-4996e51c95ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayUI">
+      <UniqueIdentifier>{5ebc2754-3f55-4e5e-b6d2-f85172b5045d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

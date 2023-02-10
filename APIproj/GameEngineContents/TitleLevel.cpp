@@ -126,7 +126,7 @@ void TitleLevel::Update(float _DeltaTime)
 
 void TitleLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
-	BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("Appear.wav");
+	/*BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("Intro.mp3");
 	BGMPlayer.LoopCount(100);
-	BGMPlayer.Volume(0.2f);
+	BGMPlayer.Volume(0.2f);*/
 }
