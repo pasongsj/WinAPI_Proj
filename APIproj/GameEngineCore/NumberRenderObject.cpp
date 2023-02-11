@@ -13,7 +13,7 @@ NumberRenderObject::~NumberRenderObject()
 }
 
 
-void NumberRenderObject::SetImage(const std::string_view& _ImageName, float4 _Scale, int _Order, int _TransColor)
+void NumberRenderObject::SetImage(const std::string_view& _ImageName, float4 _Scale, int _Order, int _TransColor, const std::string_view& _NegativeName)
 {
 	GameEngineImage* FindNumberImage = GameEngineResources::GetInst().ImageFind(_ImageName);
 
@@ -33,101 +33,24 @@ void NumberRenderObject::SetImage(const std::string_view& _ImageName, float4 _Sc
 	Order = _Order;
 	TransColor = _TransColor;
 }
-//
-//void NumberRenderObject::SetValue(int _Value)
-//{
-//	Value = _Value;
-//	std::vector<unsigned int> Numbers = GameEngineMath::GetDigits(Value);
-//	/*if (NumOfDigits != 0) {
-//		Numbers = GameEngineMath::GetDigits(Value, NumOfDigits);
-//	}
-//	else {
-//		Numbers = GameEngineMath::GetDigits(Value);
-//	}*/
-//
-//	GameEngineActor* Actor = GetOwner<GameEngineActor>();
-//
-//	if (nullptr == Actor)
-//	{
-//		MsgAssert("액터만이 NumberRenderObject의 부모가 될수 있습니다.");
-//	}
-//
-//	if(-1 != NumOfDigits)
-//	{
-//		//            자리수가 바뀌었고                  3자리 랜더하고 있었는데 5자리가 됐다면
-//		if (NumberRenders.size() != Numbers.size() && NumberRenders.size() < Numbers.size())
-//		{
-//			size_t CurRenderSize = NumberRenders.size();
-//			//                       5                   3
-//			for (size_t i = 0; i < (Numbers.size() - CurRenderSize); i++)
-//			{
-//				NumberRenders.push_back(Actor->CreateRender(Order));
-//			}
-//		}
-//	}
-//	else 
-//	{
-//		for (size_t i = 0; i < (NumOfDigits); i++)
-//		{
-//			NumberRenders.push_back(Actor->CreateRender(Order));
-//		}
-//	}
-//	// Pos
-//
-//	float4 RenderPos = float4::Zero;
-//	int index = 0;
-//	if (NumOfDigits > Numbers.size()) {
-//		for (size_t i = 0; index < NumOfDigits - NumberRenders.size(); index++)
-//		{
-//			GameEngineRender* Render = NumberRenders[index];
-//
-//			if (nullptr == Render)
-//			{
-//				MsgAssert("숫자랜더러가 nullptr 입니다");
-//			}
-//
-//			Render->SetTransColor(TransColor);
-//			Render->SetPosition(Pos + RenderPos);
-//			Render->SetImage(ImageName);
-//			Render->SetScale(NumberScale);
-//			Render->SetFrame(0);
-//			Render->EffectCameraOff();
-//			RenderPos.x += NumberScale.x;
-//		}
-//	}
-//
-//	for (; index < NumberRenders.size(); index++)
-//	{
-//		GameEngineRender* Render = NumberRenders[index];
-//
-//		if (nullptr == Render)
-//		{
-//			MsgAssert("숫자랜더러가 nullptr 입니다");
-//		}
-//
-//		Render->SetTransColor(TransColor);
-//		Render->SetPosition(Pos + RenderPos);
-//		Render->SetImage(ImageName);
-//		Render->SetScale(NumberScale);
-//		Render->SetFrame(Numbers[index]);
-//		Render->EffectCameraOff();
-//		RenderPos.x += NumberScale.x;
-//	}
-//
-//	switch (AlignState)
-//	{
-//	case Align::Left:
-//		break;
-//	case Align::Right:
-//		SetMove(float4::Left * static_cast<const float>(GameEngineMath::GetLenth(Value) - 1) * NumberScale.x);
-//		break;
-//	case Align::Center:
-//		SetMove((float4::Left * static_cast<const float>(GameEngineMath::GetLenth(Value) - 1) * NumberScale.x).half());
-//		break;
-//	default:
-//		break;
-//	}
-//}
+
+void NumberRenderObject::SetNumberRenders(int _Index, int _TransColor, float4 _Pos, const std::string_view& _ImageName, float4 _Scale, bool _CameraEffect, int _Frame)
+{
+	GameEngineRender* Render = NumberRenders[_Index];
+	if (nullptr == Render)
+	{
+		MsgAssert("숫자랜더러가 nullptr 입니다");
+	}
+	Render->SetTransColor(_TransColor);
+	Render->SetPosition(_Pos);
+	Render->SetImage(_ImageName);
+	Render->SetScale(_Scale);
+	Render->SetEffectCamera(_CameraEffect);
+	if (-1 != _Frame)
+	{
+		Render->SetFrame(_Frame);
+	}
+}
 
 void NumberRenderObject::SetValue(int _Value)
 {
@@ -143,14 +66,21 @@ void NumberRenderObject::SetValue(int _Value)
 
 	if (-1 != NumOfDigits && Numbers.size() > NumOfDigits)
 	{
-		int a = 0;
 		MsgAssert("NumOfDigits이 value값 보다 작습니다.");
 	}
+
+	if (-1 != NumOfDigits && Value < 0) //
+	{
+		ResetDigits(); // 음수면서 digits길이를 설정한 경우 
+		MsgAssert("Value가 음수인 동시에 Digits길이가 설정되었습니다.");
+	}
+
+	Negative = _Value >= 0 ? false : true;
 
 	int Digits = (NumOfDigits == -1 ? Numbers.size() : NumOfDigits);
 	
 	//            자리수가 바뀌었고                  3자리 랜더하고 있었는데 5자리가 됐다면
-	if (NumberRenders.size() != Digits && NumberRenders.size() < Digits)
+	if (NumberRenders.size() < Digits)
 	{
 		size_t CurRenderSize = NumberRenders.size();
 		//                       5                   3
@@ -159,59 +89,103 @@ void NumberRenderObject::SetValue(int _Value)
 			NumberRenders.push_back(Actor->CreateRender(Order));
 		}
 	}
+	else // NumberRenders를 삭제 해야하는 경우  +)유지되는 경우
+	{
+		size_t CurRenderSize = NumberRenders.size();
+		//                       5                   3
+		for (size_t i = 0; i < (CurRenderSize - Digits); ++i)
+		{
+			GameEngineRender* LastRender = NumberRenders.back();
+			NumberRenders.pop_back(); // 삭제되는지 체크 필요
+			LastRender->Death();
+		}
+	}
+
 	// Pos
 
-	float4 RenderPos;
-
-	size_t index = 0;
-	for (; index < Digits - Numbers.size(); ++index) {
-		GameEngineRender* Render = NumberRenders[index];
-
-		if (nullptr == Render)
-		{
-			MsgAssert("숫자랜더러가 nullptr 입니다");
-		}
-
-		Render->SetTransColor(TransColor);
-		Render->SetPosition(Pos + RenderPos);
-		Render->SetImage(ImageName);
-		Render->SetScale(NumberScale);
-		Render->SetFrame(0);
-		Render->SetEffectCamera(CameraEffect);
-		RenderPos.x += NumberScale.x;
-	}
-	
-	for (int i = 0; index < NumberRenders.size(); ++index)
-	{
-		GameEngineRender* Render = NumberRenders[index];
-
-		if (nullptr == Render)
-		{
-			MsgAssert("숫자랜더러가 nullptr 입니다");
-		}
-
-		Render->SetTransColor(TransColor);
-		Render->SetPosition(Pos + RenderPos);
-		Render->SetImage(ImageName);
-		Render->SetScale(NumberScale);
-		Render->SetFrame(Numbers[i++]);
-		Render->SetEffectCamera(CameraEffect);
-		RenderPos.x += NumberScale.x;
-	}
+	float4 RenderPos = Pos;
+	size_t NumRenderIndex = 0;
 
 	switch (AlignState)
 	{
 	case Align::Left:
 		break;
 	case Align::Right:
-		SetMove(float4::Left * static_cast<const float>(GameEngineMath::GetLenth(Value) - 1) * NumberScale.x);
+		RenderPos.x -= (Digits - 1) * NumberScale.x;
 		break;
 	case Align::Center:
-		SetMove((float4::Left * static_cast<const float>(GameEngineMath::GetLenth(Value) - 1) * NumberScale.x).half());
+		RenderPos.x -= ((Digits - 1) * NumberScale.x) / 2;
 		break;
 	default:
 		break;
 	}
+
+	if (true == Negative && nullptr == NegativeRender)
+	{
+		SetNumberRenders(NumRenderIndex++, TransColor, RenderPos, NegativeName, NumberScale, CameraEffect);
+		RenderPos.x += NumberScale.x;
+	}
+	for (; NumRenderIndex < Digits - Numbers.size(); ++NumRenderIndex)
+	{
+		SetNumberRenders(NumRenderIndex, TransColor, RenderPos, ImageName, NumberScale, CameraEffect, 0);
+		RenderPos.x += NumberScale.x;
+	}
+	for (int i = 0; NumRenderIndex < NumberRenders.size(); ++NumRenderIndex)
+	{
+		SetNumberRenders(NumRenderIndex, TransColor, RenderPos, ImageName, NumberScale, CameraEffect, Numbers[i++]);
+		RenderPos.x += NumberScale.x;
+	}
+
+
+	//size_t index = 0;
+	//for (; index < Digits - Numbers.size(); ++index) {
+	//	GameEngineRender* Render = NumberRenders[index];
+
+	//	if (nullptr == Render)
+	//	{
+	//		MsgAssert("숫자랜더러가 nullptr 입니다");
+	//	}
+
+	//	Render->SetTransColor(TransColor);
+	//	Render->SetPosition(Pos + RenderPos);
+	//	Render->SetImage(ImageName);
+	//	Render->SetScale(NumberScale);
+	//	Render->SetFrame(0);
+	//	Render->SetEffectCamera(CameraEffect);
+	//	RenderPos.x += NumberScale.x;
+	//}
+	//
+	//for (int i = 0; index < NumberRenders.size(); ++index)
+	//{
+	//	GameEngineRender* Render = NumberRenders[index];
+
+	//	if (nullptr == Render)
+	//	{
+	//		MsgAssert("숫자랜더러가 nullptr 입니다");
+	//	}
+
+	//	Render->SetTransColor(TransColor);
+	//	Render->SetPosition(Pos + RenderPos);
+	//	Render->SetImage(ImageName);
+	//	Render->SetScale(NumberScale);
+	//	Render->SetFrame(Numbers[i++]);
+	//	Render->SetEffectCamera(CameraEffect);
+	//	RenderPos.x += NumberScale.x;
+	//}
+
+	//switch (AlignState)
+	//{
+	//case Align::Left:
+	//	break;
+	//case Align::Right:
+	//	SetMove(float4::Left * static_cast<const float>(GameEngineMath::GetLenth(Value) - 1) * NumberScale.x);
+	//	break;
+	//case Align::Center:
+	//	SetMove((float4::Left * static_cast<const float>(GameEngineMath::GetLenth(Value) - 1) * NumberScale.x).half());
+	//	break;
+	//default:
+	//	break;
+	//}
 }
 
 void NumberRenderObject::SetMove(float4 _RenderPos)
@@ -226,4 +200,5 @@ void NumberRenderObject::SetMove(float4 _RenderPos)
 void NumberRenderObject::SetAlign(Align _Align)
 {
 	AlignState = _Align;
+	SetValue(Value);
 }

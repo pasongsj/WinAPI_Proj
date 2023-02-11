@@ -25,7 +25,7 @@ public:
 	NumberRenderObject& operator=(const NumberRenderObject& _Other) = delete;
 	NumberRenderObject& operator=(NumberRenderObject&& _Other) noexcept = delete;
 
-	void SetImage(const std::string_view& _ImageName, float4 _Scale, int _Order, int _TransColor);
+	void SetImage(const std::string_view& _ImageName, float4 _Scale, int _Order, int _TransColor, const std::string_view& _NegativeName = "");
 	void SetValue(int _Value);
 
 	void SetMove(float4 _RenderPos);
@@ -49,6 +49,10 @@ public:
 		NumOfDigits = _Num;
 	}
 
+	inline void ResetDigits() { // 숫자길이 리셋 (Value만큼 랜더)
+		SetNumOfDigits(-1);
+	}
+
 protected:
 
 private:
@@ -59,6 +63,7 @@ private:
 	int TransColor = RGB(255, 0, 255);
 	Align AlignState = Align::Left;
 	// GameEngineImage* NumberImage;
+	bool Negative = false;
 
 	int NumOfDigits = -1;
 
@@ -66,6 +71,11 @@ private:
 
 	std::string_view ImageName = std::string_view();
 
+	std::string_view NegativeName = std::string_view();
+
 	std::vector<GameEngineRender*> NumberRenders = std::vector<GameEngineRender*>();
+	GameEngineRender* NegativeRender = nullptr;
+
+	void SetNumberRenders(int _Index, int _TransColor, float4 _Pos, const std::string_view& _ImageName, float4 _Scale, bool _CameraEffect, int _Frame = -1);
 
 };
