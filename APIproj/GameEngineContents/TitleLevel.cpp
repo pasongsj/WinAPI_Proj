@@ -73,7 +73,7 @@ void TitleLevel::Loading()
 	//weapon test
 	// 
 	// 
-	WeaponInfo::CreateWeapon("testweapon");
+	//WeaponInfo::CreateWeapon("testweapon");
 
 
 

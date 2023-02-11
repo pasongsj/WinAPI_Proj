@@ -16,25 +16,27 @@ PlayGameUI::~PlayGameUI()
 void PlayGameUI::Start()
 {
 	float4 BarPos = float4::Zero;
-	{
-		BarPos.x = 1495;
-		BarPos.y = 17.5;
-		GameEngineRender* Render = CreateRender("LV.BMP", VSRenderOrder::UI);
+
+	{ // ExpBar
+		GameEngineRender* Render = CreateRender("ExpBar.BMP", VSRenderOrder::UI);
 		Render->SetScaleToImage();
+		BarPos.x = GameEngineWindow::GetScreenSize().hx(); //768
+		BarPos.y = Render->GetScale().hy(); //17.5
 		Render->SetPosition(BarPos);
 		Render->EffectCameraOff();
 	}
 
-	{
-		UIRender = CreateRender("ExpBar.BMP", VSRenderOrder::UI);
-		UIRender->SetScaleToImage();
-		BarPos.x = GameEngineWindow::GetScreenSize().hx();
-		BarPos.y = UIRender->GetScale().hy();
-		UIRender->SetPosition(BarPos);
-		UIRender->EffectCameraOff();
-		//GameEngineRender* Render = CreateRender("ExpBarBlue.BMP", VSRenderOrder::UI);
+	{ // LV 
+		GameEngineRender* Render = CreateRender("LV.BMP", VSRenderOrder::UI);
+		Render->SetScaleToImage();
+		BarPos.x = GameEngineWindow::GetScreenSize().x - (Render->GetScale()).x;
+
+		Render->SetPosition(BarPos);
+		Render->EffectCameraOff();
 	}
-	{
+
+	{ // time - colon
+		BarPos.x = GameEngineWindow::GetScreenSize().hx();
 		BarPos.y += 50;
 		GameEngineRender* Render = CreateRender("colon.BMP", VSRenderOrder::UI);
 		Render->SetScaleToImage();
@@ -42,8 +44,9 @@ void PlayGameUI::Start()
 		Render->EffectCameraOff();
 	}
 
-	{
-		BarPos.x -= 55;
+	{ // time - min
+		BarPos.x = GameEngineWindow::GetScreenSize().hx() - 35;
+		//BarPos.y -= 55;
 		StageTimerMin.SetOwner(this);
 		StageTimerMin.SetImage("Number.BMp", { 25, 30 }, static_cast<int>(VSRenderOrder::UI), RGB(255, 0, 255));
 		StageTimerMin.SetRenderPos(BarPos);
@@ -52,8 +55,8 @@ void PlayGameUI::Start()
 		StageTimerMin.SetValue(static_cast<int>(StageTime)/60);
 	}
 
-	{
-		BarPos.x += 95;
+	{// time - sec
+		BarPos.x = GameEngineWindow::GetScreenSize().hx() + 35;
 		StageTimerSec.SetOwner(this);
 		StageTimerSec.SetImage("Number.BMp", { 25, 30 }, static_cast<int>(VSRenderOrder::UI), RGB(255, 0, 255));
 		StageTimerSec.SetRenderPos(BarPos);
