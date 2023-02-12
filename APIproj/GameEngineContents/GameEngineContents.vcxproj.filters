@@ -39,7 +39,7 @@
     <ClInclude Include="PlayGameUI.h">
       <Filter>PlayUI</Filter>
     </ClInclude>
-    <ClInclude Include="WeaponInfo.h">
+    <ClInclude Include="Weapon.h">
       <Filter>Player</Filter>
     </ClInclude>
   </ItemGroup>
@@ -84,7 +84,7 @@
     <ClCompile Include="PlayGameUI.cpp">
       <Filter>PlayUI</Filter>
     </ClCompile>
-    <ClCompile Include="WeaponInfo.cpp">
+    <ClCompile Include="Weapon.cpp">
       <Filter>Player</Filter>
     </ClCompile>
   </ItemGroup>

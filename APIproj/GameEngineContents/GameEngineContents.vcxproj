@@ -83,7 +83,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="WeaponInfo.h">
+    <ClInclude Include="Weapon.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -142,7 +142,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="WeaponInfo.cpp">
+    <ClCompile Include="Weapon.cpp">
       <SubType>
       </SubType>
     </ClCompile>

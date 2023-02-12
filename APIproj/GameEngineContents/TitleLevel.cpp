@@ -10,9 +10,10 @@
 #include "MouseObject.h"
 #include "ContentsEnums.h"
 
-//weapontest
 //
-#include <GameEngineContents/WeaponInfo.h>
+// test
+//
+
 
 TitleLevel::TitleLevel()
 {
@@ -70,13 +71,6 @@ void TitleLevel::ImageLoad()
 
 void TitleLevel::Loading()
 {
-	//weapon test
-	// 
-	// 
-	//WeaponInfo::CreateWeapon("testweapon");
-
-
-
 	//SoundLoad();
 	ImageLoad();
 

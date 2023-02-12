@@ -1,5 +1,7 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+#include <vector>
+#include "Weapon.h"
 
 enum class PlayerState
 {
@@ -48,6 +50,7 @@ private:
 
 	GameEngineRender* AnimationRender = nullptr;
 	GameEngineCollision* BodyCollision = nullptr;
+	std::vector<Weapon*> MyWeapon;
 
 	PlayerState StateValue = PlayerState::IDLE;
 	std::string DirString = "Right_";

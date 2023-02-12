@@ -9,6 +9,7 @@
 #include "ContentsEnums.h"
 #include "Monster.h"
 #include "PlayGameUI.h"
+#include "Weapon.h"
 
 InlaidLibraryLevel::InlaidLibraryLevel()
 {
@@ -103,6 +104,13 @@ void InlaidLibraryLevel::Loading()
 	}
 
 	{
+		Dir.MoveParentToDirectory("Weapon");
+		Dir.Move("Weapon");
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Whip.BMP"));
+		Image->Cut(1, 3);
+	}
+
+	{
 		InlaidLibraryBack* BackGround = CreateActor<InlaidLibraryBack>(); // 가시적 배경
 	}
 
@@ -126,6 +134,25 @@ void InlaidLibraryLevel::Loading()
 				BGSize.half() + float4(static_cast<float>(rand() % GameEngineWindow::GetScreenSize().hix()), static_cast<float>(rand() % GameEngineWindow::GetScreenSize().hiy()))
 			);*/
 		}
+	}
+
+
+	{
+		Weapon* NewWeapon = CreateActor<Weapon>(VSRenderOrder::Weapon);
+		NewWeapon->SetImage("Right_Whip", "Whip.bmp", 0, 2, 0.1f);
+		NewWeapon->SetRenderScale({ 314, 280 });
+		NewWeapon->SetCollisionScale({ 280, 60 });
+		Weapon::Weapons["Whip"] = NewWeapon;
+		/*NewWeapon->SetMove(BGSize.half());
+		NewWeapon->GetWeaponRender()->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "Whip.bmp", .Start = 0, .End = 2, .InterTime = 0.1f });
+		NewWeapon->GetWeaponRender()->ChangeAnimation("Right_Whip");*/
+		/*Weapon* Actor = CreateActor<Weapon>(VSRenderOrder::Player);
+		Weapon::Weapons["Whip"] = Actor;
+		Actor->GetWeaponRender()->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "Whip.bmp", .Start = 0, .End = 2, .InterTime = 0.1f });
+		Actor->SetMove(BGSize.half());*/
+		//. > CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "RightAntonio.bmp" });
+
+
 	}
 
 }

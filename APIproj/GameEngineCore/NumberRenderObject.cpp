@@ -32,6 +32,7 @@ void NumberRenderObject::SetImage(const std::string_view& _ImageName, float4 _Sc
 	NumberScale = _Scale;
 	Order = _Order;
 	TransColor = _TransColor;
+	NegativeName = _NegativeName;
 }
 
 void NumberRenderObject::SetNumberRenders(size_t _Index, int _TransColor, float4 _Pos, const std::string_view& _ImageName, float4 _Scale, bool _CameraEffect, int _Frame)
