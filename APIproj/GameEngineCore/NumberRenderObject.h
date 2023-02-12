@@ -76,6 +76,6 @@ private:
 	std::vector<GameEngineRender*> NumberRenders = std::vector<GameEngineRender*>();
 	GameEngineRender* NegativeRender = nullptr;
 
-	void SetNumberRenders(int _Index, int _TransColor, float4 _Pos, const std::string_view& _ImageName, float4 _Scale, bool _CameraEffect, int _Frame = -1);
+	void SetNumberRenders(size_t _Index, int _TransColor, float4 _Pos, const std::string_view& _ImageName, float4 _Scale, bool _CameraEffect, int _Frame = -1);
 
 };

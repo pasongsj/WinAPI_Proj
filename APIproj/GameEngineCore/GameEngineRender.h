@@ -86,6 +86,8 @@ public:
 
 	void SetOrder(int _Order) override;
 
+	void SetText(const std::string_view& _Text);
+
 protected:
 
 private:
@@ -100,6 +102,9 @@ private:
 	int TransColor = RGB(255, 0, 255); // 제거할 배경 RGB값 
 
 	void Render(float _DeltaTime);
+
+	void TextRender(float _DeltaTime);
+	void ImageRender(float _DeltaTime);
 
 	class FrameAnimation
 	{
@@ -126,6 +131,8 @@ private:
 
 	std::map<std::string, FrameAnimation> Animation;
 	FrameAnimation* CurrentAnimation = nullptr;
+
+	std::string RenderText;
 
 };
 

@@ -37,8 +37,8 @@ void GameEngineRender::SetScaleToImage()
 
 void GameEngineRender::SetOrder(int _Order)
 {
-	GameEngineObject::SetOrder(_Order);
-	GetActor()->GetLevel()->PushRender(this);
+	//GameEngineObject::SetOrder(_Order);
+	GetActor()->GetLevel()->PushRender(this, _Order);
 }
 
 void GameEngineRender::SetFrame(int _Frame)
@@ -86,11 +86,72 @@ void GameEngineRender::FrameAnimation::Render(float _DeltaTime)
 			}
 		}
 
-		CurrentTime = FrameTime[CurrentIndex];
+		CurrentTime += FrameTime[CurrentIndex];
 	}
+}
+void GameEngineRender::SetText(const std::string_view& _Text)
+{
+	RenderText = _Text;
 }
 
 void GameEngineRender::Render(float _DeltaTime)
+{
+	if (RenderText != "")
+	{
+		TextRender(_DeltaTime);
+	}
+	else
+	{
+		ImageRender(_DeltaTime);
+	}
+	/*if (nullptr != CurrentAnimation)
+	{
+		CurrentAnimation->Render(_DeltaTime);
+		Frame = CurrentAnimation->FrameIndex[CurrentAnimation->CurrentIndex];
+		Image = CurrentAnimation->Image;
+	}
+	if (nullptr == Image)
+	{
+		MsgAssert("이미지를 세팅해주지 않았습니다.");
+	}
+
+	float4 CameraPos = float4::Zero;
+
+	if (true == IsEffectCamera)
+	{
+		CameraPos = GetActor()->GetLevel()->GetCameraPos();
+	}
+
+	float4 RenderPos = GetActorPlusPos() - CameraPos;
+
+	if (true == Image->IsImageCutting())
+	{
+		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, Frame, RenderPos, GetScale(), TransColor);
+	}
+	else
+	{
+		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, RenderPos, GetScale(), { 0, 0 }, Image->GetImageScale(), TransColor);
+	}*/
+}
+
+void GameEngineRender::TextRender(float _DeltaTime)
+{
+
+	float4 CameraPos = float4::Zero;
+
+	if (true == IsEffectCamera)
+	{
+		CameraPos = GetActor()->GetLevel()->GetCameraPos();
+	}
+
+	float4 RenderPos = GetActorPlusPos() - CameraPos;
+
+	TextOutA(GameEngineWindow::GetDoubleBufferImage()->GetImageDC(), RenderPos.ix(), RenderPos.iy(), RenderText.c_str(), static_cast<int>(RenderText.size()));
+
+	return;
+}
+
+void GameEngineRender::ImageRender(float _DeltaTime)
 {
 	if (nullptr != CurrentAnimation)
 	{
@@ -98,6 +159,7 @@ void GameEngineRender::Render(float _DeltaTime)
 		Frame = CurrentAnimation->FrameIndex[CurrentAnimation->CurrentIndex];
 		Image = CurrentAnimation->Image;
 	}
+
 	if (nullptr == Image)
 	{
 		MsgAssert("이미지를 세팅해주지 않았습니다.");
