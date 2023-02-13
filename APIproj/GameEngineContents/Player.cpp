@@ -57,19 +57,9 @@ void Player::Start()
 	}
 	{
 		MyWeapon.push_back(Weapon::Weapons["Whip"]);
-		//MyWeapon.back()->SetPos({ 90,0 });
-		//Weapon* NewWeapon = new Weapon();
-		//{
-		//	/*NewWeapon->SetWeaponRender(CreateRender(VSRenderOrder::Player));
-		//	NewWeapon->SetWeaponCollision(CreateCollision(VSRenderOrder::Player));*/
-		//	/*NewWeapon->GetWeaponRender()->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "Whip.bmp", .Start = 0, .End = 2, .InterTime = 0.1f });
-		//	NewWeapon->GetWeaponRender()->SetScale({ 180,80 });
-		//	NewWeapon->GetWeaponRender()->SetPosition({ 90 , 0 });
-		//	NewWeapon->GetWeaponCollision()->SetPosition({ 90 , 0 });
-		//	NewWeapon->GetWeaponCollision()->SetScale({ 180,20 });
-		//	NewWeapon->GetWeaponCollision()->SetDebugRenderType(CollisionType::CT_Rect);
-		//	*/
-		//}
+		MyWeapon.back()->On();
+		MyWeapon.back()->SetWeaponPos({120, -25});
+
 	}
 	ChangeState(PlayerState::IDLE); // 시작 시 기본 상태 설정
 	SetHp(100);
@@ -118,14 +108,13 @@ void Player::Update(float _DeltaTime)
 
 			GameEngineActor* ColActor = Collision[i]->GetActor();
 			ColActor->Death();
-			//Hp -= Collision[i]->GetDamage(); // 임시 공격
-			//Collision[i]->DmgOff(0.5f);
+
 		}
 	}
 
 	for (Weapon* arm : MyWeapon) {
-		float4 _Pos = GetPos();
-		//arm->SetPos(_Pos);
+		//float4 _Pos = GetPos();
+		arm->SetPos(GetPos()+arm->GetWeaponPos());
 
 	}
 	

@@ -18,15 +18,12 @@ public:
 	Weapon(Weapon&& _Other) noexcept = delete;
 	Weapon& operator=(const Weapon& _Other) = delete;
 	Weapon& operator=(Weapon&& _Other) noexcept = delete;
-	
-	/*void SetPos(const float4& _Pos) {
-		Pos = _Pos;
-		WeaponRender->SetPosition(Pos);
-		WeaponCollision->SetPosition(Pos);
-	}*/
 
-	inline float4 GetPos() {
-		return Pos;
+	inline float4 GetWeaponPos() {
+		return WeaponPos;
+	}
+	inline void SetWeaponPos(const float4& _WeaponPos) {
+		WeaponPos = _WeaponPos;
 	}
 
 	//Render
@@ -80,6 +77,6 @@ private:
 	int Dmg = 0;
 	float CoolTime = 0.0f;
 	bool IsAnimation = true;
-	float4 Pos;
+	float4 WeaponPos;
 
 };

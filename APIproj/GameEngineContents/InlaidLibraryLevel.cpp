@@ -18,23 +18,8 @@ InlaidLibraryLevel::InlaidLibraryLevel()
 InlaidLibraryLevel::~InlaidLibraryLevel()
 {
 }
-
-
-void InlaidLibraryLevel::Loading()
+void InlaidLibraryLevel::ImageLoad()
 {
-	// 만들어야할 것들을 만드는 시점이 Loading시점
-
-	if (false == GameEngineInput::IsKey("LevelChange")) // - 임시 : 레벨체인지 
-	{
-		GameEngineInput::CreateKey("LevelChange", 'P');
-	}
-
-	if (false == GameEngineInput::IsKey("DebugRenderSwitch"))
-	{
-		GameEngineInput::CreateKey("DebugRenderSwitch", 'R');
-	}
-
-	float4 BGSize = float4::Zero;
 	// 이미지 로드
 	GameEngineDirectory Dir;
 	Dir.MoveParentToDirectory("ContentsResources");
@@ -62,7 +47,7 @@ void InlaidLibraryLevel::Loading()
 			Image->Cut(4, 1);
 		}
 	}
-	
+
 	{
 		// 몬스터 이미지 로드
 		Dir.MoveParentToDirectory("Monster");
@@ -109,6 +94,32 @@ void InlaidLibraryLevel::Loading()
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Whip.BMP"));
 		Image->Cut(1, 3);
 	}
+}
+
+
+void InlaidLibraryLevel::Loading()
+{
+	ImageLoad();
+	// 만들어야할 것들을 만드는 시점이 Loading시점
+
+	if (false == GameEngineInput::IsKey("LevelChange")) // - 임시 : 레벨체인지 
+	{
+		GameEngineInput::CreateKey("LevelChange", 'P');
+	}
+
+	if (false == GameEngineInput::IsKey("DebugRenderSwitch"))
+	{
+		GameEngineInput::CreateKey("DebugRenderSwitch", 'R');
+	}
+
+	{
+		Weapon* NewWeapon = CreateActor<Weapon>(VSRenderOrder::Weapon);
+		NewWeapon->SetImage("Right_Whip", "Whip.bmp", 0, 2, 0.1f);
+		NewWeapon->SetRenderScale({ 314, 280 });
+		NewWeapon->SetCollisionScale({ 280, 60 });
+		Weapon::Weapons["Whip"] = NewWeapon;
+
+	}
 
 	{
 		InlaidLibraryBack* BackGround = CreateActor<InlaidLibraryBack>(); // 가시적 배경
@@ -136,25 +147,6 @@ void InlaidLibraryLevel::Loading()
 		}
 	}
 
-
-	{
-		Weapon* NewWeapon = CreateActor<Weapon>(VSRenderOrder::Weapon);
-		NewWeapon->SetImage("Right_Whip", "Whip.bmp", 0, 2, 0.1f);
-		NewWeapon->SetRenderScale({ 314, 280 });
-		NewWeapon->SetCollisionScale({ 280, 60 });
-		Weapon::Weapons["Whip"] = NewWeapon;
-		/*NewWeapon->SetMove(BGSize.half());
-		NewWeapon->GetWeaponRender()->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "Whip.bmp", .Start = 0, .End = 2, .InterTime = 0.1f });
-		NewWeapon->GetWeaponRender()->ChangeAnimation("Right_Whip");*/
-		/*Weapon* Actor = CreateActor<Weapon>(VSRenderOrder::Player);
-		Weapon::Weapons["Whip"] = Actor;
-		Actor->GetWeaponRender()->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "Whip.bmp", .Start = 0, .End = 2, .InterTime = 0.1f });
-		Actor->SetMove(BGSize.half());*/
-		//. > CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "RightAntonio.bmp" });
-
-
-	}
-
 }
 
 void InlaidLibraryLevel::Update(float _DeltaTime)
@@ -167,7 +159,6 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 	if (GameEngineInput::IsDown("DebugRenderSwitch"))
 	{
 		DebugRenderSwitch();
-		// Player::MainPlayer->Death()p;
 	}
 }
 
