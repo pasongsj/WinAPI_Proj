@@ -23,5 +23,7 @@ protected:
 	void LevelChangeStart(GameEngineLevel* _PrevLevel) override;
 private:
 
+	float4 BGSize = float4::Zero;
+	void ImageLoad();
 };
 

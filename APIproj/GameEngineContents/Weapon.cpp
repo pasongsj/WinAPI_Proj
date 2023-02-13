@@ -57,23 +57,7 @@ void Weapon::Start()
 {
 	WeaponRender = CreateRender(VSRenderOrder::Player);
 	WeaponCollision = CreateCollision(VSRenderOrder::Player);
-	//this->Off();
-
-	//NewWeapon->SetWeaponRender(CreateRender(VSRenderOrder::Player));
-	//NewWeapon->SetWeaponCollision(CreateCollision(VSRenderOrder::Player));
-	/*WeaponRender->SetScale({ 180,80 });
-	WeaponCollision->SetScale({ 180,80 });*/
-	//WeaponRender->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "Whip.bmp", .Start = 0, .End = 2, .InterTime = 0.1f });
-	//NewWeapon->GetWeaponRender()->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "Whip.bmp", .Start = 0, .End = 2, .InterTime = 0.1f });
-	//NewWeapon->GetWeaponRender()->SetScale({ 180,80 });
-	//WeaponRender->SetPosition({ 90 , 0 });
-	//WeaponCollision->SetPosition({ 90 , 0 });
-	//WeaponCollision->SetDebugRenderType(CollisionType::CT_Rect);
-	//WeaponRender->ChangeAnimation("Right_Whip");
-	//NewWeapon->GetWeaponRender()->SetPosition({ 90 , 0 });
-	//NewWeapon->GetWeaponCollision()->SetPosition({ 90 , 0 });
-	//NewWeapon->GetWeaponCollision()->SetScale({ 180,20 });
-	//NewWeapon->GetWeaponCollision()->SetDebugRenderType(CollisionType::CT_Rect);
+	this->Off();
 }
 
 void Weapon::Update(float _DeltaTime)
