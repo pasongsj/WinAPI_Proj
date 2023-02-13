@@ -53,15 +53,22 @@ void Weapon::SetCollisionScale(float4 _Scale)
 	WeaponCollision->SetScale(_Scale);
 }
 
+void Weapon::SetWeaponDebugType(CollisionType _Type)
+{
+	WeaponCollision->SetDebugRenderType(_Type);
+}
+
+
 void Weapon::Start()
 {
-	WeaponRender = CreateRender(VSRenderOrder::Player);
-	WeaponCollision = CreateCollision(VSRenderOrder::Player);
+	WeaponRender = CreateRender(VSRenderOrder::Weapon);
+	WeaponCollision = CreateCollision(VSRenderOrder::Weapon);
 	this->Off();
 }
 
 void Weapon::Update(float _DeltaTime)
 {
 
+	
 }
 

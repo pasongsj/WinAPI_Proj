@@ -52,27 +52,36 @@ void Monster::Update(float _DeltaTime)
 		BodyCollision->CheckOffTime(_DeltaTime);
 	}*/
 
+	//std::vector<GameEngineCollision*> Collision;
+	//if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Player) }, Collision))
+	//{
+	//	//BodyCollision->Off(); // 계속 collision되는 것을 막기 위해
+	//	for (size_t i = 0; i < Collision.size(); i++)
+	//	{
+	//		GameEngineActor* ColActor = Collision[i]->GetActor();
+	//		int a = 0;
+
+	//	}
+	//}
+
+	int a = 0;
+
 	std::vector<GameEngineCollision*> Collision;
-	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Player) }, Collision))
+	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Weapon) }, Collision))
 	{
-		//BodyCollision->Off(); // 계속 collision되는 것을 막기 위해
-		for (size_t i = 0; i < Collision.size(); i++)
+		int a = 0;
+		for(size_t i = 0; i < Collision.size(); i++)
 		{
+
 			GameEngineActor* ColActor = Collision[i]->GetActor();
 			int a = 0;
+			Hp -= 10;
+			if (Hp < 0) {
+				this->Death();
+				break;
+			}
 
 		}
 	}
-
-	//std::vector<GameEngineActor*> Actors = GetLevel()->GetActors(BubbleRenderOrder::Player);
-
-	//for (size_t i = 0; i < Actors.size(); i++)
-	//{
-	//	float4 Dir = Actors[i]->GetPos() - GetPos();
-	//	if (Dir.Size() <= 100.0f)
-	//	{
-	//		int a = 0;
-	//	}
-	//}
 
 }

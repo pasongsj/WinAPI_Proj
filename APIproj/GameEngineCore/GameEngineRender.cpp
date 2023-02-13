@@ -104,34 +104,6 @@ void GameEngineRender::Render(float _DeltaTime)
 	{
 		ImageRender(_DeltaTime);
 	}
-	/*if (nullptr != CurrentAnimation)
-	{
-		CurrentAnimation->Render(_DeltaTime);
-		Frame = CurrentAnimation->FrameIndex[CurrentAnimation->CurrentIndex];
-		Image = CurrentAnimation->Image;
-	}
-	if (nullptr == Image)
-	{
-		MsgAssert("이미지를 세팅해주지 않았습니다.");
-	}
-
-	float4 CameraPos = float4::Zero;
-
-	if (true == IsEffectCamera)
-	{
-		CameraPos = GetActor()->GetLevel()->GetCameraPos();
-	}
-
-	float4 RenderPos = GetActorPlusPos() - CameraPos;
-
-	if (true == Image->IsImageCutting())
-	{
-		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, Frame, RenderPos, GetScale(), TransColor);
-	}
-	else
-	{
-		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, RenderPos, GetScale(), { 0, 0 }, Image->GetImageScale(), TransColor);
-	}*/
 }
 
 void GameEngineRender::TextRender(float _DeltaTime)

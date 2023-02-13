@@ -2,7 +2,7 @@
 #include <GameEngineCore/GameEngineActor.h>
 #include <map>
 #include <string>
-
+#include <GameEngineCore/GameEngineCollision.h>
 
 class Weapon : public GameEngineActor
 {
@@ -33,13 +33,13 @@ public:
 
 	void SetRenderScale(float4 _Scale);
 
-	inline GameEngineRender* GetWeaponRender() {
+	/*inline GameEngineRender* GetWeaponRender() {
 		return WeaponRender;
 	}
 
 	inline void SetWeaponRender(GameEngineRender* _Render) {
 		WeaponRender = _Render;
-	}
+	}*/
 
 	void SetAnimationOff() {
 		IsAnimation = false;
@@ -48,23 +48,32 @@ public:
 	// Collision
 	void SetCollisionScale(float4 _Scale);
 
-	inline GameEngineCollision* GetWeaponCollision() {
+	/*inline GameEngineCollision* GetWeaponCollision() {
 		return WeaponCollision;
 	}
 
 	inline void SetWeaponCollision(GameEngineCollision* _Collision) {
 		WeaponCollision = _Collision;
-	}
+	}*/
 
 	//
 
-	inline void SetDmg(int _Dmg) {
+	inline void SetDmg(const int& _Dmg) {
 		Dmg = _Dmg;
 	}
 	inline int GetDmg() {
 		return Dmg;
 	}
+
+	inline void SetCoolTime(const float& _CoolTime) {
+		CoolTime = _CoolTime;
+	}
+	inline float GetCoolTime()
+	{
+		return CoolTime;
+	}
 	
+	void SetWeaponDebugType(CollisionType _Type);
 
 
 protected:

@@ -37,7 +37,7 @@ protected:
 
 private:
 	float CollisionOffTime = 0.0f;
-	int Hp = 0;
+	int Hp = 10;
 
 	GameEngineRender* AnimationRender = nullptr;
 	GameEngineCollision* BodyCollision = nullptr;

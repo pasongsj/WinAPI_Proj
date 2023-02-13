@@ -3,6 +3,7 @@
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 #include "InlaidLibraryBack.h"
 #include "Player.h"
@@ -117,6 +118,8 @@ void InlaidLibraryLevel::Loading()
 		NewWeapon->SetImage("Right_Whip", "Whip.bmp", 0, 2, 0.1f);
 		NewWeapon->SetRenderScale({ 314, 280 });
 		NewWeapon->SetCollisionScale({ 280, 60 });
+		NewWeapon->SetCoolTime(0.8f);
+		//NewWeapon->SetWeaponDebugType(CT_Rect);
 		Weapon::Weapons["Whip"] = NewWeapon;
 
 	}
