@@ -603,7 +603,9 @@ namespace FMOD
         ID3V1,
         ID3V2,
         VORBISCOMMENT,
-        SHOUTCAST,
+        SHOUT
+            
+            ,
         ICECAST,
         ASF,
         MIDI,

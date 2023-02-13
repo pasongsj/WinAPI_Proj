@@ -5,6 +5,7 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include "ContentsEnums.h"
 #include "Player.h"
+#include "Weapon.h"
 Monster::Monster()
 {
 }
@@ -74,8 +75,10 @@ void Monster::Update(float _DeltaTime)
 		{
 
 			GameEngineActor* ColActor = Collision[i]->GetActor();
-			int a = 0;
-			Hp -= 10;
+			Weapon* ColWeaponActor = dynamic_cast<Weapon*> (ColActor);
+		
+
+			Hp -= ColWeaponActor->GetDmg();
 			if (Hp < 0) {
 				this->Death();
 				break;
