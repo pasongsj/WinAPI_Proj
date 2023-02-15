@@ -118,7 +118,7 @@ void InlaidLibraryLevel::Loading()
 		NewWeapon->SetImage("Right_Whip", "Whip.bmp", 0, 2, 0.1f);
 		NewWeapon->SetRenderScale({ 314, 280 });
 		NewWeapon->SetCollisionScale({ 280, 60 });
-		NewWeapon->SetCoolTime(0.8f);
+		NewWeapon->SetCoolTime(1.2f);
 		NewWeapon->SetDmg(5);
 		//NewWeapon->SetWeaponDebugType(CT_Rect);
 		Weapon::Weapons["Whip"] = NewWeapon;
