@@ -61,6 +61,14 @@ void InlaidLibraryLevel::ImageLoad()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftDustElemental.BMP"));
 			Image->Cut(2, 1);
 		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightDustElementalDmged.BMP"));
+			Image->Cut(2, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftDustElementalDmged.BMP"));
+			Image->Cut(2, 1);
+		}
 
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightDustElementalDead.BMP"));
