@@ -59,6 +59,7 @@ void Player::Start()
 		MyWeapon.push_back(Weapon::Weapons["Whip"]);
 		MyWeapon.back()->On();
 		MyWeapon.back()->SetWeaponPos({120, -25});
+		//MyWeapon.back()->SetDmg(5);
 
 	}
 	ChangeState(PlayerState::IDLE); // 시작 시 기본 상태 설정

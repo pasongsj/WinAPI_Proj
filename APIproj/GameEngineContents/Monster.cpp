@@ -21,12 +21,12 @@ void Monster::Start()
 
 	{
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "RightDustElemental.bmp", .Start = 0, .End = 1, .InterTime = 0.1f });
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Beaten",  .ImageName = "RightDustElementalDmged.bmp", .Start = 0, .End = 1, .InterTime = 0.1f });
+		AnimationRender->CreateAnimation({ .AnimationName = "Right_Beaten",  .ImageName = "RightDustElementalDmged.bmp", .Start = 0, .End = 1, .InterTime = 0.1f , .Loop = false });
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Dead",  .ImageName = "RightDustElementalDead.bmp", .Start = 0, .End = 9, .InterTime = 0.1f, .Loop = false });
 	}
 	{
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "LeftDustElemental.bmp", .Start = 0, .End = 1, .InterTime = 0.1f });
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_Beaten",  .ImageName = "LeftDustElementalDmged.bmp", .Start = 0, .End = 1, .InterTime = 0.1f });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_Beaten",  .ImageName = "LeftDustElementalDmged.bmp", .Start = 0, .End = 1, .InterTime = 0.1f, .Loop = false });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Dead",  .ImageName = "LeftDustElementalDead.bmp", .Start = 0, .End = 9, .InterTime = 0.1f, .Loop = false });
 	}
 	BodyCollision = CreateCollision(VSRenderOrder::Monster);
@@ -121,15 +121,16 @@ void Monster::MoveUpdate(float _Time)
 
 
 			Hp -= ColWeaponActor->GetDmg();
-
-			if (Hp < 0) {
+			if (Hp <= 0) {
 				ChangeState(MonsterState::DEAD);
 				//this->Death();
 				break;
 			}
 			else {
 				ChangeState(MonsterState::BEATEN);
+				break;
 			}
+
 
 		}
 	}
@@ -167,6 +168,10 @@ void Monster::DeadStart()
 void Monster::DeadUpdate(float _Time)
 {
 	DirCheck("Dead");
+	if (AnimationRender->IsAnimationEnd())
+	{
+		this->Death();
+	}
 }
 void Monster::DeadEnd() {
 
