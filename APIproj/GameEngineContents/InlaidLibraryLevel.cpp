@@ -53,6 +53,7 @@ void InlaidLibraryLevel::ImageLoad()
 		// 몬스터 이미지 로드
 		Dir.MoveParentToDirectory("Monster");
 		Dir.Move("Monster");
+		// MoveState
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightDustElemental.BMP"));
 			Image->Cut(2, 1);
@@ -61,6 +62,7 @@ void InlaidLibraryLevel::ImageLoad()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftDustElemental.BMP"));
 			Image->Cut(2, 1);
 		}
+		// BeatenState
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightDustElementalDmged.BMP"));
 			Image->Cut(2, 1);
@@ -69,7 +71,7 @@ void InlaidLibraryLevel::ImageLoad()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftDustElementalDmged.BMP"));
 			Image->Cut(2, 1);
 		}
-
+		//DeadState
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightDustElementalDead.BMP"));
 			Image->Cut(5, 2);
@@ -126,7 +128,8 @@ void InlaidLibraryLevel::Loading()
 		NewWeapon->SetImage("Right_Whip", "Whip.bmp", 0, 2, 0.1f);
 		NewWeapon->SetRenderScale({ 314, 280 });
 		NewWeapon->SetCollisionScale({ 280, 60 });
-		NewWeapon->SetCoolTime(1.2f);
+		NewWeapon->SetCoolTime(2.0f);
+		NewWeapon->SetRunTime(0.5f);
 		NewWeapon->SetDmg(5);
 		//NewWeapon->SetWeaponDebugType(CT_Rect);
 		Weapon::Weapons["Whip"] = NewWeapon;

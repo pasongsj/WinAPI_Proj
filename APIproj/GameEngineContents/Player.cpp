@@ -115,8 +115,15 @@ void Player::Update(float _DeltaTime)
 	for (Weapon* arm : MyWeapon) {
 		//float4 _Pos = GetPos();
 		arm->SetPos(GetPos()+arm->GetWeaponPos());
+		arm->WaitTime += _DeltaTime;
+		if (arm->WaitTime > arm->GetCoolTime())
+		{
+			arm->WaitTime = 0;
+			arm->On();
+		}
 
 	}
+
 	
 	UpdateState(_DeltaTime);
 	Movecalculation(_DeltaTime);

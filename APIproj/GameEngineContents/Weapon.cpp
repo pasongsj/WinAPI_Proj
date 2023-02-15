@@ -68,7 +68,10 @@ void Weapon::Start()
 
 void Weapon::Update(float _DeltaTime)
 {
-
+	if (WaitTime > RunTime)
+	{
+		this->Off();
+	}
 	
 }
 

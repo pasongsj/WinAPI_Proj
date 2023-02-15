@@ -73,8 +73,17 @@ public:
 		return CoolTime;
 	}
 	
+	inline void SetRunTime(const float& _RunTime) {
+		RunTime = _RunTime;
+	}
+	inline float GetRunTime()
+	{
+		return RunTime;
+	}
+
 	void SetWeaponDebugType(CollisionType _Type);
 
+	float WaitTime = 0.0f;
 
 protected:
 
@@ -85,6 +94,7 @@ private:
 	GameEngineCollision* WeaponCollision = nullptr;
 	int Dmg = 0;
 	float CoolTime = 0.0f;
+	float RunTime = 0.0f;
 	bool IsAnimation = true;
 	float4 WeaponPos;
 

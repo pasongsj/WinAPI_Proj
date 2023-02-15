@@ -39,6 +39,7 @@ void Monster::Start()
 		CamPos + float4(static_cast<float>(rand() % GameEngineWindow::GetScreenSize().ix()), static_cast<float>(rand() % GameEngineWindow::GetScreenSize().iy()))
 	);
 	AnimationRender->ChangeAnimation("Right_Move");
+	SetHp(100);
 	//ChangeState(MonsterState::IDLE); // 시작 시 기본 상태 설정
 }
 
@@ -55,7 +56,7 @@ void Monster::Update(float _DeltaTime)
 
 	int a = 0;
 
-	/*std::vector<GameEngineCollision*> Collision;
+	std::vector<GameEngineCollision*> Collision;
 	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Weapon) }, Collision))
 	{
 		int a = 0;
@@ -67,13 +68,15 @@ void Monster::Update(float _DeltaTime)
 		
 
 			Hp -= ColWeaponActor->GetDmg();
+			ChangeState(MonsterState::BEATEN);
 			if (Hp < 0) {
-				this->Death();
+				ChangeState(MonsterState::DEAD);
+				//this->Death();
 				break;
 			}
 
 		}
-	}*/
+	}
 
 }
 
@@ -109,7 +112,7 @@ void Monster::MoveUpdate(float _Time)
 
 }
 void Monster::MoveEnd() {
-
+	MoveVec = (- MoveVec) * 3; // 넉백?
 }
 
 void Monster::BeatenStart()
@@ -118,7 +121,9 @@ void Monster::BeatenStart()
 }
 void Monster::BeatenUpdate(float _Time)
 {
+	MoveVec = float4::Zero;
 	DirCheck("Beaten");
+	// 타격 애니메이션 돌리고 그동안 movevec 0으로 만듦
 	ChangeState(MonsterState::MOVE);
 }
 void Monster::BeatenEnd()
@@ -129,6 +134,7 @@ void Monster::BeatenEnd()
 
 void Monster::DeadStart()
 {
+	MoveVec = float4::Zero;
 	DirCheck("Dead");
 }
 void Monster::DeadUpdate(float _Time)
@@ -148,6 +154,21 @@ void Monster::ChangeState(MonsterState _State)
 
 	StateValue = NextState;
 
+	switch (PrevState)
+	{
+	case MonsterState::MOVE:
+		MoveEnd();
+		break;
+	case MonsterState::BEATEN:
+		BeatenEnd();
+		break;
+	case MonsterState::DEAD:
+		DeadEnd();
+		break;
+	default:
+		break;
+	}
+
 	switch (NextState)
 	{
 	case MonsterState::MOVE:
@@ -163,20 +184,6 @@ void Monster::ChangeState(MonsterState _State)
 		break;
 	}
 
-	switch (PrevState)
-	{
-	case MonsterState::MOVE:
-		MoveEnd();
-		break;
-	case MonsterState::BEATEN:
-		BeatenEnd();
-		break;
-	case MonsterState::DEAD:
-		DeadEnd();
-		break;
-	default:
-		break;
-	}
 
 }
 

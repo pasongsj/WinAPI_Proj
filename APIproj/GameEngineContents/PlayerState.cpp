@@ -16,18 +16,6 @@ void Player::ChangeState(PlayerState _State)
 
 	StateValue = NextState;
 
-	switch (NextState)
-	{
-	case PlayerState::IDLE:
-		IdleStart();
-		break;
-	case PlayerState::MOVE:
-		MoveStart();
-		break;
-	default:
-		break;
-	}
-
 	switch (PrevState)
 	{
 	case PlayerState::IDLE:
@@ -40,6 +28,18 @@ void Player::ChangeState(PlayerState _State)
 		break;
 	}
 
+
+	switch (NextState)
+	{
+	case PlayerState::IDLE:
+		IdleStart();
+		break;
+	case PlayerState::MOVE:
+		MoveStart();
+		break;
+	default:
+		break;
+	}
 }
 
 void Player::UpdateState(float _Time)
