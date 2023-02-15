@@ -39,7 +39,7 @@ void Monster::Start()
 		CamPos + float4(static_cast<float>(rand() % GameEngineWindow::GetScreenSize().ix()), static_cast<float>(rand() % GameEngineWindow::GetScreenSize().iy()))
 	);
 	AnimationRender->ChangeAnimation("Right_Move");
-	SetHp(100);
+	SetHp(10);
 	//ChangeState(MonsterState::IDLE); // 시작 시 기본 상태 설정
 }
 
@@ -56,27 +56,27 @@ void Monster::Update(float _DeltaTime)
 
 	int a = 0;
 
-	std::vector<GameEngineCollision*> Collision;
-	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Weapon) }, Collision))
-	{
-		int a = 0;
-		for(size_t i = 0; i < Collision.size(); i++)
-		{
+	//std::vector<GameEngineCollision*> Collision;
+	//if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Weapon) }, Collision))
+	//{
+	//	int a = 0;
+	//	for(size_t i = 0; i < Collision.size(); i++)
+	//	{
 
-			GameEngineActor* ColActor = Collision[i]->GetActor();
-			Weapon* ColWeaponActor = dynamic_cast<Weapon*> (ColActor);
-		
+	//		GameEngineActor* ColActor = Collision[i]->GetActor();
+	//		Weapon* ColWeaponActor = dynamic_cast<Weapon*> (ColActor);
+	//	
 
-			Hp -= ColWeaponActor->GetDmg();
-			ChangeState(MonsterState::BEATEN);
-			if (Hp < 0) {
-				ChangeState(MonsterState::DEAD);
-				//this->Death();
-				break;
-			}
+	//		Hp -= ColWeaponActor->GetDmg();
+	//		ChangeState(MonsterState::BEATEN);
+	//		if (Hp < 0) {
+	//			ChangeState(MonsterState::DEAD);
+	//			//this->Death();
+	//			break;
+	//		}
 
-		}
-	}
+	//	}
+	//}
 
 }
 
@@ -109,6 +109,30 @@ void Monster::MoveUpdate(float _Time)
 	MoveVec = Player::MainPlayer->GetPos() - GetPos();
 	MoveVec.Normalize();
 	DirCheck("Move");
+	std::vector<GameEngineCollision*> Collision;
+	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Weapon) }, Collision))
+	{
+		int a = 0;
+		for (size_t i = 0; i < Collision.size(); i++)
+		{
+
+			GameEngineActor* ColActor = Collision[i]->GetActor();
+			Weapon* ColWeaponActor = dynamic_cast<Weapon*> (ColActor);
+
+
+			Hp -= ColWeaponActor->GetDmg();
+
+			if (Hp < 0) {
+				ChangeState(MonsterState::DEAD);
+				//this->Death();
+				break;
+			}
+			else {
+				ChangeState(MonsterState::BEATEN);
+			}
+
+		}
+	}
 
 }
 void Monster::MoveEnd() {
@@ -124,7 +148,10 @@ void Monster::BeatenUpdate(float _Time)
 	MoveVec = float4::Zero;
 	DirCheck("Beaten");
 	// 타격 애니메이션 돌리고 그동안 movevec 0으로 만듦
-	ChangeState(MonsterState::MOVE);
+	if (AnimationRender->IsAnimationEnd())
+	{
+		ChangeState(MonsterState::MOVE);
+	}//IsAnimationEnd())
 }
 void Monster::BeatenEnd()
 {

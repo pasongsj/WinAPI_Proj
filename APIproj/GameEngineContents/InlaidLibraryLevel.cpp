@@ -125,11 +125,11 @@ void InlaidLibraryLevel::Loading()
 
 	{
 		Weapon* NewWeapon = CreateActor<Weapon>(VSRenderOrder::Weapon);
-		NewWeapon->SetImage("Right_Whip", "Whip.bmp", 0, 2, 0.1f);
+		NewWeapon->SetImage("Right_Whip", "Whip.bmp", 0, 2, 0.03f);
 		NewWeapon->SetRenderScale({ 314, 280 });
 		NewWeapon->SetCollisionScale({ 280, 60 });
 		NewWeapon->SetCoolTime(2.0f);
-		NewWeapon->SetRunTime(0.5f);
+		NewWeapon->SetRunTime(0.1f);
 		NewWeapon->SetDmg(5);
 		//NewWeapon->SetWeaponDebugType(CT_Rect);
 		Weapon::Weapons["Whip"] = NewWeapon;
