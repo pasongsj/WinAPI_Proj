@@ -31,7 +31,7 @@ public:
 	GameEnginePath GetPlusFileName(const std::string_view& _String);
 
 
-	// std::vector<GameEngineFile> GetAllFile();
+	std::vector<GameEngineFile> GetAllFile(const std::string_view& _Ext = "");
 
 	// void MoveParent();
 

@@ -1,5 +1,6 @@
 #include "InlaidLibraryLevel.h"
 #include <GameEngineBase/GameEngineDirectory.h>
+#include <GameEngineBase/GameEngineFile.h>
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEnginePlatform/GameEngineInput.h>
@@ -85,19 +86,19 @@ void InlaidLibraryLevel::ImageLoad()
 	{
 		// UI 이미지 로드
 		Dir.MoveParentToDirectory("Title");
-		Dir.Move("Title");
+		Dir.Move("UI");
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExpBar.BMP"));
 		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("colon.BMP"));
 		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LV.BMP"));
+		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Number.BMP"));
+		Image2->Cut(10, 1);
 		//Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExpBarBlue.BMP"));
 	}
 
-	{ // UI - 맵 숫자 이미지 로드
-		Dir.MoveParentToDirectory("InlaidLibrary");
-		Dir.Move("InlaidLibrary");
-		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Number.BMP"));
-		Image2->Cut(10, 1);
-	}
+	//{ // UI - 맵 숫자 이미지 로드
+	//	Dir.MoveParentToDirectory("InlaidLibrary");
+	//	Dir.Move("InlaidLibrary");
+	//}
 
 	{
 		Dir.MoveParentToDirectory("Weapon");

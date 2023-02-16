@@ -22,6 +22,6 @@ protected:
 	void LevelChangeStart(GameEngineLevel* _PrevLevel) override {}
 
 private:
-
+	GameEngineActor* OpeningBackGround = nullptr;
 };
 

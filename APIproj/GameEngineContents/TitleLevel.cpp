@@ -1,6 +1,7 @@
 #include "TitleLevel.h"
 
 #include <GameEngineBase/GameEngineDirectory.h>
+#include <GameEngineBase/GameEngineFile.h>
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCore.h>
@@ -9,7 +10,6 @@
 #include "TitleMainBack.h"
 #include "MouseObject.h"
 #include "ContentsEnums.h"
-
 //
 // test
 //
@@ -41,27 +41,42 @@ void TitleLevel::SoundLoad()
 }
 void TitleLevel::ImageLoad()
 {
+	GameEngineDirectory Dir;
+	Dir.MoveParentToDirectory("ContentsResources");
+	Dir.Move("ContentsResources");
+	Dir.Move("Image");
+	Dir.Move("Title");
+	std::vector<GameEngineFile> Files = Dir.GetAllFile();
 
+	for (size_t i = 0; i < Files.size(); i++)
 	{
-		GameEngineDirectory Dir;
-		Dir.MoveParentToDirectory("ContentsResources");
-		Dir.Move("ContentsResources");
-		Dir.Move("Image");
-		Dir.Move("Title");
-		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("TitleMainBackGround.BMP"));
-
-		//Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("TitleBackGround.BMP"));
-
-		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("startbutton.BMP"));
-
-		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("CollectionButton.BMP"));
-
-		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExitButton.BMP"));
-
-		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("OptionButton.BMP"));
-
-		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ReinforceButton.BMP"));
+		GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
 	}
+
+	//{
+	//	// GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("BGMTest.mp3"));
+	//}
+
+	//{
+	//	GameEngineDirectory Dir;
+	//	Dir.MoveParentToDirectory("ContentsResources");
+	//	Dir.Move("ContentsResources");
+	//	Dir.Move("Image");
+	//	Dir.Move("Title");
+	//	GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("TitleMainBackGround.BMP"));
+
+	//	//Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("TitleBackGround.BMP"));
+
+	//	GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("startbutton.BMP"));
+
+	//	GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("CollectionButton.BMP"));
+
+	//	GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExitButton.BMP"));
+
+	//	GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("OptionButton.BMP"));
+
+	//	GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ReinforceButton.BMP"));
+	//}
 
 }
 

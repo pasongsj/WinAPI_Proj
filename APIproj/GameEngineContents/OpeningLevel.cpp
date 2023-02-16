@@ -4,6 +4,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCore.h>
 #include "TitleSubBack.h"
+#include "ContentsEnums.h"
 
 OpeningLevel::OpeningLevel()
 {
@@ -22,9 +23,10 @@ void OpeningLevel::Loading()
 		Dir.Move("ContentsResources");
 		Dir.Move("Image");
 		Dir.Move("Title");
+		Dir.Move("Opening");
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("TitleBackground.BMP"));
 	}
-	CreateActor<TitleSubBack>();
+	OpeningBackGround = CreateActor<TitleSubBack>(VSRenderOrder::BackGround);
 }
 
 void OpeningLevel::Update(float _DeltaTime)
@@ -32,5 +34,6 @@ void OpeningLevel::Update(float _DeltaTime)
 	if (true == GameEngineInput::IsAnyKey())
 	{
 		GameEngineCore::GetInst()->ChangeLevel("TitleLevel");
+		OpeningBackGround->Death(); // 다시 돌아오지 않을 페이지
 	}
 }
