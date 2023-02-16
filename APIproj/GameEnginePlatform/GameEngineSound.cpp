@@ -1,5 +1,7 @@
 #include "GameEngineSound.h"
 #include <GameEngineBase/GameEngineDebug.h>
+#include <GameEngineBase/GameEngineString.h>
+#include <GameEngineBase/GameEngineString.h>
 
 #ifdef _DEBUG
 #pragma comment(lib, "GameEnginePlatform\\ThirdParty\\FMOD\\lib\\x64\\fmodL_vc.lib")
@@ -58,9 +60,11 @@ GameEngineSound::~GameEngineSound()
 
 void GameEngineSound::SoundLoad(const std::string_view& _Path)
 {
-	if (FMOD_OK != SoundSystem->createSound(_Path.data(), FMOD_LOOP_NORMAL, nullptr, &FMODSound))
+	std::string UTF8Path = GameEngineString::AnsiToUTF8(_Path);
+
+	if (FMOD_OK != SoundSystem->createSound(UTF8Path.c_str(), FMOD_LOOP_NORMAL, nullptr, &FMODSound)) 
 	{
-		MsgAssert(std::string("사운드 로드에 실패했습니다.\n 경로 : ") + _Path.data());
+		MsgAssert(std::string("사운드 로드에 실패했습니다.\n 경로 : ") + UTF8Path.c_str());
 	}
 
 	return;

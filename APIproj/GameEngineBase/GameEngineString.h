@@ -9,6 +9,14 @@ public:
 	static std::string ToUpper(const std::string_view& _Str);
 	static std::string ToString(int Value);
 
+	// 멀티바이트(anti), 유니코드, UTF변환
+	static std::wstring AnsiToUniCode(const std::string_view& _Text);
+	static std::string UniCodeToAnsi(const std::wstring_view& _Text);
+
+	static std::string UniCodeToUTF8(const std::wstring_view& _Text);
+	static std::string AnsiToUTF8(const std::string_view& _Text);
+
+
 protected:
 
 private:

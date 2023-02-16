@@ -109,21 +109,13 @@ void InlaidLibraryLevel::ImageLoad()
 
 void InlaidLibraryLevel::SoundLoad()
 {
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentsResources");
-	Dir.Move("ContentsResources");
-	Dir.Move("Sound");
-	/*std::vector<GameEngineFile> Files = Dir.GetAllFile();
+	//GameEngineDirectory Dir;
+	//Dir.MoveParentToDirectory("ContentsResources");
+	//Dir.Move("ContentsResources");
+	//Dir.Move("Sound");
 
-	for (size_t i = 0; i < Files.size(); i++)
-	{
-		GameEngineResources::GetInst().SoundLoad(Files[i].GetFullPath());
-	}*/
+	//GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("intro.mp3"));
 
-	{
-		 GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("Intro.mp3"));
-	}
-	// GameEngineResources::GetInst().SoundPlay("Appear.wav");
 }
 
 
@@ -211,7 +203,7 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 
 void InlaidLibraryLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
-	int a = 0;
-	BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("Intro.mp3");
-	BGMPlayer.LoopCount(100);
+	/*int a = 0;
+	BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("intro.mp3");
+	BGMPlayer.LoopCount(100);*/
 }

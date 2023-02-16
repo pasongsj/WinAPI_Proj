@@ -36,11 +36,7 @@ void TitleLevel::SoundLoad()
 	Dir.Move("ContentsResources");
 	Dir.Move("Sound");
 
-	{
-		//GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("Intro.mp3"));
-	}
-
-	// GameEngineResources::GetInst().SoundPlay("Appear.wav");
+	GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("intro.mp3"));
 
 }
 void TitleLevel::ImageLoad()
@@ -71,7 +67,7 @@ void TitleLevel::ImageLoad()
 
 void TitleLevel::Loading()
 {
-	//SoundLoad();
+	SoundLoad();
 	ImageLoad();
 
 	if (false == GameEngineInput::IsKey("DebugRenderSwitch"))
@@ -79,27 +75,7 @@ void TitleLevel::Loading()
 		GameEngineInput::CreateKey("DebugRenderSwitch", 'R');
 	}
 
-	// back이미지 로드
-	//{
-	//	GameEngineDirectory Dir;
-	//	Dir.MoveParentToDirectory("ContentsResources");
-	//	Dir.Move("ContentsResources");
-	//	Dir.Move("Image");
-	//	Dir.Move("Title");
-	//	GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("TitleMainBackGround.BMP"));
 
-	//	//Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("TitleBackGround.BMP"));
-
-	//	Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("startbutton.BMP"));
-
-	//	Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("CollectionButton.BMP"));
-
-	//	Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExitButton.BMP"));
-
-	//	Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("OptionButton.BMP"));
-
-	//	Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ReinforceButton.BMP"));
-	//}
 	MouseObject* MouseObjectInst = CreateActor<MouseObject>();
 
 	CreateActor<TitleMainBack>();
@@ -131,7 +107,7 @@ void TitleLevel::Update(float _DeltaTime)
 
 void TitleLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
-	/*BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("Intro.mp3");
+	BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("intro.mp3");
 	BGMPlayer.LoopCount(100);
-	BGMPlayer.Volume(0.2f);*/
+	BGMPlayer.Volume(0.2f);
 }
