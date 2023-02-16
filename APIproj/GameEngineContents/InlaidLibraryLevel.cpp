@@ -107,10 +107,30 @@ void InlaidLibraryLevel::ImageLoad()
 	}
 }
 
+void InlaidLibraryLevel::SoundLoad()
+{
+	GameEngineDirectory Dir;
+	Dir.MoveParentToDirectory("ContentsResources");
+	Dir.Move("ContentsResources");
+	Dir.Move("Sound");
+	/*std::vector<GameEngineFile> Files = Dir.GetAllFile();
+
+	for (size_t i = 0; i < Files.size(); i++)
+	{
+		GameEngineResources::GetInst().SoundLoad(Files[i].GetFullPath());
+	}*/
+
+	{
+		 GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("Intro.mp3"));
+	}
+	// GameEngineResources::GetInst().SoundPlay("Appear.wav");
+}
+
 
 void InlaidLibraryLevel::Loading()
 {
 	ImageLoad();
+	SoundLoad();
 	// 만들어야할 것들을 만드는 시점이 Loading시점
 
 	if (false == GameEngineInput::IsKey("LevelChange")) // - 임시 : 레벨체인지 
@@ -175,10 +195,23 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 	if (GameEngineInput::IsDown("DebugRenderSwitch"))
 	{
 		DebugRenderSwitch();
+		if (false == BGMPlayer.GetPause())
+		{
+			BGMPlayer.PauseOn();
+		}
+		else
+		{
+			BGMPlayer.PauseOff();
+		}
+
+		DebugRenderSwitch();
 	}
+
 }
 
 void InlaidLibraryLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 	int a = 0;
+	BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("Intro.mp3");
+	BGMPlayer.LoopCount(100);
 }

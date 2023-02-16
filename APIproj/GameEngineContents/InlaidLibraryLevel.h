@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineResources.h>
 
 // 화려한 도서관 스테이지
 class InlaidLibraryLevel : public GameEngineLevel
@@ -21,9 +22,13 @@ protected:
 
 	void LevelChangeEnd(GameEngineLevel* _NextLevel) override {}
 	void LevelChangeStart(GameEngineLevel* _PrevLevel) override;
+
+	GameEngineSoundPlayer BGMPlayer;
+
 private:
 
 	float4 BGSize = float4::Zero;
 	void ImageLoad();
+	void SoundLoad();
 };
 
