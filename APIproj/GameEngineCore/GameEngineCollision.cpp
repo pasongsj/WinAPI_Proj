@@ -18,6 +18,8 @@ public:
 		ColFunctionPtr[CT_Rect][CT_Point] = GameEngineCollision::CollisionRectToPoint;
 		ColFunctionPtr[CT_Point][CT_CirCle] = GameEngineCollision::CollisionPointToCirCle;
 		ColFunctionPtr[CT_Point][CT_Rect] = GameEngineCollision::CollisionPointToRect;
+		ColFunctionPtr[CT_CirCle][CT_Rect] = GameEngineCollision::CollisionCirCleToRect;
+		ColFunctionPtr[CT_Rect][CT_CirCle] = GameEngineCollision::CollisionRectToCirCle;
 	}
 	~CollisionFunctionInit()
 	{
@@ -100,14 +102,62 @@ bool GameEngineCollision::CollisionRectToPoint(const CollisionData& _Left, const
 
 	return true;
 }
+
 bool GameEngineCollision::CollisionPointToCirCle(const CollisionData& _Left, const CollisionData& _Right)
 {
 	return CollisionCirCleToPoint(_Right, _Left);
 }
+
 bool GameEngineCollision::CollisionPointToRect(const CollisionData& _Left, const CollisionData& _Right)
 {
 	return CollisionRectToPoint(_Right, _Left);
 }
+
+double Distance(POINT p1, POINT p2)
+{
+	LONGLONG x = (LONGLONG)p1.x - (LONGLONG)p2.x;
+	LONGLONG y = (LONGLONG)p1.y - (LONGLONG)p2.y;
+	return sqrt(x * x + y * y);
+}
+
+bool GameEngineCollision:: CollisionRectToCirCle(const CollisionData& _Left, const CollisionData& _Right)
+{
+	int x = _Right.Position.ix();
+	int y = _Right.Position.iy();
+	int radius = _Right.Scale.hix();
+	int left = static_cast<int>(_Left.Left());
+	int right = static_cast<int>(_Left.Right());
+	int top = static_cast<int>(_Left.Top());
+	int bottom = static_cast<int>(_Left.Bot());
+	if ((left <= x && x < right) || (top <= y && y < bottom))
+	{
+		if (!(
+			(y + radius <= top)
+			|| (y - radius >= bottom)
+			|| (x + radius <= left)
+			|| (x - radius >= right)
+			))
+			return true;
+	}
+	else
+	{
+		if (
+			((Distance({ x, y }, { right, top }) <= radius) && (x >= right && y <= top))
+			|| ((Distance({ x, y }, { right, bottom }) <= radius) && (x >= right && y >= bottom))
+			|| ((Distance({ x, y }, { left, top }) <= radius) && (x <= left && y <= top))
+			|| ((Distance({ x, y }, { left, bottom }) <= radius) && (x <= left && y >= bottom))
+			)
+			return true;
+	}
+	return false;
+}
+bool GameEngineCollision::CollisionCirCleToRect(const CollisionData& _Left, const CollisionData& _Right)
+{
+	return CollisionRectToCirCle(_Right, _Left);
+}
+
+
+
 
 void GameEngineCollision::SetOrder(int _Order)
 {

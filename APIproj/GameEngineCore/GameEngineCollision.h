@@ -61,6 +61,9 @@ public:
 
 	static bool CollisionPointToCirCle(const CollisionData& _Left, const CollisionData& _Right);
 	static bool CollisionPointToRect(const CollisionData& _Left, const CollisionData& _Right);
+
+	static bool CollisionRectToCirCle(const CollisionData& _Left, const CollisionData& _Right);
+	static bool CollisionCirCleToRect(const CollisionData& _Left, const CollisionData& _Right);
 	// constrcuter destructer
 	GameEngineCollision();
 	~GameEngineCollision();

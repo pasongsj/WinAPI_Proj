@@ -110,7 +110,7 @@ void Monster::MoveUpdate(float _Time)
 	MoveVec.Normalize();
 	DirCheck("Move");
 	std::vector<GameEngineCollision*> Collision;
-	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Weapon) }, Collision))
+	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Weapon), .TargetColType = CollisionType::CT_Rect}, Collision))
 	{
 		int a = 0;
 		for (size_t i = 0; i < Collision.size(); i++)
