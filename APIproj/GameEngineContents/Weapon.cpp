@@ -12,7 +12,10 @@ Weapon::Weapon()
 Weapon::~Weapon()
 {
 }
+void Weapon::InitWeapon() 
+{
 
+}
 
 void Weapon::SetImage(const std::string_view& _AnimationName, const std::string_view& _Image, int _Start, int _End , float _InterTime)
 {

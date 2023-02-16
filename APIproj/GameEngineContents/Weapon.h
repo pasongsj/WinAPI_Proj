@@ -9,6 +9,7 @@ class Weapon : public GameEngineActor
 {
 public:
 
+	static void InitWeapon();
 	static std::map<std::string, Weapon*> Weapons;
 	// constrcuter destructer
 	Weapon() ;
