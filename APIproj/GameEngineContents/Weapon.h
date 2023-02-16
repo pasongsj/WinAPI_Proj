@@ -3,6 +3,7 @@
 #include <map>
 #include <string>
 #include <GameEngineCore/GameEngineCollision.h>
+#include <GameEngineCore/GameEngineRender.h>
 
 class Weapon : public GameEngineActor
 {
@@ -29,34 +30,27 @@ public:
 	//Render
 	void SetImage(const std::string_view& _AnimationName = "", const std::string_view& _Image = "", int _Start = 0, int _End = 0, float _InterTim = 0.0f);
 
-	void SetRenderOrder(int _Value);
-
-	void SetRenderScale(float4 _Scale);
-
-	/*inline GameEngineRender* GetWeaponRender() {
-		return WeaponRender;
+	void SetRenderOrder(int _Value)
+	{
+		WeaponRender->SetOrder(_Value);
 	}
 
-	inline void SetWeaponRender(GameEngineRender* _Render) {
-		WeaponRender = _Render;
-	}*/
+	void SetRenderScale(float4 _Scale)
+	{
+		WeaponRender->SetScale(_Scale);
+	}
+
 
 	void SetAnimationOff() {
 		IsAnimation = false;
 	}
 
 	// Collision
-	void SetCollisionScale(float4 _Scale);
-
-	/*inline GameEngineCollision* GetWeaponCollision() {
-		return WeaponCollision;
+	void SetCollisionScale(float4 _Scale)
+	{
+		WeaponCollision->SetScale(_Scale);
 	}
 
-	inline void SetWeaponCollision(GameEngineCollision* _Collision) {
-		WeaponCollision = _Collision;
-	}*/
-
-	//
 
 	inline void SetDmg(const int& _Dmg) {
 		Dmg = _Dmg;
@@ -81,10 +75,20 @@ public:
 		return RunTime;
 	}
 
-	void SetWeaponDebugType(CollisionType _Type);
+	/*void SetWeaponDebugType(CollisionType _Type)
+	{
+		WeaponCollision->SetDebugRenderType(_Type);
+	}*/
 
 	float WaitTime = 0.0f;
 
+	void SetCollisionPosition(const float4& _Pos) {
+		WeaponCollision->SetPosition(_Pos);
+	}
+
+	void SetRenderPosition(const float4& _Pos) {
+		WeaponRender->SetPosition(_Pos);
+	}
 protected:
 
 	void Start() override;

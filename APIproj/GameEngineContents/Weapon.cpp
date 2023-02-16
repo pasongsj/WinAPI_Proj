@@ -1,6 +1,6 @@
 #include "Weapon.h"
-#include <GameEngineCore/GameEngineRender.h>
-#include <GameEngineCore/GameEngineCollision.h>
+//#include <GameEngineCore/GameEngineRender.h>
+//#include <GameEngineCore/GameEngineCollision.h>
 #include "ContentsEnums.h"
 
 std::map<std::string, Weapon*> Weapon::Weapons;
@@ -13,11 +13,6 @@ Weapon::~Weapon()
 {
 }
 
-//void Weapon::SetPos(const float4& _Pos) {
-//	//Pos = _Pos;
-//	WeaponRender->SetPosition(Pos);
-//	WeaponCollision->SetPosition(_Pos);
-//}
 
 void Weapon::SetImage(const std::string_view& _AnimationName, const std::string_view& _Image, int _Start, int _End , float _InterTime)
 {
@@ -35,27 +30,6 @@ void Weapon::SetImage(const std::string_view& _AnimationName, const std::string_
 	{
 		WeaponRender->SetImage(_Image);
 	}
-}
-
-
-void Weapon::SetRenderOrder(int _Value)
-{
-	WeaponRender->SetOrder(_Value);
-}
-
-void Weapon::SetRenderScale(float4 _Scale)
-{
-	WeaponRender->SetScale(_Scale);
-}
-
-void Weapon::SetCollisionScale(float4 _Scale)
-{
-	WeaponCollision->SetScale(_Scale);
-}
-
-void Weapon::SetWeaponDebugType(CollisionType _Type)
-{
-	WeaponCollision->SetDebugRenderType(_Type);
 }
 
 

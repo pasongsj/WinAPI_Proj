@@ -131,6 +131,7 @@ void InlaidLibraryLevel::Loading()
 		NewWeapon->SetCoolTime(2.0f);
 		NewWeapon->SetRunTime(0.1f);
 		NewWeapon->SetDmg(5);
+		NewWeapon->SetCollisionPosition({ 0, -15 });
 		//NewWeapon->SetWeaponDebugType(CT_Rect);
 		Weapon::Weapons["Whip"] = NewWeapon;
 
