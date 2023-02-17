@@ -88,6 +88,11 @@ public:
 
 	void SetText(const std::string_view& _Text);
 
+	inline void SetAlpha(int _Alpha)
+	{
+		Alpha = _Alpha;
+	}
+
 protected:
 
 private:
@@ -100,6 +105,7 @@ private:
 	int Frame = 0;
 
 	int TransColor = RGB(255, 0, 255); // 제거할 배경 RGB값 
+	int Alpha = 255; // 투명도 0~255
 
 	void Render(float _DeltaTime);
 
