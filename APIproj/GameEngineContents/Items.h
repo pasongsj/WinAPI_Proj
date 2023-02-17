@@ -1,4 +1,5 @@
 #pragma once
+#include <map>
 #include <GameEngineCore/GameEngineActor.h>
 
 class Items : public GameEngineActor
@@ -13,7 +14,17 @@ public:
 	Items(Items&& _Other) noexcept = delete;
 	Items& operator=(const Items& _Other) = delete;
 	Items& operator=(Items&& _Other) noexcept = delete;
+	inline void SetExp(int _Exp) {
+		Exp = _Exp;
+	}
+	inline int GetExp() {
+		return Exp;
+	}
 
+	//Items GetItems(const std::string_view& _Name) {
+	//	//Items*;
+	//	return AllItems[_Name.data()];
+	//}
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -21,6 +32,7 @@ protected:
 private:
 	GameEngineRender* ItemRender = nullptr;
 	GameEngineCollision* ItemCollision = nullptr; // æ∆¿Ã≈€ »πµÊ ªÁ∞≈∏Æ
-
+	int Exp = 0;
+	/*static std::map<std::string, Items> AllItems;*/
 };
 

@@ -9,6 +9,8 @@
 #include <GameEngineCore/GameEngineCollision.h>
 
 #include "Weapon.h"
+#include "Monster.h"
+#include "Items.h"
 Player* Player::MainPlayer;
 
 Player::Player()
@@ -100,19 +102,40 @@ void Player::Movecalculation(float _DeltaTime)
 
 void Player::Update(float _DeltaTime)
 {
+	// PlayerState가 변경될 수 있음을 인지해야한다. - 수정필요
+	std::vector<GameEngineCollision*> Collision;
+	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster) }, Collision))
+	{
+		for (size_t i = 0; i < Collision.size(); i++)
+		{
+			// Monster* FindMonster = Collision[i]->GetOwner<Monster>();
+
+			GameEngineActor* ColActor = Collision[i]->GetActor();
+			Monster* ColMonsterActor = dynamic_cast<Monster*> (ColActor);
+			Hp -= ColMonsterActor->GetDmg();
+		//	ColActor->Death();
+
+		}
+	}
+
+	// 아이템 획득 콜리전
 	//std::vector<GameEngineCollision*> Collision;
-	//if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster) }, Collision))
-	//{
-	//	for (size_t i = 0; i < Collision.size(); i++)
-	//	{
-	//		// Monster* FindMonster = Collision[i]->GetOwner<Monster>();
+	Collision.clear();
+	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Item) , .TargetColType  = CollisionType::CT_Rect}, Collision))
+	{
+		for (size_t i = 0; i < Collision.size(); i++)
+		{
+			GameEngineActor* ColActor = Collision[i]->GetActor();
+			Items* ColItemActor = dynamic_cast<Items*> (ColActor);
+			Exp += ColItemActor->GetExp();
+			ColItemActor->Death();
+			//	ColActor->Death();
 
-	//		GameEngineActor* ColActor = Collision[i]->GetActor();
-	//		ColActor->Death();
+		}
+	}
 
-	//	}
-	//}
 
+	// 가지고 있는 무기 쿨타임 업데이트
 	for (Weapon* arm : MyWeapon) {
 		//float4 _Pos = GetPos();
 		arm->SetPos(GetPos()+arm->GetWeaponPos());

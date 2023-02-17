@@ -47,6 +47,7 @@ private:
 	float4 MoveVec = float4::Zero;
 
 	int Hp = 0;
+	int Exp = 0;
 
 	GameEngineRender* AnimationRender = nullptr;
 	GameEngineCollision* BodyCollision = nullptr;

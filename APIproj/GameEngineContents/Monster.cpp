@@ -41,7 +41,11 @@ void Monster::Start()
 		CamPos + float4(static_cast<float>(rand() % GameEngineWindow::GetScreenSize().ix()), static_cast<float>(rand() % GameEngineWindow::GetScreenSize().iy()))
 	);
 	AnimationRender->ChangeAnimation("Right_Move");
+	
+	
+	// 임시
 	SetHp(5);
+	Dmg = 5;
 	//ChangeState(MonsterState::IDLE); // 시작 시 기본 상태 설정
 }
 

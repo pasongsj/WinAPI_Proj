@@ -32,13 +32,22 @@ public:
 		return Hp;
 	}
 
+	inline void SetDmg(int _Dmg) {
+		Dmg = _Dmg;
+	}
+	inline int GetDmg()
+	{
+		return Dmg;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
 private:
 	float CollisionOffTime = 0.0f;
-	int Hp = 10;
+	int Hp = 0;
+	int Dmg = 0;
 	float MoveSpeed = 200.0f;
 	float4 MoveVec = float4::Zero;
 

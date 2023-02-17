@@ -3,6 +3,8 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include "ContentsEnums.h"
 
+//std::map<std::string, Items> Items::AllItems;
+
 Items::Items()
 {
 }
