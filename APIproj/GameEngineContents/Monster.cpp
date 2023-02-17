@@ -24,12 +24,12 @@ void Monster::Start()
 	{
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "RightDustElemental.bmp", .Start = 0, .End = 1, .InterTime = 0.1f });
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Beaten",  .ImageName = "RightDustElementalDmged.bmp", .Start = 0, .End = 1, .InterTime = 0.1f , .Loop = false });
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Dead",  .ImageName = "RightDustElementalDead.bmp", .Start = 0, .End = 9, .InterTime = 0.1f, .Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "Right_Dead",  .ImageName = "RightDustElementalDead.bmp", .Start = 0, .End = 9, .InterTime = 0.05f, .Loop = false });
 	}
 	{
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "LeftDustElemental.bmp", .Start = 0, .End = 1, .InterTime = 0.1f });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Beaten",  .ImageName = "LeftDustElementalDmged.bmp", .Start = 0, .End = 1, .InterTime = 0.1f, .Loop = false });
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_Dead",  .ImageName = "LeftDustElementalDead.bmp", .Start = 0, .End = 9, .InterTime = 0.1f, .Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_Dead",  .ImageName = "LeftDustElementalDead.bmp", .Start = 0, .End = 9, .InterTime = 0.05f, .Loop = false });
 	}
 	BodyCollision = CreateCollision(VSRenderOrder::Monster);
 	BodyCollision->SetScale({ 60,60 });
