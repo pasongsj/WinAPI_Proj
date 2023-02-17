@@ -42,6 +42,7 @@
     <ClInclude Include="Weapon.h">
       <Filter>Player</Filter>
     </ClInclude>
+    <ClInclude Include="Items.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsGameCore.cpp" />
@@ -87,6 +88,7 @@
     <ClCompile Include="Weapon.cpp">
       <Filter>Player</Filter>
     </ClCompile>
+    <ClCompile Include="Items.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

@@ -104,7 +104,7 @@ private:
 	static bool IsDebugRender;
 
 	float4 CameraPos = float4::Zero;/*GameEngineWindow::GetScreenSize().half();*/
-	// 행동순서를 담은 map
+	// 행동순서를 담은 
 	std::map<int, std::list<GameEngineActor*>> Actors;
 
 	void ActorsUpdate(float _DeltaTime);

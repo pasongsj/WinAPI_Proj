@@ -6,6 +6,7 @@ enum class VSRenderOrder
 	Map,
 	Player,
 	Monster,
+	Item,
 	Weapon,
 	UI,
 

@@ -12,6 +12,7 @@
 #include "Monster.h"
 #include "PlayGameUI.h"
 #include "Weapon.h"
+#include  "Items.h"
 
 InlaidLibraryLevel::InlaidLibraryLevel()
 {
@@ -33,7 +34,7 @@ void InlaidLibraryLevel::ImageLoad()
 		Dir.Move("InlaidLibrary");
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("InlaidLibraryStage.BMP"));
 		GameEngineImage* ColImage = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("InlaidLibraryCollision.BMP"));
-		BGSize = Image->GetImageScale();
+		BGSize = Image->GetImageScale(); // AllImage에서 find로 찾아서 설정하면 될듯?
 	}
 
 	{
@@ -105,6 +106,11 @@ void InlaidLibraryLevel::ImageLoad()
 		Dir.Move("Weapon");
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Whip.BMP"));
 		Image->Cut(1, 3);
+	}
+	{
+		Dir.MoveParentToDirectory("Item");
+		Dir.Move("Item");
+		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("exp0.BMP"));
 	}
 }
 
@@ -188,16 +194,14 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 	if (GameEngineInput::IsDown("DebugRenderSwitch"))
 	{
 		DebugRenderSwitch();
-		if (false == BGMPlayer.GetPause())
+		/*if (false == BGMPlayer.GetPause())
 		{
 			BGMPlayer.PauseOn();
 		}
 		else
 		{
 			BGMPlayer.PauseOff();
-		}
-
-		DebugRenderSwitch();
+		}*/
 	}
 
 }

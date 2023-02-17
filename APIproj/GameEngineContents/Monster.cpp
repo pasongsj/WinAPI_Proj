@@ -6,6 +6,8 @@
 #include "ContentsEnums.h"
 #include "Player.h"
 #include "Weapon.h"
+#include "Items.h"
+
 Monster::Monster()
 {
 }
@@ -39,7 +41,7 @@ void Monster::Start()
 		CamPos + float4(static_cast<float>(rand() % GameEngineWindow::GetScreenSize().ix()), static_cast<float>(rand() % GameEngineWindow::GetScreenSize().iy()))
 	);
 	AnimationRender->ChangeAnimation("Right_Move");
-	SetHp(10);
+	SetHp(5);
 	//ChangeState(MonsterState::IDLE); // 시작 시 기본 상태 설정
 }
 
@@ -47,36 +49,10 @@ void Monster::Start()
 
 void Monster::Update(float _DeltaTime)
 {
-	//float4 Dir = Player::MainPlayer->GetPos() - GetPos();
-	//// Dir.y = 0.0f;
-	//Dir.Normalize();
-	//SetMove(Dir * 200.0f * _DeltaTime); // if state == attacted면 멈추게 한다.
 	UpdateState(_DeltaTime);
 	SetMove(MoveVec * MoveSpeed * _DeltaTime); // if state == attacted면 멈추게 한다.
 
 	int a = 0;
-
-	//std::vector<GameEngineCollision*> Collision;
-	//if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Weapon) }, Collision))
-	//{
-	//	int a = 0;
-	//	for(size_t i = 0; i < Collision.size(); i++)
-	//	{
-
-	//		GameEngineActor* ColActor = Collision[i]->GetActor();
-	//		Weapon* ColWeaponActor = dynamic_cast<Weapon*> (ColActor);
-	//	
-
-	//		Hp -= ColWeaponActor->GetDmg();
-	//		ChangeState(MonsterState::BEATEN);
-	//		if (Hp < 0) {
-	//			ChangeState(MonsterState::DEAD);
-	//			//this->Death();
-	//			break;
-	//		}
-
-	//	}
-	//}
 
 }
 
@@ -109,6 +85,7 @@ void Monster::MoveUpdate(float _Time)
 	MoveVec = Player::MainPlayer->GetPos() - GetPos();
 	MoveVec.Normalize();
 	DirCheck("Move");
+
 	std::vector<GameEngineCollision*> Collision;
 	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Weapon), .TargetColType = CollisionType::CT_Rect}, Collision))
 	{
@@ -128,7 +105,7 @@ void Monster::MoveUpdate(float _Time)
 			}
 			else {
 				ChangeState(MonsterState::BEATEN);
-				break;
+				//break;
 			}
 
 
@@ -139,6 +116,7 @@ void Monster::MoveUpdate(float _Time)
 void Monster::MoveEnd() {
 	MoveVec = (- MoveVec) * 3; // 넉백?
 }
+
 
 void Monster::BeatenStart()
 {
@@ -170,11 +148,13 @@ void Monster::DeadUpdate(float _Time)
 	DirCheck("Dead");
 	if (AnimationRender->IsAnimationEnd())
 	{
+		GetLevel();
+		Items* Actor = GetLevel()->CreateActor<Items>(VSRenderOrder::Item);
+		Actor->SetPos(GetPos());
 		this->Death();
 	}
 }
 void Monster::DeadEnd() {
-
 }
 
 
