@@ -9,11 +9,12 @@
 #include "TitleSubBack.h"
 #include "TitleMainBack.h"
 #include "MouseObject.h"
+#include "SelectCharacter.h"
 #include "ContentsEnums.h"
 //
 // test
 //
-
+SelectCharacter* TitleLevel::SelectScreen = nullptr;
 
 TitleLevel::TitleLevel()
 {
@@ -25,7 +26,13 @@ TitleLevel::~TitleLevel()
 
 void ClickStartButton()
 {
-	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
+	if (nullptr == TitleLevel::SelectScreen)
+	{
+		MsgAssert("SelectScreen 액터가 생성되지 않았습니다.");
+		return;
+	}
+	TitleLevel::SelectScreen->Activate();
+	//GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
 }
 
 
@@ -52,17 +59,6 @@ void TitleLevel::ImageLoad()
 	{
 		GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
 	}
-
-	//{
-	//	// GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("BGMTest.mp3"));
-	//}
-
-	//{
-	//	GameEngineDirectory Dir;
-	//	Dir.MoveParentToDirectory("ContentsResources");
-	//	Dir.Move("ContentsResources");
-	//	Dir.Move("Image");
-	//	Dir.Move("Title");
 	//	GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("TitleMainBackGround.BMP"));
 
 	//	//Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("TitleBackGround.BMP"));
@@ -90,10 +86,9 @@ void TitleLevel::Loading()
 		GameEngineInput::CreateKey("DebugRenderSwitch", 'R');
 	}
 
-
 	MouseObject* MouseObjectInst = CreateActor<MouseObject>();
 
-	CreateActor<TitleMainBack>();
+	CreateActor<TitleMainBack>(VSRenderOrder::BackGround);
 
 	Button* NewStartButton = CreateActor<Button>();
 	float4 StartBPos = { 768, 610 };
@@ -104,6 +99,9 @@ void TitleLevel::Loading()
 	Button* NewReinForceButton = CreateActor<Button>();
 	float4 ReinForceBPos = { 768, 780 };
 	NewReinForceButton->setting("ReinforceButton.BMP", "OptionButton.BMP", "CollectionButton.BMP", ReinForceBPos, { 221, 83 }, static_cast<int>(VSRenderOrder::UI), false);
+
+	SelectScreen = CreateActor<SelectCharacter>(VSRenderOrder::UI);
+	//SelectScreen->Off();
 }
 
 void TitleLevel::Update(float _DeltaTime)

@@ -43,6 +43,9 @@
       <Filter>Player</Filter>
     </ClInclude>
     <ClInclude Include="Items.h" />
+    <ClInclude Include="SelectCharacter.h">
+      <Filter>Title</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsGameCore.cpp" />
@@ -89,6 +92,9 @@
       <Filter>Player</Filter>
     </ClCompile>
     <ClCompile Include="Items.cpp" />
+    <ClCompile Include="SelectCharacter.cpp">
+      <Filter>Title</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

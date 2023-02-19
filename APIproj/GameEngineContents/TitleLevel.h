@@ -3,6 +3,7 @@
 #include <GameEngineCore/GameEngineResources.h>
 
 // 시작 시 보이는 타이틀 페이지
+class SelectCharacter;
 class TitleLevel : public GameEngineLevel
 {
 public:
@@ -15,6 +16,9 @@ public:
 	TitleLevel(TitleLevel&& _Other) noexcept = delete;
 	TitleLevel& operator=(const TitleLevel& _Other) = delete;
 	TitleLevel& operator=(TitleLevel&& _Other) noexcept = delete;
+
+	static SelectCharacter* SelectScreen;
+
 
 protected:
 	void Loading() override;
@@ -29,6 +33,7 @@ protected:
 private:
 	void SoundLoad();
 	void ImageLoad();
+
 
 };
 
