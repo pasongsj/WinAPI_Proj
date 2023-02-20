@@ -20,21 +20,26 @@ public:
 
 	void Activate();
 
-	static std::vector<Button*> CharacterButton;
 	static SelectCharacter* MainScreen;
 	
 	Button* GetBackBtn() {
 		return BackBtn;
 	}
+	std::vector<Button*> GetCharacterButtons()
+	{
+		return CharacterButtons;
+	}
 
 protected:
 	void Start() override;
-	void Update(float _DeltaTime) override;
+
 
 private:
 	float4 ButtonPos = { 516, 300 }; // 168씩 차이남
-	std::vector<std::string> CharName;
+	Button* BackBtn = nullptr; // 나가기버튼
+
+	std::vector<std::string> CharName; // 캐릭터 이름
+	std::vector<Button*> CharacterButtons; // 캐릭터 선택 버튼
+
 	void SetNextBtnPos();
-	Button* BackBtn = nullptr;
-	//GameEngineRender* Screen = nullptr;
 };

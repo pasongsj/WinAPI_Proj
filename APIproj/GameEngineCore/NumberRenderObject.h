@@ -28,7 +28,7 @@ public:
 	void SetImage(const std::string_view& _ImageName, float4 _Scale, int _Order, int _TransColor, const std::string_view& _NegativeName = "");
 	void SetValue(int _Value);
 
-	void SetMove(float4 _RenderPos);
+	//void SetMove(float4 _RenderPos);
 	void SetAlign(Align _Align);
 
 	inline int GetValue()

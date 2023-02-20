@@ -138,13 +138,13 @@ void NumberRenderObject::SetValue(int _Value)
 	}
 }
 
-void NumberRenderObject::SetMove(float4 _RenderPos)
-{
-	for (size_t i = 0; i < NumberRenders.size(); i++)
-	{
-		NumberRenders[i]->SetMove(_RenderPos);
-	}
-}
+//void NumberRenderObject::SetMove(float4 _RenderPos)
+//{
+//	for (size_t i = 0; i < NumberRenders.size(); i++)
+//	{
+//		NumberRenders[i]->SetMove(_RenderPos);
+//	}
+//}
 
 
 void NumberRenderObject::SetAlign(Align _Align)

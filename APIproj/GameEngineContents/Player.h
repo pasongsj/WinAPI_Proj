@@ -35,6 +35,10 @@ public:
 		return Hp;
 	}
 
+	std::string GetDirString() {
+		return DirString;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

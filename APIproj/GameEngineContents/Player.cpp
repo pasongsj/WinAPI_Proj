@@ -8,9 +8,10 @@
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineCollision.h>
 
-#include "Weapon.h"
+//#include "Weapon.h"
 #include "Monster.h"
 #include "Items.h"
+
 Player* Player::MainPlayer;
 std::string Player::PlayerName = "Antonio.bmp";
 
@@ -67,7 +68,7 @@ void Player::Start()
 	{
 		MyWeapon.push_back(Weapon::Weapons["Whip"]);
 		MyWeapon.back()->On();
-		MyWeapon.back()->SetWeaponPos({120, -25});
+		//MyWeapon.back()->SetWeaponPos({120, -25});
 		//MyWeapon.back()->SetDmg(5);
 
 	}

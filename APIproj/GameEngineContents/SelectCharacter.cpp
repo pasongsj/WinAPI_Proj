@@ -9,7 +9,7 @@
 
 #include "Player.h"
 
-std::vector<Button*> SelectCharacter::CharacterButton;
+
 SelectCharacter* SelectCharacter::MainScreen = nullptr;
 
 void Disable()
@@ -17,7 +17,7 @@ void Disable()
 	if (nullptr == SelectCharacter::MainScreen) {
 		MsgAssert("캐릭터 선택창이 제대로 설정되지 않았습니다.");
 	}
-	for (Button* CharBtn : SelectCharacter::CharacterButton)
+	for (Button* CharBtn : SelectCharacter::MainScreen->GetCharacterButtons())
 	{
 		CharBtn->Off();
 	}
@@ -68,7 +68,7 @@ void SelectCharacter::Start()
 	Screen->SetPosition(ScreenPos);
 	Screen->SetScaleToImage();
 
-	GameEngineRender* AlphaBG = CreateRender("LineBG.bmp", VSRenderOrder::UI);
+	GameEngineRender* AlphaBG = CreateRender("LineBG.bmp", VSRenderOrder::UI); //알파이미지 배경 라인
 	AlphaBG->SetScaleToImage();
 	AlphaBG->SetAlpha(140);
 	float4 LineBGPos = GameEngineWindow::GetScreenSize().half();
@@ -82,6 +82,7 @@ void SelectCharacter::Start()
 	BackBtn->setting("ExitButton.BMP", "ExitButton.BMP", "ExitButton.BMP", {1000,45}, BackBtnScale, static_cast<int>(VSRenderOrder::UI), false);
 	BackBtn->Off();
 	BackBtn->SetClickCallBack(Disable);
+
 	//--
 	CharName.push_back("Antonio");
 	CharName.push_back("Imelda");
@@ -95,21 +96,21 @@ void SelectCharacter::Start()
 		Button* NewCharBtn = GetLevel()->CreateActor<Button>(VSRenderOrder::UI);
 		float4 BtnScale = GameEngineResources::GetInst().ImageFind(_Name + "Button.BMP")->GetImageScale();
 		NewCharBtn->setting(_Name + "Button.BMP", _Name +"Button.BMP", _Name + "Button.BMP", ButtonPos, BtnScale, static_cast<int>(VSRenderOrder::UI), false);
-		SelectCharacter::CharacterButton.push_back(NewCharBtn);
+		CharacterButtons.push_back(NewCharBtn);
 		NewCharBtn->Off();
 		SetNextBtnPos();
 	}
-	CharacterButton[0]->SetClickCallBack(ClickAntonioButton);
-	CharacterButton[1]->SetClickCallBack(ClickImeldaButton);
-	CharacterButton[2]->SetClickCallBack(ClickPasqualinaButton);
-	CharacterButton[3]->SetClickCallBack(ClickGennaroButton);
+	CharacterButtons[0]->SetClickCallBack(ClickAntonioButton);
+	CharacterButtons[1]->SetClickCallBack(ClickImeldaButton);
+	CharacterButtons[2]->SetClickCallBack(ClickPasqualinaButton);
+	CharacterButtons[3]->SetClickCallBack(ClickGennaroButton);
 
 	this->Off();
 }
 
-void SelectCharacter::SetNextBtnPos()
+void SelectCharacter::SetNextBtnPos() // 캐릭터 버튼 정렬 - 수치 변수화 필요
 {
-	if (CharacterButton.size() % 4 == 0) {
+	if (CharacterButtons.size() % 4 == 0) {
 		ButtonPos.x = 516;
 		ButtonPos.y += 168;
 	}
@@ -123,12 +124,8 @@ void SelectCharacter::Activate()
 {
 	this->On();
 	BackBtn->On();
-	for (Button* CharBtn : CharacterButton)
+	for (Button* CharBtn : CharacterButtons)
 	{
 		CharBtn->On();
 	}
-}
-void SelectCharacter::Update(float _DeltaTime)
-{
-
 }

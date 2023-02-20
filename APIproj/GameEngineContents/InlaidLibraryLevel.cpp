@@ -95,7 +95,7 @@ void InlaidLibraryLevel::ImageLoad()
 
 	{
 		// UI 이미지 로드
-		Dir.MoveParentToDirectory("Title");
+		Dir.MoveParentToDirectory("UI");
 		Dir.Move("UI");
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExpBar.BMP"));
 		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("colon.BMP"));
@@ -113,8 +113,15 @@ void InlaidLibraryLevel::ImageLoad()
 	{
 		Dir.MoveParentToDirectory("Weapon");
 		Dir.Move("Weapon");
-		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Whip.BMP"));
-		Image->Cut(1, 3);
+		std::vector<GameEngineFile> Files = Dir.GetAllFile();
+
+		for (size_t i = 0; i < Files.size(); i++)
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
+			Image->Cut(1, 6);
+		}
+		/*GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Whip.BMP"));
+		Image->Cut(1, 3);*/
 	}
 	{
 		Dir.MoveParentToDirectory("Item");
@@ -152,16 +159,17 @@ void InlaidLibraryLevel::Loading()
 	}
 
 	{
-		Weapon* NewWeapon = CreateActor<Weapon>(VSRenderOrder::Weapon);
-		NewWeapon->SetImage("Right_Whip", "Whip.bmp", 0, 2, 0.03f);
-		NewWeapon->SetRenderScale({ 314, 280 });
-		NewWeapon->SetCollisionScale({ 280, 60 });
-		NewWeapon->SetCoolTime(2.0f);
-		NewWeapon->SetRunTime(0.1f);
-		NewWeapon->SetDmg(5);
-		NewWeapon->SetCollisionPosition({ 0, -15 });
-		//NewWeapon->SetWeaponDebugType(CT_Rect);
-		Weapon::Weapons["Whip"] = NewWeapon;
+		Weapon::InitWeapon(this);
+		//Weapon* NewWeapon = CreateActor<Weapon>(VSRenderOrder::Weapon);
+		//NewWeapon->SetImage("Right_Whip", "Whip.bmp", 0, 2, 0.03f);
+		//NewWeapon->SetRenderScale({ 314, 280 });
+		//NewWeapon->SetCollisionScale({ 280, 60 });
+		//NewWeapon->SetCoolTime(2.0f);
+		//NewWeapon->SetRunTime(0.1f);
+		//NewWeapon->SetDmg(5);
+		//NewWeapon->SetCollisionPosition({ 0, -15 });
+		////NewWeapon->SetWeaponDebugType(CT_Rect);
+		//Weapon::Weapons["Whip"] = NewWeapon;
 
 	}
 
