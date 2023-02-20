@@ -17,6 +17,7 @@ public:
 	SelectCharacter& operator=(SelectCharacter&& _Other) noexcept = delete;
 
 	void Activate();
+	void Disable();
 
 protected:
 	void Start() override;
@@ -29,6 +30,7 @@ private:
 	int ClickIndex = -1;
 
 	void SetNextBtnPos();
+	Button* BackBtn = nullptr;
 	//GameEngineRender* Screen = nullptr;
 };
 

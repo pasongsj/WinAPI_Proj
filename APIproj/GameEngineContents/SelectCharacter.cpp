@@ -9,6 +9,16 @@
 
 #include "Player.h"
 
+void SelectCharacter::Disable()
+{
+	for (Button* CharBtn : CharacterButton)
+	{
+		CharBtn->Off();
+	}
+	this->Off();
+
+}
+
 SelectCharacter::SelectCharacter()
 {
 }
@@ -57,7 +67,13 @@ void SelectCharacter::Start()
 	LineBGPos.y = AlphaBG->GetImage()->GetImageScale().hy();
 	AlphaBG->SetPosition(LineBGPos);
 	
+	//¹é¹öÆ°
 
+	BackBtn = GetLevel()->CreateActor<Button>(VSRenderOrder::UI);
+	float4 BackBtnScale = GameEngineResources::GetInst().ImageFind("ExitButton.BMP")->GetImageScale();
+	BackBtn->setting("ExitButton.BMP", "ExitButton.BMP", "ExitButton.BMP", {1000,45}, BackBtnScale, static_cast<int>(VSRenderOrder::UI), false);
+	BackBtn->Off();
+	//BackBtn->SetClickCallBack(Disable);
 	//--
 	CharName.push_back("Antonio");
 	CharName.push_back("Imelda");
@@ -79,35 +95,6 @@ void SelectCharacter::Start()
 	CharacterButton[1]->SetClickCallBack(ClickImeldaButton);
 	CharacterButton[2]->SetClickCallBack(ClickPasqualinaButton);
 	CharacterButton[3]->SetClickCallBack(ClickGennaroButton);
-	
-	/*Button* AntonioButton = GetLevel()->CreateActor<Button>(VSRenderOrder::UI);
-	float4 StartBPos = { 516, 300 };
-	AntonioButton->setting("AntonioButton.BMP", "AntonioButton.BMP", "AntonioButton.BMP", StartBPos, { 154, 154 }, static_cast<int>(VSRenderOrder::UI), false);
-	CharacterButton.push_back(AntonioButton);
-	AntonioButton->SetClickCallBack(ClickAntonioButton);
-	AntonioButton->Off();
-
-
-	Button* ImeldaButton = GetLevel()->CreateActor<Button>(VSRenderOrder::UI);
-	StartBPos = { 684, 300 };
-	ImeldaButton->setting("ImeldaButton.BMP", "ImeldaButton.BMP", "ImeldaButton.BMP", StartBPos, { 154, 154 }, static_cast<int>(VSRenderOrder::UI), false);
-	CharacterButton.push_back(ImeldaButton);
-	ImeldaButton->SetClickCallBack(ClickImeldaButton);
-	ImeldaButton->Off();
-
-	Button* PasqualinaButton = GetLevel()->CreateActor<Button>(VSRenderOrder::UI);
-	StartBPos = { 848, 300 };
-	PasqualinaButton->setting("PasqualinaButton.BMP", "PasqualinaButton.BMP", "PasqualinaButton.BMP", StartBPos, { 154, 154 }, static_cast<int>(VSRenderOrder::UI), false);
-	CharacterButton.push_back(PasqualinaButton);
-	PasqualinaButton->SetClickCallBack(ClickPasqualinaButton);
-	PasqualinaButton->Off();
-
-	Button* GennaroButton = GetLevel()->CreateActor<Button>(VSRenderOrder::UI);
-	StartBPos = { 1014, 300 };
-	GennaroButton->setting("PasqualinaButton.BMP", "PasqualinaButton.BMP", "PasqualinaButton.BMP", StartBPos, { 154, 154 }, static_cast<int>(VSRenderOrder::UI), false);
-	CharacterButton.push_back(GennaroButton);
-	GennaroButton->SetClickCallBack(ClickGennaroButton);
-	GennaroButton->Off();*/
 
 	this->Off();
 }
