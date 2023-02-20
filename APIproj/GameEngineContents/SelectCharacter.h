@@ -24,6 +24,11 @@ protected:
 
 private:
 	std::vector<Button*> CharacterButton;
-	GameEngineRender* Screen = nullptr;
+	float4 ButtonPos = { 516, 300 }; // 168씩 차이남
+	std::vector<std::string> CharName;
+	int ClickIndex = -1;
+
+	void SetNextBtnPos();
+	//GameEngineRender* Screen = nullptr;
 };
 
