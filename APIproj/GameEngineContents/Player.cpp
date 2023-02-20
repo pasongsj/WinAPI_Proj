@@ -12,6 +12,7 @@
 #include "Monster.h"
 #include "Items.h"
 Player* Player::MainPlayer;
+std::string Player::PlayerName = "Antonio.bmp";
 
 Player::Player()
 {
@@ -25,6 +26,10 @@ Player::~Player()
 void Player::Start()
 {
 	MainPlayer = this;
+	if ("" == PlayerName) {
+		MsgAssert("플레이어가 선택되지 않았습니다.");
+		return;
+	}
 
 	//SetMove(GameEngineWindow::GetScreenSize().half());
 	//SetPos(GameEngineWindow::GetScreenSize().half());
@@ -38,17 +43,19 @@ void Player::Start()
 		GameEngineInput::CreateKey("UpMove", 'W');
 	}
 
+	std::string RightChar = "Right" + PlayerName;
+	std::string LeftChar = "Left" + PlayerName;
 
 	{
 		AnimationRender = CreateRender(VSRenderOrder::Player);
-		AnimationRender->SetScale({ 130, 130 }); // 실제 크기 64 x 64
+		AnimationRender->SetScale({ 70, 140 }); // 실제 크기 64 x 64
 		{
-			AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "RightAntonio.bmp" });
-			AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "RightAntonio.bmp", .Start = 0, .End = 2, .InterTime = 0.1f });
+			AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = RightChar }); //RightAntonio.bmp
+			AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = RightChar, .Start = 0, .End = 2, .InterTime = 0.1f });
 		}
 		{
-			AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = "LeftAntonio.bmp" });
-			AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "LeftAntonio.bmp", .Start = 0, .End = 2, .InterTime = 0.1f });
+			AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = LeftChar });
+			AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = LeftChar, .Start = 0, .End = 2, .InterTime = 0.1f });
 		}
 
 		{

@@ -41,14 +41,23 @@ void InlaidLibraryLevel::ImageLoad()
 		// 캐릭터 이미지 로드
 		Dir.MoveParentToDirectory("Player");
 		Dir.Move("Player");
+
+		std::vector<GameEngineFile> Files = Dir.GetAllFile();
+
+		for (size_t i = 0; i < Files.size(); i++)
 		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
+			Image->Cut(4, 1);
+		}
+		/*{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightAntonio.BMP"));
 			Image->Cut(4, 1);
 		}
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftAntonio.BMP"));
 			Image->Cut(4, 1);
-		}
+		}*/
+
 	}
 
 	{
@@ -164,10 +173,10 @@ void InlaidLibraryLevel::Loading()
 		PlayGameUI* NewUI = CreateActor<PlayGameUI>();
 	}
 
-	{
-		Player* NewPlayer = CreateActor<Player>(VSRenderOrder::Player); // 플레이어
-		NewPlayer->SetMove(BGSize.half()); // 화면 중간위치로 이동
-	}
+	//{
+	//	Player* NewPlayer = CreateActor<Player>(VSRenderOrder::Player); // 플레이어
+	//	NewPlayer->SetMove(BGSize.half()); // 화면 중간위치로 이동
+	//}
 
 	SetCameraPos((BGSize - GameEngineWindow::GetScreenSize()).half()); // 카메라 위치 중간으로 이동
 
@@ -208,6 +217,10 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 
 void InlaidLibraryLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
+	{
+		Player* NewPlayer = CreateActor<Player>(VSRenderOrder::Player); // 플레이어
+		NewPlayer->SetMove(BGSize.half()); // 화면 중간위치로 이동
+	}
 	/*int a = 0;
 	BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("intro.mp3");
 	BGMPlayer.LoopCount(100);*/

@@ -13,7 +13,7 @@ class Player : public GameEngineActor
 {
 public:
 	static Player* MainPlayer;
-
+	static std::string PlayerName;
 	// constrcuter destructer
 	Player() ;
 	~Player();
