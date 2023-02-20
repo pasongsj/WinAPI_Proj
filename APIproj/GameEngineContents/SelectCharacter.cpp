@@ -9,13 +9,20 @@
 
 #include "Player.h"
 
-void SelectCharacter::Disable()
+std::vector<Button*> SelectCharacter::CharacterButton;
+SelectCharacter* SelectCharacter::MainScreen = nullptr;
+
+void Disable()
 {
-	for (Button* CharBtn : CharacterButton)
+	if (nullptr == SelectCharacter::MainScreen) {
+		MsgAssert("캐릭터 선택창이 제대로 설정되지 않았습니다.");
+	}
+	for (Button* CharBtn : SelectCharacter::CharacterButton)
 	{
 		CharBtn->Off();
 	}
-	this->Off();
+	SelectCharacter::MainScreen->GetBackBtn()->Off();
+	SelectCharacter::MainScreen->Off();
 
 }
 
@@ -53,6 +60,7 @@ void ClickGennaroButton()
 
 void SelectCharacter::Start()
 {
+	MainScreen = this;
 	// 랜더이미지
 	GameEngineRender* Screen = CreateRender("SelectCharScreen.bmp", VSRenderOrder::UI);
 	float4 ScreenPos = GameEngineWindow::GetScreenSize().half();
@@ -73,7 +81,7 @@ void SelectCharacter::Start()
 	float4 BackBtnScale = GameEngineResources::GetInst().ImageFind("ExitButton.BMP")->GetImageScale();
 	BackBtn->setting("ExitButton.BMP", "ExitButton.BMP", "ExitButton.BMP", {1000,45}, BackBtnScale, static_cast<int>(VSRenderOrder::UI), false);
 	BackBtn->Off();
-	//BackBtn->SetClickCallBack(Disable);
+	BackBtn->SetClickCallBack(Disable);
 	//--
 	CharName.push_back("Antonio");
 	CharName.push_back("Imelda");
@@ -87,7 +95,7 @@ void SelectCharacter::Start()
 		Button* NewCharBtn = GetLevel()->CreateActor<Button>(VSRenderOrder::UI);
 		float4 BtnScale = GameEngineResources::GetInst().ImageFind(_Name + "Button.BMP")->GetImageScale();
 		NewCharBtn->setting(_Name + "Button.BMP", _Name +"Button.BMP", _Name + "Button.BMP", ButtonPos, BtnScale, static_cast<int>(VSRenderOrder::UI), false);
-		CharacterButton.push_back(NewCharBtn);
+		SelectCharacter::CharacterButton.push_back(NewCharBtn);
 		NewCharBtn->Off();
 		SetNextBtnPos();
 	}
@@ -114,6 +122,7 @@ void SelectCharacter::SetNextBtnPos()
 void SelectCharacter::Activate()
 {
 	this->On();
+	BackBtn->On();
 	for (Button* CharBtn : CharacterButton)
 	{
 		CharBtn->On();

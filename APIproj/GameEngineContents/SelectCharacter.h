@@ -1,4 +1,6 @@
 #pragma once
+//#include <string>
+#include <GameEngineCore/Button.h>
 #include <GameEngineCore/GameEngineActor.h>
 
 
@@ -17,20 +19,22 @@ public:
 	SelectCharacter& operator=(SelectCharacter&& _Other) noexcept = delete;
 
 	void Activate();
-	void Disable();
+
+	static std::vector<Button*> CharacterButton;
+	static SelectCharacter* MainScreen;
+	
+	Button* GetBackBtn() {
+		return BackBtn;
+	}
 
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
 private:
-	std::vector<Button*> CharacterButton;
 	float4 ButtonPos = { 516, 300 }; // 168씩 차이남
 	std::vector<std::string> CharName;
-	int ClickIndex = -1;
-
 	void SetNextBtnPos();
 	Button* BackBtn = nullptr;
 	//GameEngineRender* Screen = nullptr;
 };
-
