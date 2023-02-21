@@ -28,6 +28,7 @@ void Weapon::InitWeapon(GameEngineLevel* _Level)
 	}
 	Render->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "RightWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f});
 	Render->CreateAnimation({ .AnimationName = "Left_Whip",  .ImageName = "LeftWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
+	Render->CreateAnimation({ .AnimationName = "Bidi_Whip",  .ImageName = "BidiWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
 	Render->SetScale({ 600,60 });
 	Render->SetPosition({ 0, -60 });
 
@@ -43,25 +44,8 @@ void Weapon::InitWeapon(GameEngineLevel* _Level)
 	CollisionScale.x = CollisionScale.hx();
 	NewWeapon->GetWeaponCollision()->SetScale(CollisionScale);
 	NewWeapon->SetCollisionPosition({ 0, -15 });
-	//NewWeapon->SetWeaponDebugType(CT_Rect);
 	Weapon::Weapons["Whip"] = NewWeapon;
 
-	//AnimationRender = CreateRender(VSRenderOrder::Player);
-	//AnimationRender->SetScale({ 70, 140 }); // 실제 크기 64 x 64
-	//{
-	//	AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = RightChar }); //RightAntonio.bmp
-	//	AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = RightChar, .Start = 0, .End = 2, .InterTime = 0.1f });
-	//}
-	//{
-	//	AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = LeftChar });
-	//	AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = LeftChar, .Start = 0, .End = 2, .InterTime = 0.1f });
-	//}
-
-	//{
-	//	BodyCollision = CreateCollision(VSRenderOrder::Player);
-	//	BodyCollision->SetScale({ 64, 64 });
-	//	BodyCollision->SetPosition({ 0, -BodyCollision->GetScale().hy() });
-	//}
 
 }
 
@@ -97,8 +81,17 @@ void Weapon::Update(float _DeltaTime)
 	{
 		this->Off();
 	}
-	std::string _Animation = Player::MainPlayer->GetDirString() + WeaponName;
+
+	std::string Dir = Player::MainPlayer->GetDirString();
+	std::string _Animation = Dir + WeaponName;
 	WeaponRender->ChangeAnimation(_Animation);
+	if ("Right_" == Dir) {
+		WeaponCollision->SetPosition({ WeaponCollision->GetScale().hx(),-WeaponCollision->GetScale().y });
+	}
+	else
+	{
+		WeaponCollision->SetPosition({ -WeaponCollision->GetScale().hx(),-WeaponCollision->GetScale().y });
+	}
 	
 }
 
