@@ -6,6 +6,7 @@
 enum class PlayerState
 {
 	IDLE,
+	DMGED,
 	MOVE,
 };
 
@@ -50,15 +51,17 @@ private:
 	float MoveSpeed = 1000.0f;
 	float4 MoveVec = float4::Zero;
 
-	int Hp = 0;
+	int Hp = 100;
 	int Exp = 0;
+	int PlayerLevel = 1;
+
+	PlayerState StateValue = PlayerState::IDLE;
+	std::string DirString = "Right_";
 
 	GameEngineRender* AnimationRender = nullptr;
 	GameEngineCollision* BodyCollision = nullptr;
 	std::vector<Weapon*> MyWeapon;
-
-	PlayerState StateValue = PlayerState::IDLE;
-	std::string DirString = "Right_";
+	GameEngineRender* HpBar = nullptr;
 
 	void DirCheck(const std::string_view& _AnimationName);// 방향체크
 
@@ -74,6 +77,13 @@ private:
 	void MoveStart();
 	void MoveUpdate(float _Time);
 	void MoveEnd();
+
+	void DmgedStart();
+	void DmgedUpdate(float _Time);
+	void DmgedEnd();
+
+	void PressMove();
+
 	void Movecalculation(float _DeltaTime);
 };
 

@@ -37,24 +37,24 @@ SelectCharacter::~SelectCharacter()
 // ¹öÆ°
 void ClickAntonioButton()
 {
-	Player::PlayerName = "Antonio.bmp";
+	Player::PlayerName = "Antonio";
 	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
 }
 
 void ClickImeldaButton()
 {
-	Player::PlayerName = "Imelda.bmp";
+	Player::PlayerName = "Imelda";
 	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
 }
 
 void ClickPasqualinaButton()
 {
-	Player::PlayerName = "Pasqualina.bmp";
+	Player::PlayerName = "Pasqualina";
 	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
 }
 void ClickGennaroButton()
 {
-	Player::PlayerName = "Gennaro.bmp";
+	Player::PlayerName = "Gennaro";
 	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
 }
 

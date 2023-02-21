@@ -21,6 +21,9 @@ void Player::ChangeState(PlayerState _State)
 	case PlayerState::IDLE:
 		IdleEnd();
 		break;
+	case PlayerState::DMGED:
+		DmgedEnd();
+		break;
 	case PlayerState::MOVE:
 		MoveEnd();
 		break;
@@ -33,6 +36,9 @@ void Player::ChangeState(PlayerState _State)
 	{
 	case PlayerState::IDLE:
 		IdleStart();
+		break;
+	case PlayerState::DMGED:
+		DmgedStart();
 		break;
 	case PlayerState::MOVE:
 		MoveStart();
@@ -48,6 +54,9 @@ void Player::UpdateState(float _Time)
 	{
 	case PlayerState::IDLE:
 		IdleUpdate(_Time);
+		break;
+	case PlayerState::DMGED:
+		DmgedUpdate(_Time);
 		break;
 	case PlayerState::MOVE:
 		MoveUpdate(_Time);
@@ -83,6 +92,69 @@ void Player::MoveStart()
 void Player::MoveUpdate(float _Time)
 {
 	DirCheck("Move");
+	PressMove();
+	//if (
+	//	false == GameEngineInput::IsPress("LeftMove") &&
+	//	false == GameEngineInput::IsPress("RightMove") &&
+	//	false == GameEngineInput::IsPress("DownMove") &&
+	//	false == GameEngineInput::IsPress("UpMove")
+	//	)
+	//{
+	//	// 
+	//	ChangeState(PlayerState::IDLE);
+	//	return;
+	//}
+
+	//MoveVec = float4::Zero;
+	////float4 MoveRange = float4::Zero;
+
+	//if (true == GameEngineInput::IsPress("LeftMove"))
+	//{
+	//	MoveVec += float4::Left;
+	//}
+
+	//if (true == GameEngineInput::IsPress("RightMove"))
+	//{
+	//	MoveVec += float4::Right;
+	//}
+
+	//if (true == GameEngineInput::IsPress("UpMove"))
+	//{
+	//	MoveVec += float4::Up;
+	//}
+
+	//if (true == GameEngineInput::IsPress("DownMove"))
+	//{
+	//	MoveVec += float4::Down ;
+	//}
+	//MoveVec.Normalize();
+	//MoveVec *= MoveSpeed;
+}
+void Player::MoveEnd() {
+
+}
+
+
+void Player::DmgedStart()
+{
+	DirCheck("Dmged");
+}
+void Player::DmgedUpdate(float _Time)
+{
+	DirCheck("Dmged");
+	PressMove();
+
+	if (AnimationRender->IsAnimationEnd())
+	{
+		ChangeState(PlayerState::MOVE);
+	}
+}
+void Player::DmgedEnd() {
+
+}
+
+void Player::PressMove()
+{
 	if (
 		false == GameEngineInput::IsPress("LeftMove") &&
 		false == GameEngineInput::IsPress("RightMove") &&
@@ -115,11 +187,8 @@ void Player::MoveUpdate(float _Time)
 
 	if (true == GameEngineInput::IsPress("DownMove"))
 	{
-		MoveVec += float4::Down ;
+		MoveVec += float4::Down;
 	}
 	MoveVec.Normalize();
 	MoveVec *= MoveSpeed;
-}
-void Player::MoveEnd() {
-
 }

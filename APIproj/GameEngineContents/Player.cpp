@@ -43,37 +43,39 @@ void Player::Start()
 		GameEngineInput::CreateKey("DownMove", 'S');
 		GameEngineInput::CreateKey("UpMove", 'W');
 	}
+	if ("Antonio.bmp" == PlayerName)
+	{
+		Hp = 120;
+	}
 
-	std::string RightChar = "Right" + PlayerName;
-	std::string LeftChar = "Left" + PlayerName;
+	std::string RightChar = "Right" + PlayerName + ".BMP";
+	std::string LeftChar = "Left" + PlayerName + ".BMP";
 
 	{
 		AnimationRender = CreateRender(VSRenderOrder::Player);
 		AnimationRender->SetScale({ 70, 140 }); // 실제 크기 64 x 64
 		{
-			AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = RightChar }); //RightAntonio.bmp
-			AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = RightChar, .Start = 0, .End = 2, .InterTime = 0.1f });
+			AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = RightChar, .Start = 3, .End = 3 }); //RightAntonio.bmp
+			AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = RightChar, .Start = 0, .End = 3, .InterTime = 0.1f });
+			AnimationRender->CreateAnimation({ .AnimationName = "Right_Dmged",  .ImageName = "Right" + PlayerName + "Dmged.BMP", .Start = 0, .End = 3, .InterTime = 0.1f});
 		}
 		{
-			AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = LeftChar });
-			AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = LeftChar, .Start = 0, .End = 2, .InterTime = 0.1f });
-		}
-
-		{
-			BodyCollision = CreateCollision(VSRenderOrder::Player);
-			BodyCollision->SetScale({ 64, 64 });
-			BodyCollision->SetPosition({ 0, -BodyCollision->GetScale().hy()});
+			AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = LeftChar, .Start = 3, .End = 3 });
+			AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = LeftChar, .Start = 0, .End = 3, .InterTime = 0.1f });
+			AnimationRender->CreateAnimation({ .AnimationName = "Left_Dmged",  .ImageName = "Left" + PlayerName + "Dmged.BMP", .Start = 0, .End = 3, .InterTime = 0.1f });
 		}
 	}
+
+	{
+		BodyCollision = CreateCollision(VSRenderOrder::Player);
+		BodyCollision->SetScale({ 64, 64 });
+		BodyCollision->SetPosition({ 0, -BodyCollision->GetScale().hy()});
+	}
+
 	{
 		MyWeapon.push_back(Weapon::Weapons["Whip"]);
-		MyWeapon.back()->On();
-		//MyWeapon.back()->SetWeaponPos({120, -25});
-		//MyWeapon.back()->SetDmg(5);
-
 	}
 	ChangeState(PlayerState::IDLE); // 시작 시 기본 상태 설정
-	SetHp(100);
 }
 
 void Player::Movecalculation(float _DeltaTime)
@@ -110,19 +112,24 @@ void Player::Movecalculation(float _DeltaTime)
 
 void Player::Update(float _DeltaTime)
 {
-	// PlayerState가 변경될 수 있음을 인지해야한다. - 수정필요
 	std::vector<GameEngineCollision*> Collision;
-	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster) }, Collision))
+	
+	if (PlayerState::DMGED != StateValue)
 	{
-		for (size_t i = 0; i < Collision.size(); i++)
+		// PlayerState가 변경될 수 있음을 인지해야한다. - 수정필요
+		if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster) }, Collision))
 		{
-			// Monster* FindMonster = Collision[i]->GetOwner<Monster>();
+			for (size_t i = 0; i < Collision.size(); i++)
+			{
+				// Monster* FindMonster = Collision[i]->GetOwner<Monster>();
 
-			GameEngineActor* ColActor = Collision[i]->GetActor();
-			Monster* ColMonsterActor = dynamic_cast<Monster*> (ColActor);
-			Hp -= ColMonsterActor->GetDmg();
-		//	ColActor->Death();
+				GameEngineActor* ColActor = Collision[i]->GetActor();
+				Monster* ColMonsterActor = dynamic_cast<Monster*> (ColActor);
+				Hp -= ColMonsterActor->GetDmg();
+				ChangeState(PlayerState::DMGED);
+			//	ColActor->Death();
 
+			}
 		}
 	}
 
