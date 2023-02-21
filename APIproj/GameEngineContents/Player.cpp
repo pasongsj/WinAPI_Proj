@@ -48,21 +48,25 @@ void Player::Start()
 		Hp = 120;
 	}
 
-	std::string RightChar = "Right" + PlayerName + ".BMP";
-	std::string LeftChar = "Left" + PlayerName + ".BMP";
+	std::string RImage = "Right" + PlayerName + ".BMP";
+	std::string LImage = "Left" + PlayerName + ".BMP";
+	std::string DmgRImage = "Right" + PlayerName + "Dmged.BMP";
+	std::string DmgLImage = "Left" + PlayerName + "Dmged.BMP";
 
 	{
 		AnimationRender = CreateRender(VSRenderOrder::Player);
 		AnimationRender->SetScale({ 70, 140 }); // 실제 크기 64 x 64
 		{
-			AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = RightChar, .Start = 3, .End = 3 }); //RightAntonio.bmp
-			AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = RightChar, .Start = 0, .End = 3, .InterTime = 0.1f });
-			AnimationRender->CreateAnimation({ .AnimationName = "Right_Dmged",  .ImageName = "Right" + PlayerName + "Dmged.BMP", .Start = 0, .End = 3, .InterTime = 0.1f});
+			AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = RImage, .Start = 3, .End = 3 , .Loop = false }); //RightAntonio.bmp
+			AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = RImage, .Start = 0, .End = 3, .InterTime = 0.1f });
+			AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle_Dmged",  .ImageName = DmgRImage, .Start = 3, .End = 3, .Loop = false });
+			AnimationRender->CreateAnimation({ .AnimationName = "Right_Move_Dmged",  .ImageName = DmgRImage, .Start = 0, .End = 3, .InterTime = 0.1f});
 		}
 		{
-			AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = LeftChar, .Start = 3, .End = 3 });
-			AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = LeftChar, .Start = 0, .End = 3, .InterTime = 0.1f });
-			AnimationRender->CreateAnimation({ .AnimationName = "Left_Dmged",  .ImageName = "Left" + PlayerName + "Dmged.BMP", .Start = 0, .End = 3, .InterTime = 0.1f });
+			AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = LImage, .Start = 3, .End = 3, .Loop = false });
+			AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = LImage, .Start = 0, .End = 3, .InterTime = 0.1f });
+			AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle_Dmged",  .ImageName = DmgLImage, .Start = 3, .End = 3, .Loop = false });
+			AnimationRender->CreateAnimation({ .AnimationName = "Left_Move_Dmged",  .ImageName = DmgLImage, .Start = 0, .End = 3, .InterTime = 0.1f });
 		}
 	}
 
@@ -110,28 +114,45 @@ void Player::Movecalculation(float _DeltaTime)
 	MoveVec = float4::Zero; // 이동 완료수 이동벡터값 초기화
 }
 
+bool Player::CheckMonsterCollision()
+{
+	std::vector<GameEngineCollision*> Collision;
+
+
+	// PlayerState가 변경될 수 있음을 인지해야한다. - 수정필요
+	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster) }, Collision))
+	{
+		for (size_t i = 0; i < Collision.size(); i++)
+		{
+			// Monster* FindMonster = Collision[i]->GetOwner<Monster>();
+			GameEngineActor* ColActor = Collision[i]->GetActor();
+			Monster* ColMonsterActor = dynamic_cast<Monster*> (ColActor);
+			Hp -= ColMonsterActor->GetDmg();
+			//ChangeState(PlayerState::DMGED);
+		//	ColActor->Death();
+		}
+	}
+	return Collision.size() > 0;
+}
+
 void Player::Update(float _DeltaTime)
 {
 	std::vector<GameEngineCollision*> Collision;
 	
-	if (PlayerState::DMGED != StateValue)
-	{
-		// PlayerState가 변경될 수 있음을 인지해야한다. - 수정필요
-		if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster) }, Collision))
-		{
-			for (size_t i = 0; i < Collision.size(); i++)
-			{
-				// Monster* FindMonster = Collision[i]->GetOwner<Monster>();
 
-				GameEngineActor* ColActor = Collision[i]->GetActor();
-				Monster* ColMonsterActor = dynamic_cast<Monster*> (ColActor);
-				Hp -= ColMonsterActor->GetDmg();
-				ChangeState(PlayerState::DMGED);
-			//	ColActor->Death();
-
-			}
-		}
-	}
+	//	// PlayerState가 변경될 수 있음을 인지해야한다. - 수정필요
+	//if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster) }, Collision))
+	//{
+	//	for (size_t i = 0; i < Collision.size(); i++)
+	//	{
+	//		// Monster* FindMonster = Collision[i]->GetOwner<Monster>();
+	//		GameEngineActor* ColActor = Collision[i]->GetActor();
+	//		Monster* ColMonsterActor = dynamic_cast<Monster*> (ColActor);
+	//		Hp -= ColMonsterActor->GetDmg();
+	//		//ChangeState(PlayerState::DMGED);
+	//	//	ColActor->Death();
+	//	}
+	//}
 
 	// 아이템 획득 콜리전
 	//std::vector<GameEngineCollision*> Collision;

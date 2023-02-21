@@ -21,11 +21,14 @@ void Player::ChangeState(PlayerState _State)
 	case PlayerState::IDLE:
 		IdleEnd();
 		break;
-	case PlayerState::DMGED:
-		DmgedEnd();
-		break;
 	case PlayerState::MOVE:
 		MoveEnd();
+		break;
+	case PlayerState::IDLE_DMGED:
+		IdleDmgedEnd();
+		break;
+	case PlayerState::MOVE_DMGED:
+		MoveDmgedEnd();
 		break;
 	default:
 		break;
@@ -37,11 +40,14 @@ void Player::ChangeState(PlayerState _State)
 	case PlayerState::IDLE:
 		IdleStart();
 		break;
-	case PlayerState::DMGED:
-		DmgedStart();
-		break;
 	case PlayerState::MOVE:
 		MoveStart();
+		break;
+	case PlayerState::IDLE_DMGED:
+		IdleDmgedStart();
+		break;
+	case PlayerState::MOVE_DMGED:
+		MoveDmgedStart();
 		break;
 	default:
 		break;
@@ -55,11 +61,14 @@ void Player::UpdateState(float _Time)
 	case PlayerState::IDLE:
 		IdleUpdate(_Time);
 		break;
-	case PlayerState::DMGED:
-		DmgedUpdate(_Time);
-		break;
 	case PlayerState::MOVE:
 		MoveUpdate(_Time);
+		break;
+	case PlayerState::IDLE_DMGED:
+		IdleDmgedUpdate(_Time);
+		break;
+	case PlayerState::MOVE_DMGED:
+		MoveDmgedUpdate(_Time);
 		break;
 	default:
 		break;
@@ -75,10 +84,22 @@ void Player::IdleStart()
 void Player::IdleUpdate(float _Time)
 {
 	DirCheck("Idle");
+	bool is_Col = CheckMonsterCollision(); //충돌했다면
 	if (GameEngineInput::IsPress("LeftMove") || GameEngineInput::IsPress("RightMove") || GameEngineInput::IsPress("DownMove") || GameEngineInput::IsPress("UpMove"))
 	{
-		ChangeState(PlayerState::MOVE);
-		return; // 보통 스테이트를 체인지하면 아래 코드를 실행되면 
+		if (true == is_Col)
+		{
+			ChangeState(PlayerState::MOVE_DMGED);
+		}
+		else
+		{
+			ChangeState(PlayerState::MOVE);
+		}
+		//return; // 보통 스테이트를 체인지하면 아래 코드를 실행되면 
+	}
+	else if (true == is_Col)
+	{
+		ChangeState(PlayerState::IDLE_DMGED);
 	}
 }
 void Player::IdleEnd() {
@@ -91,57 +112,44 @@ void Player::MoveStart()
 }
 void Player::MoveUpdate(float _Time)
 {
+	if(true == CheckMonsterCollision()) //충돌했다면
+	{
+		ChangeState(PlayerState::MOVE_DMGED);
+	}
 	DirCheck("Move");
 	PressMove();
-	//if (
-	//	false == GameEngineInput::IsPress("LeftMove") &&
-	//	false == GameEngineInput::IsPress("RightMove") &&
-	//	false == GameEngineInput::IsPress("DownMove") &&
-	//	false == GameEngineInput::IsPress("UpMove")
-	//	)
-	//{
-	//	// 
-	//	ChangeState(PlayerState::IDLE);
-	//	return;
-	//}
-
-	//MoveVec = float4::Zero;
-	////float4 MoveRange = float4::Zero;
-
-	//if (true == GameEngineInput::IsPress("LeftMove"))
-	//{
-	//	MoveVec += float4::Left;
-	//}
-
-	//if (true == GameEngineInput::IsPress("RightMove"))
-	//{
-	//	MoveVec += float4::Right;
-	//}
-
-	//if (true == GameEngineInput::IsPress("UpMove"))
-	//{
-	//	MoveVec += float4::Up;
-	//}
-
-	//if (true == GameEngineInput::IsPress("DownMove"))
-	//{
-	//	MoveVec += float4::Down ;
-	//}
-	//MoveVec.Normalize();
-	//MoveVec *= MoveSpeed;
 }
 void Player::MoveEnd() {
 
 }
 
 
-void Player::DmgedStart()
+void Player::IdleDmgedStart()
 {
-	DirCheck("Dmged");
+	DirCheck("Idle_Dmged");
 }
-void Player::DmgedUpdate(float _Time)
+void Player::IdleDmgedUpdate(float _Time)
 {
-	DirCheck("Dmged");
+	DirCheck("Idle_Dmged");
+	PressMove();
+
+	if (AnimationRender->IsAnimationEnd())
+	{
+		ChangeState(PlayerState::IDLE);
+	}
+}
+void Player::IdleDmgedEnd() {
+
+}
+
+
+void Player::MoveDmgedStart()
+{
+	DirCheck("Move_Dmged");
+}
+void Player::MoveDmgedUpdate(float _Time)
+{
+	DirCheck("Move_Dmged");
 	PressMove();
 
 	if (AnimationRender->IsAnimationEnd())
@@ -149,7 +157,7 @@ void Player::DmgedUpdate(float _Time)
 		ChangeState(PlayerState::MOVE);
 	}
 }
-void Player::DmgedEnd() {
+void Player::MoveDmgedEnd() {
 
 }
 

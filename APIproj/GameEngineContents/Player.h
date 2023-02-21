@@ -6,8 +6,9 @@
 enum class PlayerState
 {
 	IDLE,
-	DMGED,
 	MOVE,
+	IDLE_DMGED,
+	MOVE_DMGED,
 };
 
 class Player : public GameEngineActor
@@ -78,12 +79,16 @@ private:
 	void MoveUpdate(float _Time);
 	void MoveEnd();
 
-	void DmgedStart();
-	void DmgedUpdate(float _Time);
-	void DmgedEnd();
+	void IdleDmgedStart();
+	void IdleDmgedUpdate(float _Time);
+	void IdleDmgedEnd();
+
+	void MoveDmgedStart();
+	void MoveDmgedUpdate(float _Time);
+	void MoveDmgedEnd();
 
 	void PressMove();
-
+	bool CheckMonsterCollision();
 	void Movecalculation(float _DeltaTime);
 };
 
