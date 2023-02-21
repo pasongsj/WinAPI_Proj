@@ -66,29 +66,29 @@ void InlaidLibraryLevel::ImageLoad()
 		Dir.Move("Monster");
 		// MoveState
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightDustElemental.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightDust.BMP"));
 			Image->Cut(2, 1);
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftDustElemental.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftDust.BMP"));
 			Image->Cut(2, 1);
 		}
 		// BeatenState
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightDustElementalDmged.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightDustDmged.BMP"));
 			Image->Cut(2, 1);
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftDustElementalDmged.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftDustDmged.BMP"));
 			Image->Cut(2, 1);
 		}
 		//DeadState
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightDustElementalDead.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightDustDead.BMP"));
 			Image->Cut(5, 2);
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftDustElementalDead.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftDustDead.BMP"));
 			Image->Cut(5, 2);
 		}
 	}

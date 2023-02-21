@@ -19,21 +19,21 @@ Monster::~Monster()
 void Monster::Start()
 {
 	AnimationRender = CreateRender(VSRenderOrder::Monster);
-	AnimationRender->SetScale({ 160, 160 });
+	AnimationRender->SetScale({ 70, 140 });
 
 	{
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "RightDustElemental.bmp", .Start = 0, .End = 1, .InterTime = 0.1f });
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Beaten",  .ImageName = "RightDustElementalDmged.bmp", .Start = 0, .End = 1, .InterTime = 0.1f , .Loop = false });
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Dead",  .ImageName = "RightDustElementalDead.bmp", .Start = 0, .End = 9, .InterTime = 0.05f, .Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "RightDust.bmp", .Start = 0, .End = 1, .InterTime = 0.1f });
+		AnimationRender->CreateAnimation({ .AnimationName = "Right_Beaten",  .ImageName = "RightDustDmged.bmp", .Start = 0, .End = 1, .InterTime = 0.1f , .Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "Right_Dead",  .ImageName = "RightDustDead.bmp", .Start = 0, .End = 9, .InterTime = 0.05f, .Loop = false });
 	}
 	{
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "LeftDustElemental.bmp", .Start = 0, .End = 1, .InterTime = 0.1f });
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_Beaten",  .ImageName = "LeftDustElementalDmged.bmp", .Start = 0, .End = 1, .InterTime = 0.1f, .Loop = false });
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_Dead",  .ImageName = "LeftDustElementalDead.bmp", .Start = 0, .End = 9, .InterTime = 0.05f, .Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "LeftDust.bmp", .Start = 0, .End = 1, .InterTime = 0.1f });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_Beaten",  .ImageName = "LeftDustDmged.bmp", .Start = 0, .End = 1, .InterTime = 0.1f, .Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_Dead",  .ImageName = "LeftDustDead.bmp", .Start = 0, .End = 9, .InterTime = 0.05f, .Loop = false });
 	}
 	BodyCollision = CreateCollision(VSRenderOrder::Monster);
-	BodyCollision->SetScale({ 60,60 });
-	BodyCollision->SetPosition({ 0, -BodyCollision->GetScale().hy() });
+	BodyCollision->SetScale({ 70, 140 });
+	BodyCollision->SetPosition({ 0, -30 });
 
 	//srand(time(0));
 	float4 CamPos = GetLevel()->GetCameraPos();
@@ -44,7 +44,7 @@ void Monster::Start()
 	
 	
 	// 임시
-	SetHp(5);
+	SetHp(10);
 	Dmg = 5;
 	//ChangeState(MonsterState::IDLE); // 시작 시 기본 상태 설정
 }
@@ -138,12 +138,12 @@ void Monster::BeatenUpdate(float _Time)
 }
 void Monster::BeatenEnd()
 {
-
 }
 
 
 void Monster::DeadStart()
 {
+	BodyCollision->Off(); // 죽는동안 피격 x효과
 	MoveVec = float4::Zero;
 	DirCheck("Dead");
 }

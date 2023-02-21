@@ -39,12 +39,12 @@
     <ClInclude Include="PlayGameUI.h">
       <Filter>PlayUI</Filter>
     </ClInclude>
-    <ClInclude Include="Weapon.h">
-      <Filter>Player</Filter>
-    </ClInclude>
     <ClInclude Include="Items.h" />
     <ClInclude Include="SelectCharacter.h">
       <Filter>Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Weapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -88,12 +88,12 @@
     <ClCompile Include="PlayGameUI.cpp">
       <Filter>PlayUI</Filter>
     </ClCompile>
-    <ClCompile Include="Weapon.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
     <ClCompile Include="Items.cpp" />
     <ClCompile Include="SelectCharacter.cpp">
       <Filter>Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +117,9 @@
     </Filter>
     <Filter Include="PlayUI">
       <UniqueIdentifier>{5ebc2754-3f55-4e5e-b6d2-f85172b5045d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Weapon">
+      <UniqueIdentifier>{5e4421ab-d604-4133-9065-33b086852af8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

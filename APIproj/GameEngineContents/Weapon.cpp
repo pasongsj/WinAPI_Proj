@@ -32,19 +32,19 @@ void Weapon::InitWeapon(GameEngineLevel* _Level)
 	Render->SetScale({ 600,60 });
 	Render->SetPosition({ 0, -60 });
 
-	/*NewWeapon->SetImage("RightWhip", "Whip.bmp", 0, 2, 0.03f);
-	NewWeapon->SetRenderScale({ 314, 280 });*/
-	NewWeapon->SetCollisionScale({ 300, 60 });
+	GameEngineCollision* Collision = NewWeapon->GetWeaponCollision();
+	float4 CollisionScale = Render->GetScale();
+	CollisionScale.x = CollisionScale.hx();
+	Collision->SetScale(CollisionScale);
+
 	NewWeapon->SetCoolTime(2.0f);
 	NewWeapon->SetRunTime(0.1f);
 	
-	int _Dmg[9] = { 0,5,10,15,20,25,30,35,40 };
+	int _Dmg[9] = { 0,10,10,15,20,25,30,35,40 };
 	NewWeapon->SetDmg(_Dmg);
-	float4 CollisionScale = Render->GetScale();
-	CollisionScale.x = CollisionScale.hx();
-	NewWeapon->GetWeaponCollision()->SetScale(CollisionScale);
-	NewWeapon->SetCollisionPosition({ 0, -15 });
-	Weapon::Weapons["Whip"] = NewWeapon;
+
+	//NewWeapon->GetWeaponCollision()->SetScale(CollisionScale);
+	Weapon::Weapons[NewWeapon->GetWeaponName()] = NewWeapon;
 
 
 }
