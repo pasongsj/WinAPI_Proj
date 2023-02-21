@@ -14,6 +14,8 @@
 #include "Weapon.h"
 #include  "Items.h"
 
+#include "WeaponWhip.h"
+
 InlaidLibraryLevel::InlaidLibraryLevel()
 {
 }
@@ -159,7 +161,8 @@ void InlaidLibraryLevel::Loading()
 	}
 
 	{
-		Weapon::InitWeapon(this);
+		CreateActor<WeaponWhip>();
+		//Weapon::InitWeapon(this);
 		//Weapon* NewWeapon = CreateActor<Weapon>(VSRenderOrder::Weapon);
 		//NewWeapon->SetImage("Right_Whip", "Whip.bmp", 0, 2, 0.03f);
 		//NewWeapon->SetRenderScale({ 314, 280 });

@@ -146,7 +146,7 @@ void Player::Update(float _DeltaTime)
 	// 가지고 있는 무기 쿨타임 업데이트
 	for (Weapon* arm : MyWeapon) {
 		//float4 _Pos = GetPos();
-		arm->SetPos(GetPos()+arm->GetWeaponPos());
+		arm->SetPos(GetPos());
 		arm->WaitTime += _DeltaTime;
 		if (arm->WaitTime > arm->GetCoolTime())
 		{
