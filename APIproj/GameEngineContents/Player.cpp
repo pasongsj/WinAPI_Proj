@@ -13,7 +13,7 @@
 #include "Monster.h"
 #include "Items.h"
 
-bool Player::IsStop = false;
+
 Player* Player::MainPlayer;
 std::string Player::PlayerName = "Antonio.bmp";
 
@@ -139,29 +139,12 @@ bool Player::CheckMonsterCollision()
 
 void Player::Update(float _DeltaTime)
 {
-	if (true == Player::IsStop)
-	{
-		return;
-	}
+
 	InvincibleStateDelay -= _DeltaTime;
 	if (InvincibleStateDelay <= 0)
 	{
 		BodyCollision->On();
 	}
-
-	//	// PlayerState가 변경될 수 있음을 인지해야한다. - 수정필요
-	//if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster) }, Collision))
-	//{
-	//	for (size_t i = 0; i < Collision.size(); i++)
-	//	{
-	//		// Monster* FindMonster = Collision[i]->GetOwner<Monster>();
-	//		GameEngineActor* ColActor = Collision[i]->GetActor();
-	//		Monster* ColMonsterActor = dynamic_cast<Monster*> (ColActor);
-	//		Hp -= ColMonsterActor->GetDmg();
-	//		//ChangeState(PlayerState::DMGED);
-	//	//	ColActor->Death();
-	//	}
-	//}
 
 	// 아이템 획득 콜리전
 	//std::vector<GameEngineCollision*> Collision;
@@ -221,52 +204,84 @@ void Player::DirCheck(const std::string_view& _AnimationName)
 		AnimationRender->ChangeAnimation(DirString + _AnimationName.data());
 	}
 }
-//
-//void Player::Render(float _DeltaTime)
-//{
-//	/*if (0 == _DeltaTime)
-//	{
-//		return;
-//	}*/
-//	float4 _Pos = GetPos();
-//	std::string MouseText = "Position : ";
-//	MouseText += _Pos.ToString();
-//	GameEngineLevel::DebugTextPush(MouseText);
-//
-//	std::string CameraText = "CameraPosition : ";
-//	CameraText += GetLevel()->GetCameraPos().ToString();
-//	GameEngineLevel::DebugTextPush(CameraText);
-//
-//
-//	//float4 _Pos = Player::MainPlayer->GetPos();
-//	HDC BackBufferDc = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
-//	float4 HpBarPos = _Pos - (GetLevel()->GetCameraPos()) - float4{ 0,-7 };
-//	float4 HpPoint = HpbarScale;
-//	HpPoint.x = HpPoint.x *(static_cast<float>(Hp) / 120);
-//
-//	RECT RedBar = {	
-//					static_cast<LONG> (HpBarPos.x - HpbarScale.hx()),
-//					static_cast<LONG> (HpBarPos.y - HpbarScale.hy()),
-//					static_cast<LONG> (HpBarPos.x - HpbarScale.hx() + HpPoint.x),
-//					static_cast<LONG> (HpBarPos.y + HpbarScale.hy())
-//				};
-//
-//	RECT BlackBar = {	
-//						static_cast<LONG> (HpBarPos.x - HpbarScale.hx() + HpPoint.x),
-//						static_cast<LONG> (HpBarPos.y - HpbarScale.hy()),
-//						static_cast<LONG> (HpBarPos.x + HpbarScale.hx()),
-//						static_cast<LONG> (HpBarPos.y + HpbarScale.hy())
-//					};
-//
-//	FillRect(
-//		BackBufferDc,
-//		&RedBar,
-//		CreateSolidBrush(RGB(255, 0, 0))
-//	);
-//	FillRect(
-//		BackBufferDc,
-//		&BlackBar,
-//		CreateSolidBrush(RGB(0, 0, 0))
-//	);
-//
-//}
+
+void Player::Render(float _DeltaTime)
+{
+	/*if (0 == _DeltaTime)
+	{
+		return;
+	}*/
+	float4 ForCheck = AnimationRender->GetPosition();
+	float4 _Pos = GetPos();
+	std::string MouseText = "Position : ";
+	MouseText += _Pos.ToString();
+	GameEngineLevel::DebugTextPush(MouseText);
+
+	std::string CameraText = "CameraPosition : ";
+	CameraText += GetLevel()->GetCameraPos().ToString();
+	GameEngineLevel::DebugTextPush(CameraText);
+
+
+	////float4 _Pos = Player::MainPlayer->GetPos();
+	HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
+	float4 HpBarPos = _Pos - (GetLevel()->GetCameraPos()) - float4{ 0,-7 };
+	float4 HpPoint = HpbarScale;
+	HpPoint.x = HpPoint.x *(static_cast<float>(Hp) / 120);
+
+
+	// -- RedBar
+	HBRUSH myBrush = (HBRUSH)CreateSolidBrush(RGB(255, 0, 0));
+	HBRUSH oldBrush = (HBRUSH)SelectObject(DoubleDC, myBrush);
+
+	Rectangle(DoubleDC,
+		(HpBarPos.ix() - HpbarScale.hix()),
+		(HpBarPos.iy() - HpbarScale.hiy()),
+		(HpBarPos.ix() - HpbarScale.hix() + HpPoint.ix()),
+		(HpBarPos.iy() + HpbarScale.hiy())
+	);
+
+	SelectObject(DoubleDC, oldBrush);
+	DeleteObject(myBrush);
+
+	// -- BlackBar
+	myBrush = (HBRUSH)CreateSolidBrush(RGB(0, 0, 0));
+
+	oldBrush = (HBRUSH)SelectObject(DoubleDC, myBrush);
+
+	Rectangle(DoubleDC,
+		(HpBarPos.ix() - HpbarScale.hix() + HpPoint.ix()),
+		(HpBarPos.iy() - HpbarScale.hiy()),
+		(HpBarPos.ix() + HpbarScale.hix()),
+		(HpBarPos.iy() + HpbarScale.hiy())
+	);
+
+	SelectObject(DoubleDC, oldBrush);
+	DeleteObject(myBrush);
+
+
+	/*RECT RedBar = {	
+					static_cast<LONG> (HpBarPos.x - HpbarScale.hx()),
+					static_cast<LONG> (HpBarPos.y - HpbarScale.hy()),
+					static_cast<LONG> (HpBarPos.x - HpbarScale.hx() + HpPoint.x),
+					static_cast<LONG> (HpBarPos.y + HpbarScale.hy())
+				};*/
+
+	//RECT BlackBar = {	
+	//					static_cast<LONG> (HpBarPos.x - HpbarScale.hx() + HpPoint.x),
+	//					static_cast<LONG> (HpBarPos.y - HpbarScale.hy()),
+	//					static_cast<LONG> (HpBarPos.x + HpbarScale.hx()),
+	//					static_cast<LONG> (HpBarPos.y + HpbarScale.hy())
+	//				};
+
+	/*FillRect(
+		DoubleDC,
+		&RedBar,
+		CreateSolidBrush(RGB(255, 0, 0))
+	);*/
+	//FillRect(
+	//	BackBufferDc,
+	//	&BlackBar,
+	//	CreateSolidBrush(RGB(0, 0, 0))
+	//);
+
+}

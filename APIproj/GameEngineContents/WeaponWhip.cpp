@@ -44,10 +44,6 @@ void WeaponWhip::Start()
 
 void WeaponWhip::Update(float _DeltaTime)
 {
-	if (true == Player::IsStop)
-	{
-		return;
-	}
 	if (WaitTime > GetRunTime())
 	{
 		this->Off();

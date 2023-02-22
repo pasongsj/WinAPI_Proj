@@ -72,10 +72,6 @@ void PlayGameUI::Start()
 
 void PlayGameUI::Update(float _DeltaTime)
 {
-	/*if (true == Player::IsStop)
-	{
-		return;
-	}*/
 	StageTime += _DeltaTime;
 	StageTimerMin.SetValue(static_cast<int>(StageTime) / 60);
 	StageTimerSec.SetValue(static_cast<int>(StageTime) % 60);

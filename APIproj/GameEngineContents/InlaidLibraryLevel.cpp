@@ -211,27 +211,25 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 {
 	if (true == GameEngineInput::IsDown("LevelChange")) // - 임시 레벨 체인지 기능
 	{
-		//Player::IsStop = true;
 		//GameEngineCore::GetInst()->ChangeLevel("TitleLevel");
-		//SetTimeScale(VSRenderOrder::BackGround, 0);
+		SetTimeScale(VSRenderOrder::BackGround, 0);
 		SetTimeScale(VSRenderOrder::Map, 0);
 		SetTimeScale(VSRenderOrder::Player, 0);
 		SetTimeScale(VSRenderOrder::Monster, 0);
 		SetTimeScale(VSRenderOrder::Item, 0);
 		SetTimeScale(VSRenderOrder::Weapon, 0);
-		//SetTimeScale(VSRenderOrder::UI, 0);
+		SetTimeScale(VSRenderOrder::UI, 0);
 	}
 
 	if (true == GameEngineInput::IsDown("RLevelChange"))
 	{
-		//Player::IsStop = false;
-		//SetTimeScale(VSRenderOrder::BackGround, 1);
+		SetTimeScale(VSRenderOrder::BackGround, 1);
 		SetTimeScale(VSRenderOrder::Map, 1);
 		SetTimeScale(VSRenderOrder::Player, 1);
 		SetTimeScale(VSRenderOrder::Monster, 1);
 		SetTimeScale(VSRenderOrder::Item, 1);
 		SetTimeScale(VSRenderOrder::Weapon, 1);
-		//SetTimeScale(VSRenderOrder::UI, 1);
+		SetTimeScale(VSRenderOrder::UI, 1);
 	}
 
 	if (GameEngineInput::IsDown("DebugRenderSwitch"))

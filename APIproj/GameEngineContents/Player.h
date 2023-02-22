@@ -11,17 +11,10 @@ enum class PlayerState
 	MOVE_DMGED,
 };
 
-//struct RECT {
-//	LONG left;
-//	LONG top;
-//	LONG right;
-//	LONG bottom;
-//}
 
 class Player : public GameEngineActor
 {
 public:
-	static bool IsStop;
 	static Player* MainPlayer;
 	static std::string PlayerName;
 	// constrcuter destructer
@@ -52,7 +45,7 @@ public:
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
-	//void Render(float _DeltaTime) override;
+	void Render(float _DeltaTime) override;
 
 private:
 	float AccTime = 0.0f;
@@ -64,7 +57,7 @@ private:
 	int Exp = 0;
 	int PlayerLevel = 1;
 	float InvincibleStateDelay = 0.0f;//무적상태
-	float4 HpbarScale = { 80, 10 };
+	float4 HpbarScale = { 70, 9 };
 
 	PlayerState StateValue = PlayerState::IDLE;
 	std::string DirString = "Right_";
