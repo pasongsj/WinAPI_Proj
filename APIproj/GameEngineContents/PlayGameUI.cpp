@@ -2,7 +2,7 @@
 #include "ContentsEnums.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineRender.h>
-
+#include "Player.h"
 
 PlayGameUI::PlayGameUI()
 {
@@ -44,7 +44,9 @@ void PlayGameUI::Start()
 		Render->EffectCameraOff();
 	}
 
+
 	{ // time - min
+		StageTimerMin.SetOrder(static_cast<int> (VSRenderOrder::UI));
 		BarPos.x = GameEngineWindow::GetScreenSize().hx() - 35;
 		//BarPos.y -= 55;
 		StageTimerMin.SetOwner(this);
@@ -56,6 +58,7 @@ void PlayGameUI::Start()
 	}
 
 	{// time - sec
+		StageTimerSec.SetOrder(static_cast<int> (VSRenderOrder::UI));
 		BarPos.x = GameEngineWindow::GetScreenSize().hx() + 35;
 		StageTimerSec.SetOwner(this);
 		StageTimerSec.SetImage("Number.BMp", { 25, 30 }, static_cast<int>(VSRenderOrder::UI), RGB(255, 0, 255));
@@ -69,6 +72,10 @@ void PlayGameUI::Start()
 
 void PlayGameUI::Update(float _DeltaTime)
 {
+	if (true == Player::IsStop)
+	{
+		return;
+	}
 	StageTime += _DeltaTime;
 	StageTimerMin.SetValue(static_cast<int>(StageTime) / 60);
 	StageTimerSec.SetValue(static_cast<int>(StageTime) % 60);

@@ -31,6 +31,11 @@ public:
 	//void SetMove(float4 _RenderPos);
 	void SetAlign(Align _Align);
 
+	void SetOrder(int _Order)
+	{
+		Order = _Order;
+	}
+
 	inline int GetValue()
 	{
 		return Value;
@@ -73,7 +78,7 @@ private:
 
 	std::string_view NegativeName = std::string_view();
 
-	std::vector<GameEngineRender*> NumberRenders = std::vector<GameEngineRender*>();
+	std::vector<GameEngineRender*> NumberRenders = std::vector<GameEngineRender*>(Order);
 	GameEngineRender* NegativeRender = nullptr;
 
 	void SetNumberRenders(size_t _Index, int _TransColor, float4 _Pos, const std::string_view& _ImageName, float4 _Scale, bool _CameraEffect, int _Frame = -1);

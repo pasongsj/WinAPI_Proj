@@ -25,6 +25,7 @@ InlaidLibraryLevel::~InlaidLibraryLevel()
 }
 void InlaidLibraryLevel::ImageLoad()
 {
+
 	// 이미지 로드
 	GameEngineDirectory Dir;
 	Dir.MoveParentToDirectory("ContentsResources");
@@ -153,7 +154,9 @@ void InlaidLibraryLevel::Loading()
 	if (false == GameEngineInput::IsKey("LevelChange")) // - 임시 : 레벨체인지 
 	{
 		GameEngineInput::CreateKey("LevelChange", 'P');
+		GameEngineInput::CreateKey("RLevelChange", 'I');
 	}
+	
 
 	if (false == GameEngineInput::IsKey("DebugRenderSwitch"))
 	{
@@ -161,7 +164,7 @@ void InlaidLibraryLevel::Loading()
 	}
 
 	{
-		CreateActor<WeaponWhip>();
+		CreateActor<WeaponWhip>(VSRenderOrder::Weapon);
 		//Weapon::InitWeapon(this);
 		//Weapon* NewWeapon = CreateActor<Weapon>(VSRenderOrder::Weapon);
 		//NewWeapon->SetImage("Right_Whip", "Whip.bmp", 0, 2, 0.03f);
@@ -177,11 +180,11 @@ void InlaidLibraryLevel::Loading()
 	}
 
 	{
-		InlaidLibraryBack* BackGround = CreateActor<InlaidLibraryBack>(); // 가시적 배경
+		InlaidLibraryBack* BackGround = CreateActor<InlaidLibraryBack>(VSRenderOrder::BackGround); // 가시적 배경
 	}
 
 	{
-		PlayGameUI* NewUI = CreateActor<PlayGameUI>();
+		PlayGameUI* NewUI = CreateActor<PlayGameUI>(VSRenderOrder::UI);
 	}
 
 	//{
@@ -208,7 +211,27 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 {
 	if (true == GameEngineInput::IsDown("LevelChange")) // - 임시 레벨 체인지 기능
 	{
-		GameEngineCore::GetInst()->ChangeLevel("TitleLevel");
+		//Player::IsStop = true;
+		//GameEngineCore::GetInst()->ChangeLevel("TitleLevel");
+		SetTimeScale(VSRenderOrder::BackGround, 0);
+		SetTimeScale(VSRenderOrder::Map, 0);
+		SetTimeScale(VSRenderOrder::Player, 0);
+		SetTimeScale(VSRenderOrder::Monster, 0);
+		SetTimeScale(VSRenderOrder::Item, 0);
+		SetTimeScale(VSRenderOrder::Weapon, 0);
+		SetTimeScale(VSRenderOrder::UI, 0);
+	}
+
+	if (true == GameEngineInput::IsDown("RLevelChange"))
+	{
+		//Player::IsStop = false;
+		SetTimeScale(VSRenderOrder::BackGround, 1);
+		SetTimeScale(VSRenderOrder::Map, 1);
+		SetTimeScale(VSRenderOrder::Player, 1);
+		SetTimeScale(VSRenderOrder::Monster, 1);
+		SetTimeScale(VSRenderOrder::Item, 1);
+		SetTimeScale(VSRenderOrder::Weapon, 1);
+		SetTimeScale(VSRenderOrder::UI, 1);
 	}
 
 	if (GameEngineInput::IsDown("DebugRenderSwitch"))

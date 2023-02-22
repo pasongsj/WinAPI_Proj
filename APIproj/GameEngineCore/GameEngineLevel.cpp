@@ -63,7 +63,14 @@ void GameEngineLevel::ActorsUpdate(float _DeltaTime)
 
 		for (; GroupStartIter != GroupEndIter; ++GroupStartIter)
 		{
+
 			std::list<GameEngineActor*>& ActorList = GroupStartIter->second;
+			int Order = GroupStartIter->first;
+			float CurTimeScale = 1.0f;
+			if (TimeScales.end() != TimeScales.find(Order))
+			{
+				CurTimeScale = TimeScales[Order];
+			}
 
 			for (GameEngineActor* Actor : ActorList)
 			{
@@ -72,9 +79,9 @@ void GameEngineLevel::ActorsUpdate(float _DeltaTime)
 				{
 					continue;
 				}
-
+				Actor->TimeScale = CurTimeScale;
 				Actor->LiveTime += _DeltaTime;
-				Actor->Update(_DeltaTime);
+				Actor->Update(_DeltaTime * CurTimeScale);
 			}
 		}
 	}
@@ -120,7 +127,7 @@ void GameEngineLevel::ActorsRender(float _DeltaTime)
 					continue;
 				}
 
-				Renderer->Render(_DeltaTime);
+				Renderer->Render(_DeltaTime * Renderer->GetActor()->TimeScale);
 			}
 		}
 	}
@@ -141,7 +148,7 @@ void GameEngineLevel::ActorsRender(float _DeltaTime)
 					continue;
 				}
 
-				Actor->Render(_DeltaTime);
+				Actor->Render(_DeltaTime /** Actor->TimeScale*/);
 			}
 		}
 	}

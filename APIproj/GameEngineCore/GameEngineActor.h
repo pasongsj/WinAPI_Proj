@@ -101,7 +101,7 @@ protected:
 
 
 private:
-
+	float TimeScale = 0.0;
 	float4 Pos = {0.0f, 0.0f};
 	float LiveTime = 0.0;
 

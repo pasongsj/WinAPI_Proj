@@ -53,6 +53,10 @@ void Monster::Start()
 
 void Monster::Update(float _DeltaTime)
 {
+	if (true == Player::IsStop)
+	{
+		return;
+	}
 	UpdateState(_DeltaTime);
 	SetMove(MoveVec * MoveSpeed * _DeltaTime); // if state == attacted면 멈추게 한다.
 

@@ -21,6 +21,7 @@ enum class PlayerState
 class Player : public GameEngineActor
 {
 public:
+	static bool IsStop;
 	static Player* MainPlayer;
 	static std::string PlayerName;
 	// constrcuter destructer
@@ -51,7 +52,7 @@ public:
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
-	void Render(float _DeltaTime) override;
+	//void Render(float _DeltaTime) override;
 
 private:
 	float AccTime = 0.0f;

@@ -88,6 +88,17 @@ public:
 		return Result;
 	}
 
+	template<typename EnumType>
+	void SetTimeScale(EnumType _GroupIndex, float _Time)
+	{
+		SetTimeScale(static_cast<int>(_GroupIndex), _Time);
+	}
+
+	void SetTimeScale(int _GroupIndex, float _Time)
+	{
+		TimeScales[_GroupIndex] = _Time;
+	}
+
 protected:
 	virtual void Loading() = 0;
 	virtual void Update(float _DeltaTime) = 0;
@@ -114,6 +125,9 @@ private:
 
 
 	void ActorStart(GameEngineActor* _Actor, int _Order);
+
+
+	std::map<int, float> TimeScales;
 
 	// 랜더 순서를 담은 map
 	std::map<int, std::list<GameEngineRender*>> Renders;

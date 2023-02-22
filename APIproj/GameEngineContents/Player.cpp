@@ -12,6 +12,7 @@
 #include "Monster.h"
 #include "Items.h"
 
+bool Player::IsStop = false;
 Player* Player::MainPlayer;
 std::string Player::PlayerName = "Antonio.bmp";
 
@@ -137,8 +138,10 @@ bool Player::CheckMonsterCollision()
 
 void Player::Update(float _DeltaTime)
 {
-	std::vector<GameEngineCollision*> Collision;
-	
+	if (true == Player::IsStop)
+	{
+		return;
+	}
 	InvincibleStateDelay -= _DeltaTime;
 	if (InvincibleStateDelay <= 0)
 	{
@@ -161,6 +164,7 @@ void Player::Update(float _DeltaTime)
 
 	// ¾ÆÀÌÅÛ È¹µæ ÄÝ¸®Àü
 	//std::vector<GameEngineCollision*> Collision;
+	std::vector<GameEngineCollision*> Collision;
 	Collision.clear();
 	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Item) , .TargetColType  = CollisionType::CT_Rect}, Collision))
 	{
@@ -219,49 +223,49 @@ void Player::DirCheck(const std::string_view& _AnimationName)
 		AnimationRender->ChangeAnimation(DirString + _AnimationName.data());
 	}
 }
-
-void Player::Render(float _DeltaTime)
-{
-	HDC BackBufferDc = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
-	float4 HpBarPos = GetPos() - (GetLevel()->GetCameraPos()) - float4{ 0,-7 };
-	float4 HpPoint = HpbarScale;
-	HpPoint.x = HpPoint.x *(static_cast<float>(Hp) / 120);
-
-	RECT RedBar = {	
-					static_cast<LONG> (HpBarPos.x - HpbarScale.hx()),
-					static_cast<LONG> (HpBarPos.y - HpbarScale.hy()),
-					static_cast<LONG> (HpBarPos.x - HpbarScale.hx() + HpPoint.x),
-					static_cast<LONG> (HpBarPos.y + HpbarScale.hy())
-				};
-
-	RECT BlackBar = {	
-						static_cast<LONG> (HpBarPos.x - HpbarScale.hx() + HpPoint.x),
-						static_cast<LONG> (HpBarPos.y - HpbarScale.hy()),
-						static_cast<LONG> (HpBarPos.x + HpbarScale.hx()),
-						static_cast<LONG> (HpBarPos.y + HpbarScale.hy())
-					};
-
-	FillRect(
-		BackBufferDc,
-		&RedBar,
-		CreateSolidBrush(RGB(255, 0, 0))
-	);
-	FillRect(
-		BackBufferDc,
-		&BlackBar,
-		CreateSolidBrush(RGB(0, 0, 0))
-	);
-
-	/*Rectangle(BackBufferDc,
-		HpBarPos.ix() - HpbarScale.hix(),
-		HpBarPos.iy() - HpbarScale.hiy(),
-		HpBarPos.ix() + HpPoint.hx(),
-		HpBarPos.iy() + HpPoint.hy());
-
-	Rectangle(BackBufferDc,
-		HpBarPos.ix() + HpPoint.hx(),
-		HpBarPos.iy() + HpPoint.hy(),
-		HpBarPos.ix() + HpbarScale.hix(),
-		HpBarPos.iy() + HpbarScale.hiy());*/
-
-}
+//
+//void Player::Render(float _DeltaTime)
+//{
+//	HDC BackBufferDc = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
+//	float4 HpBarPos = GetPos() - (GetLevel()->GetCameraPos()) - float4{ 0,-7 };
+//	float4 HpPoint = HpbarScale;
+//	HpPoint.x = HpPoint.x *(static_cast<float>(Hp) / 120);
+//
+//	RECT RedBar = {	
+//					static_cast<LONG> (HpBarPos.x - HpbarScale.hx()),
+//					static_cast<LONG> (HpBarPos.y - HpbarScale.hy()),
+//					static_cast<LONG> (HpBarPos.x - HpbarScale.hx() + HpPoint.x),
+//					static_cast<LONG> (HpBarPos.y + HpbarScale.hy())
+//				};
+//
+//	RECT BlackBar = {	
+//						static_cast<LONG> (HpBarPos.x - HpbarScale.hx() + HpPoint.x),
+//						static_cast<LONG> (HpBarPos.y - HpbarScale.hy()),
+//						static_cast<LONG> (HpBarPos.x + HpbarScale.hx()),
+//						static_cast<LONG> (HpBarPos.y + HpbarScale.hy())
+//					};
+//
+//	FillRect(
+//		BackBufferDc,
+//		&RedBar,
+//		CreateSolidBrush(RGB(255, 0, 0))
+//	);
+//	FillRect(
+//		BackBufferDc,
+//		&BlackBar,
+//		CreateSolidBrush(RGB(0, 0, 0))
+//	);
+//
+//	/*Rectangle(BackBufferDc,
+//		HpBarPos.ix() - HpbarScale.hix(),
+//		HpBarPos.iy() - HpbarScale.hiy(),
+//		HpBarPos.ix() + HpPoint.hx(),
+//		HpBarPos.iy() + HpPoint.hy());
+//
+//	Rectangle(BackBufferDc,
+//		HpBarPos.ix() + HpPoint.hx(),
+//		HpBarPos.iy() + HpPoint.hy(),
+//		HpBarPos.ix() + HpbarScale.hix(),
+//		HpBarPos.iy() + HpbarScale.hiy());*/
+//
+//}
