@@ -43,7 +43,7 @@ void Player::Start()
 		GameEngineInput::CreateKey("DownMove", 'S');
 		GameEngineInput::CreateKey("UpMove", 'W');
 	}
-	if ("Antonio.bmp" == PlayerName)
+	if ("Antonio" == PlayerName)
 	{
 		Hp = 120;
 	}
@@ -77,7 +77,7 @@ void Player::Start()
 	}
 
 	{
-		MyWeapon.push_back(Weapon::Weapons["Whip"]);
+		//MyWeapon.push_back(Weapon::Weapons["Whip"]);
 	}
 	ChangeState(PlayerState::IDLE); // 시작 시 기본 상태 설정
 }
@@ -171,9 +171,8 @@ void Player::Update(float _DeltaTime)
 	}
 
 
-	// 가지고 있는 무기 쿨타임 업데이트
+	// 가지고 있는 무기 쿨타임, 위치업데이트
 	for (Weapon* arm : MyWeapon) {
-		//float4 _Pos = GetPos();
 		arm->SetPos(GetPos());
 		arm->WaitTime += _DeltaTime;
 		if (arm->WaitTime > arm->GetCoolTime())
@@ -182,6 +181,15 @@ void Player::Update(float _DeltaTime)
 			arm->On();
 		}
 
+	}
+
+	if (Hp < 100)
+	{
+		int a = 0;
+	}
+	if (Hp < 20)
+	{
+		int a = 0;
 	}
 
 	
@@ -209,5 +217,46 @@ void Player::DirCheck(const std::string_view& _AnimationName)
 
 void Player::Render(float _DeltaTime)
 {
+	HDC BackBufferDc = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
+	float4 HpBarPos = GetPos() - (GetLevel()->GetCameraPos()) - float4{ 0,-7 };
+	float4 HpPoint = HpbarScale;
+	HpPoint.x = HpPoint.x *(static_cast<float>(Hp) / 120);
+
+	RECT RedBar = {	
+					HpBarPos.x - HpbarScale.hx(),
+					HpBarPos.y - HpbarScale.hy(),
+					HpBarPos.x - HpbarScale.hx() + HpPoint.x,
+					HpBarPos.y + HpbarScale.hy()
+				};
+
+	RECT BlackBar = {	
+						HpBarPos.x - HpbarScale.hx() + HpPoint.x,
+						HpBarPos.y - HpbarScale.hy(),
+						HpBarPos.x + HpbarScale.hx(),
+						HpBarPos.y + HpbarScale.hy()
+					};
+
+	FillRect(
+		BackBufferDc,
+		&RedBar,
+		CreateSolidBrush(RGB(255, 0, 0))
+	);
+	FillRect(
+		BackBufferDc,
+		&BlackBar,
+		CreateSolidBrush(RGB(0, 0, 0))
+	);
+
+	/*Rectangle(BackBufferDc,
+		HpBarPos.ix() - HpbarScale.hix(),
+		HpBarPos.iy() - HpbarScale.hiy(),
+		HpBarPos.ix() + HpPoint.hx(),
+		HpBarPos.iy() + HpPoint.hy());
+
+	Rectangle(BackBufferDc,
+		HpBarPos.ix() + HpPoint.hx(),
+		HpBarPos.iy() + HpPoint.hy(),
+		HpBarPos.ix() + HpbarScale.hix(),
+		HpBarPos.iy() + HpbarScale.hiy());*/
 
 }

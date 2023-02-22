@@ -11,6 +11,13 @@ enum class PlayerState
 	MOVE_DMGED,
 };
 
+//struct RECT {
+//	LONG left;
+//	LONG top;
+//	LONG right;
+//	LONG bottom;
+//}
+
 class Player : public GameEngineActor
 {
 public:
@@ -55,6 +62,8 @@ private:
 	int Hp = 100;
 	int Exp = 0;
 	int PlayerLevel = 1;
+	float DmgStateDelay = 0.0f;
+	float4 HpbarScale = { 80, 10 };
 
 	PlayerState StateValue = PlayerState::IDLE;
 	std::string DirString = "Right_";
@@ -62,7 +71,6 @@ private:
 	GameEngineRender* AnimationRender = nullptr;
 	GameEngineCollision* BodyCollision = nullptr;
 	std::vector<Weapon*> MyWeapon;
-	GameEngineRender* HpBar = nullptr;
 
 	void DirCheck(const std::string_view& _AnimationName);// 방향체크
 
