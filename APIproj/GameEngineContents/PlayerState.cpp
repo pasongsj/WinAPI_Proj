@@ -89,7 +89,8 @@ void Player::IdleUpdate(float _Time)
 	{
 		if (true == is_Col)
 		{
-			DmgStateDelay = 0.7f;
+			InvincibleStateDelay = 0.5f;
+			BodyCollision->Off();
 			ChangeState(PlayerState::MOVE_DMGED);
 		}
 		else
@@ -100,7 +101,8 @@ void Player::IdleUpdate(float _Time)
 	}
 	else if (true == is_Col)
 	{
-		DmgStateDelay = 0.7f;
+		InvincibleStateDelay = 0.5f;
+		BodyCollision->Off();
 		ChangeState(PlayerState::IDLE_DMGED);
 	}
 }
@@ -116,7 +118,8 @@ void Player::MoveUpdate(float _Time)
 {
 	if(true == CheckMonsterCollision()) //충돌했다면
 	{
-		DmgStateDelay = 0.7f;
+		InvincibleStateDelay = 0.5f;
+		BodyCollision->Off();
 		ChangeState(PlayerState::MOVE_DMGED);
 	}
 	PressMove();
@@ -133,13 +136,13 @@ void Player::IdleDmgedStart()
 }
 void Player::IdleDmgedUpdate(float _Time)
 {
+	DirCheck("Idle_Dmged");
 	PressMove();
-	DmgStateDelay -= _Time;
-	if (DmgStateDelay < 0)
+	/*DmgStateDelay -= _Time;
+	if (DmgStateDelay <= 0)
 	{
 		ChangeState(PlayerState::IDLE);
-	}
-	DirCheck("Idle_Dmged");
+	}*/
 }
 void Player::IdleDmgedEnd() {
 
@@ -152,14 +155,14 @@ void Player::MoveDmgedStart()
 }
 void Player::MoveDmgedUpdate(float _Time)
 {
+	DirCheck("Move_Dmged");
 	PressMove();
 
-	DmgStateDelay -= _Time;
-	if (DmgStateDelay < 0)
+	/*DmgStateDelay -= _Time;
+	if (DmgStateDelay <= 0)
 	{
 		ChangeState(PlayerState::IDLE);
-	}
-	DirCheck("Move_Dmged");
+	}*/
 }
 void Player::MoveDmgedEnd() {
 

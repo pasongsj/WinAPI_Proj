@@ -139,6 +139,11 @@ void Player::Update(float _DeltaTime)
 {
 	std::vector<GameEngineCollision*> Collision;
 	
+	InvincibleStateDelay -= _DeltaTime;
+	if (InvincibleStateDelay <= 0)
+	{
+		BodyCollision->On();
+	}
 
 	//	// PlayerState가 변경될 수 있음을 인지해야한다. - 수정필요
 	//if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster) }, Collision))
@@ -223,17 +228,17 @@ void Player::Render(float _DeltaTime)
 	HpPoint.x = HpPoint.x *(static_cast<float>(Hp) / 120);
 
 	RECT RedBar = {	
-					HpBarPos.x - HpbarScale.hx(),
-					HpBarPos.y - HpbarScale.hy(),
-					HpBarPos.x - HpbarScale.hx() + HpPoint.x,
-					HpBarPos.y + HpbarScale.hy()
+					static_cast<LONG> (HpBarPos.x - HpbarScale.hx()),
+					static_cast<LONG> (HpBarPos.y - HpbarScale.hy()),
+					static_cast<LONG> (HpBarPos.x - HpbarScale.hx() + HpPoint.x),
+					static_cast<LONG> (HpBarPos.y + HpbarScale.hy())
 				};
 
 	RECT BlackBar = {	
-						HpBarPos.x - HpbarScale.hx() + HpPoint.x,
-						HpBarPos.y - HpbarScale.hy(),
-						HpBarPos.x + HpbarScale.hx(),
-						HpBarPos.y + HpbarScale.hy()
+						static_cast<LONG> (HpBarPos.x - HpbarScale.hx() + HpPoint.x),
+						static_cast<LONG> (HpBarPos.y - HpbarScale.hy()),
+						static_cast<LONG> (HpBarPos.x + HpbarScale.hx()),
+						static_cast<LONG> (HpBarPos.y + HpbarScale.hy())
 					};
 
 	FillRect(

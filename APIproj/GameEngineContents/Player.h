@@ -62,7 +62,7 @@ private:
 	int Hp = 100;
 	int Exp = 0;
 	int PlayerLevel = 1;
-	float DmgStateDelay = 0.0f;
+	float InvincibleStateDelay = 0.0f;//무적상태
 	float4 HpbarScale = { 80, 10 };
 
 	PlayerState StateValue = PlayerState::IDLE;
