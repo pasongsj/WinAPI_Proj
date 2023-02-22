@@ -88,6 +88,11 @@ public:
 		return Result;
 	}
 
+	static void DebugTextPush(const std::string& _DebugText)
+	{
+		DebugTexts.push_back(_DebugText);
+	}
+
 	template<typename EnumType>
 	void SetTimeScale(EnumType _GroupIndex, float _Time)
 	{
@@ -113,6 +118,8 @@ protected:
 private:
 
 	static bool IsDebugRender;
+	static float4 TextOutStart;
+	static std::vector<std::string> DebugTexts;
 
 	float4 CameraPos = float4::Zero;/*GameEngineWindow::GetScreenSize().half();*/
 	// 행동순서를 담은 

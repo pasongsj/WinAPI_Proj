@@ -8,6 +8,7 @@
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineCollision.h>
 
+
 //#include "Weapon.h"
 #include "Monster.h"
 #include "Items.h"
@@ -112,7 +113,7 @@ void Player::Movecalculation(float _DeltaTime)
 
 	SetMove(MoveVec * _DeltaTime);
 	GetLevel()->SetCameraMove(MoveVec * _DeltaTime);
-	MoveVec = float4::Zero; // 이동 완료수 이동벡터값 초기화
+	MoveVec = float4::Zero; // 이동 완료후 이동벡터값 초기화
 }
 
 bool Player::CheckMonsterCollision()
@@ -192,14 +193,11 @@ void Player::Update(float _DeltaTime)
 
 	}
 
-	if (Hp < 100)
+	if (Hp <= 0) // GameOver
 	{
 		int a = 0;
 	}
-	if (Hp < 20)
-	{
-		int a = 0;
-	}
+
 
 	
 	UpdateState(_DeltaTime);
@@ -226,8 +224,23 @@ void Player::DirCheck(const std::string_view& _AnimationName)
 //
 //void Player::Render(float _DeltaTime)
 //{
+//	/*if (0 == _DeltaTime)
+//	{
+//		return;
+//	}*/
+//	float4 _Pos = GetPos();
+//	std::string MouseText = "Position : ";
+//	MouseText += _Pos.ToString();
+//	GameEngineLevel::DebugTextPush(MouseText);
+//
+//	std::string CameraText = "CameraPosition : ";
+//	CameraText += GetLevel()->GetCameraPos().ToString();
+//	GameEngineLevel::DebugTextPush(CameraText);
+//
+//
+//	//float4 _Pos = Player::MainPlayer->GetPos();
 //	HDC BackBufferDc = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
-//	float4 HpBarPos = GetPos() - (GetLevel()->GetCameraPos()) - float4{ 0,-7 };
+//	float4 HpBarPos = _Pos - (GetLevel()->GetCameraPos()) - float4{ 0,-7 };
 //	float4 HpPoint = HpbarScale;
 //	HpPoint.x = HpPoint.x *(static_cast<float>(Hp) / 120);
 //
@@ -255,17 +268,5 @@ void Player::DirCheck(const std::string_view& _AnimationName)
 //		&BlackBar,
 //		CreateSolidBrush(RGB(0, 0, 0))
 //	);
-//
-//	/*Rectangle(BackBufferDc,
-//		HpBarPos.ix() - HpbarScale.hix(),
-//		HpBarPos.iy() - HpbarScale.hiy(),
-//		HpBarPos.ix() + HpPoint.hx(),
-//		HpBarPos.iy() + HpPoint.hy());
-//
-//	Rectangle(BackBufferDc,
-//		HpBarPos.ix() + HpPoint.hx(),
-//		HpBarPos.iy() + HpPoint.hy(),
-//		HpBarPos.ix() + HpbarScale.hix(),
-//		HpBarPos.iy() + HpbarScale.hiy());*/
 //
 //}

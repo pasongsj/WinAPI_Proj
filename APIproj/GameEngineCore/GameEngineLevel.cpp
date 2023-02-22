@@ -7,6 +7,8 @@
 
 
 bool GameEngineLevel::IsDebugRender = false;
+float4 GameEngineLevel::TextOutStart = float4::Zero;
+std::vector<std::string> GameEngineLevel::DebugTexts;
 
 GameEngineLevel::GameEngineLevel()
 {
@@ -86,26 +88,26 @@ void GameEngineLevel::ActorsUpdate(float _DeltaTime)
 		}
 	}
 
-	{
-		std::map<int, std::list<GameEngineActor*>>::iterator GroupStartIter = Actors.begin();
-		std::map<int, std::list<GameEngineActor*>>::iterator GroupEndIter = Actors.end();
+	//{
+	//	std::map<int, std::list<GameEngineActor*>>::iterator GroupStartIter = Actors.begin();
+	//	std::map<int, std::list<GameEngineActor*>>::iterator GroupEndIter = Actors.end();
 
-		for (; GroupStartIter != GroupEndIter; ++GroupStartIter)
-		{
-			std::list<GameEngineActor*>& ActorList = GroupStartIter->second;
+	//	for (; GroupStartIter != GroupEndIter; ++GroupStartIter)
+	//	{
+	//		std::list<GameEngineActor*>& ActorList = GroupStartIter->second;
 
-			for (GameEngineActor* Actor : ActorList)
-			{
-				// Actors.erase()
-				if (nullptr == Actor || false == Actor->IsUpdate())
-				{
-					continue;
-				}
+	//		for (GameEngineActor* Actor : ActorList)
+	//		{
+	//			// Actors.erase()
+	//			if (nullptr == Actor || false == Actor->IsUpdate())
+	//			{
+	//				continue;
+	//			}
 
-				Actor->LateUpdate(_DeltaTime);
-			}
-		}
-	}
+	//			Actor->LateUpdate(_DeltaTime);
+	//		}
+	//	}
+	//}
 }
 
 void GameEngineLevel::ActorsRender(float _DeltaTime)
@@ -148,10 +150,11 @@ void GameEngineLevel::ActorsRender(float _DeltaTime)
 					continue;
 				}
 
-				Actor->Render(_DeltaTime /** Actor->TimeScale*/);
+				Actor->Render(_DeltaTime);
 			}
 		}
 	}
+	int a = 0;
 
 	{ // ÄÝ¸®Àü ·»´õ
 		if (true == IsDebugRender)
@@ -176,6 +179,31 @@ void GameEngineLevel::ActorsRender(float _DeltaTime)
 				}
 			}
 		}
+	}
+
+
+	{
+		TextOutStart = float4::Zero;
+
+		for (size_t i = 0; i < DebugTexts.size(); i++)
+		{
+			HDC ImageDc = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
+
+			// TextOutStart.ix(), TextOutStart.iy(),
+
+			RECT Rect;
+			Rect.left = TextOutStart.ix();
+			Rect.top = TextOutStart.iy();
+			Rect.right = TextOutStart.ix() + 700;
+			Rect.bottom = TextOutStart.iy() + 100;
+
+			DrawTextA(ImageDc, DebugTexts[i].c_str(), static_cast<int>(DebugTexts[i].size()), &Rect, DT_LEFT);
+
+			// TextOutA(ImageDc, TextOutStart.ix(), TextOutStart.iy(), DebugTexts[i].c_str(), static_cast<int>(DebugTexts[i].size()));
+			TextOutStart.y += 20.0f;
+		}
+
+		DebugTexts.clear();
 	}
 }
 
