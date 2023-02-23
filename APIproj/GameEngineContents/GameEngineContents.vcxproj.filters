@@ -49,6 +49,9 @@
     <ClInclude Include="WeaponWhip.h">
       <Filter>Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="WeaponMagicWand.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsGameCore.cpp" />
@@ -103,6 +106,9 @@
     </ClCompile>
     <ClCompile Include="PlayerStart.cpp">
       <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponMagicWand.cpp">
+      <Filter>Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
