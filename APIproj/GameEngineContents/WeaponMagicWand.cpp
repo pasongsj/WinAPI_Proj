@@ -15,18 +15,72 @@ WeaponMagicWand::~WeaponMagicWand()
 
 void WeaponMagicWand::ReSet()
 {
-	Passes = 1;
-	WaitTime = 0;
+	//Passes = 1;
+	//WaitTime = 0;
 	SetPos(Player::MainPlayer->GetPos());
-	WepaonDir = float4::Zero;
-	this->On();
+	//WepaonDir = float4::Zero;
+	//this->On();
+	if (0 == WeaponRender.size()) {
+		return;
+	}
+	else {
+		for (int i = 0;i < WeaponRender.size();++i)
+		{
+			WeaponRender[i]->SetPosition(float4::Zero);
+			WeaponCollision[i]->SetPosition(float4::Zero);
+			Passes[i] = 1;
+			WeaponRender[i]->On();
+			WeaponCollision[i]->On();
+		}
+		SetWeaponDir();
+	}
+	WaitTime = 0;
+}
+
+void WeaponMagicWand::SetWeaponDir()
+{
+	std::vector<float4> _Dir;
+	_Dir.clear();
+	float MinLen = static_cast<float>(3.40282e+38); // float최댓값 3.402823466 E + 38
+	std::vector<GameEngineActor*> _Monsters = GetLevel()->GetActors(VSRenderOrder::Monster);
+	for (GameEngineActor* _Monster : _Monsters)
+	{
+		float4 Diff = (_Monster->GetPos() - GetPos());
+		if (MinLen > Diff.Size()) {
+			MinLen = Diff.Size();
+			_Dir.push_back(Diff.Normalize());
+		}
+	}
+	for (int i = 0;i < WeaponRender.size();i++) {
+		if (_Dir.size() - i - 1 >= 0) {
+			WeaponDir[i] = _Dir[_Dir.size() -1 - i];
+		}
+		else
+		{
+			WeaponDir[i] = float4{ GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) ,GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) }.Normalize();
+		}
+	}
+
 }
 
 void WeaponMagicWand::Start()
 {
 	SetWeaponName("MagicWand");
+	{
+		GameEngineRender* Render = CreateRender(VSRenderOrder::Weapon);
+		Render->SetImage("MagicWand.bmp");
+		Render->SetScaleToImage();
 
-	WeaponRender = CreateRender(VSRenderOrder::Weapon);
+		GameEngineCollision* Collision = CreateCollision(VSRenderOrder::Weapon);
+		Collision->SetScale({ 25,25 });
+
+		WeaponRender.push_back(Render);
+		WeaponCollision.push_back(Collision);
+		WeaponDir.push_back(float4::Zero);
+		Passes.push_back(1);
+
+	}
+	/*WeaponRender = CreateRender(VSRenderOrder::Weapon);
 	WeaponCollision = CreateCollision(VSRenderOrder::Weapon);
 
 	WeaponRender->SetImage("MagicWand.bmp");
@@ -34,7 +88,7 @@ void WeaponMagicWand::Start()
 
 
 	float4 CollisionScale = WeaponRender->GetScale();
-	WeaponCollision->SetScale({25,25});
+	WeaponCollision->SetScale({25,25});*/
 
 	SetCoolTime(1.2f);
 	SetRunTime(1.0f);
@@ -43,52 +97,69 @@ void WeaponMagicWand::Start()
 
 	Weapon::Weapons[GetWeaponName()] = this;
 
-	this->Off();
+	//this->Off();
 }
 
 void WeaponMagicWand::Update(float _DeltaTime)
 {
+	if (WeaponRender.size() == 0 || WeaponCollision.size() == 0)
+	{
+		MsgAssert("무기랜더가 생성되지 않았습니다.");
+		return;
+	}
+
 	if (WaitTime > GetRunTime())
 	{
-		this->Off();
+		for (int i = 0;i < WeaponRender.size();++i)
+		{
+			WeaponRender[i]->Off();
+			WeaponCollision[i]->Off();
+		}
+		return;
+		//this->Off();
 	}
 
-	if (float4::Zero == WepaonDir)
+	//if (float4::Zero == WepaonDir)
+	//{
+	//	float MinLen = static_cast<float>(3.40282e+38); // float최댓값 3.402823466 E + 38
+	//	std::vector<GameEngineActor*> _Monsters = GetLevel()->GetActors(VSRenderOrder::Monster);
+	//	for (GameEngineActor* _Monster : _Monsters)
+	//	{
+	//		float4 Diff = (_Monster->GetPos() - GetPos());
+	//		if (MinLen > Diff.Size()) {
+	//			MinLen = Diff.Size();
+	//			WepaonDir = (Diff.Normalize());
+	//		}
+	//	}
+	//	if (0 == _Monsters.size())
+	//	{
+	//		WepaonDir = { GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) ,GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) };// 랜덤으로 설정해줘야합니다.
+	//		WepaonDir.Normalize();
+	//	}
+	//}
+
+	for (int i = 0;i < WeaponRender.size();++i)
 	{
-		float MinLen = static_cast<float>(3.40282e+38); // float최댓값 3.402823466 E + 38
-		std::vector<GameEngineActor*> _Monsters = GetLevel()->GetActors(VSRenderOrder::Monster);
-		for (GameEngineActor* _Monster : _Monsters)
+		WeaponRender[i]->SetMove(WeaponDir[i] * _DeltaTime * 600);
+		WeaponCollision[i]->SetMove(WeaponDir[i] * _DeltaTime * 600);
+
+		std::vector<GameEngineCollision*> Collision;
+		if (true == WeaponCollision[i]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_CirCle }, Collision))
 		{
-			float4 Diff = (_Monster->GetPos() - GetPos());
-			if (MinLen > Diff.Size()) {
-				MinLen = Diff.Size();
-				WepaonDir = (Diff.Normalize());
+
+			for (size_t i = 0; i < Collision.size(); i++)
+			{
+				GameEngineActor* ColActor = Collision[i]->GetActor();
+				Monster* ColWeaponActor = dynamic_cast<Monster*> (ColActor);
+				ColWeaponActor->Attack(GetDmg());
+				--Passes[i];
+				if (Passes[i] <= 0) {
+					WeaponRender[i]->Off();
+					WeaponCollision[i]->Off();
+					return; // or Continue;
+				}
+
 			}
-		}
-		if (0 == _Monsters.size())
-		{
-			WepaonDir = { GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) ,GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) };// 랜덤으로 설정해줘야합니다.
-			WepaonDir.Normalize();
-		}
-	}
-	SetMove(WepaonDir * _DeltaTime * 600);
-
-
-	std::vector<GameEngineCollision*> Collision;
-	if (true == WeaponCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_CirCle }, Collision))
-	{
-
-		for (size_t i = 0; i < Collision.size(); i++)
-		{
-			GameEngineActor* ColActor = Collision[i]->GetActor();
-			Monster* ColWeaponActor = dynamic_cast<Monster*> (ColActor);
-			ColWeaponActor->Attack(GetDmg());
-			--Passes;
-			if (Passes <= 0) {
-				this->Off();
-				return; // or Continue;
-			}
-
 		}
 	}
 }

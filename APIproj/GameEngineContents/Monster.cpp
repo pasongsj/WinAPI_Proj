@@ -1,5 +1,6 @@
 #include "Monster.h"
-#include <ctime>
+//#include <ctime>
+#include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineCollision.h>
@@ -41,9 +42,11 @@ void Monster::Start()
 	BodyCollision->SetPosition({ 0, -30 });
 
 	//srand(time(0));
-	float4 CamPos = GetLevel()->GetCameraPos();
-	SetMove(
-		CamPos + float4(static_cast<float>(rand() % GameEngineWindow::GetScreenSize().ix()), static_cast<float>(rand() % GameEngineWindow::GetScreenSize().iy()))
+	float4 PlayerPos = GetLevel()->GetCameraPos() + GameEngineWindow::GetScreenSize().half();
+	float4 RandPos = PlayerPos + float4{ GameEngineRandom::MainRandom.RandomFloat(-1, 1) ,GameEngineRandom::MainRandom.RandomFloat(-1, 1) }*GameEngineWindow::GetScreenSize().hix();
+	SetPos(
+		RandPos
+		//CamPos + float4(static_cast<float>(rand() % GameEngineWindow::GetScreenSize().ix()), static_cast<float>(rand() % GameEngineWindow::GetScreenSize().iy()))
 	);
 	AnimationRender->ChangeAnimation("Right_Move");
 	

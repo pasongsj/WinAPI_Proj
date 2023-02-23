@@ -82,18 +82,18 @@ bool Player::CheckMonsterCollision()
 
 void Player::Update(float _DeltaTime)
 {
-	if (0 == _DeltaTime)
+	if (0 == _DeltaTime) // 상자 or 레벨업 --> 무기선택 띄우기
 	{
 		return;
 	}
-	InvincibleStateDelay -= _DeltaTime;
+
+	InvincibleStateDelay -= _DeltaTime; // 피격시 무적타임
 	if (InvincibleStateDelay <= 0)
 	{
 		BodyCollision->On();
 	}
 
 	// 아이템 획득 콜리전
-	//std::vector<GameEngineCollision*> Collision;
 	std::vector<GameEngineCollision*> Collision;
 	Collision.clear();
 	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Item) , .TargetColType  = CollisionType::CT_Rect}, Collision))
@@ -109,13 +109,13 @@ void Player::Update(float _DeltaTime)
 		}
 	}
 
-	if (Hp <= 0) // GameOver
+	if (Hp <= 0) // GameOver -- > Level에서 체크하도록 변경 필요
 	{
 		int a = 0;
 	}
 
 
-	WeaponUpdate(_DeltaTime);
+	WeaponUpdate(_DeltaTime); // Weapon의 on/off로 관리했는데 자체적으로 렌더를 교환하기 때문에 변경할 필요가 있음 -> 매직완드 교체후 삭제하기
 	UpdateState(_DeltaTime);
 	Movecalculation(_DeltaTime);
 	CheckLevelUp();
@@ -124,12 +124,9 @@ void Player::Update(float _DeltaTime)
 void Player::WeaponUpdate(float _DeltaTime)
 {
 	for (Weapon* arm : MyWeapon) {
-		//arm->SetPos(GetPos());
 		arm->WaitTime += _DeltaTime;
 		if (arm->WaitTime > arm->GetCoolTime())
 		{
-			/*arm->WaitTime = 0;
-			arm->On();*/
 			arm->ReSet();
 		}
 
@@ -205,7 +202,7 @@ void Player::Render(float _DeltaTime)
 	SelectObject(DoubleDC, oldBrush);
 	DeleteObject(myBrush);
 
-
+	// - 왜 오류? 왜? 왜? 왜????
 	/*RECT RedBar = {	
 					static_cast<LONG> (HpBarPos.x - HpbarScale.hx()),
 					static_cast<LONG> (HpBarPos.y - HpbarScale.hy()),
@@ -234,7 +231,7 @@ void Player::Render(float _DeltaTime)
 }
 
 
-void Player::PressMove()
+void Player::PressMove() // 입력관리
 {
 	if (
 		false == GameEngineInput::IsPress("LeftMove") &&
@@ -274,7 +271,7 @@ void Player::PressMove()
 	MoveVec *= MoveSpeed;
 }
 
-void Player::CheckLevelUp()
+void Player::CheckLevelUp()//레벨업 체크
 {
 	int NextLevel = PlayerLevel;
 	int ReqExpPoint = 3192;// 200레벨포인트

@@ -22,9 +22,15 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	GameEngineRender* WeaponRender = nullptr;
-	GameEngineCollision* WeaponCollision = nullptr;
-	float4 WepaonDir = float4::Zero;
+	std::vector<GameEngineRender*> WeaponRender;
+	std::vector<GameEngineCollision*> WeaponCollision;
+	std::vector<float4> WeaponDir;
+	std::vector<int> Passes;
 
-	int Passes = 1;//투사체 관통
+	//GameEngineRender* WeaponRender = nullptr;
+	//GameEngineCollision* WeaponCollision = nullptr;
+	//float4 WepaonDir = float4::Zero;
+	//int Passes = 1;//투사체 관통
+
+	void SetWeaponDir();
 };
