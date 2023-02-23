@@ -1,7 +1,7 @@
 #include "WeaponMagicWand.h"
 #include "ContentsEnums.h"
 #include "Player.h"
-
+#include <GameEngineCore/GameEngineLevel.h>
 WeaponMagicWand::WeaponMagicWand()
 {
 }
@@ -13,20 +13,22 @@ WeaponMagicWand::~WeaponMagicWand()
 
 void WeaponMagicWand::Start()
 {
+	SetPos(Player::MainPlayer->GetPos());
 	WeaponRender = CreateRender(VSRenderOrder::Weapon);
 	WeaponCollision = CreateCollision(VSRenderOrder::Weapon);
 
 	//Weapon* NewWeapon = _Level->CreateActor<Weapon>(VSRenderOrder::Weapon);
-	SetWeaponName("Whip");
+	SetWeaponName("MagicWand");
+	//WeaponRender->SetImage("MagicWandTmp");
+	WeaponRender->SetImageToScaleToImage("MagicWandTmp");
 
-	WeaponRender->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "RightWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
+	/*WeaponRender->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "RightWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
 	WeaponRender->CreateAnimation({ .AnimationName = "Left_Whip",  .ImageName = "LeftWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
-	WeaponRender->CreateAnimation({ .AnimationName = "Bidi_Whip",  .ImageName = "BidiWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
-	WeaponRender->SetScale({ 600,60 });
-	WeaponRender->SetPosition({ 0, -60 });
+	WeaponRender->CreateAnimation({ .AnimationName = "Bidi_Whip",  .ImageName = "BidiWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });*/
+	//WeaponRender->SetPosition({ 0, -60 });
 
 	float4 CollisionScale = WeaponRender->GetScale();
-	CollisionScale.x = CollisionScale.hx();
+	//CollisionScale.x = CollisionScale.hx();
 	WeaponCollision->SetScale(CollisionScale);
 
 	SetCoolTime(2.0f);
@@ -46,6 +48,8 @@ void WeaponMagicWand::Update(float _DeltaTime)
 	{
 		this->Off();
 	}
+	std::vector<GameEngineActor*> _Monsters = GetLevel()->GetActors(VSRenderOrder::Monster);
+
 
 	std::string Dir = Player::MainPlayer->GetDirString();
 	std::string _Animation = Dir + GetWeaponName();
