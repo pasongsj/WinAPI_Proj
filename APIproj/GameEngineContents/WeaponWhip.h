@@ -20,6 +20,7 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-
+	GameEngineRender* WeaponRender = nullptr;
+	GameEngineCollision* WeaponCollision = nullptr;
 };
 

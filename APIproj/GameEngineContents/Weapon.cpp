@@ -3,7 +3,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <utility>
 
-#include "Player.h"
+
 std::map<std::string, Weapon*> Weapon::Weapons;
 
 Weapon::Weapon()

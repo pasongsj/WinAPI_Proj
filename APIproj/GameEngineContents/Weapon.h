@@ -101,16 +101,16 @@ public:
 		return WeaponCollisionType;
 	}
 
-	// Render
-	GameEngineRender* GetWeaponRender()
-	{
-		return WeaponRender;
-	}
-	// Collision
-	GameEngineCollision* GetWeaponCollision()
-	{
-		return WeaponCollision;
-	}
+	//// Render
+	//GameEngineRender* GetWeaponRender()
+	//{
+	//	return WeaponRender;
+	//}
+	//// Collision
+	//GameEngineCollision* GetWeaponCollision()
+	//{
+	//	return WeaponCollision;
+	//}
 
 protected:
 

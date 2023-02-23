@@ -15,7 +15,7 @@
 
 
 Player* Player::MainPlayer;
-std::string Player::PlayerName = "Antonio.bmp";
+std::string Player::PlayerName = "";
 bool Player::IsStop = false;
 
 Player::Player()
@@ -82,7 +82,10 @@ bool Player::CheckMonsterCollision()
 
 void Player::Update(float _DeltaTime)
 {
-
+	if (0 == _DeltaTime)
+	{
+		return;
+	}
 	InvincibleStateDelay -= _DeltaTime;
 	if (InvincibleStateDelay <= 0)
 	{
@@ -290,7 +293,7 @@ void Player::CheckLevelUp()
 	}
 	else if (40 == NextLevel)
 	{
-		(NextLevel * 13) - 6 + 2400;
+		ReqExpPoint = (NextLevel * 13) - 6 + 2400;
 	}
 	else if (40 < NextLevel)
 	{
@@ -300,7 +303,7 @@ void Player::CheckLevelUp()
 	if (PlayerExp >= ReqExpPoint)
 	{
 		++PlayerLevel;
-		PlayerExp %= ReqExpPoint;
+		PlayerExp -= ReqExpPoint;
 		IsStop = true; // 레벨업에 의한 stop --> 아이템선택창 띄우기
 	}
 }

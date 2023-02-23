@@ -1,5 +1,7 @@
 #pragma once
-class WeaponMagicWand
+#include "Weapon.h"
+
+class WeaponMagicWand : public Weapon
 {
 public:
 	// constrcuter destructer
@@ -13,6 +15,9 @@ public:
 	WeaponMagicWand& operator=(WeaponMagicWand&& _Other) noexcept = delete;
 
 protected:
+
+	void Start() override;
+	void Update(float _DeltaTime) override;
 
 private:
 
