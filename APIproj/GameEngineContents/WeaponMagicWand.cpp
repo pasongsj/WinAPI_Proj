@@ -52,7 +52,7 @@ void WeaponMagicWand::SetWeaponDir()
 		}
 	}
 	for (int i = 0;i < WeaponRender.size();i++) {
-		if (_Dir.size() - i - 1 >= 0) {
+		if (_Dir.size() > 0 && _Dir.size() - i - 1 >= 0) {
 			WeaponDir[i] = _Dir[_Dir.size() -1 - i];
 		}
 		else
