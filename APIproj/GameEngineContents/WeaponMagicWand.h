@@ -28,4 +28,3 @@ private:
 
 	int Passes = 1;//투사체 관통
 };
-

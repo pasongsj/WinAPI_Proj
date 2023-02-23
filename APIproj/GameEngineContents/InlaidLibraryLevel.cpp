@@ -126,7 +126,7 @@ void InlaidLibraryLevel::ImageLoad()
 		}
 		{
 			Dir.Move("MagicWand");
-			GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MagicWandTmp.BMP"));
+			GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MagicWand.BMP"));
 		}
 		/*GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Whip.BMP"));
 		Image->Cut(1, 3);*/

@@ -2,6 +2,7 @@
 #include "ContentsEnums.h"
 #include "Player.h"
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineBase/GameEngineRandom.h>
 
 #include "Monster.h"
 WeaponMagicWand::WeaponMagicWand()
@@ -28,8 +29,8 @@ void WeaponMagicWand::Start()
 	WeaponRender = CreateRender(VSRenderOrder::Weapon);
 	WeaponCollision = CreateCollision(VSRenderOrder::Weapon);
 
-	WeaponRender->SetImage("MagicWandTmp.bmp");
-	WeaponRender->SetScale({20,20});
+	WeaponRender->SetImage("MagicWand.bmp");
+	WeaponRender->SetScaleToImage();
 
 
 	float4 CollisionScale = WeaponRender->GetScale();
@@ -54,7 +55,7 @@ void WeaponMagicWand::Update(float _DeltaTime)
 
 	if (float4::Zero == WepaonDir)
 	{
-		float MinLen = 3.40282e+38; // float√÷¥Ò∞™ 3.402823466 E + 38
+		float MinLen = static_cast<float>(3.40282e+38); // float√÷¥Ò∞™ 3.402823466 E + 38
 		std::vector<GameEngineActor*> _Monsters = GetLevel()->GetActors(VSRenderOrder::Monster);
 		for (GameEngineActor* _Monster : _Monsters)
 		{
@@ -64,12 +65,17 @@ void WeaponMagicWand::Update(float _DeltaTime)
 				WepaonDir = (Diff.Normalize());
 			}
 		}
+		if (0 == _Monsters.size())
+		{
+			WepaonDir = { GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) ,GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) };// ∑£¥˝¿∏∑Œ º≥¡§«ÿ¡‡æﬂ«’¥œ¥Ÿ.
+			WepaonDir.Normalize();
+		}
 	}
 	SetMove(WepaonDir * _DeltaTime * 600);
 
 
 	std::vector<GameEngineCollision*> Collision;
-	if (true == WeaponCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_CirCle }, Collision))
+	if (true == WeaponCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_Rect }, Collision))
 	{
 
 		for (size_t i = 0; i < Collision.size(); i++)
