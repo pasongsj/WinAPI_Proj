@@ -5,7 +5,6 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include "ContentsEnums.h"
 #include "Player.h"
-#include "Weapon.h"
 #include "Items.h"
 
 Monster::Monster()
@@ -14,6 +13,12 @@ Monster::Monster()
 
 Monster::~Monster()
 {
+}
+
+void Monster::Attack(int _Att) {
+	Hp -= _Att;
+	IsAttacked = true;
+	BodyCollision->Off();
 }
 
 void Monster::Start()
@@ -44,7 +49,7 @@ void Monster::Start()
 	
 	
 	// 임시
-	SetHp(10);
+	SetHp(20);
 	Dmg = 5;
 	//ChangeState(MonsterState::IDLE); // 시작 시 기본 상태 설정
 }
@@ -90,30 +95,15 @@ void Monster::MoveUpdate(float _Time)
 	MoveVec.Normalize();
 	DirCheck("Move");
 
-	std::vector<GameEngineCollision*> Collision;
-	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Weapon), .TargetColType = CollisionType::CT_Rect}, Collision))
-	{
-		int a = 0;
-		for (size_t i = 0; i < Collision.size(); i++)
-		{
-
-			GameEngineActor* ColActor = Collision[i]->GetActor();
-			Weapon* ColWeaponActor = dynamic_cast<Weapon*> (ColActor);
-
-
-			Hp -= ColWeaponActor->GetDmg();
-			if (Hp <= 0) {
-				ChangeState(MonsterState::DEAD);
-				//this->Death();
-				break;
-			}
-			else {
-				ChangeState(MonsterState::BEATEN);
-				//break;
-			}
-
-
-		}
+	if (Hp <= 0) {
+		ChangeState(MonsterState::DEAD);
+		//this->Death();
+		//break;
+	}
+	else if(true == IsAttacked){
+		IsAttacked = false;
+		ChangeState(MonsterState::BEATEN);
+		//break;
 	}
 
 }
@@ -138,6 +128,7 @@ void Monster::BeatenUpdate(float _Time)
 }
 void Monster::BeatenEnd()
 {
+	BodyCollision->On();
 }
 
 

@@ -55,7 +55,7 @@ void Player::Start()
 	}
 
 	{
-	//	MyWeapon.push_back(Weapon::Weapons["Whip"]);
+		//MyWeapon.push_back(Weapon::Weapons["Whip"]);
 		MyWeapon.push_back(Weapon::Weapons["MagicWand"]);
 	}
 	for (Weapon* arm : MyWeapon) {

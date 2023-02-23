@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 
+
 enum class MonsterState
 {
 	MOVE,
@@ -21,9 +22,7 @@ public:
 	Monster& operator=(const Monster& _Other) = delete;
 	Monster& operator=(Monster&& _Other) noexcept = delete;
 
-	inline void Attack(int _Att) {
-		Hp -= _Att;
-	}
+	void Attack(int _Att);
 	inline void SetHp(int _Hp) {
 		Hp = _Hp;
 	}
@@ -40,11 +39,14 @@ public:
 		return Dmg;
 	}
 
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
 private:
+
+	bool IsAttacked = false;
 	float CollisionOffTime = 0.0f;
 	int Hp = 0;
 	int Dmg = 0;

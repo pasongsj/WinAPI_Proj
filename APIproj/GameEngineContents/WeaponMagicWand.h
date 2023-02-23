@@ -25,5 +25,7 @@ private:
 	GameEngineRender* WeaponRender = nullptr;
 	GameEngineCollision* WeaponCollision = nullptr;
 	float4 WepaonDir = float4::Zero;
+
+	int Passes = 1;//투사체 관통
 };
 

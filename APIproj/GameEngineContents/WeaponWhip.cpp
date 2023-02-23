@@ -2,6 +2,7 @@
 #include "ContentsEnums.h"
 
 #include "Player.h"
+#include "Monster.h"
 WeaponWhip::WeaponWhip()
 {
 }
@@ -64,5 +65,21 @@ void WeaponWhip::Update(float _DeltaTime)
 		WeaponCollision->SetPosition({ -WeaponCollision->GetScale().hx(),-WeaponCollision->GetScale().y });
 	}
 
+
+
+	std::vector<GameEngineCollision*> Collision;
+	if (true == WeaponCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_Rect }, Collision))
+	{
+		int a = 0;
+		for (size_t i = 0; i < Collision.size(); i++)
+		{
+
+			GameEngineActor* ColActor = Collision[i]->GetActor();
+			Monster* ColWeaponActor = dynamic_cast<Monster*> (ColActor);
+
+			ColWeaponActor->Attack(GetDmg());
+
+		}
+	}
 }
 

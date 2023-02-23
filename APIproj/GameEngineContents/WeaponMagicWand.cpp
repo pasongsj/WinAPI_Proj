@@ -2,6 +2,8 @@
 #include "ContentsEnums.h"
 #include "Player.h"
 #include <GameEngineCore/GameEngineLevel.h>
+
+#include "Monster.h"
 WeaponMagicWand::WeaponMagicWand()
 {
 }
@@ -12,6 +14,7 @@ WeaponMagicWand::~WeaponMagicWand()
 
 void WeaponMagicWand::ReSet()
 {
+	Passes = 1;
 	WaitTime = 0;
 	SetPos(Player::MainPlayer->GetPos());
 	WepaonDir = float4::Zero;
@@ -20,28 +23,23 @@ void WeaponMagicWand::ReSet()
 
 void WeaponMagicWand::Start()
 {
-	//SetPos(Player::MainPlayer->GetPos());
+	SetWeaponName("MagicWand");
+
 	WeaponRender = CreateRender(VSRenderOrder::Weapon);
 	WeaponCollision = CreateCollision(VSRenderOrder::Weapon);
 
-	//Weapon* NewWeapon = _Level->CreateActor<Weapon>(VSRenderOrder::Weapon);
-	SetWeaponName("MagicWand");
-	//WeaponRender->SetImage("MagicWandTmp");
 	WeaponRender->SetImage("MagicWandTmp.bmp");
 	WeaponRender->SetScale({20,20});
-	//WeaponRender->SetImageToScaleToImage("MagicWandTmp.bmp");
 
 
 	float4 CollisionScale = WeaponRender->GetScale();
-	//CollisionScale.x = CollisionScale.hx();
 	WeaponCollision->SetScale(CollisionScale);
 
-	SetCoolTime(4.0f);
-	SetRunTime(3.0f);
-	int _Dmg[9] = { 0,10,10,15,20,25,30,35,40 };
+	SetCoolTime(1.2f);
+	SetRunTime(1.0f);
+	int _Dmg[9] = { 0,10,10,10,10,20,20,20,30 };
 	SetDmg(_Dmg);
 
-	//NewWeapon->GetWeaponCollision()->SetScale(CollisionScale);
 	Weapon::Weapons[GetWeaponName()] = this;
 
 	this->Off();
@@ -67,18 +65,24 @@ void WeaponMagicWand::Update(float _DeltaTime)
 			}
 		}
 	}
-	SetMove(WepaonDir * _DeltaTime * 450);
-	//SetPos(GetPos() + WepaonDir);
+	SetMove(WepaonDir * _DeltaTime * 600);
 
-	//std::string Dir = Player::MainPlayer->GetDirString();
-	//std::string _Animation = Dir + GetWeaponName();
-	//WeaponRender->ChangeAnimation(_Animation);
-	//if ("Right_" == Dir) {
-	//	WeaponCollision->SetPosition({ WeaponCollision->GetScale().hx(),-WeaponCollision->GetScale().y });
-	//}
-	//else
-	//{
-	//	WeaponCollision->SetPosition({ -WeaponCollision->GetScale().hx(),-WeaponCollision->GetScale().y });
-	//}
 
+	std::vector<GameEngineCollision*> Collision;
+	if (true == WeaponCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_CirCle }, Collision))
+	{
+
+		for (size_t i = 0; i < Collision.size(); i++)
+		{
+			GameEngineActor* ColActor = Collision[i]->GetActor();
+			Monster* ColWeaponActor = dynamic_cast<Monster*> (ColActor);
+			ColWeaponActor->Attack(GetDmg());
+			--Passes;
+			if (Passes <= 0) {
+				this->Off();
+				return; // or Continue;
+			}
+
+		}
+	}
 }
