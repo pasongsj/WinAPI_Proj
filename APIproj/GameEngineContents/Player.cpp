@@ -124,12 +124,13 @@ void Player::Update(float _DeltaTime)
 void Player::WeaponUpdate(float _DeltaTime)
 {
 	for (Weapon* arm : MyWeapon) {
-		arm->SetPos(GetPos());
+		//arm->SetPos(GetPos());
 		arm->WaitTime += _DeltaTime;
 		if (arm->WaitTime > arm->GetCoolTime())
 		{
-			arm->WaitTime = 0;
-			arm->On();
+			/*arm->WaitTime = 0;
+			arm->On();*/
+			arm->ReSet();
 		}
 
 	}

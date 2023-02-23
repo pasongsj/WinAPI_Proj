@@ -10,29 +10,34 @@ WeaponMagicWand::~WeaponMagicWand()
 {
 }
 
+void WeaponMagicWand::ReSet()
+{
+	WaitTime = 0;
+	SetPos(Player::MainPlayer->GetPos());
+	WepaonDir = float4::Zero;
+	this->On();
+}
 
 void WeaponMagicWand::Start()
 {
-	SetPos(Player::MainPlayer->GetPos());
+	//SetPos(Player::MainPlayer->GetPos());
 	WeaponRender = CreateRender(VSRenderOrder::Weapon);
 	WeaponCollision = CreateCollision(VSRenderOrder::Weapon);
 
 	//Weapon* NewWeapon = _Level->CreateActor<Weapon>(VSRenderOrder::Weapon);
 	SetWeaponName("MagicWand");
 	//WeaponRender->SetImage("MagicWandTmp");
-	WeaponRender->SetImageToScaleToImage("MagicWandTmp");
+	WeaponRender->SetImage("MagicWandTmp.bmp");
+	WeaponRender->SetScale({20,20});
+	//WeaponRender->SetImageToScaleToImage("MagicWandTmp.bmp");
 
-	/*WeaponRender->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "RightWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
-	WeaponRender->CreateAnimation({ .AnimationName = "Left_Whip",  .ImageName = "LeftWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
-	WeaponRender->CreateAnimation({ .AnimationName = "Bidi_Whip",  .ImageName = "BidiWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });*/
-	//WeaponRender->SetPosition({ 0, -60 });
 
 	float4 CollisionScale = WeaponRender->GetScale();
 	//CollisionScale.x = CollisionScale.hx();
 	WeaponCollision->SetScale(CollisionScale);
 
-	SetCoolTime(2.0f);
-	SetRunTime(0.1f);
+	SetCoolTime(4.0f);
+	SetRunTime(3.0f);
 	int _Dmg[9] = { 0,10,10,15,20,25,30,35,40 };
 	SetDmg(_Dmg);
 
@@ -48,19 +53,32 @@ void WeaponMagicWand::Update(float _DeltaTime)
 	{
 		this->Off();
 	}
-	std::vector<GameEngineActor*> _Monsters = GetLevel()->GetActors(VSRenderOrder::Monster);
 
-
-	std::string Dir = Player::MainPlayer->GetDirString();
-	std::string _Animation = Dir + GetWeaponName();
-	WeaponRender->ChangeAnimation(_Animation);
-	if ("Right_" == Dir) {
-		WeaponCollision->SetPosition({ WeaponCollision->GetScale().hx(),-WeaponCollision->GetScale().y });
-	}
-	else
+	if (float4::Zero == WepaonDir)
 	{
-		WeaponCollision->SetPosition({ -WeaponCollision->GetScale().hx(),-WeaponCollision->GetScale().y });
+		float MinLen = 3.40282e+38; // floatÃÖ´ñ°ª 3.402823466 E + 38
+		std::vector<GameEngineActor*> _Monsters = GetLevel()->GetActors(VSRenderOrder::Monster);
+		for (GameEngineActor* _Monster : _Monsters)
+		{
+			float4 Diff = (_Monster->GetPos() - GetPos());
+			if (MinLen > Diff.Size()) {
+				MinLen = Diff.Size();
+				WepaonDir = (Diff.Normalize());
+			}
+		}
 	}
+	SetMove(WepaonDir * _DeltaTime * 450);
+	//SetPos(GetPos() + WepaonDir);
+
+	//std::string Dir = Player::MainPlayer->GetDirString();
+	//std::string _Animation = Dir + GetWeaponName();
+	//WeaponRender->ChangeAnimation(_Animation);
+	//if ("Right_" == Dir) {
+	//	WeaponCollision->SetPosition({ WeaponCollision->GetScale().hx(),-WeaponCollision->GetScale().y });
+	//}
+	//else
+	//{
+	//	WeaponCollision->SetPosition({ -WeaponCollision->GetScale().hx(),-WeaponCollision->GetScale().y });
+	//}
 
 }
-

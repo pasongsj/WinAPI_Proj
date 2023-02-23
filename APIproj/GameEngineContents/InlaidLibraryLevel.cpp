@@ -15,6 +15,7 @@
 #include  "Items.h"
 
 #include "WeaponWhip.h"
+#include "WeaponMagicWand.h"
 
 InlaidLibraryLevel::InlaidLibraryLevel()
 {
@@ -160,11 +161,11 @@ void InlaidLibraryLevel::Loading()
 	SoundLoad();
 	// 만들어야할 것들을 만드는 시점이 Loading시점
 
-	//if (false == GameEngineInput::IsKey("LevelChange")) // - 임시 : 레벨체인지 
-	//{
-	//	GameEngineInput::CreateKey("LevelChange", 'P');
-	//	GameEngineInput::CreateKey("RLevelChange", 'I');
-	//}
+	if (false == GameEngineInput::IsKey("StopDebug")) // - 임시 : 레벨체인지 
+	{
+		GameEngineInput::CreateKey("StopDebug", 'P');
+		//GameEngineInput::CreateKey("RLevelChange", 'I');
+	}
 	
 
 	if (false == GameEngineInput::IsKey("DebugRenderSwitch"))
@@ -174,18 +175,7 @@ void InlaidLibraryLevel::Loading()
 
 	{
 		CreateActor<WeaponWhip>(VSRenderOrder::Weapon);
-		//Weapon::InitWeapon(this);
-		//Weapon* NewWeapon = CreateActor<Weapon>(VSRenderOrder::Weapon);
-		//NewWeapon->SetImage("Right_Whip", "Whip.bmp", 0, 2, 0.03f);
-		//NewWeapon->SetRenderScale({ 314, 280 });
-		//NewWeapon->SetCollisionScale({ 280, 60 });
-		//NewWeapon->SetCoolTime(2.0f);
-		//NewWeapon->SetRunTime(0.1f);
-		//NewWeapon->SetDmg(5);
-		//NewWeapon->SetCollisionPosition({ 0, -15 });
-		////NewWeapon->SetWeaponDebugType(CT_Rect);
-		//Weapon::Weapons["Whip"] = NewWeapon;
-
+		CreateActor<WeaponMagicWand>(VSRenderOrder::Weapon);
 	}
 
 	{
@@ -218,28 +208,10 @@ void InlaidLibraryLevel::Loading()
 
 void InlaidLibraryLevel::Update(float _DeltaTime)
 {
-	//if (true == GameEngineInput::IsDown("LevelChange")) // - 임시 레벨 체인지 기능
-	//{
-	//	//GameEngineCore::GetInst()->ChangeLevel("TitleLevel");
-	//	SetTimeScale(VSRenderOrder::BackGround, 0);
-	//	SetTimeScale(VSRenderOrder::Map, 0);
-	//	SetTimeScale(VSRenderOrder::Player, 0);
-	//	SetTimeScale(VSRenderOrder::Monster, 0);
-	//	SetTimeScale(VSRenderOrder::Item, 0);
-	//	SetTimeScale(VSRenderOrder::Weapon, 0);
-	//	SetTimeScale(VSRenderOrder::UI, 0);
-	//}
-
-	//if (true == GameEngineInput::IsDown("RLevelChange"))
-	//{
-	//	SetTimeScale(VSRenderOrder::BackGround, 1);
-	//	SetTimeScale(VSRenderOrder::Map, 1);
-	//	SetTimeScale(VSRenderOrder::Player, 1);
-	//	SetTimeScale(VSRenderOrder::Monster, 1);
-	//	SetTimeScale(VSRenderOrder::Item, 1);
-	//	SetTimeScale(VSRenderOrder::Weapon, 1);
-	//	SetTimeScale(VSRenderOrder::UI, 1);
-	//}
+	if (true == GameEngineInput::IsDown("StopDebug"))
+	{
+		Player::IsStop = !Player::IsStop;
+	}
 
 	if (true == Player::IsStop)
 	{

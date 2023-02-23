@@ -13,6 +13,8 @@ public:
 	WeaponWhip(WeaponWhip&& _Other) noexcept = delete;
 	WeaponWhip& operator=(const WeaponWhip& _Other) = delete;
 	WeaponWhip& operator=(WeaponWhip&& _Other) noexcept = delete;
+	
+	void ReSet() override;
 
 protected:
 
@@ -20,6 +22,7 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
+
 	GameEngineRender* WeaponRender = nullptr;
 	GameEngineCollision* WeaponCollision = nullptr;
 };

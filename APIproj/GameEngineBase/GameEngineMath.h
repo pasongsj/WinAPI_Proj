@@ -114,12 +114,13 @@ public:
 		return sqrtf(x * x + y * y);
 	}
 
-	void Normalize()
+	float4 Normalize()
 	{
 		float SizeValue = Size();
 		x /= SizeValue;
 		y /= SizeValue;
 		z /= SizeValue;
+		return *this;
 
 	}
 

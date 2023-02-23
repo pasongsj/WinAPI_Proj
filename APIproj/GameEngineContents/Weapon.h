@@ -111,6 +111,7 @@ public:
 	//{
 	//	return WeaponCollision;
 	//}
+	virtual void ReSet() {};
 
 protected:
 

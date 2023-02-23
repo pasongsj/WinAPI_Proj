@@ -10,7 +10,11 @@ WeaponWhip::~WeaponWhip()
 {
 }
 
-
+void WeaponWhip::ReSet()
+{
+	WaitTime = 0;
+	this->On();
+}
 
 
 void WeaponWhip::Start()
@@ -48,7 +52,7 @@ void WeaponWhip::Update(float _DeltaTime)
 	{
 		this->Off();
 	}
-
+	SetPos(Player::MainPlayer->GetPos());
 	std::string Dir = Player::MainPlayer->GetDirString();
 	std::string _Animation = Dir + GetWeaponName();
 	WeaponRender->ChangeAnimation(_Animation);

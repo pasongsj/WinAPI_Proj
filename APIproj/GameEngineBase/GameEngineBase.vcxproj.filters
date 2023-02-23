@@ -28,9 +28,6 @@
     <ClInclude Include="GameEngineDebug.h">
       <Filter>Debug</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineMath.h">
-      <Filter>Math</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngineString.h">
       <Filter>String</Filter>
     </ClInclude>
@@ -45,6 +42,9 @@
     </ClInclude>
     <ClInclude Include="GameEngineTime.h" />
     <ClInclude Include="GameEngineRandom.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineMath.h">
       <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>

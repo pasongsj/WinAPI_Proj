@@ -14,6 +14,8 @@ public:
 	WeaponMagicWand& operator=(const WeaponMagicWand& _Other) = delete;
 	WeaponMagicWand& operator=(WeaponMagicWand&& _Other) noexcept = delete;
 
+	void ReSet() override;
+
 protected:
 
 	void Start() override;
