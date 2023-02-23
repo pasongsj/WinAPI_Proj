@@ -30,5 +30,6 @@ private:
 	float4 BGSize = float4::Zero;
 	void ImageLoad();
 	void SoundLoad();
+
 };
 

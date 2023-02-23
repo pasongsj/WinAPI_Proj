@@ -101,6 +101,9 @@
     <ClCompile Include="WeaponWhip.cpp">
       <Filter>Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerStart.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

@@ -16,6 +16,7 @@
 
 Player* Player::MainPlayer;
 std::string Player::PlayerName = "Antonio.bmp";
+bool Player::IsStop = false;
 
 Player::Player()
 {
@@ -25,64 +26,6 @@ Player::~Player()
 {
 }
 
-
-void Player::Start()
-{
-	MainPlayer = this;
-	if ("" == PlayerName) {
-		MsgAssert("플레이어가 선택되지 않았습니다.");
-		return;
-	}
-
-	//SetMove(GameEngineWindow::GetScreenSize().half());
-	//SetPos(GameEngineWindow::GetScreenSize().half());
-	//SetMove(float4{2048,948});
-
-	if (false == GameEngineInput::IsKey("LeftMove"))
-	{
-		GameEngineInput::CreateKey("LeftMove", 'A');
-		GameEngineInput::CreateKey("RightMove", 'D');
-		GameEngineInput::CreateKey("DownMove", 'S');
-		GameEngineInput::CreateKey("UpMove", 'W');
-	}
-	if ("Antonio" == PlayerName)
-	{
-		Hp = 120;
-	}
-
-	std::string RImage = "Right" + PlayerName + ".BMP";
-	std::string LImage = "Left" + PlayerName + ".BMP";
-	std::string DmgRImage = "Right" + PlayerName + "Dmged.BMP";
-	std::string DmgLImage = "Left" + PlayerName + "Dmged.BMP";
-
-	{
-		AnimationRender = CreateRender(VSRenderOrder::Player);
-		AnimationRender->SetScale({ 70, 140 }); // 실제 크기 64 x 64
-		{
-			AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = RImage, .Start = 3, .End = 3 , .Loop = false }); //RightAntonio.bmp
-			AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = RImage, .Start = 0, .End = 3, .InterTime = 0.1f });
-			AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle_Dmged",  .ImageName = DmgRImage, .Start = 3, .End = 3, .Loop = false });
-			AnimationRender->CreateAnimation({ .AnimationName = "Right_Move_Dmged",  .ImageName = DmgRImage, .Start = 0, .End = 3, .InterTime = 0.1f});
-		}
-		{
-			AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = LImage, .Start = 3, .End = 3, .Loop = false });
-			AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = LImage, .Start = 0, .End = 3, .InterTime = 0.1f });
-			AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle_Dmged",  .ImageName = DmgLImage, .Start = 3, .End = 3, .Loop = false });
-			AnimationRender->CreateAnimation({ .AnimationName = "Left_Move_Dmged",  .ImageName = DmgLImage, .Start = 0, .End = 3, .InterTime = 0.1f });
-		}
-	}
-
-	{
-		BodyCollision = CreateCollision(VSRenderOrder::Player);
-		BodyCollision->SetScale({ 64, 64 });
-		BodyCollision->SetPosition({ 0, -BodyCollision->GetScale().hy()});
-	}
-
-	{
-		MyWeapon.push_back(Weapon::Weapons["Whip"]);
-	}
-	ChangeState(PlayerState::IDLE); // 시작 시 기본 상태 설정
-}
 
 void Player::Movecalculation(float _DeltaTime)
 {
@@ -156,15 +99,27 @@ void Player::Update(float _DeltaTime)
 		{
 			GameEngineActor* ColActor = Collision[i]->GetActor();
 			Items* ColItemActor = dynamic_cast<Items*> (ColActor);
-			Exp += ColItemActor->GetExp();
+			PlayerExp += ColItemActor->GetExp();
 			ColItemActor->Death();
 			//	ColActor->Death();
 
 		}
 	}
 
+	if (Hp <= 0) // GameOver
+	{
+		int a = 0;
+	}
 
-	// 가지고 있는 무기 쿨타임, 위치업데이트
+
+	WeaponUpdate(_DeltaTime);
+	UpdateState(_DeltaTime);
+	Movecalculation(_DeltaTime);
+	CheckLevelUp();
+}
+
+void Player::WeaponUpdate(float _DeltaTime)
+{
 	for (Weapon* arm : MyWeapon) {
 		arm->SetPos(GetPos());
 		arm->WaitTime += _DeltaTime;
@@ -175,16 +130,6 @@ void Player::Update(float _DeltaTime)
 		}
 
 	}
-
-	if (Hp <= 0) // GameOver
-	{
-		int a = 0;
-	}
-
-
-	
-	UpdateState(_DeltaTime);
-	Movecalculation(_DeltaTime);
 }
 
 void Player::DirCheck(const std::string_view& _AnimationName)
@@ -207,11 +152,8 @@ void Player::DirCheck(const std::string_view& _AnimationName)
 
 void Player::Render(float _DeltaTime)
 {
-	/*if (0 == _DeltaTime)
-	{
-		return;
-	}*/
-	float4 ForCheck = AnimationRender->GetPosition();
+	// -- 임시 Level에 Debug할 때 띄우기
+	/*float4 ForCheck = AnimationRender->GetPosition();
 	float4 _Pos = GetPos();
 	std::string MouseText = "Position : ";
 	MouseText += _Pos.ToString();
@@ -219,12 +161,13 @@ void Player::Render(float _DeltaTime)
 
 	std::string CameraText = "CameraPosition : ";
 	CameraText += GetLevel()->GetCameraPos().ToString();
-	GameEngineLevel::DebugTextPush(CameraText);
+	GameEngineLevel::DebugTextPush(CameraText);*/
 
 
 	////float4 _Pos = Player::MainPlayer->GetPos();
 	HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
-	float4 HpBarPos = _Pos - (GetLevel()->GetCameraPos()) - float4{ 0,-7 };
+
+	float4 HpBarPos = GetPos() - (GetLevel()->GetCameraPos()) - float4{ 0,-7 };
 	float4 HpPoint = HpbarScale;
 	HpPoint.x = HpPoint.x *(static_cast<float>(Hp) / 120);
 
@@ -284,4 +227,80 @@ void Player::Render(float _DeltaTime)
 	//	CreateSolidBrush(RGB(0, 0, 0))
 	//);
 
+}
+
+
+void Player::PressMove()
+{
+	if (
+		false == GameEngineInput::IsPress("LeftMove") &&
+		false == GameEngineInput::IsPress("RightMove") &&
+		false == GameEngineInput::IsPress("DownMove") &&
+		false == GameEngineInput::IsPress("UpMove")
+		)
+	{
+		// 
+		ChangeState(PlayerState::IDLE);
+		return;
+	}
+
+	MoveVec = float4::Zero;
+	//float4 MoveRange = float4::Zero;
+
+	if (true == GameEngineInput::IsPress("LeftMove"))
+	{
+		MoveVec += float4::Left;
+	}
+
+	if (true == GameEngineInput::IsPress("RightMove"))
+	{
+		MoveVec += float4::Right;
+	}
+
+	if (true == GameEngineInput::IsPress("UpMove"))
+	{
+		MoveVec += float4::Up;
+	}
+
+	if (true == GameEngineInput::IsPress("DownMove"))
+	{
+		MoveVec += float4::Down;
+	}
+	MoveVec.Normalize();
+	MoveVec *= MoveSpeed;
+}
+
+void Player::CheckLevelUp()
+{
+	int NextLevel = PlayerLevel;
+	int ReqExpPoint = 3192;// 200레벨포인트
+
+
+	if (20 > NextLevel)
+	{
+		ReqExpPoint = (NextLevel * 10) - 5;
+	}
+	else if (20 == NextLevel)
+	{
+		ReqExpPoint = (NextLevel * 10) - 5 + 600;
+	}
+	else if (20 < NextLevel && 40 > NextLevel)
+	{
+		ReqExpPoint = (NextLevel * 13) - 6;
+	}
+	else if (40 == NextLevel)
+	{
+		(NextLevel * 13) - 6 + 2400;
+	}
+	else if (40 < NextLevel)
+	{
+		ReqExpPoint = (NextLevel * 16) - 8;
+	}
+
+	if (PlayerExp >= ReqExpPoint)
+	{
+		++PlayerLevel;
+		PlayerExp %= ReqExpPoint;
+		IsStop = true; // 레벨업에 의한 stop --> 아이템선택창 띄우기
+	}
 }

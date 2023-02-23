@@ -32,7 +32,7 @@ protected:
 private:
 	GameEngineRender* ItemRender = nullptr;
 	GameEngineCollision* ItemCollision = nullptr; // æ∆¿Ã≈€ »πµÊ ªÁ∞≈∏Æ
-	int Exp = 0;
+	int Exp = 1;
 	/*static std::map<std::string, Items> AllItems;*/
 };
 

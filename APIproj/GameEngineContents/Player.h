@@ -15,6 +15,7 @@ enum class PlayerState
 class Player : public GameEngineActor
 {
 public:
+	static bool IsStop;
 	static Player* MainPlayer;
 	static std::string PlayerName;
 	// constrcuter destructer
@@ -54,7 +55,7 @@ private:
 	float4 MoveVec = float4::Zero;
 
 	int Hp = 100;
-	int Exp = 0;
+	int PlayerExp = 0;
 	int PlayerLevel = 1;
 	float InvincibleStateDelay = 0.0f;//무적상태
 	float4 HpbarScale = { 70, 9 };
@@ -89,8 +90,12 @@ private:
 	void MoveDmgedUpdate(float _Time);
 	void MoveDmgedEnd();
 
+	// 함수분리
 	void PressMove();
 	bool CheckMonsterCollision();
 	void Movecalculation(float _DeltaTime);
+
+	void WeaponUpdate(float _DeltaTime);
+	void CheckLevelUp();
 };
 
