@@ -34,7 +34,7 @@ void WeaponMagicWand::Start()
 
 
 	float4 CollisionScale = WeaponRender->GetScale();
-	WeaponCollision->SetScale(CollisionScale);
+	WeaponCollision->SetScale({25,25});
 
 	SetCoolTime(1.2f);
 	SetRunTime(1.0f);
@@ -75,7 +75,7 @@ void WeaponMagicWand::Update(float _DeltaTime)
 
 
 	std::vector<GameEngineCollision*> Collision;
-	if (true == WeaponCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_Rect }, Collision))
+	if (true == WeaponCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_CirCle }, Collision))
 	{
 
 		for (size_t i = 0; i < Collision.size(); i++)
