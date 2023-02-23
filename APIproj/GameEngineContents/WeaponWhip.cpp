@@ -13,28 +13,72 @@ WeaponWhip::~WeaponWhip()
 
 void WeaponWhip::ReSet()
 {
+	//this->On();
+	if (0 == WeaponRender.size()) {
+		return;
+	}
+	else {
+		LastDir = Player::MainPlayer->GetDirString();
+		WeaponRender[LastDir]->On();
+		WeaponCollision[LastDir]->On();
+	}
 	WaitTime = 0;
-	this->On();
 }
 
 
 void WeaponWhip::Start()
 {
-	WeaponRender = CreateRender(VSRenderOrder::Weapon);
-	WeaponCollision = CreateCollision(VSRenderOrder::Weapon);
-
-	//Weapon* NewWeapon = _Level->CreateActor<Weapon>(VSRenderOrder::Weapon);
 	SetWeaponName("Whip");
-	
-	WeaponRender->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "RightWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
-	WeaponRender->CreateAnimation({ .AnimationName = "Left_Whip",  .ImageName = "LeftWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
-	WeaponRender->CreateAnimation({ .AnimationName = "Bidi_Whip",  .ImageName = "BidiWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
-	WeaponRender->SetScale({ 600,60 });
-	WeaponRender->SetPosition({ 0, -60 });
+	{
+		GameEngineRender* Render = CreateRender(VSRenderOrder::Weapon);
+		Render->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "RightWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
+		Render->SetScale({ 600,60 });
+		Render->SetPosition({ 0, -60 });
+		Render->ChangeAnimation("Right_Whip");
 
-	float4 CollisionScale = WeaponRender->GetScale();
-	CollisionScale.x = CollisionScale.hx();
-	WeaponCollision->SetScale(CollisionScale);
+		GameEngineCollision* Collision = CreateCollision(VSRenderOrder::Weapon);
+		float4 CollisionScale = Render->GetScale();
+		CollisionScale.x = CollisionScale.hx();
+		Collision->SetScale(CollisionScale);
+		Collision->SetPosition({ Collision->GetScale().hx(),-Collision->GetScale().y });
+		WeaponRender["Right_"] = Render;
+		WeaponCollision["Right_"] = Collision;
+		WeaponRender["Right_"]->Off();
+		WeaponCollision["Right_"]->Off();
+	}
+	{
+		GameEngineRender* Render = CreateRender(VSRenderOrder::Weapon);
+		Render->CreateAnimation({ .AnimationName = "Left_Whip",  .ImageName = "LeftWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
+		Render->SetScale({ 600,60 });
+		Render->SetPosition({ 0, -60 });
+		Render->ChangeAnimation("Left_Whip");
+
+		GameEngineCollision* Collision = CreateCollision(VSRenderOrder::Weapon);
+		float4 CollisionScale = Render->GetScale();
+		CollisionScale.x = CollisionScale.hx();
+		Collision->SetScale(CollisionScale);
+		Collision->SetPosition({ -Collision->GetScale().hx(),-Collision->GetScale().y });
+		WeaponRender["Left_"] = Render;
+		WeaponCollision["Left_"] = Collision;
+		WeaponRender["Left_"]->Off();
+		WeaponCollision["Left_"]->Off();
+	}
+
+	//WeaponRender = CreateRender(VSRenderOrder::Weapon);
+	//WeaponCollision = CreateCollision(VSRenderOrder::Weapon);
+
+	////Weapon* NewWeapon = _Level->CreateActor<Weapon>(VSRenderOrder::Weapon);
+	//SetWeaponName("Whip");
+	//
+	//WeaponRender->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "RightWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
+	//WeaponRender->CreateAnimation({ .AnimationName = "Left_Whip",  .ImageName = "LeftWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
+	//WeaponRender->CreateAnimation({ .AnimationName = "Bidi_Whip",  .ImageName = "BidiWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
+	//WeaponRender->SetScale({ 600,60 });
+	//WeaponRender->SetPosition({ 0, -60 });
+
+	//float4 CollisionScale = WeaponRender->GetScale();
+	//CollisionScale.x = CollisionScale.hx();
+	//WeaponCollision->SetScale(CollisionScale);
 
 	SetCoolTime(2.0f);
 	SetRunTime(0.1f);
@@ -44,41 +88,60 @@ void WeaponWhip::Start()
 	//NewWeapon->GetWeaponCollision()->SetScale(CollisionScale);
 	Weapon::Weapons[GetWeaponName()] = this;
 
-	this->Off();
+	//this->Off();
 }
 
 void WeaponWhip::Update(float _DeltaTime)
 {
+	if (WeaponRender.size() == 0 || WeaponCollision.size() == 0)
+	{
+		MsgAssert("무기랜더가 생성되지 않았습니다.");
+		return;
+	}
+
 	if (WaitTime > GetRunTime())
 	{
-		this->Off();
+		WeaponRender[LastDir]->Off();
+		WeaponCollision[LastDir]->Off();
+		return;
+		//this->Off();
 	}
 	SetPos(Player::MainPlayer->GetPos());
-	std::string Dir = Player::MainPlayer->GetDirString();
-	std::string _Animation = Dir + GetWeaponName();
-	WeaponRender->ChangeAnimation(_Animation);
-	if ("Right_" == Dir) {
-		WeaponCollision->SetPosition({ WeaponCollision->GetScale().hx(),-WeaponCollision->GetScale().y });
-	}
-	else
+
+	/*std::map<std::string, GameEngineCollision*>::iterator ColBegin = WeaponCollision.begin();
+	std::map<std::string, GameEngineCollision*>::iterator ColEnd = WeaponCollision.end();
+	for (;ColBegin != ColEnd;ColBegin++)
 	{
-		WeaponCollision->SetPosition({ -WeaponCollision->GetScale().hx(),-WeaponCollision->GetScale().y });
-	}
-
-
-
-	std::vector<GameEngineCollision*> Collision;
-	if (true == WeaponCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_Rect }, Collision))
-	{
-		int a = 0;
-		for (size_t i = 0; i < Collision.size(); i++)
+		if (true == ColBegin->second->IsUpdate())
 		{
+			std::vector<GameEngineCollision*> Collision;
+			if (true == ColBegin->second->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_Rect }, Collision))
+			{
+				int a = 0;
+				for (size_t i = 0; i < Collision.size(); i++)
+				{
 
-			GameEngineActor* ColActor = Collision[i]->GetActor();
-			Monster* ColWeaponActor = dynamic_cast<Monster*> (ColActor);
+					GameEngineActor* ColActor = Collision[i]->GetActor();
+					Monster* ColWeaponActor = dynamic_cast<Monster*> (ColActor);
 
-			ColWeaponActor->Attack(GetDmg());
+					ColWeaponActor->Attack(GetDmg());
 
+				}
+			}
+		}
+	}*/
+	if (true == WeaponCollision[LastDir]->IsUpdate())
+	{
+		std::vector<GameEngineCollision*> Collision;
+		if (true == WeaponCollision[LastDir]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_Rect }, Collision))
+		{
+			for (size_t i = 0; i < Collision.size(); i++)
+			{
+				GameEngineActor* ColActor = Collision[i]->GetActor();
+				Monster* ColWeaponActor = dynamic_cast<Monster*> (ColActor);
+				ColWeaponActor->Attack(GetDmg());
+
+			}
 		}
 	}
 }

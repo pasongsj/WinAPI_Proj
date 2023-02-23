@@ -22,8 +22,10 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-
-	GameEngineRender* WeaponRender = nullptr;
-	GameEngineCollision* WeaponCollision = nullptr;
+	std::string LastDir = "Right_";
+	std::map<std::string,GameEngineRender*> WeaponRender;
+	std::map<std::string, GameEngineCollision*> WeaponCollision;
+	/*GameEngineRender* WeaponRender = nullptr;
+	GameEngineCollision* WeaponCollision = nullptr;*/
 };
 
