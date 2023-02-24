@@ -149,15 +149,21 @@ public:
 		return sqrtf(x * x + y * y);
 	}
 
-	float4 Normalize()
+	void Normalize()
 	{
 		float SizeValue = Size();
 		x /= SizeValue;
 		y /= SizeValue;
 		z /= SizeValue;
-		return *this;
-
 	}
+
+	float4 GetNormalize()
+	{
+		float4 ReturnVal = *this;
+		ReturnVal.Normalize();
+		return ReturnVal;
+	}
+	
 
 	static float4 Lerp(const float4& Start, const float4& End, float Ratio)
 	{
