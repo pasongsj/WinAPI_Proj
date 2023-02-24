@@ -14,6 +14,12 @@ public:
 	PlayGameUI(PlayGameUI&& _Other) noexcept = delete;
 	PlayGameUI& operator=(const PlayGameUI& _Other) = delete;
 	PlayGameUI& operator=(PlayGameUI&& _Other) noexcept = delete;
+	void LevelUpUIRenderOn() {
+		LevelUpUIRender->On();
+	}
+	void LevelUpUIRenderOff() {
+		LevelUpUIRender->Off();
+	}
 
 protected:
 	void Start() override;
@@ -21,7 +27,7 @@ protected:
 
 private:
 	float StageTime = 0.0f;
-	GameEngineRender* UIRender = nullptr;
+	GameEngineRender* LevelUpUIRender = nullptr;
 
 	NumberRenderObject StageTimerMin;
 	NumberRenderObject StageTimerSec;

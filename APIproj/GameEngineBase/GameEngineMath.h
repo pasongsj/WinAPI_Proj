@@ -13,6 +13,8 @@ public:
 	static unsigned int GetLenth(int _Value);
 	static const float PIE;
 	static const float PIE2; // pie * 2
+	static const float DegToRad;
+	static const float RadToDeg;
 
 private:
 	virtual ~GameEngineMath() = 0;
@@ -29,6 +31,16 @@ public:
 	static const float4 Back;
 	static const float4 Zero;
 	static const float4 Null;
+
+	static float4 AngleToDirection2DToDeg(float _Deg)
+	{
+		return AngleToDirection2DToRad(_Deg * GameEngineMath::DegToRad);
+	}
+
+	static float4 AngleToDirection2DToRad(float _Rad)
+	{
+		return float4(cosf(_Rad), sinf(_Rad), 0.0f, 1.0f);
+	}
 
 public:
 	float x = 0.0f;
@@ -101,6 +113,29 @@ public:
 	float4 half() const
 	{
 		return {x * 0.5f,y * 0.5f,z * 0.5f,w};
+	}
+
+	// Degree
+
+
+	float GetAnagleDeg()
+	{
+		return GetAnagleRad() * GameEngineMath::RadToDeg;
+	}
+
+	float GetAnagleRad()
+	{
+		float4 AngleCheck = (*this);
+		AngleCheck.Normalize();
+
+		float Result = acosf(AngleCheck.x);
+
+		if (AngleCheck.y > 0)
+		{
+			Result = GameEngineMath::PIE2 - Result;
+		}
+		return Result;
+
 	}
 
 	// vector크기가 0인지 확인

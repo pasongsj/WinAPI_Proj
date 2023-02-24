@@ -3,6 +3,7 @@
 #include <GameEngineCore/GameEngineResources.h>
 
 // 화려한 도서관 스테이지
+class PlayGameUI;
 class InlaidLibraryLevel : public GameEngineLevel
 {
 public:
@@ -30,6 +31,6 @@ private:
 	float4 BGSize = float4::Zero;
 	void ImageLoad();
 	void SoundLoad();
-
+	PlayGameUI* NewUI = nullptr;
 };
 

@@ -103,6 +103,7 @@ void InlaidLibraryLevel::ImageLoad()
 		Dir.Move("UI");
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExpBar.BMP"));
 		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("colon.BMP"));
+		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LevelUpUI.BMP"));
 		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LV.BMP"));
 		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Number.BMP"));
 		Image2->Cut(10, 1);
@@ -183,7 +184,7 @@ void InlaidLibraryLevel::Loading()
 	}
 
 	{
-		PlayGameUI* NewUI = CreateActor<PlayGameUI>(VSRenderOrder::UI);
+		/*PlayGameUI* */NewUI = CreateActor<PlayGameUI>(VSRenderOrder::UI);
 	}
 
 	//{
@@ -226,6 +227,7 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 	}
 	else
 	{
+		NewUI->LevelUpUIRenderOff();
 		SetTimeScale(VSRenderOrder::BackGround, 1);
 		SetTimeScale(VSRenderOrder::Map, 1);
 		SetTimeScale(VSRenderOrder::Player, 1);
