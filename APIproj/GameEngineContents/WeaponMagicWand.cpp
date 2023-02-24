@@ -17,7 +17,9 @@ void WeaponMagicWand::ReSet()
 {
 	//Passes = 1;
 	//WaitTime = 0;
-	SetPos(Player::MainPlayer->GetPos());
+	float4 _Pos = Player::MainPlayer->GetPos();
+	_Pos.y -= 32;
+	SetPos(_Pos);
 	//WepaonDir = float4::Zero;
 	//this->On();
 	if (0 == WeaponRender.size()) {
@@ -29,6 +31,7 @@ void WeaponMagicWand::ReSet()
 			WeaponRender[i]->SetPosition(float4::Zero);
 			WeaponCollision[i]->SetPosition(float4::Zero);
 			Passes[i] = 1;
+		//	WeaponRender[i]->SetAngle(105);
 			WeaponRender[i]->On();
 			WeaponCollision[i]->On();
 		}
@@ -48,16 +51,34 @@ void WeaponMagicWand::SetWeaponDir()
 		float4 Diff = (_Monster->GetPos() - GetPos());
 		if (MinLen > Diff.Size()) {
 			MinLen = Diff.Size();
-			_Dir.push_back(Diff.Normalize());
+			_Dir.push_back(Diff.GetNormalize());
 		}
 	}
 	for (int i = 0;i < WeaponRender.size();i++) {
 		if (_Dir.size() > 0 && _Dir.size() - i - 1 >= 0) {
 			WeaponDir[i] = _Dir[_Dir.size() -1 - i];
+			
 		}
 		else
 		{
-			WeaponDir[i] = float4{ GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) ,GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) }.Normalize();
+			WeaponDir[i] = float4{ GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) ,GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) }.GetNormalize();
+		}
+		WeaponRender[i]->SetAngle(108);
+		float _Deg = float4{ 1, 0 }.GetAngelBetweenVec(WeaponDir[i]);
+		//WeaponRender[i]->SetAngleAdd(_Deg);
+		if (WeaponDir[i].x >= 0 && WeaponDir[i].y >= 0) // 4사분면
+		{
+			WeaponRender[i]->SetAngleAdd(_Deg);
+		}
+		else if (WeaponDir[i].x <= 0 && WeaponDir[i].y >= 0) {//3사분면
+			WeaponRender[i]->SetAngleAdd(_Deg-90);
+		}
+		else if (WeaponDir[i].x <= 0 && WeaponDir[i].y <= 0) { //2사분면
+			WeaponRender[i]->SetAngleAdd(360-_Deg);
+		}
+		else
+		{
+			WeaponRender[i]->SetAngleAdd(360 -_Deg); //1사분면
 		}
 	}
 
@@ -70,6 +91,8 @@ void WeaponMagicWand::Start()
 		GameEngineRender* Render = CreateRender(VSRenderOrder::Weapon);
 		Render->SetImage("MagicWand.bmp");
 		Render->SetScaleToImage();
+		Render->SetRotFilter("MagicWandBlack.bmp");
+		//Render->SetAngle(105); // {1,0}
 
 		GameEngineCollision* Collision = CreateCollision(VSRenderOrder::Weapon);
 		Collision->SetScale({ 25,25 });

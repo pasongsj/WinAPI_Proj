@@ -2,7 +2,7 @@
 #include <cmath>
 #include <vector>
 #include <string>
-
+#include <windows.h>
 // final 더이상 상속내릴지 못한다.
 // 상속도 못하고 만들지도 못하게 만든 상태로
 
@@ -118,12 +118,31 @@ public:
 	// Degree
 
 
-	float GetAnagleDeg()
+	float GetAngleDeg()
 	{
-		return GetAnagleRad() * GameEngineMath::RadToDeg;
+		return GetAngleRad() * GameEngineMath::RadToDeg;
 	}
 
-	float GetAnagleRad()
+	void RotaitonZDeg(float _Deg)
+	{
+		RotaitonZRad(_Deg * GameEngineMath::DegToRad);
+	}
+
+	void RotaitonZRad(float _Rad)
+	{
+		float4 Copy = *this;
+		x = Copy.x * cosf(_Rad) - Copy.y * sinf(_Rad);
+		y = Copy.x * sinf(_Rad) + Copy.y * cosf(_Rad);
+	}
+
+	float4 RotaitonZDegReturn(float _Deg)
+	{
+		float4 Copy = *this;
+		Copy.RotaitonZDeg(_Deg);
+		return Copy;
+	}
+
+	float GetAngleRad()
 	{
 		float4 AngleCheck = (*this);
 		AngleCheck.Normalize();
@@ -136,6 +155,27 @@ public:
 		}
 		return Result;
 
+	}
+
+	float GetAngelBetweenVec(float4 _Vec)
+	{
+		float4 Cpy_Vec = _Vec;
+		Cpy_Vec.y = -Cpy_Vec.y;
+		float4 diff = Cpy_Vec - *this;
+		diff.Normalize();
+		float m_fAngle = acos(diff.x);
+		return m_fAngle* GameEngineMath::RadToDeg;
+		//float inner = (x * _Vec.x) + (y * _Vec.y); // 벡터의 내적
+		//float _Size = Size() * _Vec.Size();
+		//float ResultTheta = acos(abs(inner)/_Size); // acos(내적값/벡터크기*벡터크기);
+		//return ResultTheta;
+
+	}
+	
+	//windows 변수로 변경
+	POINT ToWindowPOINT()
+	{
+		return POINT(ix(), iy());
 	}
 
 	// vector크기가 0인지 확인
@@ -288,5 +328,48 @@ public:
 		sprintf_s(ArrReturn, "x: %f, y: %f, z: %f, w: %f", x, y, z, w);
 
 		return std::string(ArrReturn);
+	}
+};
+
+
+
+class CollisionData
+{
+public:
+	float4 Position;
+	float4 Scale; // x만 원의 반지름으로 보겠습니다.
+
+	float Left() const
+	{
+		return Position.x - Scale.hx();
+	}
+	float Right() const
+	{
+		return Position.x + Scale.hx();
+	}
+	float Top() const
+	{
+		return Position.y - Scale.hy();
+	}
+	float Bot() const
+	{
+		return Position.y + Scale.hy();
+	}
+
+	float4 LeftTop() const
+	{
+		return float4{ Left(), Top() };
+	}
+	float4 RightTop() const
+	{
+		return float4{ Right(), Top() };
+	}
+	float4 LeftBot() const
+	{
+		return float4{ Left(), Bot() };
+	}
+	float4 RightBot() const
+	{
+		return float4{ Right(), Bot() };
 	}
 };

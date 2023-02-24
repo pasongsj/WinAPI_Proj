@@ -115,6 +115,10 @@ public:
 	
 	void AlphaCopy(const GameEngineImage* _OtherImage, int _CutIndex, float4 _CopyCenterPos, float4 _CopySize, int _Color);
 
+	void PlgCopy(const GameEngineImage* _OtherImage, float4 _CopyCenterPos, float4 _CopySize, float4 _OtherImagePos, float4 _OtherImageSize, float _Angle, GameEngineImage* _FilterImage);
+
+	void PlgCopy(const GameEngineImage* _OtherImage, int _CutIndex, float4 _CopyCenterPos, float4 _CopySize, float _Angle, GameEngineImage* _FilterImage);
+
 	DWORD GetPixelColor(float4 _Pos, DWORD _OutColor); // Pos위치의  color값을 return
 
 	DWORD GetPixelColor(int _X, int _Y, DWORD _OutColor); // _x, _y위치의 color값을 return

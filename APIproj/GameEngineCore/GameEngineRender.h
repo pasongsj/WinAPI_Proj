@@ -15,6 +15,8 @@ class FrameAnimationParameter
 public:
 	std::string_view AnimationName = "";
 	std::string_view ImageName = "";
+	std::string_view FilterName = "";
+
 	int Start = 0;
 	int End = 0;
 	int CurrentIndex = 0;
@@ -48,6 +50,8 @@ public:
 	void SetScaleToImage();
 	
 	void SetFrame(int _Frame);
+
+	void SetRotFilter(const std::string_view& _ImageName);
 
 	inline GameEngineImage* GetImage()
 	{
@@ -93,19 +97,37 @@ public:
 		Alpha = _Alpha;
 	}
 
+	inline void SetAngle(float _Angle)
+	{
+		Angle = _Angle;
+	}
+
+	inline float GetAngle(float _Angle)
+	{
+		return Angle;
+	}
+
+	inline void SetAngleAdd(float _Angle)
+	{
+		Angle += _Angle;
+	}
+
+
 protected:
 
 private:
-	
+	GameEngineImage* Image = nullptr;
+	GameEngineImage* RotationFilter = nullptr;
+
 	float4 Position = float4::Zero;
 	float4 Scale = float4::Zero;
-	GameEngineImage* Image = nullptr;
 	bool IsEffectCamera = true;
 
 	int Frame = 0;
 
 	int TransColor = RGB(255, 0, 255); // 제거할 배경 RGB값 
 	int Alpha = 255; // 투명도 0~255
+	float Angle = 0.0f; // (반시계방향) 각도
 
 	void Render(float _DeltaTime);
 
@@ -118,6 +140,7 @@ private:
 		GameEngineRender* Parent = nullptr;
 		// 짤려있는 이미지여야 한다.
 		GameEngineImage* Image = nullptr;
+		GameEngineImage* FilterImage = nullptr;
 		std::vector<int> FrameIndex;
 		std::vector<float> FrameTime;
 		int CurrentIndex = 0;
