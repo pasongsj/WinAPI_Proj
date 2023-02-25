@@ -82,7 +82,7 @@ void WeaponWhip::Start()
 
 	SetCoolTime(2.0f);
 	SetRunTime(0.1f);
-	int _Dmg[9] = { 0,10,10,15,20,25,30,35,40 };
+	float _Dmg[9] = { 0.0f,10.0f,10.0f,15.0f,20.0f,25.0f,30.0f,35.0f,40.0f };
 	SetDmg(_Dmg);
 
 	//NewWeapon->GetWeaponCollision()->SetScale(CollisionScale);

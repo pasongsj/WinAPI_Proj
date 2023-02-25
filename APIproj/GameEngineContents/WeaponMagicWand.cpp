@@ -15,13 +15,10 @@ WeaponMagicWand::~WeaponMagicWand()
 
 void WeaponMagicWand::ReSet()
 {
-	//Passes = 1;
-	//WaitTime = 0;
 	float4 _Pos = Player::MainPlayer->GetPos();
 	_Pos.y -= 32;
 	SetPos(_Pos);
-	//WepaonDir = float4::Zero;
-	//this->On();
+
 	if (0 == WeaponRender.size()) {
 		return;
 	}
@@ -31,7 +28,7 @@ void WeaponMagicWand::ReSet()
 			WeaponRender[i]->SetPosition(float4::Zero);
 			WeaponCollision[i]->SetPosition(float4::Zero);
 			Passes[i] = 1;
-		//	WeaponRender[i]->SetAngle(105);
+			WeaponRender[i]->SetAngle(108); // float4{1, 0}위치기준
 			WeaponRender[i]->On();
 			WeaponCollision[i]->On();
 		}
@@ -64,7 +61,6 @@ void WeaponMagicWand::SetWeaponDir()
 		{
 			WeaponDir[i] = float4{ GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) ,GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) }.GetNormalize();
 		}
-		WeaponRender[i]->SetAngle(108); //{1,0}
 		float GetAng = float4{ 1,0 }.GetAngelBetweenVec(WeaponDir[i])* GameEngineMath::RadToDeg;
 		WeaponRender[i]->SetAngleAdd(GetAng);
 	}
@@ -79,7 +75,6 @@ void WeaponMagicWand::Start()
 		Render->SetImage("MagicWand.bmp");
 		Render->SetScaleToImage();
 		Render->SetRotFilter("MagicWandBlack.bmp");
-		//Render->SetAngle(105); // {1,0}
 
 		GameEngineCollision* Collision = CreateCollision(VSRenderOrder::Weapon);
 		Collision->SetScale({ 25,25 });
@@ -102,7 +97,7 @@ void WeaponMagicWand::Start()
 
 	SetCoolTime(1.2f);
 	SetRunTime(1.0f);
-	int _Dmg[9] = { 0,10,10,10,10,20,20,20,30 };
+	float _Dmg[9] = { 0.0f,10.0f,10.0f,10.0f,10.0f,20.0f,20.0f,20.0f,30.0f };
 	SetDmg(_Dmg);
 
 	Weapon::Weapons[GetWeaponName()] = this;

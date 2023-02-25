@@ -16,6 +16,7 @@
 
 #include "WeaponWhip.h"
 #include "WeaponMagicWand.h"
+#include "WeaponKnife.h"
 
 InlaidLibraryLevel::InlaidLibraryLevel()
 {
@@ -131,6 +132,11 @@ void InlaidLibraryLevel::ImageLoad()
 			GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MagicWandBlack.BMP"));
 
 		}
+		{
+			Dir.MoveParentToDirectory("Knife");
+			Dir.Move("Knife");
+			GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Knife.BMP"));
+		}
 		/*GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Whip.BMP"));
 		Image->Cut(1, 3);*/
 	}
@@ -179,6 +185,7 @@ void InlaidLibraryLevel::Loading()
 	{
 		CreateActor<WeaponWhip>(VSRenderOrder::Weapon);
 		CreateActor<WeaponMagicWand>(VSRenderOrder::Weapon);
+		CreateActor<WeaponKnife>(VSRenderOrder::Weapon);
 	}
 
 	{

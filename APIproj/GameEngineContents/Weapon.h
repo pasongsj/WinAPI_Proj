@@ -46,14 +46,14 @@ public:
 	}
 
 	// ---- Dmg
-	void SetDmg(const int* _Dmg) {
+	void SetDmg(const float* _Dmg) {
 		for (int i = 1;i < 9;i++)
 		{
 			Dmg[i] = *(_Dmg + i);
 		}
 	}
 
-	inline int GetDmg()
+	inline float GetDmg()
 	{
 		return Dmg[WeaponLevel];
 	}
@@ -101,16 +101,6 @@ public:
 		return WeaponCollisionType;
 	}
 
-	//// Render
-	//GameEngineRender* GetWeaponRender()
-	//{
-	//	return WeaponRender;
-	//}
-	//// Collision
-	//GameEngineCollision* GetWeaponCollision()
-	//{
-	//	return WeaponCollision;
-	//}
 	virtual void ReSet() {};
 
 protected:
@@ -128,7 +118,7 @@ private:
 
 	int WeaponLevel = 1; // 무기 레벨 최디8
 
-	int Dmg[9] = {0,}; // index0무시 0~8
+	float Dmg[9] = {0,}; // index0무시 0~8
 	float CoolTime = 0.0f;
 	float RunTime =  0.0f;
 	bool IsAnimation = true;

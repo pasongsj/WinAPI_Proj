@@ -56,7 +56,7 @@ void Player::Movecalculation(float _DeltaTime)
 
 	SetMove(MoveVec * _DeltaTime);
 	GetLevel()->SetCameraMove(MoveVec * _DeltaTime);
-	MoveVec = float4::Zero; // 이동 완료후 이동벡터값 초기화
+	//MoveVec = float4::Zero; // 이동 완료후 이동벡터값 초기화
 }
 
 bool Player::CheckMonsterCollision()
