@@ -40,6 +40,7 @@ void WeaponMagicWand::ReSet()
 	WaitTime = 0;
 }
 
+int Tmptime = 0;
 void WeaponMagicWand::SetWeaponDir()
 {
 	std::vector<float4> _Dir;
@@ -63,23 +64,9 @@ void WeaponMagicWand::SetWeaponDir()
 		{
 			WeaponDir[i] = float4{ GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) ,GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) }.GetNormalize();
 		}
-		WeaponRender[i]->SetAngle(108);
-		float _Deg = float4{ 1, 0 }.GetAngelBetweenVec(WeaponDir[i]);
-		//WeaponRender[i]->SetAngleAdd(_Deg);
-		if (WeaponDir[i].x >= 0 && WeaponDir[i].y >= 0) // 4사분면
-		{
-			WeaponRender[i]->SetAngleAdd(_Deg);
-		}
-		else if (WeaponDir[i].x <= 0 && WeaponDir[i].y >= 0) {//3사분면
-			WeaponRender[i]->SetAngleAdd(_Deg-90);
-		}
-		else if (WeaponDir[i].x <= 0 && WeaponDir[i].y <= 0) { //2사분면
-			WeaponRender[i]->SetAngleAdd(360-_Deg);
-		}
-		else
-		{
-			WeaponRender[i]->SetAngleAdd(360 -_Deg); //1사분면
-		}
+		WeaponRender[i]->SetAngle(108); //{1,0}
+		float GetAng = float4{ 1,0 }.GetAngelBetweenVec(WeaponDir[i])* GameEngineMath::RadToDeg;
+		WeaponRender[i]->SetAngleAdd(GetAng);
 	}
 
 }

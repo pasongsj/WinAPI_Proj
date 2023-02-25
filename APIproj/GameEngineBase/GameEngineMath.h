@@ -159,16 +159,17 @@ public:
 
 	float GetAngelBetweenVec(float4 _Vec)
 	{
-		float4 Cpy_Vec = _Vec;
-		Cpy_Vec.y = -Cpy_Vec.y;
-		float4 diff = Cpy_Vec - *this;
-		diff.Normalize();
-		float m_fAngle = acos(diff.x);
-		return m_fAngle* GameEngineMath::RadToDeg;
-		//float inner = (x * _Vec.x) + (y * _Vec.y); // º¤ÅÍÀÇ ³»Àû
-		//float _Size = Size() * _Vec.Size();
-		//float ResultTheta = acos(abs(inner)/_Size); // acos(³»Àû°ª/º¤ÅÍÅ©±â*º¤ÅÍÅ©±â);
-		//return ResultTheta;
+		float diff = x * _Vec.x + y * _Vec.y;
+		float m_fAngle = acos(diff/Size()*_Vec.Size());
+
+		if (_Vec.y >= 0) // *this = float4{1, 0}
+		{
+			return m_fAngle;
+		}
+		else
+		{
+			return -m_fAngle;
+		}
 
 	}
 	
