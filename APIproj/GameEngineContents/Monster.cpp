@@ -16,7 +16,7 @@ Monster::~Monster()
 {
 }
 
-void Monster::Attack(int _Att) {
+void Monster::Attack(float _Att) {
 	Hp -= _Att;
 	IsAttacked = true;
 	BodyCollision->Off();

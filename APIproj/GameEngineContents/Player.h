@@ -28,14 +28,14 @@ public:
 	Player& operator=(const Player& _Other) = delete;
 	Player& operator=(Player&& _Other) noexcept = delete;
 
-	inline void Attack(int _Att) {
+	inline void Attack(float _Att) {
 		Hp -= _Att;
 	}
-	inline void SetHp(int _Hp) {
+	inline void SetHp(float _Hp) {
 		Hp = _Hp;
 	}
 
-	int GetHp() {
+	float GetHp() {
 		return Hp;
 	}
 
@@ -64,7 +64,7 @@ private:
 	float4 MoveVec = float4::Zero;
 	float4 LastMoveVec = float4::Zero;
 
-	int Hp = 100;
+	float Hp = 100;
 	int PlayerExp = 0;
 	int PlayerLevel = 1;
 	float InvincibleStateDelay = 0.0f;//무적상태

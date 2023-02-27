@@ -162,7 +162,7 @@ public:
 		float diff = x * _Vec.x + y * _Vec.y;
 		float m_fAngle = acos(diff/Size()*_Vec.Size());
 
-		if (_Vec.y >= 0) // *this = float4{1, 0}
+		if (_Vec.y > 0) // *this = float4{1, 0}
 		{
 			return m_fAngle;
 		}
