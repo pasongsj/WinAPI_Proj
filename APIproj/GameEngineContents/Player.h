@@ -43,9 +43,13 @@ public:
 		return DirString;
 	}
 
-	inline float4 GetMoveVec()
+	inline float4 GetLastMoveVec()
 	{
-		return MoveVec;
+		return LastMoveVec.GetNormalize();
+	}
+	inline void SetLastMoveVec(const float4& _Vec)
+	{
+		LastMoveVec = _Vec;
 	}
 
 protected:
@@ -58,6 +62,7 @@ private:
 	int StartFrame = 0;
 	float MoveSpeed = 500.0f;
 	float4 MoveVec = float4::Zero;
+	float4 LastMoveVec = float4::Zero;
 
 	int Hp = 100;
 	int PlayerExp = 0;

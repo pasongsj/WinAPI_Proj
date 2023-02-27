@@ -33,19 +33,27 @@ void WeaponKnife::ReSet()
 
 			WeaponRender[i]->On();
 			WeaponCollision[i]->On();
-			WeaponDir[i] = (Player::MainPlayer->GetMoveVec()).GetNormalize();
-
-			if (float4::Zero == WeaponDir[i])
+			float4 _Dir = Player::MainPlayer->GetLastMoveVec();
+			if (float4::Zero == _Dir)
 			{
 				if ("RIght_" == Player::MainPlayer->GetDirString())
 				{
-					WeaponDir[i] = { 1,0 };
+					_Dir = float4{ 1,0 };
+					//WeaponDir[i] = { 1,0 };
 				}
 				else
 				{
-					WeaponDir[i] = { -1,0 };
+					_Dir = float4{ -1,0 };
+					//WeaponDir[i] = { -1,0 };
 				}
 			}
+			else
+			{
+				Player::MainPlayer->SetLastMoveVec(float4::Zero);
+			}
+			WeaponDir[i] = _Dir;
+			float GetAng = float4{ 1,0 }.GetAngelBetweenVec(WeaponDir[i]) * GameEngineMath::RadToDeg;
+			WeaponRender[i]->SetAngle(GetAng);
 		}
 	}
 	WaitTime = 0;
@@ -60,10 +68,10 @@ void WeaponKnife::Start()
 		GameEngineRender* Render = CreateRender(VSRenderOrder::Weapon);
 		Render->SetImage("Knife.bmp");
 		Render->SetScaleToImage();
-		//Render->SetRotFilter("MagicWandBlack.bmp");
+		Render->SetRotFilter("KnifeBlack.bmp");
 
 		GameEngineCollision* Collision = CreateCollision(VSRenderOrder::Weapon);
-		Collision->SetScale({ 25,25 });
+		Collision->SetScale(Render->GetScale());
 
 		WeaponRender.push_back(Render);
 		WeaponCollision.push_back(Collision);
@@ -105,7 +113,7 @@ void WeaponKnife::Update(float _DeltaTime)
 		WeaponCollision[i]->SetMove(WeaponDir[i] * _DeltaTime * 800);
 
 		std::vector<GameEngineCollision*> Collision;
-		if (true == WeaponCollision[i]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_CirCle }, Collision))
+		if (true == WeaponCollision[i]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_Rect }, Collision))
 		{
 
 			for (size_t i = 0; i < Collision.size(); i++)

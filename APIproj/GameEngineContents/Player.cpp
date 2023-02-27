@@ -56,7 +56,7 @@ void Player::Movecalculation(float _DeltaTime)
 
 	SetMove(MoveVec * _DeltaTime);
 	GetLevel()->SetCameraMove(MoveVec * _DeltaTime);
-	//MoveVec = float4::Zero; // 이동 완료후 이동벡터값 초기화
+	MoveVec = float4::Zero; // 이동 완료후 이동벡터값 초기화
 }
 
 bool Player::CheckMonsterCollision()
@@ -244,7 +244,6 @@ void Player::PressMove() // 입력관리
 		ChangeState(PlayerState::IDLE);
 		return;
 	}
-
 	MoveVec = float4::Zero;
 	//float4 MoveRange = float4::Zero;
 
@@ -268,6 +267,10 @@ void Player::PressMove() // 입력관리
 		MoveVec += float4::Down;
 	}
 	MoveVec.Normalize();
+	if (float4::Zero != MoveVec)
+	{
+		LastMoveVec = MoveVec;
+	}
 	MoveVec *= MoveSpeed;
 }
 

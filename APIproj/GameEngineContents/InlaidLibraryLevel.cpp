@@ -136,6 +136,7 @@ void InlaidLibraryLevel::ImageLoad()
 			Dir.MoveParentToDirectory("Knife");
 			Dir.Move("Knife");
 			GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Knife.BMP"));
+			GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("KnifeBlack.BMP"));
 		}
 		/*GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Whip.BMP"));
 		Image->Cut(1, 3);*/
