@@ -102,7 +102,7 @@ public:
 		Angle = _Angle;
 	}
 
-	inline float GetAngle(float _Angle)
+	inline float GetAngle()
 	{
 		return Angle;
 	}

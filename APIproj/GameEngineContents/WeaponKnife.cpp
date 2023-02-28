@@ -21,6 +21,7 @@ void WeaponKnife::ReSet()
 	//if (_Dir != float4::Zero) {
 	//	int  a = 0;
 	//}
+	float4 _Dir = float4::Zero;
 	if (0 == WeaponRender.size()) {
 		return;
 	}
@@ -33,29 +34,31 @@ void WeaponKnife::ReSet()
 
 			WeaponRender[i]->On();
 			WeaponCollision[i]->On();
-			float4 _Dir = Player::MainPlayer->GetLastMoveVec();
-			if (float4::Zero == _Dir)
+			_Dir = Player::MainPlayer->GetLastMoveVec();
+
+			float KnifeAngle = 0.0f;
+			if (float4::Zero == _Dir || float4{ -1,0,0,1 } == _Dir)
 			{
-				if ("RIght_" == Player::MainPlayer->GetDirString())
+				if ("Right_" == Player::MainPlayer->GetDirString())
 				{
 					_Dir = float4{ 1,0 };
-					//WeaponDir[i] = { 1,0 };
+					KnifeAngle = 0.0f;
 				}
-				else
+				else if("Left_" == Player::MainPlayer->GetDirString())
 				{
 					_Dir = float4{ -1,0 };
-					//WeaponDir[i] = { -1,0 };
+					KnifeAngle = 181.0f;
 				}
 			}
 			else
 			{
-				Player::MainPlayer->SetLastMoveVec(float4::Zero);
+				KnifeAngle = float4{ 1,0 }.GetAngelBetweenVec(_Dir) * GameEngineMath::RadToDeg;
 			}
 			WeaponDir[i] = _Dir;
-			float GetAng = float4{ 1,0 }.GetAngelBetweenVec(WeaponDir[i]) * GameEngineMath::RadToDeg;
-			WeaponRender[i]->SetAngle(GetAng);
+			WeaponRender[i]->SetAngle(KnifeAngle);
 		}
 	}
+	Player::MainPlayer->SetLastMoveVec(float4::Zero);
 	WaitTime = 0;
 
 }
@@ -71,7 +74,7 @@ void WeaponKnife::Start()
 		Render->SetRotFilter("KnifeBlack.bmp");
 
 		GameEngineCollision* Collision = CreateCollision(VSRenderOrder::Weapon);
-		Collision->SetScale(Render->GetScale());
+		Collision->SetScale(Render->GetScale().half());
 
 		WeaponRender.push_back(Render);
 		WeaponCollision.push_back(Collision);
@@ -81,7 +84,7 @@ void WeaponKnife::Start()
 	}
 
 	SetCoolTime(1.0f);
-	SetRunTime(0.9f);
+	SetRunTime(0.8f);
 	float _Dmg[9] = { 0,6.5f,6.5f,11.5f,11.5f,11.5f,11.5f, 16.5f, 16.5f };
 	SetDmg(_Dmg);
 
@@ -95,6 +98,7 @@ void WeaponKnife::Update(float _DeltaTime)
 		MsgAssert("무기랜더가 생성되지 않았습니다.");
 		return;
 	}
+
 
 	if (WaitTime > GetRunTime())
 	{
@@ -111,6 +115,7 @@ void WeaponKnife::Update(float _DeltaTime)
 	{
 		WeaponRender[i]->SetMove(WeaponDir[i] * _DeltaTime * 800);
 		WeaponCollision[i]->SetMove(WeaponDir[i] * _DeltaTime * 800);
+		float _GetAngVal = WeaponRender[i]->GetAngle();
 
 		std::vector<GameEngineCollision*> Collision;
 		if (true == WeaponCollision[i]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_Rect }, Collision))

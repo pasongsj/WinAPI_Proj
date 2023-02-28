@@ -45,7 +45,7 @@ public:
 
 	inline float4 GetLastMoveVec()
 	{
-		return LastMoveVec.GetNormalize();
+		return LastMoveVec;
 	}
 	inline void SetLastMoveVec(const float4& _Vec)
 	{
