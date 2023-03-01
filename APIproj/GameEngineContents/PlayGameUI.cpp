@@ -97,7 +97,7 @@ void PlayGameUI::Update(float _DeltaTime)
 	int _Exp = Player::MainPlayer->GetPlayerExp();
 
 	float4 ExpScale = MaxExpScale;
-	ExpScale.x = ExpScale.x * (static_cast<float>(_Exp) / 100);
+	ExpScale.x = ExpScale.x * (static_cast<float>(_Exp) / Player::MainPlayer->GetMaxExp());
 	ExpUIRender->SetScale(ExpScale);
 	ExpUIRender->SetPosition({ (ExpScale.hx()) + 5, MaxExpYPos });
 }

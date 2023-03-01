@@ -57,6 +57,8 @@ public:
 		LastMoveVec = _Vec;
 	}
 
+	int GetMaxExp();
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

@@ -225,6 +225,41 @@ void Player::PressMove() // 입력관리
 
 void Player::CheckLevelUp()//레벨업 체크
 {
+	//int NextLevel = PlayerLevel;
+	//int ReqExpPoint = 3192;// 200레벨포인트
+
+
+	//if (20 > NextLevel)
+	//{
+	//	ReqExpPoint = (NextLevel * 10) - 5;
+	//}
+	//else if (20 == NextLevel)
+	//{
+	//	ReqExpPoint = (NextLevel * 10) - 5 + 600;
+	//}
+	//else if (20 < NextLevel && 40 > NextLevel)
+	//{
+	//	ReqExpPoint = (NextLevel * 13) - 6;
+	//}
+	//else if (40 == NextLevel)
+	//{
+	//	ReqExpPoint = (NextLevel * 13) - 6 + 2400;
+	//}
+	//else if (40 < NextLevel)
+	//{
+	//	ReqExpPoint = (NextLevel * 16) - 8;
+	//}
+	int ReqExpPoint = GetMaxExp();
+	if (PlayerExp >= ReqExpPoint)
+	{
+		++PlayerLevel;
+		PlayerExp -= ReqExpPoint;
+		IsStop = true; // 레벨업에 의한 stop --> 아이템선택창 띄우기
+	}
+}
+
+int Player::GetMaxExp() {
+
 	int NextLevel = PlayerLevel;
 	int ReqExpPoint = 3192;// 200레벨포인트
 
@@ -249,11 +284,6 @@ void Player::CheckLevelUp()//레벨업 체크
 	{
 		ReqExpPoint = (NextLevel * 16) - 8;
 	}
+	return ReqExpPoint;
 
-	if (PlayerExp >= ReqExpPoint)
-	{
-		++PlayerLevel;
-		PlayerExp -= ReqExpPoint;
-		IsStop = true; // 레벨업에 의한 stop --> 아이템선택창 띄우기
-	}
 }
