@@ -52,7 +52,7 @@ void Monster::Start()
 	
 	
 	// 임시
-	SetHp(20);
+	SetHp(5);
 	Dmg = 5;
 	//ChangeState(MonsterState::IDLE); // 시작 시 기본 상태 설정
 }

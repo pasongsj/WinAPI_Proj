@@ -27,7 +27,11 @@ protected:
 
 private:
 	float StageTime = 0.0f;
+
 	GameEngineRender* LevelUpUIRender = nullptr;
+	GameEngineRender* ExpUIRender = nullptr;
+	float4 MaxExpScale = float4::Zero;
+	float MaxExpYPos = 0.0f;
 
 	NumberRenderObject StageTimerMin;
 	NumberRenderObject StageTimerSec;

@@ -35,11 +35,16 @@ public:
 		Hp = _Hp;
 	}
 
-	float GetHp() {
+	inline float GetHp() {
 		return Hp;
 	}
 
-	std::string GetDirString() {
+	inline int GetPlayerExp()
+	{
+		return PlayerExp;
+	}
+
+	inline std::string GetDirString() {
 		return DirString;
 	}
 

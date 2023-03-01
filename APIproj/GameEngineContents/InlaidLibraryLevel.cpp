@@ -104,12 +104,24 @@ void InlaidLibraryLevel::ImageLoad()
 
 	{
 		// UI 이미지 로드
+
+		// 캐릭터 이미지 로드
 		Dir.MoveParentToDirectory("UI");
 		Dir.Move("UI");
-		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExpBar.BMP"));
-		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("colon.BMP"));
-		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LevelUpUI.BMP"));
-		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LV.BMP"));
+
+		std::vector<GameEngineFile> Files = Dir.GetAllFile();
+
+		for (size_t i = 0; i < Files.size(); i++)
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
+		}
+
+		//GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExpBar.BMP"));
+		//GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("colon.BMP"));
+		//GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LevelUpUI.BMP"));
+		//GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LV.BMP"));
+
+		Dir.Move("number");
 		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Number.BMP"));
 		Image2->Cut(10, 1);
 		//Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExpBarBlue.BMP"));

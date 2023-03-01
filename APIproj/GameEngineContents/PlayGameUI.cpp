@@ -18,12 +18,19 @@ void PlayGameUI::Start()
 	float4 BarPos = float4::Zero;
 
 	{ // ExpBar
-		GameEngineRender* Render = CreateRender("ExpBar.BMP", VSRenderOrder::UI);
+		GameEngineRender* Render = CreateRender("ExpBlackBar.BMP", VSRenderOrder::UI);
 		Render->SetScaleToImage();
 		BarPos.x = GameEngineWindow::GetScreenSize().hx(); //768
 		BarPos.y = Render->GetScale().hy(); //17.5
 		Render->SetPosition(BarPos);
 		Render->EffectCameraOff();
+		MaxExpYPos = Render->GetScale().hy();
+
+
+		ExpUIRender = CreateRender("ExpBlueBar.BMP", VSRenderOrder::UI);
+		ExpUIRender->EffectCameraOff();
+		ExpUIRender->SetScaleToImage();
+		MaxExpScale = ExpUIRender->GetScale();
 	}
 
 	{ // LV 
@@ -86,5 +93,12 @@ void PlayGameUI::Update(float _DeltaTime)
 	StageTime += _DeltaTime;
 	StageTimerMin.SetValue(static_cast<int>(StageTime) / 60);
 	StageTimerSec.SetValue(static_cast<int>(StageTime) % 60);
+
+	int _Exp = Player::MainPlayer->GetPlayerExp();
+
+	float4 ExpScale = MaxExpScale;
+	ExpScale.x = ExpScale.x * (static_cast<float>(_Exp) / 100);
+	ExpUIRender->SetScale(ExpScale);
+	ExpUIRender->SetPosition({ (ExpScale.hx()) + 5, MaxExpYPos });
 }
 
