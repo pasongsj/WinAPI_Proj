@@ -46,6 +46,7 @@ void InlaidLibraryLevel::ImageLoad()
 		// 캐릭터 이미지 로드
 		Dir.MoveParentToDirectory("Player");
 		Dir.Move("Player");
+		Dir.Move("Characters");
 
 		std::vector<GameEngineFile> Files = Dir.GetAllFile();
 
@@ -54,14 +55,17 @@ void InlaidLibraryLevel::ImageLoad()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
 			Image->Cut(4, 1);
 		}
-		/*{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightAntonio.BMP"));
-			Image->Cut(4, 1);
-		}
+
+		Dir.MoveParentToDirectory("Addition");
+		Dir.Move("Addition");
+
+		Files.clear();
+		Files = Dir.GetAllFile();
+		for (size_t i = 0; i < Files.size(); i++)
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftAntonio.BMP"));
-			Image->Cut(4, 1);
-		}*/
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
+		}
+		int a = 0;
 
 	}
 
@@ -205,7 +209,7 @@ void InlaidLibraryLevel::Loading()
 	SetCameraPos((BGSize - GameEngineWindow::GetScreenSize()).half()); // 카메라 위치 중간으로 이동
 
 	{
-		for (int i = 0;i < 0 ;i++) 
+		for (int i = 0;i < 5 ;i++) 
 		{
 			Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
 

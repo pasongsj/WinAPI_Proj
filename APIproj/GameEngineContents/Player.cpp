@@ -93,6 +93,17 @@ void Player::Update(float _DeltaTime)
 		BodyCollision->On();
 	}
 
+
+	{ // HP바 랜더
+		float4 HpScale = MaxHpScale;
+		HpScale.x = HpScale.x * (Hp / 120);
+		HpRedBar->SetScale(HpScale);
+		HpRedBar->SetPosition({ HpScale.hx() - MaxHpScale.hx()-1, MaxHpScale.y}); // -1 pixel 보정
+	}
+	{//exp랜더
+
+	}
+
 	// 아이템 획득 콜리전
 	std::vector<GameEngineCollision*> Collision;
 	Collision.clear();
@@ -165,68 +176,6 @@ void Player::Render(float _DeltaTime)
 	GameEngineLevel::DebugTextPush(CameraText);*/
 
 
-	////float4 _Pos = Player::MainPlayer->GetPos();
-	HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
-
-	float4 HpBarPos = GetPos() - (GetLevel()->GetCameraPos()) - float4{ 0,-7 };
-	float4 HpPoint = HpbarScale;
-	HpPoint.x = HpPoint.x *(static_cast<float>(Hp) / 120);
-
-
-	// -- RedBar
-	HBRUSH myBrush = (HBRUSH)CreateSolidBrush(RGB(255, 0, 0));
-	HBRUSH oldBrush = (HBRUSH)SelectObject(DoubleDC, myBrush);
-
-	Rectangle(DoubleDC,
-		(HpBarPos.ix() - HpbarScale.hix()),
-		(HpBarPos.iy() - HpbarScale.hiy()),
-		(HpBarPos.ix() - HpbarScale.hix() + HpPoint.ix()),
-		(HpBarPos.iy() + HpbarScale.hiy())
-	);
-
-	SelectObject(DoubleDC, oldBrush);
-	DeleteObject(myBrush);
-
-	// -- BlackBar
-	myBrush = (HBRUSH)CreateSolidBrush(RGB(0, 0, 0));
-
-	oldBrush = (HBRUSH)SelectObject(DoubleDC, myBrush);
-
-	Rectangle(DoubleDC,
-		(HpBarPos.ix() - HpbarScale.hix() + HpPoint.ix()),
-		(HpBarPos.iy() - HpbarScale.hiy()),
-		(HpBarPos.ix() + HpbarScale.hix()),
-		(HpBarPos.iy() + HpbarScale.hiy())
-	);
-
-	SelectObject(DoubleDC, oldBrush);
-	DeleteObject(myBrush);
-
-	// - 왜 오류? 왜? 왜? 왜????
-	/*RECT RedBar = {	
-					static_cast<LONG> (HpBarPos.x - HpbarScale.hx()),
-					static_cast<LONG> (HpBarPos.y - HpbarScale.hy()),
-					static_cast<LONG> (HpBarPos.x - HpbarScale.hx() + HpPoint.x),
-					static_cast<LONG> (HpBarPos.y + HpbarScale.hy())
-				};*/
-
-	//RECT BlackBar = {	
-	//					static_cast<LONG> (HpBarPos.x - HpbarScale.hx() + HpPoint.x),
-	//					static_cast<LONG> (HpBarPos.y - HpbarScale.hy()),
-	//					static_cast<LONG> (HpBarPos.x + HpbarScale.hx()),
-	//					static_cast<LONG> (HpBarPos.y + HpbarScale.hy())
-	//				};
-
-	/*FillRect(
-		DoubleDC,
-		&RedBar,
-		CreateSolidBrush(RGB(255, 0, 0))
-	);*/
-	//FillRect(
-	//	BackBufferDc,
-	//	&BlackBar,
-	//	CreateSolidBrush(RGB(0, 0, 0))
-	//);
 
 }
 

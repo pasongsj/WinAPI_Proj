@@ -46,6 +46,13 @@ void Player::Start()
 			AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle_Dmged",  .ImageName = DmgLImage, .Start = 3, .End = 3, .Loop = false });
 			AnimationRender->CreateAnimation({ .AnimationName = "Left_Move_Dmged",  .ImageName = DmgLImage, .Start = 0, .End = 3, .InterTime = 0.1f });
 		}
+		GameEngineRender* HpBlackBar = CreateRender("HpBlackBar.bmp", VSRenderOrder::Player);
+		HpBlackBar->SetScaleToImage();
+		HpBlackBar->SetPosition({ 0,HpBlackBar->GetScale().y });
+
+		HpRedBar = CreateRender("HpRedBar.bmp", VSRenderOrder::Player);
+		HpRedBar->SetPosition({ 0,HpBlackBar->GetScale().y });
+		MaxHpScale = HpBlackBar->GetScale();
 	}
 
 	{

@@ -58,7 +58,7 @@ protected:
 	void Render(float _DeltaTime) override;
 
 private:
-	float AccTime = 0.0f;
+	//float AccTime = 0.0f;
 	int StartFrame = 0;
 	float MoveSpeed = 500.0f;
 	float4 MoveVec = float4::Zero;
@@ -68,7 +68,7 @@ private:
 	int PlayerExp = 0;
 	int PlayerLevel = 1;
 	float InvincibleStateDelay = 0.0f;//公利惑怕
-	float4 HpbarScale = { 70, 9 };
+	//float4 HpbarScale = { 70, 9 };
 
 	PlayerState StateValue = PlayerState::IDLE;
 	std::string DirString = "Right_";
@@ -76,6 +76,9 @@ private:
 	GameEngineRender* AnimationRender = nullptr;
 	GameEngineCollision* BodyCollision = nullptr;
 	std::vector<Weapon*> MyWeapon;
+
+	GameEngineRender* HpRedBar = nullptr;
+	float4 MaxHpScale = float4::Zero;
 
 	void DirCheck(const std::string_view& _AnimationName);// 规氢眉农
 
