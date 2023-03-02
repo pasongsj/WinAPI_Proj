@@ -27,6 +27,7 @@ void Monster::Attack(float _Att) {
 
 void Monster::Start()
 {
+	Setting();
 	AnimationRender = CreateRender(VSRenderOrder::Monster);
 	AnimationRender->SetScale({ 70, 140 });
 
@@ -37,14 +38,14 @@ void Monster::Start()
 	std::string DeadRImage = "Right" + MonsterName + "Dead.BMP";
 	std::string DeadLImage = "Left" + MonsterName + "Dead.BMP";
 	{
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = RImage, .Start = 0, .End = 1, .InterTime = 0.1f });
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Beaten",  .ImageName = DmgRImage, .Start = 0, .End = 1, .InterTime = 0.1f , .Loop = false });
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Dead",  .ImageName = DeadRImage, .Start = 0, .End = 9, .InterTime = 0.05f, .Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = RImage, .Start = 0, .End = EndFrame[0], .InterTime = 0.1f});
+		AnimationRender->CreateAnimation({ .AnimationName = "Right_Beaten",  .ImageName = DmgRImage, .Start = 0, .End = EndFrame[1], .InterTime = 0.1f , .Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "Right_Dead",  .ImageName = DeadRImage, .Start = 0, .End = EndFrame[2], .InterTime = 0.05f, .Loop = false });
 	}
 	{
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = LImage, .Start = 0, .End = 1, .InterTime = 0.1f });
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_Beaten",  .ImageName = DmgLImage, .Start = 0, .End = 1, .InterTime = 0.1f, .Loop = false });
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_Dead",  .ImageName = DeadLImage, .Start = 0, .End = 9, .InterTime = 0.05f, .Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = LImage, .Start = 0, .End = EndFrame[0], .InterTime = 0.1f });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_Beaten",  .ImageName = DmgLImage, .Start = 0, .End = EndFrame[1], .InterTime = 0.1f, .Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_Dead",  .ImageName = DeadLImage, .Start = 0, .End = EndFrame[2], .InterTime = 0.05f, .Loop = false });
 	}
 	BodyCollision = CreateCollision(VSRenderOrder::Monster);
 	BodyCollision->SetScale({ 70, 140 });
@@ -59,7 +60,6 @@ void Monster::Start()
 		//CamPos + float4(static_cast<float>(rand() % GameEngineWindow::GetScreenSize().ix()), static_cast<float>(rand() % GameEngineWindow::GetScreenSize().iy()))
 	);
 
-	Setting();
 	// 임시
 	/*SetHp(5);
 	Dmg = 5;*/
@@ -74,6 +74,10 @@ void Monster::Setting()
 		Dmg = 5;
 		MoveSpeed = 140;
 		Exp = 1;
+		EndFrame[0] = 1;
+		EndFrame[1] = 1;
+		EndFrame[2] = 9;
+
 	}
 	else if ("Musc" == MonsterName)
 	{
@@ -88,6 +92,10 @@ void Monster::Setting()
 		MoveSpeed = 160;
 		Exp = 1;
 
+		EndFrame[0] = 3;
+		EndFrame[1] = 3;
+		EndFrame[2] = 1;
+
 	}
 	else if ("Mummy" == MonsterName)
 	{
@@ -95,6 +103,11 @@ void Monster::Setting()
 		Dmg = 3;
 		MoveSpeed = 140;
 		Exp = 2;
+
+		EndFrame[0] = 3;
+		EndFrame[1] = 2;
+		EndFrame[2] = 4;
+
 	}
 	else if ("Dullahan" == MonsterName)
 	{
@@ -108,6 +121,11 @@ void Monster::Setting()
 		Dmg = 8;
 		MoveSpeed = 100;
 		Exp = 2;
+
+		EndFrame[0] = 1;
+		EndFrame[1] = 1;
+		EndFrame[2] = 3;
+
 	}
 	else if ("ColossalMedusaHead" == MonsterName)
 	{ // 추가설정 필요
@@ -120,6 +138,11 @@ void Monster::Setting()
 		Dmg = 1;
 		MoveSpeed = 240;
 		Exp = 2;
+
+		EndFrame[0] = 3;
+		EndFrame[1] = 3;
+		EndFrame[2] = 4;
+
 	}
 	else if ("LionHead" == MonsterName) // 
 	{
@@ -127,6 +150,11 @@ void Monster::Setting()
 		Dmg = 3;
 		MoveSpeed = 200;
 		Exp = 2;
+
+		EndFrame[0] = 2;
+		EndFrame[1] = 2;
+		EndFrame[2] = 3;
+
 	}
 	else if ("Ghost" == MonsterName)
 	{
@@ -134,6 +162,11 @@ void Monster::Setting()
 		Dmg = 5;
 		MoveSpeed = 200;
 		Exp = 2;
+
+		EndFrame[0] = 1;
+		EndFrame[1] = 1;
+		EndFrame[2] = 6;
+
 	}
 
 }
@@ -230,6 +263,7 @@ void Monster::DeadUpdate(float _Time)
 		GetLevel();
 		Items* Actor = GetLevel()->CreateActor<Items>(VSRenderOrder::Item);
 		Actor->SetPos(GetPos());
+		Actor->SetExp(Exp);
 		this->Death();
 	}
 }

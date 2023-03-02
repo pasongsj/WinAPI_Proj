@@ -80,5 +80,7 @@ private:
 	void DeadEnd();
 
 	void Setting();
+	//int* EndFrame = nullptr;
+	int EndFrame[3] = { 0,0,0 };
 };
 

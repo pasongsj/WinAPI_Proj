@@ -1,4 +1,5 @@
 #pragma once
+#include <set>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineResources.h>
 
@@ -27,10 +28,20 @@ protected:
 	GameEngineSoundPlayer BGMPlayer;
 
 private:
+	float LevelTime = 0.0f;
+	float MonsterReGenTime = 0.0f;
+
+	float RegenInterval = 0.0f;
+	int MaxMonster = 0;
+
+	std::set<std::string> SponableMonster;
 
 	float4 BGSize = float4::Zero;
 	void ImageLoad();
 	void SoundLoad();
 	PlayGameUI* NewUI = nullptr;
+
+	void ReGenMonster(float _DeltaTime);
+	void SetState(float _DeltaTime);
 };
 
