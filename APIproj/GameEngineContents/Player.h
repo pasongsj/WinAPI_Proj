@@ -65,6 +65,40 @@ protected:
 	void Render(float _DeltaTime) override;
 
 private:
+
+	class Active
+	{
+		friend Player;
+
+		float MAXHealth;	//최대체력
+		float Recovery;		// 회복
+		int Armor;			// 방어력
+		float MoveSpeed;	// 이동속도
+
+		float Might;		// 괴력
+		float Area;			// 공격범위
+		float Speed;		// 투사체 속도
+		float Duration;		// 지속시간
+		int Amount;			// 투사체 수
+		float Cooldown;		// 쿨타임
+
+		int Luck;// 행운
+		int Growth;// 성장
+		int Greed;// 탐욕
+		int Magnet;// 자석
+
+		int Revival;// 부활
+		int Reroll;// 새로고침
+		int Skip;// 건너뛰기
+
+		//bool KeyCheck()
+		//{
+		//	return 0 != GetAsyncKeyState(Key);
+		//}
+
+		//void Update(float _DeltaTime);
+	};
+
 	//float AccTime = 0.0f;
 	int StartFrame = 0;
 	float MoveSpeed = 500.0f;
@@ -117,5 +151,6 @@ private:
 
 	void WeaponUpdate(float _DeltaTime);
 	void CheckLevelUp();
+	
 };
 

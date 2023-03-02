@@ -1,4 +1,5 @@
 #include "AdditionItemUI.h"
+#include <set>
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
@@ -22,33 +23,31 @@ void AdditionItemUI::Start()
 {
 	SelectUI = this;
 	{
-		LevelUpUIRender = CreateRender("LevelUpUI.BMP", VSRenderOrder::UI);
+		LevelUpUIRender = CreateRender("LevelUpUI.BMP", VSRenderOrder::LastUI);
 		LevelUpUIRender->SetScaleToImage();
 		LevelUpUIRender->SetPosition(GameEngineWindow::GetScreenSize().half());
 		LevelUpUIRender->EffectCameraOff();
 	}
-	float4 _Pos = GameEngineWindow::GetScreenSize().half();
-	_Pos.y -= BtnScale.y*(1.2);
 
-	for (int i = 0;i < 4;i++)
 	{
-		//Button* NewCharBtn = GetLevel()->CreateActor<Button>(VSRenderOrder::UI);
-		//NewCharBtn->setting("LevelupBlank.BMP", "LevelupBlank.BMP", "LevelupBlank.BMP", _Pos, BtnScale, static_cast<int>(VSRenderOrder::UI), false);
-		//Items.push_back(NewCharBtn);
-		BtnPos.push_back(_Pos);
-		_Pos.y += BtnScale.y;
-		//NewCharBtn->Off();
+		StatUI = CreateRender("StatUI.BMP", VSRenderOrder::LastUI);
+		StatUI->SetScaleToImage();
+		float4 StatUIPos = StatUI->GetScale().half();
+		StatUIPos.y += 30;
+		StatUI->SetPosition(StatUIPos);
+		StatUI->EffectCameraOff();
 	}
 
-	//for (int i = 0;i < 4;i++)
-	//{
-	//	Button* NewBtn = GetLevel()->CreateActor<Button>(VSRenderOrder::UI);
-	//	Items[i]->setting("LevelupBlank.bmp", "LevelupBlank.bmp", "LevelupBlank.bmp", _Pos, BtnScale, static_cast<int>(VSRenderOrder::UI), false);
-	//	//Items.push_back(NewBtn);
-	//	//BtnPos.push_back(_Pos);
-	//	////NewBtn->Off();
-	//	//_Pos.y += BtnScale.y;
-	//}
+
+	float4 _Pos = GameEngineWindow::GetScreenSize().half();
+	_Pos.y -= static_cast<float>(BtnScale.y*(1.05));
+	for (int i = 0;i < 4;i++)
+	{
+		BtnPos.push_back(_Pos);
+		_Pos.y += BtnScale.y;
+	}
+
+
 	{
 		LevelupItems.push_back("LevelupBracer.bmp");
 		LevelupItems.push_back("LevelupCandle.bmp");
@@ -61,7 +60,7 @@ void AdditionItemUI::Start()
 		LevelupItems.push_back("LevelupMagicwand.bmp");
 		LevelupItems.push_back("LevelupMagnet.bmp");
 		LevelupItems.push_back("LevelupMoney.bmp");
-		//LevelupItems.push_back("LevelupWhip.bmp");
+		LevelupItems.push_back("LevelupWhip.bmp");
 		LevelupItems.push_back("LevelupRunetracer.bmp");
 		LevelupItems.push_back("LevelupSpinach.bmp");
 		LevelupItems.push_back("LevelupWing.bmp");
@@ -70,6 +69,7 @@ void AdditionItemUI::Start()
 	{
 		Button* NewCharBtn = GetLevel()->CreateActor<Button>(VSRenderOrder::LastUI);
 		NewCharBtn->setting(_Name, _Name, _Name, {0,0}, BtnScale, static_cast<int>(VSRenderOrder::LastUI), false);
+		//NewCharBtn->SetClickCallBack();
 		Items.push_back(NewCharBtn);
 		NewCharBtn->Off();
 	}
@@ -96,19 +96,38 @@ void AdditionItemUI::Update(float _DeltaTime)
 
 void AdditionItemUI::ReSet()
 {
-	for (int i = 0;i < 4;i++)
+	std::set<Button*> ShowedBtn;
+
+	int i = 0;
+	while (true)
 	{
-		int ItemIndex = GameEngineRandom::MainRandom.RandomInt(0, LevelupItems.size() - 1);
-		Items[ItemIndex]->On();
-		Items[ItemIndex]->SetPos(BtnPos[i]);
+		if (ShowedBtn.size() == 4 || Items.size() == 0)
+		{
+			break;
+		}
+		int ItemIndex = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(Items.size()) - 1);
+		Button* Picked = Items[ItemIndex];
+		ShowedBtn.insert(Picked);
+		Picked->On();
+		Picked->SetPos(BtnPos[i++]);
+		Items.erase(Items.begin() + ItemIndex);
 	}
 	int a = 0;
+	std::set<Button*>::iterator startit = ShowedBtn.begin();
+	std::set<Button*>::iterator endit = ShowedBtn.end();
+
+	for (;startit != endit;startit++)
+	{
+		Items.push_back(*startit);
+	}
+
 }
 
 void AdditionItemUI::UIOn()
 {
 	this->On();
 	LevelUpUIRender->On();
+	StatUI->On();
 	for (Button* _Btn : Items)
 	{
 		_Btn->On();
@@ -116,9 +135,9 @@ void AdditionItemUI::UIOn()
 }
 void AdditionItemUI::UIOff()
 {
-
 	this->On();
 	LevelUpUIRender->Off();
+	StatUI->Off();
 	for (Button* _Btn : Items)
 	{
 		_Btn->Off();

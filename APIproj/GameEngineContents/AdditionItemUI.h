@@ -38,6 +38,7 @@ private:
 	float4 BtnScale = float4{ 456,127, };
 	std::vector<float4> BtnPos;
 	GameEngineRender* LevelUpUIRender = nullptr;
+	GameEngineRender* StatUI = nullptr;
 
 	void ReSet();
 

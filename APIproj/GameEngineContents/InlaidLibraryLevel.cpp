@@ -210,7 +210,7 @@ void InlaidLibraryLevel::Loading()
 
 	{
 		// 몬스터 액터 생성
-		for (int i = 0;i < 5 ;i++) 
+		for (int i = 0;i < 0 ;i++) 
 		{
 			Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
 		}
