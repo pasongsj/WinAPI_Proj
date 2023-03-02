@@ -12,6 +12,8 @@ enum class MonsterState
 class Monster : public GameEngineActor
 {
 public:
+	
+	static std::string MonsterName;
 	// constrcuter destructer
 	Monster() ;
 	~Monster();
@@ -51,6 +53,7 @@ private:
 	float Hp = 0;
 	float Dmg = 0;
 	float MoveSpeed = 200.0f;
+	int Exp = 0;
 	float4 MoveVec = float4::Zero;
 
 	GameEngineRender* AnimationRender = nullptr;
@@ -75,5 +78,7 @@ private:
 	void DeadStart();
 	void DeadUpdate(float _Time);
 	void DeadEnd();
+
+	void Setting();
 };
 

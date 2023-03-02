@@ -177,10 +177,6 @@ void GameEngineLevel::ActorsRender(float _DeltaTime)
 						continue;
 					}
 					DebugCollision->DebugRender();
-					if (7 == _Order)
-					{
-						int a = 0;
-					}
 				}
 			}
 		}

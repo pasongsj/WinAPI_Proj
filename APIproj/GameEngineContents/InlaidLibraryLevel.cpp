@@ -72,32 +72,72 @@ void InlaidLibraryLevel::ImageLoad()
 
 	}
 
-	{
-		// 몬스터 이미지 로드
+	{	// 몬스터 이미지 로드
 		Dir.MoveParentToDirectory("Monster");
 		Dir.Move("Monster");
-		Dir.Move("Cut21");
-		// MoveState
-		// BeatenState
-		std::vector<GameEngineFile> Files = Dir.GetAllFile();
-
-		for (size_t i = 0; i < Files.size(); i++)
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
-			Image->Cut(2, 1);
+			Dir.Move("Cut21");
+			std::vector<GameEngineFile> Files = Dir.GetAllFile();
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
+				Image->Cut(2, 1);
+			}
 		}
 
-		//DeadState
-		Dir.MoveParent();
-		Dir.Move("Cut52");
-
-		Files.clear();
-		Files = Dir.GetAllFile();
-
-		for (size_t i = 0; i < Files.size(); i++)
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
-			Image->Cut(5, 2);
+			Dir.MoveParent();
+			Dir.Move("Cut31");
+			std::vector<GameEngineFile> Files = Dir.GetAllFile();
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
+				Image->Cut(3, 1);
+			}
+		}
+
+		{
+			Dir.MoveParent();
+			Dir.Move("Cut41");
+			std::vector<GameEngineFile> Files = Dir.GetAllFile();
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
+				Image->Cut(4, 1);
+			}
+		}
+
+		{
+			Dir.MoveParent();
+			Dir.Move("Cut51");
+			std::vector<GameEngineFile> Files = Dir.GetAllFile();
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
+				Image->Cut(5, 1);
+			}
+		}
+
+		{
+			Dir.MoveParent();
+			Dir.Move("Cut52");
+			std::vector<GameEngineFile> Files = Dir.GetAllFile();
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
+				Image->Cut(5, 2);
+			}
+		}
+
+		{
+			Dir.MoveParent();
+			Dir.Move("Cut71");
+			std::vector<GameEngineFile> Files = Dir.GetAllFile();
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
+				Image->Cut(7, 1);
+			}
 		}
 	}
 
@@ -211,7 +251,7 @@ void InlaidLibraryLevel::Loading()
 
 	{
 		// 몬스터 액터 생성
-		for (int i = 0;i < 0 ;i++) 
+		for (int i = 0;i < 20 ;i++) 
 		{
 			Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
 		}

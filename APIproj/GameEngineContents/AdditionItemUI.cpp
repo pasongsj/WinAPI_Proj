@@ -51,10 +51,12 @@ void PushLevelupKingBible()
 void PushLevelupKnife()
 {
 	Player::MainPlayer->PushWeapon("Knife");
+	Player::IsStop = false;
 }
 void PushLevelupMagicwand()
 {
 	Player::MainPlayer->PushWeapon("MagicWand");
+	Player::IsStop = false;
 }
 void PushLevelupMagnet()
 {
@@ -67,6 +69,7 @@ void PushLevelupMoney()
 void PushLevelupWhip()
 {
 	Player::MainPlayer->PushWeapon("Whip");
+	Player::IsStop = false;
 }
 void PushLevelupRunetracer()
 {

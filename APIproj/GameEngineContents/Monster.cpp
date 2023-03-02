@@ -8,6 +8,9 @@
 #include "Player.h"
 #include "Items.h"
 
+
+std::string Monster::MonsterName = "Dust";
+
 Monster::Monster()
 {
 }
@@ -27,19 +30,26 @@ void Monster::Start()
 	AnimationRender = CreateRender(VSRenderOrder::Monster);
 	AnimationRender->SetScale({ 70, 140 });
 
+	std::string RImage = "Right" + MonsterName + ".BMP";
+	std::string LImage = "Left" + MonsterName + ".BMP";
+	std::string DmgRImage = "Right" + MonsterName + "Dmged.BMP";
+	std::string DmgLImage = "Left" + MonsterName + "Dmged.BMP";
+	std::string DeadRImage = "Right" + MonsterName + "Dead.BMP";
+	std::string DeadLImage = "Left" + MonsterName + "Dead.BMP";
 	{
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "RightDust.bmp", .Start = 0, .End = 1, .InterTime = 0.1f });
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Beaten",  .ImageName = "RightDustDmged.bmp", .Start = 0, .End = 1, .InterTime = 0.1f , .Loop = false });
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Dead",  .ImageName = "RightDustDead.bmp", .Start = 0, .End = 9, .InterTime = 0.05f, .Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = RImage, .Start = 0, .End = 1, .InterTime = 0.1f });
+		AnimationRender->CreateAnimation({ .AnimationName = "Right_Beaten",  .ImageName = DmgRImage, .Start = 0, .End = 1, .InterTime = 0.1f , .Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "Right_Dead",  .ImageName = DeadRImage, .Start = 0, .End = 9, .InterTime = 0.05f, .Loop = false });
 	}
 	{
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "LeftDust.bmp", .Start = 0, .End = 1, .InterTime = 0.1f });
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_Beaten",  .ImageName = "LeftDustDmged.bmp", .Start = 0, .End = 1, .InterTime = 0.1f, .Loop = false });
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_Dead",  .ImageName = "LeftDustDead.bmp", .Start = 0, .End = 9, .InterTime = 0.05f, .Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = LImage, .Start = 0, .End = 1, .InterTime = 0.1f });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_Beaten",  .ImageName = DmgLImage, .Start = 0, .End = 1, .InterTime = 0.1f, .Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_Dead",  .ImageName = DeadLImage, .Start = 0, .End = 9, .InterTime = 0.05f, .Loop = false });
 	}
 	BodyCollision = CreateCollision(VSRenderOrder::Monster);
 	BodyCollision->SetScale({ 70, 140 });
 	BodyCollision->SetPosition({ 0, -30 });
+	AnimationRender->ChangeAnimation("Right_Move");
 
 	//srand(time(0));
 	float4 PlayerPos = GetLevel()->GetCameraPos() + GameEngineWindow::GetScreenSize().half();
@@ -48,13 +58,84 @@ void Monster::Start()
 		RandPos
 		//CamPos + float4(static_cast<float>(rand() % GameEngineWindow::GetScreenSize().ix()), static_cast<float>(rand() % GameEngineWindow::GetScreenSize().iy()))
 	);
-	AnimationRender->ChangeAnimation("Right_Move");
-	
-	
+
+	Setting();
 	// 임시
-	SetHp(5);
-	Dmg = 5;
+	/*SetHp(5);
+	Dmg = 5;*/
 	//ChangeState(MonsterState::IDLE); // 시작 시 기본 상태 설정
+}
+
+void Monster::Setting()
+{
+	if ("Dust" == MonsterName)
+	{
+		Hp = 5;
+		Dmg = 5;
+		MoveSpeed = 140;
+		Exp = 1;
+	}
+	else if ("Musc" == MonsterName)
+	{
+		//1 - 2:00, 6:00, 7:00, 17:00
+		Hp = 1;
+		Dmg = 2;
+		MoveSpeed = 160;
+		Exp = 1;
+		//2 - 7:00, 8:00, 10:00, 14:00, 17:00
+		Hp = 13;
+		Dmg = 4;
+		MoveSpeed = 160;
+		Exp = 1;
+
+	}
+	else if ("Mummy" == MonsterName)
+	{
+		Hp = 15;
+		Dmg = 3;
+		MoveSpeed = 140;
+		Exp = 2;
+	}
+	else if ("Dullahan" == MonsterName)
+	{
+		//2 - 6:00, 7:00, 12:00, 13:00, 16:00, 23:00
+		Hp = 70;
+		Dmg = 8;
+		MoveSpeed = 100;
+		Exp = 2;
+		//3 - 16:00, 19:00, 20:00, 23:00
+		Hp = 150;
+		Dmg = 8;
+		MoveSpeed = 100;
+		Exp = 2;
+	}
+	else if ("ColossalMedusaHead" == MonsterName)
+	{ // 추가설정 필요
+		Hp = 1;
+		Dmg = 1;
+		MoveSpeed = 600;
+		Exp = 1;
+		//
+		Hp = 25;
+		Dmg = 1;
+		MoveSpeed = 240;
+		Exp = 2;
+	}
+	else if ("LionHead" == MonsterName) // 
+	{
+		Hp = 3*Player::MainPlayer->GetHp();
+		Dmg = 3;
+		MoveSpeed = 200;
+		Exp = 2;
+	}
+	else if ("Ghost" == MonsterName)
+	{
+		Hp = 10;
+		Dmg = 5;
+		MoveSpeed = 200;
+		Exp = 2;
+	}
+
 }
 
 
