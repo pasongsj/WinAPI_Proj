@@ -55,6 +55,9 @@
     <ClInclude Include="WeaponKnife.h">
       <Filter>Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="AdditionItemUI.h">
+      <Filter>PlayUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsGameCore.cpp" />
@@ -115,6 +118,9 @@
     </ClCompile>
     <ClCompile Include="WeaponKnife.cpp">
       <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="AdditionItemUI.cpp">
+      <Filter>PlayUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

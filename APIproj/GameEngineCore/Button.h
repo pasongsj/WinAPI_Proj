@@ -53,6 +53,11 @@ public:
 		PressImageName = _Name;
 	}
 
+	std::string GetBtnImage()
+	{
+		return ReleaseImageName;
+	}
+
 	GameEngineRender* GetButtonRender()
 	{
 		return ButtonRender;

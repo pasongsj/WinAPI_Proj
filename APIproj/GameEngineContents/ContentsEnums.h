@@ -9,5 +9,6 @@ enum class VSRenderOrder
 	Item,
 	Weapon,
 	UI,
+	LastUI,
 
 };

@@ -3,6 +3,7 @@
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineRender.h>
 #include "Player.h"
+#include "AdditionItemUI.h"
 
 PlayGameUI::PlayGameUI()
 {
@@ -41,13 +42,13 @@ void PlayGameUI::Start()
 		Render->SetPosition(BarPos);
 		Render->EffectCameraOff();
 	}
-	{
+	/*{
 		LevelUpUIRender = CreateRender("LevelUpUI.BMP", VSRenderOrder::UI);
 		LevelUpUIRender->SetScaleToImage();
 		LevelUpUIRender->SetPosition(GameEngineWindow::GetScreenSize().half());
 		LevelUpUIRender->EffectCameraOff();
 		LevelUpUIRender->Off();
-	}
+	}*/
 
 	{ // time - colon
 		BarPos.x = GameEngineWindow::GetScreenSize().hx();
@@ -86,9 +87,14 @@ void PlayGameUI::Start()
 
 void PlayGameUI::Update(float _DeltaTime)
 {
-	if (true == Player::IsStop)
+	if (true == Player::IsStop )
 	{
-		LevelUpUIRenderOn();
+		AdditionItemUI::SelectUI->UIOn();
+		//LevelUpUIRenderOn();
+	}
+	else
+	{
+		AdditionItemUI::SelectUI->UIOff();
 	}
 	StageTime += _DeltaTime;
 	StageTimerMin.SetValue(static_cast<int>(StageTime) / 60);

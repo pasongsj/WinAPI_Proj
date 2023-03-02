@@ -13,6 +13,8 @@
 #include "PlayGameUI.h"
 #include "Weapon.h"
 #include  "Items.h"
+#include "AdditionItemUI.h"
+
 
 #include "WeaponWhip.h"
 #include "WeaponMagicWand.h"
@@ -73,31 +75,27 @@ void InlaidLibraryLevel::ImageLoad()
 		// 몬스터 이미지 로드
 		Dir.MoveParentToDirectory("Monster");
 		Dir.Move("Monster");
+		Dir.Move("Cut21");
 		// MoveState
-		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightDust.BMP"));
-			Image->Cut(2, 1);
-		}
-		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftDust.BMP"));
-			Image->Cut(2, 1);
-		}
 		// BeatenState
+		std::vector<GameEngineFile> Files = Dir.GetAllFile();
+
+		for (size_t i = 0; i < Files.size(); i++)
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightDustDmged.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
 			Image->Cut(2, 1);
 		}
-		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftDustDmged.BMP"));
-			Image->Cut(2, 1);
-		}
+
 		//DeadState
+		Dir.MoveParent();
+		Dir.Move("Cut52");
+
+		Files.clear();
+		Files = Dir.GetAllFile();
+
+		for (size_t i = 0; i < Files.size(); i++)
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightDustDead.BMP"));
-			Image->Cut(5, 2);
-		}
-		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftDustDead.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
 			Image->Cut(5, 2);
 		}
 	}
@@ -116,21 +114,11 @@ void InlaidLibraryLevel::ImageLoad()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
 		}
 
-		//GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExpBar.BMP"));
-		//GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("colon.BMP"));
-		//GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LevelUpUI.BMP"));
-		//GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LV.BMP"));
-
+		// 숫자이미지 로드
 		Dir.Move("number");
 		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Number.BMP"));
 		Image2->Cut(10, 1);
-		//Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ExpBarBlue.BMP"));
 	}
-
-	//{ // UI - 맵 숫자 이미지 로드
-	//	Dir.MoveParentToDirectory("InlaidLibrary");
-	//	Dir.Move("InlaidLibrary");
-	//}
 
 	{
 		Dir.MoveParentToDirectory("Weapon");
@@ -198,36 +186,33 @@ void InlaidLibraryLevel::Loading()
 	{
 		GameEngineInput::CreateKey("DebugRenderSwitch", 'R');
 	}
+	SetCameraPos((BGSize - GameEngineWindow::GetScreenSize()).half()); // 카메라 위치 중간으로 이동
 
 	{
+		// 무기 액터생성
 		CreateActor<WeaponWhip>(VSRenderOrder::Weapon);
 		CreateActor<WeaponMagicWand>(VSRenderOrder::Weapon);
 		CreateActor<WeaponKnife>(VSRenderOrder::Weapon);
 	}
 
 	{
+		// 배경 액터 생성
 		InlaidLibraryBack* BackGround = CreateActor<InlaidLibraryBack>(VSRenderOrder::BackGround); // 가시적 배경
 	}
 
 	{
-		/*PlayGameUI* */NewUI = CreateActor<PlayGameUI>(VSRenderOrder::UI);
+		// UI 액터생성
+		AdditionItemUI* SelectItemUI = CreateActor<AdditionItemUI>(VSRenderOrder::UI);
+		SelectItemUI->Off();
+		NewUI = CreateActor<PlayGameUI>(VSRenderOrder::UI);
 	}
 
-	//{
-	//	Player* NewPlayer = CreateActor<Player>(VSRenderOrder::Player); // 플레이어
-	//	NewPlayer->SetMove(BGSize.half()); // 화면 중간위치로 이동
-	//}
-
-	SetCameraPos((BGSize - GameEngineWindow::GetScreenSize()).half()); // 카메라 위치 중간으로 이동
 
 	{
+		// 몬스터 액터 생성
 		for (int i = 0;i < 5 ;i++) 
 		{
 			Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
-
-			/*Actor->SetMove(
-				BGSize.half() + float4(static_cast<float>(rand() % GameEngineWindow::GetScreenSize().hix()), static_cast<float>(rand() % GameEngineWindow::GetScreenSize().hiy()))
-			);*/
 		}
 	}
 
@@ -253,7 +238,8 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 	}
 	else
 	{
-		NewUI->LevelUpUIRenderOff();
+		AdditionItemUI::SelectUI->ReSetOff();
+		//NewUI->LevelUpUIRenderOff();
 		SetTimeScale(VSRenderOrder::BackGround, 1);
 		SetTimeScale(VSRenderOrder::Map, 1);
 		SetTimeScale(VSRenderOrder::Player, 1);
