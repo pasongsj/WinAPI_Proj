@@ -154,7 +154,7 @@ void GameEngineLevel::ActorsRender(float _DeltaTime)
 			}
 		}
 	}
-	int a = 0;
+
 
 	{ // ÄÝ¸®Àü ·»´õ
 		if (true == IsDebugRender)
@@ -164,6 +164,7 @@ void GameEngineLevel::ActorsRender(float _DeltaTime)
 
 			for (; GroupStartIter != GroupEndIter; ++GroupStartIter)
 			{
+				int _Order = GroupStartIter->first;
 				std::list<GameEngineCollision*>& CollisionList = GroupStartIter->second;
 				std::list<GameEngineCollision*>::iterator CollisionIterStart = CollisionList.begin();
 				std::list<GameEngineCollision*>::iterator CollisionIterEnd = CollisionList.end();
@@ -176,6 +177,10 @@ void GameEngineLevel::ActorsRender(float _DeltaTime)
 						continue;
 					}
 					DebugCollision->DebugRender();
+					if (7 == _Order)
+					{
+						int a = 0;
+					}
 				}
 			}
 		}

@@ -109,7 +109,7 @@ void TitleLevel::Update(float _DeltaTime)
 	if (GameEngineInput::IsDown("DebugRenderSwitch"))
 	{
 		DebugRenderSwitch();
-		// Player::MainPlayer->Death()p;
+		// Player::MainPlayer->Death();
 	}
 	//if (true == GameEngineInput::IsDown("LevelChange"))
 	//{

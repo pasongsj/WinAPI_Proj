@@ -59,6 +59,8 @@ public:
 
 	int GetMaxExp();
 
+	void PushWeapon(const std::string_view& _Weapon);
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -71,7 +73,7 @@ private:
 		friend Player;
 
 		float MAXHealth;	//최대체력
-		float Recovery;		// 회복
+		float Recovery = 0;		// 회복
 		int Armor;			// 방어력
 		float MoveSpeed;	// 이동속도
 

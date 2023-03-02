@@ -15,6 +15,7 @@
 #include  "Items.h"
 #include "AdditionItemUI.h"
 
+#include "MouseObject.h"
 
 #include "WeaponWhip.h"
 #include "WeaponMagicWand.h"
@@ -180,7 +181,7 @@ void InlaidLibraryLevel::Loading()
 		GameEngineInput::CreateKey("StopDebug", 'P');
 		//GameEngineInput::CreateKey("RLevelChange", 'I');
 	}
-	
+	MouseObject* MouseObjectInst = CreateActor<MouseObject>(); //마우스 오브젝트 생성
 
 	if (false == GameEngineInput::IsKey("DebugRenderSwitch"))
 	{
@@ -202,8 +203,8 @@ void InlaidLibraryLevel::Loading()
 
 	{
 		// UI 액터생성
-		AdditionItemUI* SelectItemUI = CreateActor<AdditionItemUI>(VSRenderOrder::UI);
-		SelectItemUI->Off();
+		AdditionItemUI* SelectItemUI = CreateActor<AdditionItemUI>(VSRenderOrder::LastUI);
+		/*SelectItemUI->Off();*/
 		NewUI = CreateActor<PlayGameUI>(VSRenderOrder::UI);
 	}
 
@@ -227,6 +228,7 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 
 	if (true == Player::IsStop)
 	{
+		AdditionItemUI::SelectUI->UIOn();
 		//GameEngineCore::GetInst()->ChangeLevel("TitleLevel");
 		SetTimeScale(VSRenderOrder::BackGround, 0);
 		SetTimeScale(VSRenderOrder::Map, 0);
@@ -238,6 +240,7 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 	}
 	else
 	{
+		AdditionItemUI::SelectUI->UIOff();
 		AdditionItemUI::SelectUI->ReSetOff();
 		//NewUI->LevelUpUIRenderOff();
 		SetTimeScale(VSRenderOrder::BackGround, 1);

@@ -1,4 +1,5 @@
 #pragma once
+#include <set>
 #include <GameEngineCore/GameEngineActor.h>
 #include <GameEngineCore/Button.h>
 
@@ -40,7 +41,8 @@ private:
 	GameEngineRender* LevelUpUIRender = nullptr;
 	GameEngineRender* StatUI = nullptr;
 
-	void ReSet();
+	std::set<Button*> ShowedBtn;
 
+	void ReSet();
 };
 

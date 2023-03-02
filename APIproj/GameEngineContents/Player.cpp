@@ -162,7 +162,7 @@ void Player::DirCheck(const std::string_view& _AnimationName)
 void Player::Render(float _DeltaTime)
 {
 	// -- 임시 Level에 Debug할 때 띄우기
-	/*float4 ForCheck = AnimationRender->GetPosition();
+	float4 ForCheck = AnimationRender->GetPosition();
 	float4 _Pos = GetPos();
 	std::string MouseText = "Position : ";
 	MouseText += _Pos.ToString();
@@ -170,7 +170,7 @@ void Player::Render(float _DeltaTime)
 
 	std::string CameraText = "CameraPosition : ";
 	CameraText += GetLevel()->GetCameraPos().ToString();
-	GameEngineLevel::DebugTextPush(CameraText);*/
+	GameEngineLevel::DebugTextPush(CameraText);
 
 
 
@@ -259,4 +259,25 @@ int Player::GetMaxExp() {
 	}
 	return ReqExpPoint;
 
+}
+
+
+void Player::PushWeapon(const std::string_view& _Weapon)
+{
+	std::string WeaponName = _Weapon.data();
+	if (Weapon::Weapons.end() == Weapon::Weapons.find(WeaponName))
+	{
+		MsgAssert(WeaponName+"은 생성되지 않은 무기입니다.");
+		return;
+	}
+	Weapon* _WeaponPointer = Weapon::Weapons[WeaponName];
+	std::vector<Weapon*>::iterator it = find(MyWeapon.begin(), MyWeapon.end(), _WeaponPointer);
+	if (it == MyWeapon.end()) // 새로 추가하기
+	{
+		MyWeapon.push_back(_WeaponPointer);
+	}
+	else // 레벨업 하기
+	{
+
+	}
 }

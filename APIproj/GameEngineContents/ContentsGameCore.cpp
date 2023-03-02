@@ -30,7 +30,7 @@ void ContentsGameCore::Start()
 	//CreateLevel<MadForestLevel>("MadForestLevelt");
 	CreateLevel<InlaidLibraryLevel>("InlaidLibraryLevel");
 	CreateLevel<TitleLevel>("TitleLevel");
-	CreateLevel<PlayLevel>("PlayLevel");
+	//CreateLevel<PlayLevel>("PlayLevel");
 	CreateLevel< OpeningLevel>("OpeningLevel");
 	ChangeLevel("OpeningLevel");
 }
