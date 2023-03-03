@@ -66,6 +66,9 @@
     <ClInclude Include="WeaponKingBible.h">
       <Filter>Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="WeaponFireWand.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsGameCore.cpp" />
@@ -142,6 +145,9 @@
       <Filter>Weapon</Filter>
     </ClCompile>
     <ClCompile Include="WeaponKingBible.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponFireWand.cpp">
       <Filter>Weapon</Filter>
     </ClCompile>
   </ItemGroup>

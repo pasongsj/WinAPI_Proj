@@ -38,7 +38,8 @@ void PushLevelupEmptytome()
 }
 void PushLevelupFirewand()
 {
-	//Player::MainPlayer->PushWeapon("Firewand");
+	Player::MainPlayer->PushWeapon("FireWand");
+	Player::IsStop = false;
 }
 void PushLevelupHp()
 {

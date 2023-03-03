@@ -23,6 +23,7 @@
 #include "WeaponKnife.h"
 #include "WeaponRuneTracer.h"
 #include "WeaponKingBible.h"
+#include "WeaponFireWand.h"
 
 
 void ChangeLevelToTitle()
@@ -77,6 +78,7 @@ void InlaidLibraryLevel::Loading()
 		CreateActor<WeaponKnife>(VSRenderOrder::Weapon);
 		CreateActor<WeaponRuneTracer>(VSRenderOrder::Weapon);
 		CreateActor<WeaponKingBible>(VSRenderOrder::Weapon);
+		CreateActor<WeaponFireWand>(VSRenderOrder::Weapon);
 	}
 
 	{
@@ -171,13 +173,16 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 		GameEngineCore::SetSpeedUp(beforeSpeed*0.2f);
 	}
 
-
 	SetState(_DeltaTime);
 	ReGenMonster(_DeltaTime);
 	CheckEnd();
 }
 void InlaidLibraryLevel::ReGenMonster(float _DeltaTime)
 {
+	if (Player::IsStop == true)
+	{
+		return;
+	}
 
 	MonsterReGenTime += _DeltaTime;
 	if (GetActors(VSRenderOrder::Monster).size() >= MaxMonster) {
