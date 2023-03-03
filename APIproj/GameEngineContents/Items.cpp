@@ -13,17 +13,32 @@ Items::~Items()
 {
 }
 
+void Items::SetExp(int _Exp)
+{
+	Exp = _Exp;
+	if (Exp >= 10)
+	{
+		ItemRender->SetImage("ExperienceGemRed.bmp");
+	}
+	else if (Exp >= 5)
+	{
+		ItemRender->SetImage("ExperienceGemGreen.bmp");
+	}
+	else
+	{
+		ItemRender->SetImage("ExperienceGemBlue.bmp");
+	}
+}
+
 void Items::Start()
 {
 	ItemRender = CreateRender(VSRenderOrder::Item);
 	ItemCollision = CreateCollision(VSRenderOrder::Item);
-	//ItemRender->SetImage("exp0.bmp");
-	ItemRender->SetImageToScaleToImage("exp0.bmp");
 
-	/*ItemRender->SetScale({ 32,45 });*/
+	ItemRender->SetImageToScaleToImage("ExperienceGemBlue.bmp");
+
 	ItemCollision->SetScale(ItemRender->GetScale());
 
-	//ItemRender->SetScaleToImage();
 	ItemRender->SetPosition({ 0,-ItemRender->GetScale().hy()});
 	ItemCollision->SetPosition({ 0,-ItemRender->GetScale().hy()});
 }

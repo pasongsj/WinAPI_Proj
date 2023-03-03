@@ -195,7 +195,11 @@ void InlaidLibraryLevel::ImageLoad()
 	{
 		Dir.MoveParentToDirectory("Item");
 		Dir.Move("Item");
-		GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("exp0.BMP"));
+		std::vector<GameEngineFile> Files = Dir.GetAllFile();
+		for (size_t i = 0; i < Files.size(); i++)
+		{
+			GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
+		}
 	}
 }
 
@@ -519,7 +523,7 @@ void InlaidLibraryLevel::ReGenMonster(float _DeltaTime)
 	if (MonsterReGenTime >= RegenInterval)
 	{
 		std::set<std::string>::iterator it = SponableMonster.begin();
-		int RandNum = GameEngineRandom::MainRandom.RandomInt(0, SponableMonster.size() - 1);
+		int RandNum = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(SponableMonster.size()) - 1);
 		while (RandNum)
 		{
 			it++;

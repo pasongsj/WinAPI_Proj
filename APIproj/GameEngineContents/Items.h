@@ -14,9 +14,7 @@ public:
 	Items(Items&& _Other) noexcept = delete;
 	Items& operator=(const Items& _Other) = delete;
 	Items& operator=(Items&& _Other) noexcept = delete;
-	inline void SetExp(int _Exp) {
-		Exp = _Exp;
-	}
+	void SetExp(int _Exp); 
 	inline int GetExp() {
 		return Exp;
 	}
