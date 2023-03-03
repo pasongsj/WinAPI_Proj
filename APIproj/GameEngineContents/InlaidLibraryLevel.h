@@ -5,9 +5,11 @@
 
 // 화려한 도서관 스테이지
 class PlayGameUI;
+class InlaidLibraryBack;
 class InlaidLibraryLevel : public GameEngineLevel
 {
 public:
+
 	// constrcuter destructer
 	InlaidLibraryLevel() ;
 	~InlaidLibraryLevel();
@@ -40,8 +42,12 @@ private:
 	void ImageLoad();
 	void SoundLoad();
 	PlayGameUI* NewUI = nullptr;
+	InlaidLibraryBack* BackGround = nullptr;
 
 	void ReGenMonster(float _DeltaTime);
 	void SetState(float _DeltaTime);
+
+	void CheckEnd();
+
 };
 

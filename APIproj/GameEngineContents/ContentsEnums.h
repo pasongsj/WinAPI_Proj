@@ -10,5 +10,6 @@ enum class VSRenderOrder
 	Weapon,
 	UI,
 	LastUI,
+	MAX
 
 };

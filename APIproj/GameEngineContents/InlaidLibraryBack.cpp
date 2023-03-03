@@ -28,6 +28,25 @@ void InlaidLibraryBack::Start()
 		RemainBackGroundRender->SetPosition(LeftPos);
 		RemainBackGroundRender->SetScaleToImage();
 	}
+
+	{
+		EndingRender = CreateRender("introBG.bmp", VSRenderOrder::MAX);
+		EndingRender->SetScaleToImage();
+		EndingRender->EffectCameraOff();
+		EndingRender->SetPosition(EndingRender->GetScale().half());
+		EndingRender->SetAlpha(90);
+		EndingRender->Off();
+	}
+	{
+		float4 _Pos = GameEngineWindow::GetScreenSize().half();
+		_Pos.y -= _Pos.y * (0.3f);
+		EndingUI = CreateRender("GameOverText.bmp",VSRenderOrder::MAX);
+		EndingUI->EffectCameraOff();
+		EndingUI->SetScaleToImage();
+		EndingUI->SetPosition(_Pos);
+		//EndingUI->SetAlpha(99);
+		EndingUI->Off();
+	}
 	
 
 }
@@ -58,4 +77,14 @@ void InlaidLibraryBack::Update(float _DeltaTime)
 		RemainBackGroundRender->SetPosition(NextRenderPos);
 	}
 	
+}
+
+void InlaidLibraryBack::SetEndingRenderOn(bool _IsComplete)
+{
+	if (true == _IsComplete)
+	{
+		EndingUI->SetImage("stageComplete.bmp");
+	}
+	EndingRender->On();
+	EndingUI->On();
 }

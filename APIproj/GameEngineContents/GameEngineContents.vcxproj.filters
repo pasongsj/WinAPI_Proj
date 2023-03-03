@@ -126,6 +126,12 @@
     <ClCompile Include="Items.cpp">
       <Filter>Item</Filter>
     </ClCompile>
+    <ClCompile Include="InlaidLibraryLevelSetting.cpp">
+      <Filter>InlaidLibraryStage</Filter>
+    </ClCompile>
+    <ClCompile Include="InlaidLibraryLevelImage.cpp">
+      <Filter>InlaidLibraryStage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

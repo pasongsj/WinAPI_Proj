@@ -129,6 +129,8 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="InlaidLibraryLevelImage.cpp" />
+    <ClCompile Include="InlaidLibraryLevelSetting.cpp" />
     <ClCompile Include="Items.cpp">
       <SubType>
       </SubType>

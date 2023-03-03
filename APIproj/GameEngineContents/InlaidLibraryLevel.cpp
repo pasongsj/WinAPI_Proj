@@ -29,179 +29,6 @@ InlaidLibraryLevel::InlaidLibraryLevel()
 InlaidLibraryLevel::~InlaidLibraryLevel()
 {
 }
-void InlaidLibraryLevel::ImageLoad()
-{
-
-	// 이미지 로드
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentsResources");
-	Dir.Move("ContentsResources");
-	Dir.Move("Image");
-	{
-		// 배경이미지 로드
-		Dir.MoveParentToDirectory("InlaidLibrary");
-		Dir.Move("InlaidLibrary");
-		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("InlaidLibraryStage.BMP"));
-		GameEngineImage* ColImage = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("InlaidLibraryCollision.BMP"));
-		BGSize = Image->GetImageScale(); // AllImage에서 find로 찾아서 설정하면 될듯?
-	}
-
-	{
-		// 캐릭터 이미지 로드
-		Dir.MoveParentToDirectory("Player");
-		Dir.Move("Player");
-		Dir.Move("Characters");
-
-		std::vector<GameEngineFile> Files = Dir.GetAllFile();
-
-		for (size_t i = 0; i < Files.size(); i++)
-		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
-			Image->Cut(4, 1);
-		}
-
-		Dir.MoveParentToDirectory("Addition");
-		Dir.Move("Addition");
-
-		Files.clear();
-		Files = Dir.GetAllFile();
-		for (size_t i = 0; i < Files.size(); i++)
-		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
-		}
-		int a = 0;
-
-	}
-
-	{	// 몬스터 이미지 로드
-		Dir.MoveParentToDirectory("Monster");
-		Dir.Move("Monster");
-		{
-			Dir.Move("Cut21");
-			std::vector<GameEngineFile> Files = Dir.GetAllFile();
-			for (size_t i = 0; i < Files.size(); i++)
-			{
-				GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
-				Image->Cut(2, 1);
-			}
-		}
-
-		{
-			Dir.MoveParent();
-			Dir.Move("Cut31");
-			std::vector<GameEngineFile> Files = Dir.GetAllFile();
-			for (size_t i = 0; i < Files.size(); i++)
-			{
-				GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
-				Image->Cut(3, 1);
-			}
-		}
-
-		{
-			Dir.MoveParent();
-			Dir.Move("Cut41");
-			std::vector<GameEngineFile> Files = Dir.GetAllFile();
-			for (size_t i = 0; i < Files.size(); i++)
-			{
-				GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
-				Image->Cut(4, 1);
-			}
-		}
-
-		{
-			Dir.MoveParent();
-			Dir.Move("Cut51");
-			std::vector<GameEngineFile> Files = Dir.GetAllFile();
-			for (size_t i = 0; i < Files.size(); i++)
-			{
-				GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
-				Image->Cut(5, 1);
-			}
-		}
-
-		{
-			Dir.MoveParent();
-			Dir.Move("Cut52");
-			std::vector<GameEngineFile> Files = Dir.GetAllFile();
-			for (size_t i = 0; i < Files.size(); i++)
-			{
-				GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
-				Image->Cut(5, 2);
-			}
-		}
-
-		{
-			Dir.MoveParent();
-			Dir.Move("Cut71");
-			std::vector<GameEngineFile> Files = Dir.GetAllFile();
-			for (size_t i = 0; i < Files.size(); i++)
-			{
-				GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
-				Image->Cut(7, 1);
-			}
-		}
-	}
-
-	{
-		// UI 이미지 로드
-
-		// 캐릭터 이미지 로드
-		Dir.MoveParentToDirectory("UI");
-		Dir.Move("UI");
-
-		std::vector<GameEngineFile> Files = Dir.GetAllFile();
-
-		for (size_t i = 0; i < Files.size(); i++)
-		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
-		}
-
-		// 숫자이미지 로드
-		Dir.Move("number");
-		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Number.BMP"));
-		Image2->Cut(10, 1);
-	}
-
-	{
-		Dir.MoveParentToDirectory("Weapon");
-		Dir.Move("Weapon");
-		std::vector<GameEngineFile> Files = Dir.GetAllFile();
-
-		for (size_t i = 0; i < Files.size(); i++)
-		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
-			Image->Cut(1, 6);
-		}
-		{
-			Dir.Move("MagicWand");
-			GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MagicWand.BMP"));
-			GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MagicWandBlack.BMP"));
-
-		}
-		{
-			Dir.MoveParentToDirectory("Knife");
-			Dir.Move("Knife");
-			GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Knife.BMP"));
-			GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("KnifeBlack.BMP"));
-		}
-		/*GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Whip.BMP"));
-		Image->Cut(1, 3);*/
-	}
-
-	{
-
-	}
-
-	{
-		Dir.MoveParentToDirectory("Item");
-		Dir.Move("Item");
-		std::vector<GameEngineFile> Files = Dir.GetAllFile();
-		for (size_t i = 0; i < Files.size(); i++)
-		{
-			GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
-		}
-	}
-}
 
 void InlaidLibraryLevel::SoundLoad()
 {
@@ -243,7 +70,7 @@ void InlaidLibraryLevel::Loading()
 
 	{
 		// 배경 액터 생성
-		InlaidLibraryBack* BackGround = CreateActor<InlaidLibraryBack>(VSRenderOrder::BackGround); // 가시적 배경
+		BackGround = CreateActor<InlaidLibraryBack>(VSRenderOrder::BackGround); // 가시적 배경
 	}
 
 	{
@@ -310,208 +137,10 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 		}*/
 	}
 
-	/*if (GameEngineInput::IsDown("SpeedUp"))
-	{
-		SetTimeScale(VSRenderOrder::BackGround, 2);
-		SetTimeScale(VSRenderOrder::Map, 2);
-		SetTimeScale(VSRenderOrder::Player, 2);
-		SetTimeScale(VSRenderOrder::Monster, 2);
-		SetTimeScale(VSRenderOrder::Item, 2);
-		SetTimeScale(VSRenderOrder::Weapon, 2);
-		SetTimeScale(VSRenderOrder::UI, 2);
-		SetTimeScale(VSRenderOrder::LastUI, 2);
-	}*/
+
 	SetState(_DeltaTime);
 	ReGenMonster(_DeltaTime);
-}
-void InlaidLibraryLevel::SetState(float _DeltaTime)
-{
-	if (Player::IsStop == true)
-	{
-		return;
-	}
-	LevelTime += _DeltaTime;
-	if (0 <= LevelTime && LevelTime < 1 * 60)
-	{
-		MaxMonster = 50;
-		RegenInterval = 3.0f;
-		SponableMonster.insert("Dust");
-	}
-	else if(1 * 60 <= LevelTime && LevelTime < 2 * 60)
-	{
-		MaxMonster = 80;
-		RegenInterval = 3.0f;
-	}
-	else if (2 * 60 <= LevelTime && LevelTime < 3 * 60)
-	{
-		MaxMonster = 100;
-		RegenInterval = 4.0f;
-		SponableMonster.insert("Musc");
-	}
-	else if (3 * 60 <= LevelTime && LevelTime < 4 * 60)
-	{
-		MaxMonster = 60;
-		RegenInterval = 4.0f;
-		SponableMonster.clear();
-		SponableMonster.insert("Mummy");
-	}
-	else if (4 * 60 <= LevelTime && LevelTime < 5 * 60)
-	{
-		MaxMonster = 100;
-		RegenInterval = 4.0f;
-		SponableMonster.insert("Dust");
-	}
-	else if (5 * 60 <= LevelTime && LevelTime < 6 * 60)
-	{
-		MaxMonster = 100;
-		RegenInterval = 4.0f;
-		SponableMonster.erase("Dust");
-	}
-	else if (6 * 60 <= LevelTime && LevelTime < 7 * 60)
-	{
-		MaxMonster = 30;
-		RegenInterval = 2.0f;
-		SponableMonster.clear();
-		SponableMonster.insert("Dullahan");
-		SponableMonster.insert("Musc");
-	}
-	else if (7 * 60 <= LevelTime && LevelTime < 8 * 60)
-	{
-		MaxMonster = 80;
-		RegenInterval = 2.0f;
-	}
-	else if (8 * 60 <= LevelTime && LevelTime < 9 * 60)
-	{
-		MaxMonster = 80;
-		RegenInterval = 1.0f;
-		SponableMonster.erase("Dullahan");
-		SponableMonster.insert("Ghost");
-	}
-	else if (9 * 60 <= LevelTime && LevelTime < 10 * 60)
-	{
-		MaxMonster = 200;
-		RegenInterval = 0.5f;
-		SponableMonster.erase("Musc");
-		SponableMonster.insert("Mummy");
-	}
-	else if (10 * 60 <= LevelTime && LevelTime < 11 * 60)
-	{
-		MaxMonster = 100;
-		RegenInterval = 0.5f;
-		SponableMonster.clear();
-		SponableMonster.insert("Musc");
-	}
-	else if (11 * 60 <= LevelTime && LevelTime < 12 * 60)
-	{
-		MaxMonster = 120;
-		RegenInterval = 2.0f;
-		SponableMonster.clear();
-		SponableMonster.insert("ColossalMedusaHead");
-		SponableMonster.insert("LionHead");
-	}
-	else if (12 * 60 <= LevelTime && LevelTime < 13 * 60)
-	{
-		MaxMonster = 80;
-		RegenInterval = 1.0f;
-		SponableMonster.erase("LionHead");
-		SponableMonster.insert("Dullahan");
-	}
-	else if (13 * 60 <= LevelTime && LevelTime < 14 * 60)
-	{
-		MaxMonster = 120;
-		RegenInterval = 0.5f;
-		SponableMonster.erase("ColossalMedusaHead");
-		SponableMonster.insert("Mummy");
-	}
-	else if (14 * 60 <= LevelTime && LevelTime < 15 * 60)
-	{
-		MaxMonster = 300;
-		RegenInterval = 0.1f;
-		SponableMonster.erase("Dullahan");
-		SponableMonster.insert("ColossalMedusaHead");
-		SponableMonster.insert("Musc");
-	}
-	else if (15 * 60 <= LevelTime && LevelTime < 16 * 60)
-	{
-		MaxMonster = 100;
-		RegenInterval = 0.1f;
-	}
-	else if (16 * 60 <= LevelTime && LevelTime < 17 * 60)
-	{
-		MaxMonster = 100;
-		RegenInterval = 1.0f;
-	}
-	else if (17 * 60 <= LevelTime && LevelTime < 18 * 60)
-	{
-		MaxMonster = 200;
-		RegenInterval = 1.0f;
-	}
-	else if (18 * 60 <= LevelTime && LevelTime < 19 * 60)
-	{
-		MaxMonster = 60;
-		RegenInterval = 0.5f;
-	}
-	else if (19 * 60 <= LevelTime && LevelTime < 20 * 60)
-	{
-		MaxMonster = 120;
-		RegenInterval = 0.5f;
-	}
-	else if (20 * 60 <= LevelTime && LevelTime < 21 * 60)
-	{
-		MaxMonster = 100;
-		RegenInterval = 0.1f;
-	}
-	else if (21 * 60 <= LevelTime && LevelTime < 22 * 60)
-	{
-		MaxMonster = 100;
-		RegenInterval = 0.1f;
-	}
-	else if (22 * 60 <= LevelTime && LevelTime < 23 * 60)
-	{
-		MaxMonster = 80;
-		RegenInterval = 1.0f;
-	}
-	else if (23 * 60 <= LevelTime && LevelTime < 24 * 60)
-	{
-		MaxMonster = 120;
-		RegenInterval = 0.1f;
-	}
-	else if (24 * 60 <= LevelTime && LevelTime < 25 * 60)
-	{
-		MaxMonster = 300;
-		RegenInterval = 0.1f;
-	}
-	else if (25 * 60 <= LevelTime && LevelTime < 26 * 60)
-	{
-		MaxMonster = 300;
-		RegenInterval = 0.1f;
-	}
-	else if (26 * 60 <= LevelTime && LevelTime < 27 * 60)
-	{
-		MaxMonster = 100;
-		RegenInterval = 0.1f;
-	}
-	else if (27 * 60 <= LevelTime && LevelTime < 28 * 60)
-	{
-		MaxMonster = 300;
-		RegenInterval = 0.1f;
-	}
-	else if (28 * 60 <= LevelTime && LevelTime < 29 * 60)
-	{
-		MaxMonster = 250;
-		RegenInterval = 0.1f;
-	}
-	else if (29 * 60 <= LevelTime && LevelTime < 30 * 60)
-	{
-		MaxMonster = 250;
-		RegenInterval = 0.1f;
-	}
-	else
-	{
-		MaxMonster = 1;
-		RegenInterval = 10.0f;
-	}
-
+	CheckEnd();
 }
 void InlaidLibraryLevel::ReGenMonster(float _DeltaTime)
 {
@@ -545,4 +174,31 @@ void InlaidLibraryLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 	/*int a = 0;
 	BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("intro.mp3");
 	BGMPlayer.LoopCount(100);*/
+}
+
+void InlaidLibraryLevel::CheckEnd()
+{
+	if (Player::MainPlayer->GetHp() <= 0)
+	{
+		SetTimeScale(VSRenderOrder::BackGround, 0);
+		SetTimeScale(VSRenderOrder::Map, 0);
+		SetTimeScale(VSRenderOrder::Player, 0);
+		SetTimeScale(VSRenderOrder::Monster, 0);
+		SetTimeScale(VSRenderOrder::Item, 0);
+		SetTimeScale(VSRenderOrder::Weapon, 0);
+		SetTimeScale(VSRenderOrder::UI, 0);
+		SetTimeScale(VSRenderOrder::LastUI, 0);
+		//SetTimeScale(VSRenderOrder::MAX, 0);
+		if (LevelTime > 30 * 60)
+		{
+			BackGround->SetEndingRenderOn(true);
+			//stageComplete
+		}
+		else
+		{
+			BackGround->SetEndingRenderOn(false);
+			// 사망
+		}
+	}
+
 }
