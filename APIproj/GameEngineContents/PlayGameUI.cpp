@@ -37,10 +37,18 @@ void PlayGameUI::Start()
 	{ // LV 
 		GameEngineRender* Render = CreateRender("LV.BMP", VSRenderOrder::UI);
 		Render->SetScaleToImage();
-		BarPos.x = GameEngineWindow::GetScreenSize().x - (Render->GetScale()).x;
+		BarPos.x = GameEngineWindow::GetScreenSize().x - (Render->GetScale()).x - 10;
 
 		Render->SetPosition(BarPos);
 		Render->EffectCameraOff();
+
+		BarPos.x += 30;
+		LevelNumber.SetOrder(static_cast<int> (VSRenderOrder::UI));
+		LevelNumber.SetOwner(this);
+		LevelNumber.SetImage("Number.BMp", { 15, 18 }, static_cast<int>(VSRenderOrder::UI), RGB(255, 0, 255));
+		LevelNumber.SetAlign(Align::Left);
+		LevelNumber.SetValue(1);
+		LevelNumber.SetRenderPos(BarPos);
 	}
 	/*{
 		LevelUpUIRender = CreateRender("LevelUpUI.BMP", VSRenderOrder::UI);
@@ -99,6 +107,11 @@ void PlayGameUI::Update(float _DeltaTime)
 	StageTime += _DeltaTime;
 	StageTimerMin.SetValue(static_cast<int>(StageTime) / 60);
 	StageTimerSec.SetValue(static_cast<int>(StageTime) % 60);
+
+	if (nullptr != Player::MainPlayer)
+	{
+		LevelNumber.SetValue(Player::MainPlayer->GetPlayerLevel());
+	}
 
 	int _Exp = Player::MainPlayer->GetPlayerExp();
 

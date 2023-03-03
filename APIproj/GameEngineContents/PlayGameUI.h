@@ -36,5 +36,6 @@ private:
 	NumberRenderObject StageTimerMin;
 	NumberRenderObject StageTimerSec;
 
+	NumberRenderObject LevelNumber;
 };
 

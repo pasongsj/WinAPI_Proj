@@ -29,6 +29,11 @@ public:
 	Player& operator=(const Player& _Other) = delete;
 	Player& operator=(Player&& _Other) noexcept = delete;
 
+	inline int GetPlayerLevel()
+	{
+		return PlayerLevel;
+	}
+
 	inline void Attack(float _Att) {
 		Hp -= _Att;
 	}
