@@ -141,7 +141,7 @@ void InlaidLibraryLevel::ImageLoad()
 		Image2->Cut(10, 1);
 	}
 
-	{
+	{   //무기 이미지 로드
 		Dir.MoveParentToDirectory("Weapon");
 		Dir.Move("Weapon");
 		std::vector<GameEngineFile> Files = Dir.GetAllFile();
@@ -163,13 +163,16 @@ void InlaidLibraryLevel::ImageLoad()
 			GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Knife.BMP"));
 			GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("KnifeBlack.BMP"));
 		}
+		{
+			Dir.MoveParentToDirectory("RuneTracer");
+			Dir.Move("RuneTracer");
+			GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RuneTracer.BMP"));
+		}
 		/*GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Whip.BMP"));
 		Image->Cut(1, 3);*/
 	}
 
-	{
 
-	}
 
 	{
 		Dir.MoveParentToDirectory("Item");

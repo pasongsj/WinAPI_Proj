@@ -21,6 +21,7 @@
 #include "WeaponWhip.h"
 #include "WeaponMagicWand.h"
 #include "WeaponKnife.h"
+#include "WeaponRuneTracer.h"
 
 void ChangeLevelToTitle()
 {
@@ -72,6 +73,7 @@ void InlaidLibraryLevel::Loading()
 		CreateActor<WeaponWhip>(VSRenderOrder::Weapon);
 		CreateActor<WeaponMagicWand>(VSRenderOrder::Weapon);
 		CreateActor<WeaponKnife>(VSRenderOrder::Weapon);
+		CreateActor<WeaponRuneTracer>(VSRenderOrder::Weapon);
 	}
 
 	{
@@ -158,12 +160,12 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 	if (GameEngineInput::IsDown("SpeedUp"))
 	{
 		float beforeSpeed = GameEngineCore::GetSpeed();
-		GameEngineCore::SetSpeedUp(beforeSpeed*5);
+		GameEngineCore::SetSpeedUp(beforeSpeed*5.0f);
 	}
 	if (GameEngineInput::IsDown("SpeedReset"))
 	{
 		float beforeSpeed = GameEngineCore::GetSpeed();
-		GameEngineCore::SetSpeedUp(beforeSpeed*0.2);
+		GameEngineCore::SetSpeedUp(beforeSpeed*0.2f);
 	}
 
 

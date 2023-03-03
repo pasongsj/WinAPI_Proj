@@ -7,6 +7,7 @@
 
 class Weapon : public GameEngineActor
 {
+	friend class Player;
 public:
 
 	static void InitWeapon(GameEngineLevel* _Level);
@@ -101,15 +102,26 @@ public:
 		return WeaponCollisionType;
 	}
 
-	virtual void ReSet() {};
+	inline void SetWeaponSpeed(const float& _Speed)
+	{
+		WeaponSpeed = _Speed;
+	}
+
+	inline float GetWeaponSpeed()
+	{
+		return WeaponSpeed;
+	}
 
 protected:
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
-	GameEngineRender* WeaponRender = nullptr;
-	GameEngineCollision* WeaponCollision = nullptr;
+	virtual void Init() {};
+	virtual void ReSet() {};
+
+	/*GameEngineRender* WeaponRender = nullptr;
+	GameEngineCollision* WeaponCollision = nullptr;*/
 
 private:
 	
@@ -122,6 +134,7 @@ private:
 	float CoolTime = 0.0f;
 	float RunTime =  0.0f;
 	bool IsAnimation = true;
+	float WeaponSpeed = 100.0f;
 
 	CollisionType WeaponCollisionType = CollisionType::CT_Rect;
 

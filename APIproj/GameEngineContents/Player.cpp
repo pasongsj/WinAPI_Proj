@@ -92,6 +92,14 @@ void Player::Update(float _DeltaTime)
 	if (InvincibleStateDelay <= 0)
 	{
 		BodyCollision->On();
+		if (PlayerState::IDLE_DMGED == StateValue) // dmged 이미지에서 변경되지 않는 점 보완
+		{
+			ChangeState(PlayerState::IDLE);
+		}
+		else if (PlayerState::MOVE_DMGED == StateValue)
+		{
+			ChangeState(PlayerState::MOVE);
+		}
 	}
 
 
@@ -276,6 +284,7 @@ void Player::PushWeapon(const std::string_view& _Weapon)
 	if (it == MyWeapon.end()) // 새로 추가하기
 	{
 		MyWeapon.push_back(_WeaponPointer);
+		MyWeapon.back()->On();
 	}
 	else // 레벨업 하기
 	{

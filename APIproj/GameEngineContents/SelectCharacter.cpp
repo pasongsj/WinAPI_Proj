@@ -56,6 +56,7 @@ void ClickPasqualinaButton()
 	Player::PlayerName = "Pasqualina";
 	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
 	Disable();
+	Player::BasicWeapon = "RuneTracer";
 }
 void ClickGennaroButton()
 {

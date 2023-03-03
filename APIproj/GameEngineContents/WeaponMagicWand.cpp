@@ -15,29 +15,29 @@ WeaponMagicWand::~WeaponMagicWand()
 
 void WeaponMagicWand::ReSet()
 {
+	if (0 == WeaponRender.size()) {
+		return;
+	}
 	float4 _Pos = Player::MainPlayer->GetPos();
 	_Pos.y -= 32;
 	SetPos(_Pos);
 
-	if (0 == WeaponRender.size()) {
-		return;
+	
+	for (int i = 0;i < WeaponRender.size();++i)
+	{
+		WeaponRender[i]->SetPosition(float4::Zero);
+		WeaponCollision[i]->SetPosition(float4::Zero);
+		Passes[i] = 1;
+		WeaponRender[i]->SetAngle(108); // float4{1, 0}위치기준
+		WeaponRender[i]->On();
+		WeaponCollision[i]->On();
 	}
-	else {
-		for (int i = 0;i < WeaponRender.size();++i)
-		{
-			WeaponRender[i]->SetPosition(float4::Zero);
-			WeaponCollision[i]->SetPosition(float4::Zero);
-			Passes[i] = 1;
-			WeaponRender[i]->SetAngle(108); // float4{1, 0}위치기준
-			WeaponRender[i]->On();
-			WeaponCollision[i]->On();
-		}
-		SetWeaponDir();
-	}
+	SetWeaponDir();
+	
 	WaitTime = 0;
 }
 
-int Tmptime = 0;
+
 void WeaponMagicWand::SetWeaponDir()
 {
 	std::vector<float4> _Dir;
@@ -67,9 +67,8 @@ void WeaponMagicWand::SetWeaponDir()
 
 }
 
-void WeaponMagicWand::Start()
+void WeaponMagicWand::Init()
 {
-	SetWeaponName("MagicWand");
 	{
 		GameEngineRender* Render = CreateRender(VSRenderOrder::Weapon);
 		Render->SetImage("MagicWand.bmp");
@@ -85,6 +84,12 @@ void WeaponMagicWand::Start()
 		Passes.push_back(1);
 
 	}
+}
+
+void WeaponMagicWand::Start()
+{
+	SetWeaponName("MagicWand");
+	Init();
 	/*WeaponRender = CreateRender(VSRenderOrder::Weapon);
 	WeaponCollision = CreateCollision(VSRenderOrder::Weapon);
 
@@ -102,7 +107,7 @@ void WeaponMagicWand::Start()
 
 	Weapon::Weapons[GetWeaponName()] = this;
 
-	//this->Off();
+	this->Off();
 }
 
 void WeaponMagicWand::Update(float _DeltaTime)

@@ -3,6 +3,7 @@
 
 class WeaponMagicWand : public Weapon
 {
+	//friend class Player;
 public:
 	// constrcuter destructer
 	WeaponMagicWand() ;
@@ -14,12 +15,13 @@ public:
 	WeaponMagicWand& operator=(const WeaponMagicWand& _Other) = delete;
 	WeaponMagicWand& operator=(WeaponMagicWand&& _Other) noexcept = delete;
 
-	void ReSet() override;
 
 protected:
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
+	void Init() override;
+	void ReSet() override;
 
 private:
 	std::vector<GameEngineRender*> WeaponRender;

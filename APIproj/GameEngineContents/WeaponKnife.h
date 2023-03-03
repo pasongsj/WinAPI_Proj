@@ -1,8 +1,10 @@
 #pragma once
 #include "Weapon.h"
 
+
 class WeaponKnife : public Weapon
 {
+	//friend class Player;
 public:
 	// constrcuter destructer
 	WeaponKnife() ;
@@ -14,11 +16,12 @@ public:
 	WeaponKnife& operator=(const WeaponKnife& _Other) = delete;
 	WeaponKnife& operator=(WeaponKnife&& _Other) noexcept = delete;
 
-	void ReSet() override;
 
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
+	void Init() override;
+	void ReSet() override;
 
 private:
 

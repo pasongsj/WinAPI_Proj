@@ -73,7 +73,8 @@ void PushLevelupWhip()
 }
 void PushLevelupRunetracer()
 {
-	//Player::MainPlayer->PushWeapon("Runetracer");
+	Player::MainPlayer->PushWeapon("RuneTracer");
+	Player::IsStop = false;
 }
 void PushLevelupSpinach()
 {

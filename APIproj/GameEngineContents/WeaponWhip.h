@@ -3,6 +3,7 @@
 
 class WeaponWhip : public Weapon
 {
+	//friend class Player;
 public:
 	// constrcuter destructer
 	WeaponWhip() ;
@@ -14,12 +15,13 @@ public:
 	WeaponWhip& operator=(const WeaponWhip& _Other) = delete;
 	WeaponWhip& operator=(WeaponWhip&& _Other) noexcept = delete;
 	
-	void ReSet() override;
 
 protected:
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
+	void Init() override;
+	void ReSet() override;
 
 private:
 	std::string LastDir = "Right_";
