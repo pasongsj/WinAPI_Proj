@@ -15,6 +15,7 @@ public:
 	InlaidLibraryBack& operator=(InlaidLibraryBack&& _Other) noexcept = delete;
 
 	void SetEndingRenderOn(bool _IsComplete);
+	void SetEndingRenderOff();
 
 protected:
 	void Start() override;

@@ -225,3 +225,9 @@ void InlaidLibraryLevel::CheckEnd()
 	}
 
 }
+
+void InlaidLibraryLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
+{
+	BackButton->Off();
+	BackGround->SetEndingRenderOff();
+}

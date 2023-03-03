@@ -88,3 +88,9 @@ void InlaidLibraryBack::SetEndingRenderOn(bool _IsComplete)
 	EndingRender->On();
 	EndingUI->On();
 }
+
+void InlaidLibraryBack::SetEndingRenderOff()
+{
+	EndingRender->Off();
+	EndingUI->Off();
+}
