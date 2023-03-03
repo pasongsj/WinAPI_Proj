@@ -18,6 +18,7 @@ public:
 	static bool IsStop;
 	static Player* MainPlayer;
 	static std::string PlayerName;
+	static std::string BasicWeapon;
 	// constrcuter destructer
 	Player() ;
 	~Player();

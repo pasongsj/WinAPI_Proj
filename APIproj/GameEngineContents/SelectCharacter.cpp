@@ -40,6 +40,7 @@ void ClickAntonioButton()
 	Player::PlayerName = "Antonio";
 	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
 	Disable();
+	Player::BasicWeapon = "Whip";
 }
 
 void ClickImeldaButton()
@@ -47,6 +48,7 @@ void ClickImeldaButton()
 	Player::PlayerName = "Imelda";
 	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
 	Disable();
+	Player::BasicWeapon = "MagicWand";
 }
 
 void ClickPasqualinaButton()
@@ -60,6 +62,7 @@ void ClickGennaroButton()
 	Player::PlayerName = "Gennaro";
 	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
 	Disable();
+	Player::BasicWeapon = "Knife";
 }
 
 void SelectCharacter::Start()

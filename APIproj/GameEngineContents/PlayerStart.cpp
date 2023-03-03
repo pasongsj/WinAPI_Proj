@@ -62,6 +62,7 @@ void Player::Start()
 	}
 
 	{
+		MyWeapon.push_back(Weapon::Weapons[BasicWeapon]);
 		/*MyWeapon.push_back(Weapon::Weapons["Whip"]);
 		MyWeapon.push_back(Weapon::Weapons["MagicWand"]);*/
 		//MyWeapon.push_back(Weapon::Weapons["Knife"]);

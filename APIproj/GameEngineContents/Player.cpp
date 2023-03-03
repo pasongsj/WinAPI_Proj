@@ -15,7 +15,8 @@
 
 
 Player* Player::MainPlayer;
-std::string Player::PlayerName = "";
+std::string Player::PlayerName = "Antonio";
+std::string Player::BasicWeapon = "Whip";
 bool Player::IsStop = false;
 
 Player::Player()
