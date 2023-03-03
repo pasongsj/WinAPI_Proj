@@ -80,31 +80,24 @@ private:
 
 		float MAXHealth = 100;	//최대체력
 		float Recovery = 0;		// 회복
-		int Armor;			// 방어력
-		float MoveSpeed;	// 이동속도
+		int Armor = 0;			// 방어력 방어력1당 10%데미지 반격
+		float MoveSpeed = 100;	// 이동속도 %
 
-		float Might;		// 괴력
-		float Area;			// 공격범위
-		float Speed;		// 투사체 속도
-		float Duration;		// 지속시간
-		int Amount;			// 투사체 수
-		float Cooldown;		// 쿨타임
+		float Might = 100;		// 괴력 %
+		float Area = 100;		// 공격범위 %
+		float Speed = 100;		// 투사체 속도 %
+		float Duration = 100;	// 지속시간 %
+		int Amount = 0;			// 투사체 수
+		float Cooldown = 100;	// 쿨타임 %
 
-		int Luck;// 행운
-		int Growth;// 성장
-		int Greed;// 탐욕
-		int Magnet;// 자석
+		int Luck = 100;			// 행운 %
+		int Growth = 100;		// 성장%
+		int Greed = 100;		// 탐욕%  탐욕 수치를 통한 골드 획득량은 < (기본 수치 + 추가 능력치) x 스테이지 골드 보너스 >
+		int Magnet = 30;		// 자석
 
-		//int Revival;// 부활
-		//int Reroll;// 새로고침
-		//int Skip;// 건너뛰기
-
-		//bool KeyCheck()
-		//{
-		//	return 0 != GetAsyncKeyState(Key);
-		//}
-
-		//void Update(float _DeltaTime);
+		int Revival = 0;		// 부활
+		int Reroll = 0;			// 새로고침
+		int Skip = 0;			// 건너뛰기
 	};
 
 	//float AccTime = 0.0f;
