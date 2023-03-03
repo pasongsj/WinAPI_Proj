@@ -22,6 +22,11 @@
 #include "WeaponMagicWand.h"
 #include "WeaponKnife.h"
 
+void ChangeLevelToTitle()
+{
+	GameEngineCore::GetInst()->ChangeLevel("TitleLevel"); // 결과창 띄워주고 나가기
+}
+
 InlaidLibraryLevel::InlaidLibraryLevel()
 {
 }
@@ -87,6 +92,19 @@ void InlaidLibraryLevel::Loading()
 		{
 			Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
 		}
+	}
+
+	{
+		BackButton = CreateActor<Button>();
+		float4 BtnScale = GameEngineResources::GetInst().ImageFind("BackBtn.bmp")->GetImageScale();
+		//float4 BtnScale = { 203,63 };
+		/*float4 BtnPos = GameEngineWindow::GetScreenSize().half();
+		BtnPos.y += BtnPos.y * (1.2f);*/
+		BackButton->setting("BackBtn.bmp", "BackBtn.bmp", "BackBtn.bmp", {0,0}, BtnScale, static_cast<int>(VSRenderOrder::MAX), false);
+		BackButton->GetButtonRender()->SetImage("BackBtn.bmp");
+		BackButton->GetButtonRender()->EffectCameraOn();
+		BackButton->SetClickCallBack(ChangeLevelToTitle);
+		BackButton->Off();
 	}
 
 }
@@ -180,6 +198,11 @@ void InlaidLibraryLevel::CheckEnd()
 {
 	if (Player::MainPlayer->GetHp() <= 0)
 	{
+	
+		float4 BtnPos = Player::MainPlayer->GetPos();
+		BtnPos.y += (2.5f) * (BackButton->GetButtonRender()->GetScale()).y;
+		BackButton->On();
+		BackButton->SetPos(BtnPos);
 		SetTimeScale(VSRenderOrder::BackGround, 0);
 		SetTimeScale(VSRenderOrder::Map, 0);
 		SetTimeScale(VSRenderOrder::Player, 0);

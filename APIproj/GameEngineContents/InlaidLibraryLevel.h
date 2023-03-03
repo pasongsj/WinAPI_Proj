@@ -6,6 +6,7 @@
 // 화려한 도서관 스테이지
 class PlayGameUI;
 class InlaidLibraryBack;
+class Button;
 class InlaidLibraryLevel : public GameEngineLevel
 {
 public:
@@ -49,5 +50,6 @@ private:
 
 	void CheckEnd();
 
+	Button* BackButton = nullptr;
 };
 

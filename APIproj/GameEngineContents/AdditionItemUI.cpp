@@ -139,7 +139,7 @@ void AdditionItemUI::Start()
 	{
 		Button* NewCharBtn = GetLevel()->CreateActor<Button>(VSRenderOrder::LastUI);
 		NewCharBtn->setting(_Name, _Name, _Name, { 0,0 }, BtnScale, static_cast<int>(VSRenderOrder::LastUI), false);
-		NewCharBtn->SetRenderOrder(static_cast<int>(VSRenderOrder::LastUI));
+		//NewCharBtn->SetRenderOrder(static_cast<int>(VSRenderOrder::LastUI));
 		NewCharBtn->GetButtonRender()->SetImage(_Name);
 		NewCharBtn->GetButtonRender()->EffectCameraOn();
 		Items.push_back(NewCharBtn);

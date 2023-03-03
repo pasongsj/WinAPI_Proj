@@ -39,23 +39,27 @@ void ClickAntonioButton()
 {
 	Player::PlayerName = "Antonio";
 	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
+	Disable();
 }
 
 void ClickImeldaButton()
 {
 	Player::PlayerName = "Imelda";
 	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
+	Disable();
 }
 
 void ClickPasqualinaButton()
 {
 	Player::PlayerName = "Pasqualina";
 	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
+	Disable();
 }
 void ClickGennaroButton()
 {
 	Player::PlayerName = "Gennaro";
 	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
+	Disable();
 }
 
 void SelectCharacter::Start()

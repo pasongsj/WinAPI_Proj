@@ -39,7 +39,7 @@ void InlaidLibraryBack::Start()
 	}
 	{
 		float4 _Pos = GameEngineWindow::GetScreenSize().half();
-		_Pos.y -= _Pos.y * (0.3f);
+		_Pos.y -= _Pos.y * (0.4f);
 		EndingUI = CreateRender("GameOverText.bmp",VSRenderOrder::MAX);
 		EndingUI->EffectCameraOff();
 		EndingUI->SetScaleToImage();
