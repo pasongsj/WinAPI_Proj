@@ -10,6 +10,8 @@
 
 GameEngineCore* Core;
 
+float GameEngineCore::SpeedUp = 1.0f;
+
 GameEngineCore* GameEngineCore::GetInst()
 {
 	return Core;
@@ -43,7 +45,7 @@ void GameEngineCore::GlobalUpdate()
 	}
 
 	// 프레임 시작할때 한번 델타타임을 정하고
-	float TimeDeltaTime = GameEngineTime::GlobalTime.TimeCheck();
+	float TimeDeltaTime = GameEngineTime::GlobalTime.TimeCheck() * SpeedUp;
 	GameEngineSound::SoundUpdate();
 	GameEngineInput::Update(TimeDeltaTime);
 

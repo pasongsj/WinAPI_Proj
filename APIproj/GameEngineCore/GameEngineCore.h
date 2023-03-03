@@ -33,6 +33,16 @@ public:
 
 	static GameEngineCore* GetInst();
 
+	static float GetSpeed()
+	{
+		return SpeedUp;
+	}
+	static void SetSpeedUp(float _speed)
+	{
+		SpeedUp = _speed;
+	}
+
+
 protected:
 	template<typename LevelType>
 	void CreateLevel(const std::string_view& _Name)
@@ -54,7 +64,6 @@ protected:
 		Levels.insert(std::make_pair(_Name.data(), Level));
 	}
 
-
 	virtual void Start() = 0;
 	virtual void Update() = 0;
 	virtual void End() = 0;
@@ -70,6 +79,8 @@ private:
 	GameEngineLevel* MainLevel = nullptr;
 
 	void LevelLoading(GameEngineLevel* _Level);
+
+	static float SpeedUp;
 
 };
 

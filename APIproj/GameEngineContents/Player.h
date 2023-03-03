@@ -73,7 +73,7 @@ private:
 	{
 		friend Player;
 
-		float MAXHealth;	//최대체력
+		float MAXHealth = 100;	//최대체력
 		float Recovery = 0;		// 회복
 		int Armor;			// 방어력
 		float MoveSpeed;	// 이동속도
@@ -90,9 +90,9 @@ private:
 		int Greed;// 탐욕
 		int Magnet;// 자석
 
-		int Revival;// 부활
-		int Reroll;// 새로고침
-		int Skip;// 건너뛰기
+		//int Revival;// 부활
+		//int Reroll;// 새로고침
+		//int Skip;// 건너뛰기
 
 		//bool KeyCheck()
 		//{

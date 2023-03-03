@@ -57,6 +57,7 @@ void InlaidLibraryLevel::Loading()
 	{
 		GameEngineInput::CreateKey("StopDebug", 'P');
 		GameEngineInput::CreateKey("SpeedUp", 'I');
+		GameEngineInput::CreateKey("SpeedReset", 'O');
 	}
 	MouseObject* MouseObjectInst = CreateActor<MouseObject>(); //마우스 오브젝트 생성
 
@@ -153,6 +154,16 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 		{
 			BGMPlayer.PauseOff();
 		}*/
+	}
+	if (GameEngineInput::IsDown("SpeedUp"))
+	{
+		float beforeSpeed = GameEngineCore::GetSpeed();
+		GameEngineCore::SetSpeedUp(beforeSpeed*5);
+	}
+	if (GameEngineInput::IsDown("SpeedReset"))
+	{
+		float beforeSpeed = GameEngineCore::GetSpeed();
+		GameEngineCore::SetSpeedUp(beforeSpeed*0.2);
 	}
 
 
