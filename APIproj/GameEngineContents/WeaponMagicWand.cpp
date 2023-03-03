@@ -90,15 +90,6 @@ void WeaponMagicWand::Start()
 {
 	SetWeaponName("MagicWand");
 	Init();
-	/*WeaponRender = CreateRender(VSRenderOrder::Weapon);
-	WeaponCollision = CreateCollision(VSRenderOrder::Weapon);
-
-	WeaponRender->SetImage("MagicWand.bmp");
-	WeaponRender->SetScaleToImage();
-
-
-	float4 CollisionScale = WeaponRender->GetScale();
-	WeaponCollision->SetScale({25,25});*/
 
 	SetCoolTime(1.2f);
 	SetRunTime(1.0f);
@@ -129,24 +120,7 @@ void WeaponMagicWand::Update(float _DeltaTime)
 		//this->Off();
 	}
 
-	//if (float4::Zero == WepaonDir)
-	//{
-	//	float MinLen = static_cast<float>(3.40282e+38); // float최댓값 3.402823466 E + 38
-	//	std::vector<GameEngineActor*> _Monsters = GetLevel()->GetActors(VSRenderOrder::Monster);
-	//	for (GameEngineActor* _Monster : _Monsters)
-	//	{
-	//		float4 Diff = (_Monster->GetPos() - GetPos());
-	//		if (MinLen > Diff.Size()) {
-	//			MinLen = Diff.Size();
-	//			WepaonDir = (Diff.Normalize());
-	//		}
-	//	}
-	//	if (0 == _Monsters.size())
-	//	{
-	//		WepaonDir = { GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) ,GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) };// 랜덤으로 설정해줘야합니다.
-	//		WepaonDir.Normalize();
-	//	}
-	//}
+
 
 	for (int i = 0;i < WeaponRender.size();++i)
 	{

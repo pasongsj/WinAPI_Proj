@@ -64,8 +64,12 @@ void Player::Start()
 	{
 		MyWeapon.push_back(Weapon::Weapons[BasicWeapon]);
 		MyWeapon.back()->On();
+		MyWeapon.back()->ReSet();
 		/*MyWeapon.push_back(Weapon::Weapons["RuneTracer"]);
 		MyWeapon.back()->On();*/
+		//MyWeapon.push_back(Weapon::Weapons["KingBible"]);
+		//MyWeapon.back()->On();
+		//MyWeapon.back()->ReSet();
 		/*MyWeapon.push_back(Weapon::Weapons["Whip"]);
 		MyWeapon.push_back(Weapon::Weapons["MagicWand"]);*/
 		//MyWeapon.push_back(Weapon::Weapons["Knife"]);

@@ -63,6 +63,9 @@
     <ClInclude Include="WeaponRuneTracer.h">
       <Filter>Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="WeaponKingBible.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsGameCore.cpp" />
@@ -136,6 +139,9 @@
       <Filter>InlaidLibraryStage</Filter>
     </ClCompile>
     <ClCompile Include="WeaponRuneTracer.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponKingBible.cpp">
       <Filter>Weapon</Filter>
     </ClCompile>
   </ItemGroup>

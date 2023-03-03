@@ -46,7 +46,8 @@ void PushLevelupHp()
 }
 void PushLevelupKingBible()
 {
-	//Player::MainPlayer->PushWeapon("KingBible");
+	Player::MainPlayer->PushWeapon("KingBible");
+	Player::IsStop = false;
 }
 void PushLevelupKnife()
 {

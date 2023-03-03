@@ -148,28 +148,18 @@ void InlaidLibraryLevel::ImageLoad()
 
 		for (size_t i = 0; i < Files.size(); i++)
 		{
+			GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
+		}
+		
+		Dir.Move("Cut16");
+		Files.clear();
+		Files = Dir.GetAllFile();
+
+		for (size_t i = 0; i < Files.size(); i++)
+		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
 			Image->Cut(1, 6);
 		}
-		{
-			Dir.Move("MagicWand");
-			GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MagicWand.BMP"));
-			GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MagicWandBlack.BMP"));
-
-		}
-		{
-			Dir.MoveParentToDirectory("Knife");
-			Dir.Move("Knife");
-			GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Knife.BMP"));
-			GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("KnifeBlack.BMP"));
-		}
-		{
-			Dir.MoveParentToDirectory("RuneTracer");
-			Dir.Move("RuneTracer");
-			GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RuneTracer.BMP"));
-		}
-		/*GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Whip.BMP"));
-		Image->Cut(1, 3);*/
 	}
 
 

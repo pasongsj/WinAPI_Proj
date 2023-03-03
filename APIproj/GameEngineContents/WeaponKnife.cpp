@@ -86,21 +86,7 @@ void WeaponKnife::Start()
 {
 	SetWeaponName("Knife");
 	Init();
-	//{
-	//	GameEngineRender* Render = CreateRender(VSRenderOrder::Weapon);
-	//	Render->SetImage("Knife.bmp");
-	//	Render->SetScaleToImage();
-	//	Render->SetRotFilter("KnifeBlack.bmp");
 
-	//	GameEngineCollision* Collision = CreateCollision(VSRenderOrder::Weapon);
-	//	Collision->SetScale(Render->GetScale().half());
-
-	//	WeaponRender.push_back(Render);
-	//	WeaponCollision.push_back(Collision);
-	//	WeaponDir.push_back(float4::Zero);
-	//	Passes.push_back(1);
-
-	//}
 
 	SetCoolTime(1.0f);
 	SetRunTime(0.8f);
@@ -126,7 +112,7 @@ void WeaponKnife::Update(float _DeltaTime)
 			WeaponCollision[i]->Off();
 		}
 		return;
-		this->Off();
+
 	}
 
 	for (int i = 0;i < WeaponRender.size();++i)

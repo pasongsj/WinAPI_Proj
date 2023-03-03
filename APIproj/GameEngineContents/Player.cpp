@@ -285,6 +285,7 @@ void Player::PushWeapon(const std::string_view& _Weapon)
 	{
 		MyWeapon.push_back(_WeaponPointer);
 		MyWeapon.back()->On();
+		MyWeapon.back()->ReSet();
 	}
 	else // 레벨업 하기
 	{

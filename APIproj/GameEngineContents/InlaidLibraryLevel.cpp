@@ -22,6 +22,8 @@
 #include "WeaponMagicWand.h"
 #include "WeaponKnife.h"
 #include "WeaponRuneTracer.h"
+#include "WeaponKingBible.h"
+
 
 void ChangeLevelToTitle()
 {
@@ -74,6 +76,7 @@ void InlaidLibraryLevel::Loading()
 		CreateActor<WeaponMagicWand>(VSRenderOrder::Weapon);
 		CreateActor<WeaponKnife>(VSRenderOrder::Weapon);
 		CreateActor<WeaponRuneTracer>(VSRenderOrder::Weapon);
+		CreateActor<WeaponKingBible>(VSRenderOrder::Weapon);
 	}
 
 	{
