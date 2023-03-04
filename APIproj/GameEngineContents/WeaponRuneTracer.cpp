@@ -16,16 +16,16 @@ WeaponRuneTracer::~WeaponRuneTracer()
 
 
 
-void WeaponRuneTracer::SetWeaponDir()
-{
-	std::vector<float4> _Dir;
-	_Dir.clear();
-
-	for (int i = 0;i < WeaponRender.size();i++) { // 0,0이 나오면 ..?
-		WeaponDir[i] = float4{ GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) ,GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) }.GetNormalize();
-	}
-
-}
+//void WeaponRuneTracer::SetWeaponDir()
+//{
+//	std::vector<float4> _Dir;
+//	_Dir.clear();
+//
+//	for (int i = 0;i < WeaponRender.size();i++) { // 0,0이 나오면 ..?
+//		WeaponDir[i] = float4{ GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) ,GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) }.GetNormalize();
+//	}
+//
+//}
 
 
 
@@ -36,10 +36,41 @@ void WeaponRuneTracer::ReSet()
 	}
 	float4 _Pos = Player::MainPlayer->GetPos();
 	_Pos.y -= 32;
-	SetPos(_Pos);
+	//SetPos(_Pos);
 
+	int _Num = 0;/*GetNumOfWeapon();*/
+	int index = 0;
 
-	for (int i = 0;i < WeaponRender.size();++i)
+	while (_Num < GetNumOfWeapon())
+	{
+		if (WeaponRender.size() - 1 < index) // 투사체가 부족할 시
+		{
+			Init();
+		}
+
+		if (true == WeaponRender[index]->IsUpdate()) // 현재 활동중인 투사체 무기
+		{
+			index++;
+			continue;
+		}
+
+		WeaponRender[index]->SetPosition(_Pos);
+		WeaponCollision[index]->SetPosition(_Pos);
+
+		WeaponRender[index]->SetScale(GetWeaponRenderScale());
+		WeaponCollision[index]->SetScale(GetWeaponCollisionScale());
+
+		WeaponDir[index] = float4{ GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) ,GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) }.GetNormalize();
+		LuneLiveTime[index] = 0.0f;
+
+		WeaponRender[index]->On();
+		WeaponCollision[index]->On();
+		
+		++index;
+		++_Num;
+	}
+
+	/*for (int i = 0;i < WeaponRender.size();++i)
 	{
 		WeaponRender[i]->SetPosition(float4::Zero);
 		WeaponCollision[i]->SetPosition(float4::Zero);
@@ -47,10 +78,12 @@ void WeaponRuneTracer::ReSet()
 		WeaponRender[i]->SetScale(GetWeaponRenderScale());
 		WeaponCollision[i]->SetScale(GetWeaponCollisionScale());
 
+		LuneLiveTime[i] = 0.0f;
+
 		WeaponRender[i]->On();
 		WeaponCollision[i]->On();
-	}
-	SetWeaponDir();
+	}*/
+	//SetWeaponDir();
 
 	WaitTime = 0;
 }
@@ -70,15 +103,19 @@ void WeaponRuneTracer::Init()
 		WeaponRender.push_back(Render);
 		WeaponCollision.push_back(Collision);
 		WeaponDir.push_back(float4::Zero);
+
 		SetWeaponScale(Render->GetScale(), Collision->GetScale());
+
+		LuneLiveTime.push_back(0.0f);
+		Render->Off();
+		Collision->Off();
 	}
 }
 
 void WeaponRuneTracer::Start()
 {
 	SetWeaponName("RuneTracer");
-	Init();
-
+	SetNumOfWeapon(1);
 
 	SetCoolTime(3.0f);
 	SetRunTime(2.25f);
@@ -87,7 +124,10 @@ void WeaponRuneTracer::Start()
 	SetWeaponSpeed(1000.0f);
 
 	Weapon::Weapons[GetWeaponName()] = this;
-
+	for (int i = 0;i < GetNumOfWeapon();i++)
+	{
+		Init();
+	}
 	this->Off();
 }
 
@@ -120,7 +160,7 @@ void WeaponRuneTracer::Update(float _DeltaTime)
 		return;
 	}
 
-	if (WaitTime > GetRunTime())
+	/*if (WaitTime > GetRunTime())
 	{
 		for (int i = 0;i < WeaponRender.size();++i)
 		{
@@ -128,11 +168,21 @@ void WeaponRuneTracer::Update(float _DeltaTime)
 			WeaponCollision[i]->Off();
 		}
 		return;
-	}
+	}*/
+
 
 
 	for (int i = 0;i < WeaponRender.size();++i)
 	{
+
+		if (false == WeaponRender[i]->IsUpdate() || LuneLiveTime[i] > GetRunTime()) // 이미 off된 투사체 또는 지속시간이 지난 투사체
+		{
+			WeaponRender[i]->Off();
+			WeaponCollision[i]->Off();
+			continue;
+		}
+
+		LuneLiveTime[i] += _DeltaTime;
 		WeaponDir[i] = CheckNextPos(GetPos() + WeaponRender[i]->GetPosition(),WeaponDir[i] * _DeltaTime * GetWeaponSpeed()).GetNormalize();
 		WeaponRender[i]->SetMove(WeaponDir[i] * _DeltaTime * GetWeaponSpeed());
 		WeaponCollision[i]->SetMove(WeaponDir[i] * _DeltaTime * GetWeaponSpeed());
@@ -140,9 +190,9 @@ void WeaponRuneTracer::Update(float _DeltaTime)
 		std::vector<GameEngineCollision*> Collision;
 		if (true == WeaponCollision[i]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_CirCle }, Collision))
 		{
-			for (size_t i = 0; i < Collision.size(); i++)
+			for (size_t j = 0; j < Collision.size(); j++)
 			{
-				GameEngineActor* ColActor = Collision[i]->GetActor();
+				GameEngineActor* ColActor = Collision[j]->GetActor();
 				Monster* ColWeaponActor = dynamic_cast<Monster*> (ColActor);
 				ColWeaponActor->Attack(GetDmg());
 			}

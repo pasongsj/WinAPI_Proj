@@ -27,8 +27,9 @@ private:
 	std::vector<GameEngineRender*> WeaponRender;
 	std::vector<GameEngineCollision*> WeaponCollision;
 	std::vector<float4> WeaponDir; //이동방향
+	std::vector<float> LuneLiveTime; // 룬트레이서 지속시간
 
-	void SetWeaponDir();
+	//void SetWeaponDir();
 
 	float4 CheckNextPos(const float4& _Pos, const float4& _Dir);
 
