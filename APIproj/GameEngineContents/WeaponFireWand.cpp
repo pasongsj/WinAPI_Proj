@@ -31,7 +31,7 @@ void WeaponFireWand::ReSet()
 		WeaponRender[i]->SetPosition(float4::Zero);
 		WeaponCollision[i]->SetPosition(float4::Zero);
 
-		Passes[i] = 1;
+		Passes[i] = GetWeaponPass();
 		if (0 == (i ^ 0)) // Â¦¼ö¶ó¸é?
 		{
 			WeaponDir[i] = MainDir.RotaitonZDegReturn(static_cast<float>(i * 3));

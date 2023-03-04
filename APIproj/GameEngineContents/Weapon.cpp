@@ -55,3 +55,10 @@ float4 Weapon::GetWeaponCollisionScale()
 	float ScalePerc = (Player::MainPlayer->GetPlayerActive().Area / 100.0f);
 	return (WeaponCollisionScale * ScalePerc);
 }
+
+
+int Weapon::GetWeaponPass()
+{
+	int AddPass = (Player::MainPlayer->GetPlayerActive().Amount);
+	return WeaponPass + AddPass;
+}

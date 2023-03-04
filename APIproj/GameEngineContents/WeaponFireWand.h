@@ -26,6 +26,5 @@ private:
 	std::vector<float4> WeaponDir; //이동방향
 	std::vector<int> Passes; // 관통
 
-
 };
 

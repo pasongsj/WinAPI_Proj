@@ -27,7 +27,7 @@ void WeaponMagicWand::ReSet()
 	{
 		WeaponRender[i]->SetPosition(float4::Zero);
 		WeaponCollision[i]->SetPosition(float4::Zero);
-		Passes[i] = 1;
+		Passes[i] = GetWeaponPass();
 		WeaponRender[i]->SetAngle(108); // float4{1, 0}위치기준
 
 		WeaponRender[i]->SetScale(GetWeaponRenderScale());

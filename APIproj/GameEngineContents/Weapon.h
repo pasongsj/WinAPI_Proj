@@ -134,6 +134,14 @@ public:
 		SetWeaponCollisionScale(_Collision);
 	}
 
+	void SetWeaponPass(int _Pass)
+	{
+		WeaponPass = _Pass;
+	}
+
+	int GetWeaponPass();
+
+
 protected:
 
 	void Start() override;
@@ -161,4 +169,9 @@ private:
 
 	float4 WeaponRenderScale = float4::Zero;
 	float4 WeaponCollisionScale = float4::Zero;
+
+
+	int WeaponPass = 1;
+
+	
 };

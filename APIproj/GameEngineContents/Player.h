@@ -15,16 +15,16 @@ class Active
 {
 public:
 
-	float MaxHealth = 100;	//최대체력
-	float Recovery = 0;		// 회복
-	int Armor = 0;			// 방어력 방어력1당 10%데미지 반격
-	float ActiveSpeed = 100;	// 이동속도 %
+	float MaxHealth = 100;	//최대체력 ㅇ
+	float Recovery = 0;		// 회복 ㅇ
+	int Armor = 0;			// 방어력 방어력1당 10%데미지 반격 ㅇ 
+	float ActiveSpeed = 100;	// 이동속도 % ㅇ
 
-	float Might = 100;		// 괴력 %
-	float Area = 100;		// 공격범위 %
-	float Speed = 100;		// 투사체 속도 %
+	float Might = 100;		// 괴력 % ㅇ
+	float Area = 100;		// 공격범위 % ㅇ
+	float Speed = 100;		// 투사체 속도 % ㅇ
 	float Duration = 100;	// 지속시간 %
-	int Amount = 0;			// 투사체 수
+	int Amount = 0;			// 투사체 수 ㅇ
 	float Cooldown = 100;	// 쿨타임 %
 
 	int Luck = 100;			// 행운 %

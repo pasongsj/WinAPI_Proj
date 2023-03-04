@@ -29,7 +29,7 @@ void WeaponKnife::ReSet()
 	{
 		WeaponRender[i]->SetPosition(float4::Zero);
 		WeaponCollision[i]->SetPosition(float4::Zero);
-		Passes[i] = 1;
+		Passes[i] = GetWeaponPass();
 
 		WeaponRender[i]->SetScale(GetWeaponRenderScale());
 		WeaponCollision[i]->SetScale(GetWeaponCollisionScale());
