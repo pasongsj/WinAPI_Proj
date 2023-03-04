@@ -134,12 +134,27 @@ public:
 		SetWeaponCollisionScale(_Collision);
 	}
 
-	void SetWeaponPass(int _Pass)
+	inline void SetWeaponPass(int _Pass)
 	{
 		WeaponPass = _Pass;
 	}
 
 	int GetWeaponPass();
+
+	inline void SetNumOfWeapon(int _Num)
+	{
+		NumOfWeapon = _Num;
+	}
+
+	inline void AddNumOfWeapon()
+	{
+		NumOfWeapon++;
+	}
+
+	inline int GetNumOfWeapon()
+	{
+		return NumOfWeapon;
+	}
 
 
 protected:
@@ -173,5 +188,5 @@ private:
 
 	int WeaponPass = 1;
 
-	
+	int NumOfWeapon = 1;
 };

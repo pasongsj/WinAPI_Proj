@@ -20,6 +20,10 @@ void WeaponKingBible::ReSet()
 	}
 	float4 StandardPos = { 0,-32 };
 	float4 WeaponDir = float4{ 0,1 } * WeaponRange;
+	while (WeaponRender.size() < GetNumOfWeapon())
+	{
+		Init();
+	}
 	for (int i = 0;i < WeaponRender.size();i++)
 	{
 		WeaponRender[i]->SetPosition(StandardPos + WeaponDir);
@@ -60,15 +64,19 @@ void WeaponKingBible::Init()
 void WeaponKingBible::Start()
 {
 	SetWeaponName("KingBible");
-	Init();
 
-	SetCoolTime(6.0f);
-	SetRunTime(3.0f);
+	SetNumOfWeapon(1);
+	SetCoolTime(3.0f);
+	SetRunTime(1.7f);
 	float _Dmg[9] = { 0.0f,10.0f,10.0f,10.0f,20.0f,20.0f,20.0f,30.0f,30.0f };
 	SetDmg(_Dmg);
 	SetWeaponSpeed(200.0f);
 
 	Weapon::Weapons[GetWeaponName()] = this;
+	for (int i = 0;i < GetNumOfWeapon();i++)
+	{
+		Init();
+	}
 
 	this->Off();
 }
