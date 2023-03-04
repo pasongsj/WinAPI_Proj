@@ -27,14 +27,32 @@ public:
 	int Amount = 0;			// 투사체 수 ㅇ
 	float Cooldown = 100;	// 쿨타임 % ㅇ
 
-	int Luck = 100;			// 행운 %
-	int Growth = 0;			// 성장% ㅇ
+	float Luck = 100;			// 행운 %
+	float Growth = 0;			// 성장% ㅇ
 	int Greed = 100;		// 탐욕%  탐욕 수치를 통한 골드 획득량은 < (기본 수치 + 추가 능력치) x 스테이지 골드 보너스 >
-	int Magnet = 0;		// 자석 ㅇ
+	int Magnet = 0;		    // 자석 ㅇ
 
 	int Revival = 0;		// 부활
 	int Reroll = 0;			// 새로고침
 	int Skip = 0;			// 건너뛰기
+};
+
+class ActiveLevel
+{
+public:
+	int LevelBracer		 = 0;
+	int LevelCandle		 = 0;
+	int LevelClover		 = 0;
+	int LevelEmptytome	 = 0;
+	int LevelMagnet		 = 0;
+	int LevelSpinach	 = 0;
+	int LevelWing		 = 0;
+	int LevelDuplicator	 = 0;
+	int LevelPummarola	 = 0;
+	int LevelSpellbinder = 0;
+	int LevelCrown		 = 0;
+	int LevelHollowHeart = 0;
+	int LevelArmor		 = 0;
 };
 
 
@@ -110,6 +128,8 @@ private:
 
 
 	Active PlayerActive;
+	ActiveLevel PlayerActiveLevel;
+
 	//float AccTime = 0.0f;
 	int StartFrame = 0;
 	float MoveSpeed = 500.0f;

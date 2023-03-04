@@ -125,7 +125,7 @@ void WeaponMagicWand::Init()
 void WeaponMagicWand::Start()
 {
 	SetWeaponName("MagicWand");
-	SetNumOfWeapon(5);
+	SetNumOfWeapon(1);
 
 	SetCoolTime(1.2f);
 	SetRunTime(10.0f);

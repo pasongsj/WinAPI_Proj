@@ -22,19 +22,23 @@ AdditionItemUI::~AdditionItemUI()
 
 void PushLevelupBracer()
 {
-	//Player::MainPlayer->PushWeapon("Bracer");
+	Player::MainPlayer->PushActive("Bracer");
+	Player::IsStop = false;
 }
 void PushLevelupCandle()
 {
-	//Player::MainPlayer->PushWeapon("Candle");
+	Player::MainPlayer->PushActive("Candle");
+	Player::IsStop = false;
 }
 void PushLevelupClover()
 {
-	//Player::MainPlayer->PushWeapon("Clover");
+	Player::MainPlayer->PushActive("Clover");
+	Player::IsStop = false;
 }
 void PushLevelupEmptytome()
 {
-	//Player::MainPlayer->PushWeapon("Emptytome");
+	Player::MainPlayer->PushActive("Emptytome");
+	Player::IsStop = false;
 }
 void PushLevelupFirewand()
 {
@@ -62,7 +66,8 @@ void PushLevelupMagicwand()
 }
 void PushLevelupMagnet()
 {
-	//Player::MainPlayer->PushWeapon("Magnet");
+	Player::MainPlayer->PushActive("Magnet");
+	Player::IsStop = false;
 }
 void PushLevelupMoney()
 {
@@ -80,12 +85,45 @@ void PushLevelupRunetracer()
 }
 void PushLevelupSpinach()
 {
-	//Player::MainPlayer->PushWeapon("Spinach");
+	Player::MainPlayer->PushActive("Spinach");
+	Player::IsStop = false;
 }
 void PushLevelupWing()
 {
-	//Player::MainPlayer->PushWeapon("Wing");
+	Player::MainPlayer->PushActive("Wing");
+	Player::IsStop = false;
 }
+void PushLevelupDuplicator()
+{
+	Player::MainPlayer->PushActive("Duplicator");
+	Player::IsStop = false;
+}
+void PushLevelupPummarola()
+{
+	Player::MainPlayer->PushActive("Pummarola");
+	Player::IsStop = false;
+}
+void PushLevelupSpellbinder()
+{
+	Player::MainPlayer->PushActive("Spellbinder");
+	Player::IsStop = false;
+}
+void PushLevelupCrown()
+{
+	Player::MainPlayer->PushActive("Crown");
+	Player::IsStop = false;
+}
+void PushLevelupHollowHeart()
+{
+	Player::MainPlayer->PushActive("HollowHeart");
+	Player::IsStop = false;
+}
+void PushLevelupArmor()
+{
+	Player::MainPlayer->PushActive("Armor");
+	Player::IsStop = false;
+}
+
 
 void AdditionItemUI::Start()
 {
@@ -136,6 +174,13 @@ void AdditionItemUI::Start()
 		LevelupItems.push_back("LevelupRunetracer.bmp");
 		LevelupItems.push_back("LevelupSpinach.bmp");
 		LevelupItems.push_back("LevelupWing.bmp");
+
+		LevelupItems.push_back("LevelUpDuplicator.bmp");
+		LevelupItems.push_back("LevelUpPummarola.bmp");
+		LevelupItems.push_back("LevelUpSpellbinder.bmp");
+		LevelupItems.push_back("LevelUpCrown.bmp");
+		LevelupItems.push_back("LevelUpHollowHeart.bmp");
+		LevelupItems.push_back("LevelUpArmor.bmp");
 	}
 	//int index_ = 0;
 	for (std::string _Name : LevelupItems)
@@ -164,6 +209,12 @@ void AdditionItemUI::Start()
 		Items[12]->SetClickCallBack(PushLevelupRunetracer);
 		Items[13]->SetClickCallBack(PushLevelupSpinach);
 		Items[14]->SetClickCallBack(PushLevelupWing);
+		Items[15]->SetClickCallBack(PushLevelupDuplicator);
+		Items[16]->SetClickCallBack(PushLevelupPummarola);
+		Items[17]->SetClickCallBack(PushLevelupSpellbinder);
+		Items[18]->SetClickCallBack(PushLevelupCrown);
+		Items[19]->SetClickCallBack(PushLevelupHollowHeart);
+		Items[20]->SetClickCallBack(PushLevelupArmor);
 	}
 
 	this->Off();
