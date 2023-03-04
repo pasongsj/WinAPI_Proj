@@ -69,6 +69,9 @@
     <ClInclude Include="WeaponFireWand.h">
       <Filter>Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="AdditionItemUIButtonFunction.h">
+      <Filter>PlayUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsGameCore.cpp" />
@@ -149,6 +152,12 @@
     </ClCompile>
     <ClCompile Include="WeaponFireWand.cpp">
       <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="AdditionItemUISetting.cpp">
+      <Filter>PlayUI</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerItems.cpp">
+      <Filter>Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

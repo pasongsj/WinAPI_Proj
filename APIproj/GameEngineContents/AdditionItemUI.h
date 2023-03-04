@@ -51,5 +51,9 @@ private:
 	std::set<std::pair< std::string, Button*>> ShowedBtn;
 
 	void ReSet();
+
+	void SetItemImage();
+	
+	void SetItemFunction();
 };
 

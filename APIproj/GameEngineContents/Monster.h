@@ -25,6 +25,12 @@ public:
 	Monster& operator=(Monster&& _Other) noexcept = delete;
 
 	void Attack(float _Att);
+
+	inline void KnockBackLessAttack(float _Att)
+	{
+		Hp -= _Att;
+	}
+
 	inline void SetHp(float _Hp) {
 		Hp = _Hp;
 	}

@@ -7,7 +7,8 @@
 #include <GameEngineCore/NumberRenderObject.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include "ContentsEnums.h"
-#include "Player.h"
+
+//#include "AdditionItemUIButtonFunction.h"
 
 
 AdditionItemUI* AdditionItemUI::SelectUI;
@@ -20,112 +21,6 @@ AdditionItemUI::AdditionItemUI()
 AdditionItemUI::~AdditionItemUI()
 {
 }
-
-
-void PushLevelupBracer()
-{
-	Player::MainPlayer->PushActive("Bracer");
-	Player::IsStop = false;
-}
-void PushLevelupCandle()
-{
-	Player::MainPlayer->PushActive("Candle");
-	Player::IsStop = false;
-}
-void PushLevelupClover()
-{
-	Player::MainPlayer->PushActive("Clover");
-	Player::IsStop = false;
-}
-void PushLevelupEmptytome()
-{
-	Player::MainPlayer->PushActive("Emptytome");
-	Player::IsStop = false;
-}
-void PushLevelupFirewand()
-{
-	Player::MainPlayer->PushWeapon("FireWand");
-	Player::IsStop = false;
-}
-void PushLevelupHp()
-{
-	//Player::MainPlayer->PushWeapon("Hp");
-}
-void PushLevelupKingBible()
-{
-	Player::MainPlayer->PushWeapon("KingBible");
-	Player::IsStop = false;
-}
-void PushLevelupKnife()
-{
-	Player::MainPlayer->PushWeapon("Knife");
-	Player::IsStop = false;
-}
-void PushLevelupMagicwand()
-{
-	Player::MainPlayer->PushWeapon("MagicWand");
-	Player::IsStop = false;
-}
-void PushLevelupMagnet()
-{
-	Player::MainPlayer->PushActive("Magnet");
-	Player::IsStop = false;
-}
-void PushLevelupMoney()
-{
-	//Player::MainPlayer->PushWeapon("Money");
-}
-void PushLevelupWhip()
-{
-	Player::MainPlayer->PushWeapon("Whip");
-	Player::IsStop = false;
-}
-void PushLevelupRunetracer()
-{
-	Player::MainPlayer->PushWeapon("RuneTracer");
-	Player::IsStop = false;
-}
-void PushLevelupSpinach()
-{
-	Player::MainPlayer->PushActive("Spinach");
-	Player::IsStop = false;
-}
-void PushLevelupWing()
-{
-	Player::MainPlayer->PushActive("Wing");
-	Player::IsStop = false;
-}
-void PushLevelupDuplicator()
-{
-	Player::MainPlayer->PushActive("Duplicator");
-	Player::IsStop = false;
-}
-void PushLevelupPummarola()
-{
-	Player::MainPlayer->PushActive("Pummarola");
-	Player::IsStop = false;
-}
-void PushLevelupSpellbinder()
-{
-	Player::MainPlayer->PushActive("Spellbinder");
-	Player::IsStop = false;
-}
-void PushLevelupCrown()
-{
-	Player::MainPlayer->PushActive("Crown");
-	Player::IsStop = false;
-}
-void PushLevelupHollowHeart()
-{
-	Player::MainPlayer->PushActive("HollowHeart");
-	Player::IsStop = false;
-}
-void PushLevelupArmor()
-{
-	Player::MainPlayer->PushActive("Armor");
-	Player::IsStop = false;
-}
-
 
 void AdditionItemUI::Start()
 {
@@ -154,37 +49,8 @@ void AdditionItemUI::Start()
 		BtnPos.push_back(_Pos);
 		_Pos.y += BtnScale.y;
 	}
-	{
-		ItemNames["Bracer"] = "LevelupBracer.bmp";
-		ItemNames["Candle"] = "LevelupCandle.bmp";
-		ItemNames["Clover"] = "LevelupClover.bmp";
-		ItemNames["Emptytome"] = "LevelupEmptytome.bmp";
-		ItemNames["Firewand"] = "LevelupFirewand.bmp";
-				
-			
-		ItemNames["Hp"] = "LevelupHp.bmp";
-		ItemNames["KingBible"] = "LevelupKingBible.bmp";
-		ItemNames["Knife"] = "LevelupKnife.bmp";
-		ItemNames["Magicwand"] = "LevelupMagicwand.bmp";
-		ItemNames["Magnet"] = "LevelupMagnet.bmp";
-				
-				
-		ItemNames["Money"] = "LevelupMoney.bmp";
-		ItemNames["Whip"] = "LevelupWhip.bmp";
-		ItemNames["Runetracer"] = "LevelupRunetracer.bmp";
-		ItemNames["Spinach"] = "LevelupSpinach.bmp";
-		ItemNames["Wing"] = "LevelupWing.bmp";
-				
-				
-		ItemNames["Duplicator"] = "LevelUpDuplicator.bmp";
-		ItemNames["Pummarola"] = "LevelUpPummarola.bmp";
-		ItemNames["Spellbinder"] = "LevelUpSpellbinder.bmp";
-		ItemNames["Crown"] = "LevelUpCrown.bmp";
-		ItemNames["HollowHeart"] = "LevelUpHollowHeart.bmp";
-		ItemNames["Armor"] = "LevelUpArmor.bmp";
 
-	}
-
+	SetItemImage();
 
 	for (std::pair<std::string, std::string> _Name : ItemNames)
 	{
@@ -196,42 +62,7 @@ void AdditionItemUI::Start()
 		NewCharBtn->Off();
 	}
 
-
-
-	std::map<std::string, Button*>::iterator itemiter = Items.begin();
-
-	{
-		itemiter++->second->SetClickCallBack(PushLevelupArmor		);		
-		itemiter++->second->SetClickCallBack(PushLevelupBracer		);		
-		itemiter++->second->SetClickCallBack(PushLevelupCandle		);		
-		itemiter++->second->SetClickCallBack(PushLevelupClover		);		
-		itemiter++->second->SetClickCallBack(PushLevelupCrown		);	
-				
-				
-		itemiter++->second->SetClickCallBack(PushLevelupDuplicator	 );
-		itemiter++->second->SetClickCallBack(PushLevelupEmptytome	 );
-		itemiter++->second->SetClickCallBack(PushLevelupFirewand	 );
-		itemiter++->second->SetClickCallBack(PushLevelupHollowHeart	 );
-		itemiter++->second->SetClickCallBack(PushLevelupHp			 );
-				
-				
-		itemiter++->second->SetClickCallBack(PushLevelupKingBible	);
-		itemiter++->second->SetClickCallBack(PushLevelupKnife		);
-		itemiter++->second->SetClickCallBack(PushLevelupMagicwand	);
-		itemiter++->second->SetClickCallBack(PushLevelupMagnet		);
-		itemiter++->second->SetClickCallBack(PushLevelupMoney		);
-				
-				
-		itemiter++->second->SetClickCallBack(PushLevelupPummarola	);
-		itemiter++->second->SetClickCallBack(PushLevelupRunetracer	);
-		itemiter++->second->SetClickCallBack(PushLevelupSpellbinder	);
-		itemiter++->second->SetClickCallBack(PushLevelupSpinach		);
-		itemiter++->second->SetClickCallBack(PushLevelupWhip		);
-		itemiter++->second->SetClickCallBack(PushLevelupWing		);
-	}
-
-	int a = 0;
-
+	SetItemFunction();
 
 	this->Off();
 }

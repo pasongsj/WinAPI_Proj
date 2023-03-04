@@ -34,6 +34,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="AdditionItemUIButtonFunction.h" />
     <ClInclude Include="ContentsEnums.h" />
     <ClInclude Include="ContentsGameCore.h">
       <SubType>
@@ -133,6 +134,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="AdditionItemUISetting.cpp" />
     <ClCompile Include="ContentsGameCore.cpp">
       <SubType>
       </SubType>
@@ -171,6 +173,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayerItems.cpp" />
     <ClCompile Include="PlayerStart.cpp" />
     <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="PlayGameUI.cpp">
