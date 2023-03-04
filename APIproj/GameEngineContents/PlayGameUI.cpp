@@ -113,10 +113,10 @@ void PlayGameUI::Update(float _DeltaTime)
 		LevelNumber.SetValue(Player::MainPlayer->GetPlayerLevel());
 	}
 
-	int _Exp = Player::MainPlayer->GetPlayerExp();
+	float _Exp = Player::MainPlayer->GetPlayerExp();
 
 	float4 ExpScale = MaxExpScale;
-	ExpScale.x = ExpScale.x * (static_cast<float>(_Exp) / Player::MainPlayer->GetMaxExp());
+	ExpScale.x = ExpScale.x * (_Exp / Player::MainPlayer->GetMaxExp());
 	ExpUIRender->SetScale(ExpScale);
 	ExpUIRender->SetPosition({ (ExpScale.hx()) + 5, MaxExpYPos });
 }

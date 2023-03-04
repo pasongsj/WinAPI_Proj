@@ -64,10 +64,7 @@ public:
 		CoolTime = _CoolTime;
 	}
 
-	inline float GetCoolTime()
-	{
-		return CoolTime;
-	}
+	float GetCoolTime();
 
 	// --- RunTime
 	inline void SetRunTime(const float& _RunTime)
@@ -75,10 +72,8 @@ public:
 		RunTime = _RunTime;
 	}
 
-	inline float GetRunTime()
-	{
-		return RunTime;
-	}
+	float GetRunTime();
+	
 
 	// --- Animation
 	inline void SetAnimationOff() {

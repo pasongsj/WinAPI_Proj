@@ -23,14 +23,14 @@ public:
 	float Might = 100;		// 괴력 % ㅇ
 	float Area = 100;		// 공격범위 % ㅇ
 	float Speed = 100;		// 투사체 속도 % ㅇ
-	float Duration = 100;	// 지속시간 %
+	float Duration = 100;	// 지속시간 % ㅇ 
 	int Amount = 0;			// 투사체 수 ㅇ
-	float Cooldown = 100;	// 쿨타임 %
+	float Cooldown = 100;	// 쿨타임 % ㅇ
 
 	int Luck = 100;			// 행운 %
-	int Growth = 100;		// 성장%
+	int Growth = 0;			// 성장% ㅇ
 	int Greed = 100;		// 탐욕%  탐욕 수치를 통한 골드 획득량은 < (기본 수치 + 추가 능력치) x 스테이지 골드 보너스 >
-	int Magnet = 30;		// 자석
+	int Magnet = 0;		// 자석 ㅇ
 
 	int Revival = 0;		// 부활
 	int Reroll = 0;			// 새로고침
@@ -71,7 +71,7 @@ public:
 		return Hp;
 	}
 
-	inline int GetPlayerExp()
+	inline float GetPlayerExp()
 	{
 		return PlayerExp;
 	}
@@ -117,7 +117,7 @@ private:
 	float4 LastMoveVec = float4::Zero;
 
 	float Hp = 100;
-	int PlayerExp = 0;
+	float PlayerExp = 0;
 	int PlayerLevel = 1;
 	float InvincibleStateDelay = 0.0f;//무적상태
 	//float4 HpbarScale = { 70, 9 };

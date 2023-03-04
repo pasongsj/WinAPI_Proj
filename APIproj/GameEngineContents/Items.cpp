@@ -3,6 +3,8 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include "ContentsEnums.h"
 
+#include "Player.h"
+
 //std::map<std::string, Items> Items::AllItems;
 
 Items::Items()
@@ -37,7 +39,9 @@ void Items::Start()
 
 	ItemRender->SetImageToScaleToImage("ExperienceGemBlue.bmp");
 
-	ItemCollision->SetScale(ItemRender->GetScale());
+	float4 ColScale = ItemRender->GetScale();
+	float Magnetic = 1.0f + 0.5f * static_cast<float>(Player::MainPlayer->GetPlayerActive().Magnet/10);
+	ItemCollision->SetScale(ColScale * Magnetic);
 
 	ItemRender->SetPosition({ 0,-ItemRender->GetScale().hy()});
 	ItemCollision->SetPosition({ 0,-ItemRender->GetScale().hy()});

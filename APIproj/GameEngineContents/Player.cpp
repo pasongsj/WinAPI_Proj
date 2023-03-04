@@ -120,7 +120,8 @@ void Player::Update(float _DeltaTime)
 		{
 			GameEngineActor* ColActor = Collision[i]->GetActor();
 			Items* ColItemActor = dynamic_cast<Items*> (ColActor);
-			PlayerExp += ColItemActor->GetExp();
+			float ItemExp = static_cast<float>(ColItemActor->GetExp());
+			PlayerExp += ItemExp * (PlayerActive.Growth + 100.0f / 100);
 			ColItemActor->Death();
 			//	ColActor->Death();
 

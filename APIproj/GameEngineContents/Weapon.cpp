@@ -62,3 +62,17 @@ int Weapon::GetWeaponPass()
 	int AddPass = (Player::MainPlayer->GetPlayerActive().Amount);
 	return WeaponPass + AddPass;
 }
+
+
+float Weapon::GetCoolTime()
+{
+	float CoolDownPer = (Player::MainPlayer->GetPlayerActive().Cooldown / 100.0f);
+	return CoolTime * CoolDownPer;
+}
+
+
+float Weapon::GetRunTime()
+{
+	float DurationPer = (Player::MainPlayer->GetPlayerActive().Duration / 100.0f);
+	return RunTime * DurationPer;
+}
