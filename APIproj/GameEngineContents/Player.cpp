@@ -74,6 +74,7 @@ bool Player::CheckMonsterCollision()
 			GameEngineActor* ColActor = Collision[i]->GetActor();
 			Monster* ColMonsterActor = dynamic_cast<Monster*> (ColActor);
 			Hp -= ColMonsterActor->GetDmg();
+			ColMonsterActor->Attack(ColMonsterActor->GetDmg()*(0.1f)*PlayerActive.Armor);
 			//ChangeState(PlayerState::DMGED);
 		//	ColActor->Death();
 		}
@@ -105,7 +106,7 @@ void Player::Update(float _DeltaTime)
 
 	{ // HP바 랜더
 		float4 HpScale = MaxHpScale;
-		HpScale.x = HpScale.x * (Hp / 120);
+		HpScale.x = HpScale.x * (Hp / PlayerActive.MaxHealth);
 		HpRedBar->SetScale(HpScale);
 		HpRedBar->SetPosition({ HpScale.hx() - MaxHpScale.hx()-1, MaxHpScale.y}); // -1 pixel 보정
 	}
@@ -131,7 +132,7 @@ void Player::Update(float _DeltaTime)
 		int a = 0;
 	}
 
-
+	UpdateActiveItem(_DeltaTime);
 	WeaponUpdate(_DeltaTime); // Weapon의 on/off로 관리했는데 자체적으로 렌더를 교환하기 때문에 변경할 필요가 있음 -> 매직완드 교체후 삭제하기
 	UpdateState(_DeltaTime);
 	Movecalculation(_DeltaTime);
@@ -226,7 +227,7 @@ void Player::PressMove() // 입력관리
 	{
 		LastMoveVec = MoveVec;
 	}
-	MoveVec *= MoveSpeed;
+	MoveVec *= MoveSpeed * (PlayerActive.ActiveSpeed/100);
 }
 
 void Player::CheckLevelUp()//레벨업 체크
@@ -291,4 +292,14 @@ void Player::PushWeapon(const std::string_view& _Weapon)
 	{
 
 	}
+}
+
+void Player::PushActive(const std::string_view& _Active)
+{
+
+}
+
+void Player::UpdateActiveItem(float _DeltaTime)
+{
+	Hp += PlayerActive.Recovery * _DeltaTime; // 초당 Recovery만큼 회복
 }

@@ -5,6 +5,8 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineRender.h>
 
+
+
 class Weapon : public GameEngineActor
 {
 	friend class Player;
@@ -54,10 +56,7 @@ public:
 		}
 	}
 
-	inline float GetDmg()
-	{
-		return Dmg[WeaponLevel];
-	}
+	float GetDmg();
 
 	// --- CoolTime
 	inline void SetCoolTime(const float& _CoolTime)
@@ -102,14 +101,37 @@ public:
 		return WeaponCollisionType;
 	}
 
+	// -- WeaponSpeed
+
 	inline void SetWeaponSpeed(const float& _Speed)
 	{
 		WeaponSpeed = _Speed;
 	}
 
-	inline float GetWeaponSpeed()
+	float GetWeaponSpeed();
+
+	//-- WeaponRenderScale
+	inline void SetWeaponRenderScale(const float4& _Scale)
 	{
-		return WeaponSpeed;
+		WeaponRenderScale = _Scale;
+	}
+
+	float4 GetWeaponRenderScale();
+
+
+	// -- WeaponCollisionScale
+	inline void SetWeaponCollisionScale(const float4& _Scale)
+	{
+		WeaponCollisionScale = _Scale;
+	}
+
+	float4 GetWeaponCollisionScale();
+
+
+	inline void SetWeaponScale(const float4& _Render, const float4& _Collision)
+	{
+		SetWeaponRenderScale(_Render);
+		SetWeaponCollisionScale(_Collision);
 	}
 
 protected:
@@ -120,8 +142,7 @@ protected:
 	virtual void Init() {};
 	virtual void ReSet() {};
 
-	/*GameEngineRender* WeaponRender = nullptr;
-	GameEngineCollision* WeaponCollision = nullptr;*/
+
 
 private:
 	
@@ -138,4 +159,6 @@ private:
 
 	CollisionType WeaponCollisionType = CollisionType::CT_Rect;
 
+	float4 WeaponRenderScale = float4::Zero;
+	float4 WeaponCollisionScale = float4::Zero;
 };

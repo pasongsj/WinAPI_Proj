@@ -29,6 +29,10 @@ void WeaponMagicWand::ReSet()
 		WeaponCollision[i]->SetPosition(float4::Zero);
 		Passes[i] = 1;
 		WeaponRender[i]->SetAngle(108); // float4{1, 0}위치기준
+
+		WeaponRender[i]->SetScale(GetWeaponRenderScale());
+		WeaponCollision[i]->SetScale(GetWeaponCollisionScale());
+
 		WeaponRender[i]->On();
 		WeaponCollision[i]->On();
 	}
@@ -82,6 +86,7 @@ void WeaponMagicWand::Init()
 		WeaponCollision.push_back(Collision);
 		WeaponDir.push_back(float4::Zero);
 		Passes.push_back(1);
+		SetWeaponScale(Render->GetScale(), Collision->GetScale());
 
 	}
 }
@@ -95,6 +100,7 @@ void WeaponMagicWand::Start()
 	SetRunTime(1.0f);
 	float _Dmg[9] = { 0.0f,10.0f,10.0f,10.0f,10.0f,20.0f,20.0f,20.0f,30.0f };
 	SetDmg(_Dmg);
+	SetWeaponSpeed(600.0f);
 
 	Weapon::Weapons[GetWeaponName()] = this;
 
@@ -124,8 +130,8 @@ void WeaponMagicWand::Update(float _DeltaTime)
 
 	for (int i = 0;i < WeaponRender.size();++i)
 	{
-		WeaponRender[i]->SetMove(WeaponDir[i] * _DeltaTime * 600);
-		WeaponCollision[i]->SetMove(WeaponDir[i] * _DeltaTime * 600);
+		WeaponRender[i]->SetMove(WeaponDir[i] * _DeltaTime * GetWeaponSpeed());
+		WeaponCollision[i]->SetMove(WeaponDir[i] * _DeltaTime * GetWeaponSpeed());
 
 		std::vector<GameEngineCollision*> Collision;
 		if (true == WeaponCollision[i]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_CirCle }, Collision))

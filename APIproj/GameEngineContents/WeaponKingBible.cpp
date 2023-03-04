@@ -26,6 +26,9 @@ void WeaponKingBible::ReSet()
 		WeaponCollision[i]->SetPosition(StandardPos + WeaponDir);
 		WeaponPos[i] = WeaponDir;
 
+		WeaponRender[i]->SetScale(GetWeaponRenderScale());
+		WeaponCollision[i]->SetScale(GetWeaponCollisionScale());
+
 		WeaponRender[i]->On();
 		WeaponCollision[i]->On();
 
@@ -48,6 +51,7 @@ void WeaponKingBible::Init()
 	WeaponRender.push_back(Render);
 	WeaponCollision.push_back(Collision);
 	WeaponPos.push_back(float4::Zero);
+	SetWeaponScale(Render->GetScale(), Collision->GetScale());
 
 }
 
@@ -62,6 +66,7 @@ void WeaponKingBible::Start()
 	SetRunTime(3.0f);
 	float _Dmg[9] = { 0.0f,10.0f,10.0f,10.0f,20.0f,20.0f,20.0f,30.0f,30.0f };
 	SetDmg(_Dmg);
+	SetWeaponSpeed(200.0f);
 
 	Weapon::Weapons[GetWeaponName()] = this;
 
@@ -92,7 +97,7 @@ void WeaponKingBible::Update(float _DeltaTime)
 
 	for (int i = 0;i < WeaponRender.size();++i)
 	{
-		WeaponPos[i].RotaitonZDeg(200.0f * _DeltaTime);
+		WeaponPos[i].RotaitonZDeg(GetWeaponSpeed() * _DeltaTime);
 		WeaponRender[i]->SetPosition(StandardPos + WeaponPos[i]);
 		WeaponCollision[i]->SetPosition(StandardPos + WeaponPos[i]);
 

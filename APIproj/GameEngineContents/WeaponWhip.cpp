@@ -19,6 +19,10 @@ void WeaponWhip::ReSet()
 	}
 	else {
 		LastDir = Player::MainPlayer->GetDirString();
+
+		WeaponRender[LastDir]->SetScale(GetWeaponRenderScale());
+		WeaponCollision[LastDir]->SetScale(GetWeaponCollisionScale());
+
 		WeaponRender[LastDir]->On();
 		WeaponCollision[LastDir]->On();
 	}
@@ -60,6 +64,8 @@ void WeaponWhip::Init()
 		WeaponCollision["Left_"] = Collision;
 		WeaponRender["Left_"]->Off();
 		WeaponCollision["Left_"]->Off();
+
+		SetWeaponScale(Render->GetScale(), Collision->GetScale());
 	}
 }
 

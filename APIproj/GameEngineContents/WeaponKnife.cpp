@@ -25,38 +25,39 @@ void WeaponKnife::ReSet()
 	if (0 == WeaponRender.size()) {
 		return;
 	}
-	else {
-		for (int i = 0;i < WeaponRender.size();++i)
+	for (int i = 0;i < WeaponRender.size();++i)
+	{
+		WeaponRender[i]->SetPosition(float4::Zero);
+		WeaponCollision[i]->SetPosition(float4::Zero);
+		Passes[i] = 1;
+
+		WeaponRender[i]->SetScale(GetWeaponRenderScale());
+		WeaponCollision[i]->SetScale(GetWeaponCollisionScale());
+
+		WeaponRender[i]->On();
+		WeaponCollision[i]->On();
+		_Dir = Player::MainPlayer->GetLastMoveVec();
+
+		float KnifeAngle = 0.0f;
+		if (float4::Zero == _Dir || float4{ -1,0,0,1 } == _Dir)
 		{
-			WeaponRender[i]->SetPosition(float4::Zero);
-			WeaponCollision[i]->SetPosition(float4::Zero);
-			Passes[i] = 1;
-
-			WeaponRender[i]->On();
-			WeaponCollision[i]->On();
-			_Dir = Player::MainPlayer->GetLastMoveVec();
-
-			float KnifeAngle = 0.0f;
-			if (float4::Zero == _Dir || float4{ -1,0,0,1 } == _Dir)
+			if ("Right_" == Player::MainPlayer->GetDirString())
 			{
-				if ("Right_" == Player::MainPlayer->GetDirString())
-				{
-					_Dir = float4{ 1,0 };
-					KnifeAngle = 0.0f;
-				}
-				else if("Left_" == Player::MainPlayer->GetDirString())
-				{
-					_Dir = float4{ -1,0 };
-					KnifeAngle = 181.0f;
-				}
+				_Dir = float4{ 1,0 };
+				KnifeAngle = 0.0f;
 			}
-			else
+			else if("Left_" == Player::MainPlayer->GetDirString())
 			{
-				KnifeAngle = float4{ 1,0 }.GetAngelBetweenVec(_Dir) * GameEngineMath::RadToDeg;
+				_Dir = float4{ -1,0 };
+				KnifeAngle = 181.0f;
 			}
-			WeaponDir[i] = _Dir;
-			WeaponRender[i]->SetAngle(KnifeAngle);
 		}
+		else
+		{
+			KnifeAngle = float4{ 1,0 }.GetAngelBetweenVec(_Dir) * GameEngineMath::RadToDeg;
+		}
+		WeaponDir[i] = _Dir;
+		WeaponRender[i]->SetAngle(KnifeAngle);
 	}
 	Player::MainPlayer->SetLastMoveVec(float4::Zero);
 	WaitTime = 0;
@@ -78,6 +79,7 @@ void WeaponKnife::Init()
 		WeaponCollision.push_back(Collision);
 		WeaponDir.push_back(float4::Zero);
 		Passes.push_back(1);
+		SetWeaponScale(Render->GetScale(), Collision->GetScale());
 
 	}
 }
@@ -92,6 +94,7 @@ void WeaponKnife::Start()
 	SetRunTime(0.8f);
 	float _Dmg[9] = { 0,6.5f,6.5f,11.5f,11.5f,11.5f,11.5f, 16.5f, 16.5f };
 	SetDmg(_Dmg);
+	SetWeaponSpeed(800.0f);
 
 	Weapon::Weapons[GetWeaponName()] = this;
 
@@ -117,8 +120,8 @@ void WeaponKnife::Update(float _DeltaTime)
 
 	for (int i = 0;i < WeaponRender.size();++i)
 	{
-		WeaponRender[i]->SetMove(WeaponDir[i] * _DeltaTime * 800);
-		WeaponCollision[i]->SetMove(WeaponDir[i] * _DeltaTime * 800);
+		WeaponRender[i]->SetMove(WeaponDir[i] * _DeltaTime * GetWeaponSpeed());
+		WeaponCollision[i]->SetMove(WeaponDir[i] * _DeltaTime * GetWeaponSpeed());
 		float _GetAngVal = WeaponRender[i]->GetAngle();
 
 		std::vector<GameEngineCollision*> Collision;

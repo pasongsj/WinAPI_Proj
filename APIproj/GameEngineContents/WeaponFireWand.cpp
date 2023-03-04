@@ -44,6 +44,9 @@ void WeaponFireWand::ReSet()
 		float GetAng = float4{ 1,0 }.GetAngelBetweenVec(WeaponDir[i]) * GameEngineMath::RadToDeg;
 		WeaponRender[i]->SetAngleAdd(GetAng);
 
+		WeaponRender[i]->SetScale(GetWeaponRenderScale());
+		WeaponCollision[i]->SetScale(GetWeaponCollisionScale());
+
 		WeaponRender[i]->On();
 		WeaponCollision[i]->On();
 	}
@@ -66,6 +69,7 @@ void WeaponFireWand::Init()
 		WeaponCollision.push_back(Collision);
 		WeaponDir.push_back(float4::Zero);
 		Passes.push_back(1);
+		SetWeaponScale(Render->GetScale(), Collision->GetScale());
 
 	}
 }
@@ -81,6 +85,7 @@ void WeaponFireWand::Start()
 	SetRunTime(2.9f);
 	float _Dmg[9] = { 0.0f,20.0f,30.0f,40.0f,50.0f,60.0f,70.0f,80.0f,90.0f };
 	SetDmg(_Dmg);
+	SetWeaponSpeed(400.0f);
 
 	Weapon::Weapons[GetWeaponName()] = this;
 
@@ -109,8 +114,8 @@ void WeaponFireWand::Update(float _DeltaTime)
 
 	for (int i = 0;i < WeaponRender.size();++i)
 	{
-		WeaponRender[i]->SetMove(WeaponDir[i] * _DeltaTime * 400);
-		WeaponCollision[i]->SetMove(WeaponDir[i] * _DeltaTime * 400);
+		WeaponRender[i]->SetMove(WeaponDir[i] * _DeltaTime * GetWeaponSpeed());
+		WeaponCollision[i]->SetMove(WeaponDir[i] * _DeltaTime * GetWeaponSpeed());
 
 		std::vector<GameEngineCollision*> Collision;
 		if (true == WeaponCollision[i]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_CirCle }, Collision))

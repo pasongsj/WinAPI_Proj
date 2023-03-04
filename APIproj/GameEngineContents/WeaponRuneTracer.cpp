@@ -44,6 +44,9 @@ void WeaponRuneTracer::ReSet()
 		WeaponRender[i]->SetPosition(float4::Zero);
 		WeaponCollision[i]->SetPosition(float4::Zero);
 
+		WeaponRender[i]->SetScale(GetWeaponRenderScale());
+		WeaponCollision[i]->SetScale(GetWeaponCollisionScale());
+
 		WeaponRender[i]->On();
 		WeaponCollision[i]->On();
 	}
@@ -67,6 +70,7 @@ void WeaponRuneTracer::Init()
 		WeaponRender.push_back(Render);
 		WeaponCollision.push_back(Collision);
 		WeaponDir.push_back(float4::Zero);
+		SetWeaponScale(Render->GetScale(), Collision->GetScale());
 	}
 }
 
@@ -80,6 +84,7 @@ void WeaponRuneTracer::Start()
 	SetRunTime(2.25f);
 	float _Dmg[9] = { 0.0f,10.0f,15.0f,20.0f,20.0f,25.0f,30.0f,30.0f,30.0f };
 	SetDmg(_Dmg);
+	SetWeaponSpeed(1000.0f);
 
 	Weapon::Weapons[GetWeaponName()] = this;
 
@@ -128,9 +133,9 @@ void WeaponRuneTracer::Update(float _DeltaTime)
 
 	for (int i = 0;i < WeaponRender.size();++i)
 	{
-		WeaponDir[i] = CheckNextPos(GetPos() + WeaponRender[i]->GetPosition(),WeaponDir[i] * _DeltaTime * 1000).GetNormalize();
-		WeaponRender[i]->SetMove(WeaponDir[i] * _DeltaTime * 1000);
-		WeaponCollision[i]->SetMove(WeaponDir[i] * _DeltaTime * 1000);
+		WeaponDir[i] = CheckNextPos(GetPos() + WeaponRender[i]->GetPosition(),WeaponDir[i] * _DeltaTime * GetWeaponSpeed()).GetNormalize();
+		WeaponRender[i]->SetMove(WeaponDir[i] * _DeltaTime * GetWeaponSpeed());
+		WeaponCollision[i]->SetMove(WeaponDir[i] * _DeltaTime * GetWeaponSpeed());
 
 		std::vector<GameEngineCollision*> Collision;
 		if (true == WeaponCollision[i]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_CirCle }, Collision))
