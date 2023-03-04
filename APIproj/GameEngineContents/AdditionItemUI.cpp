@@ -1,4 +1,5 @@
 #include "AdditionItemUI.h"
+
 //#include <set>
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
@@ -10,6 +11,7 @@
 
 
 AdditionItemUI* AdditionItemUI::SelectUI;
+std::string AdditionItemUI::DeleteItemName = "";
 
 AdditionItemUI::AdditionItemUI()
 {
@@ -152,70 +154,84 @@ void AdditionItemUI::Start()
 		BtnPos.push_back(_Pos);
 		_Pos.y += BtnScale.y;
 	}
-
-
 	{
-		LevelupItems.push_back("LevelupBracer.bmp");
-		LevelupItems.push_back("LevelupCandle.bmp");
-		LevelupItems.push_back("LevelupClover.bmp");
-		LevelupItems.push_back("LevelupEmptytome.bmp");
-		LevelupItems.push_back("LevelupFirewand.bmp");
+		ItemNames["Bracer"] = "LevelupBracer.bmp";
+		ItemNames["Candle"] = "LevelupCandle.bmp";
+		ItemNames["Clover"] = "LevelupClover.bmp";
+		ItemNames["Emptytome"] = "LevelupEmptytome.bmp";
+		ItemNames["Firewand"] = "LevelupFirewand.bmp";
+				
+			
+		ItemNames["Hp"] = "LevelupHp.bmp";
+		ItemNames["KingBible"] = "LevelupKingBible.bmp";
+		ItemNames["Knife"] = "LevelupKnife.bmp";
+		ItemNames["Magicwand"] = "LevelupMagicwand.bmp";
+		ItemNames["Magnet"] = "LevelupMagnet.bmp";
+				
+				
+		ItemNames["Money"] = "LevelupMoney.bmp";
+		ItemNames["Whip"] = "LevelupWhip.bmp";
+		ItemNames["Runetracer"] = "LevelupRunetracer.bmp";
+		ItemNames["Spinach"] = "LevelupSpinach.bmp";
+		ItemNames["Wing"] = "LevelupWing.bmp";
+				
+				
+		ItemNames["Duplicator"] = "LevelUpDuplicator.bmp";
+		ItemNames["Pummarola"] = "LevelUpPummarola.bmp";
+		ItemNames["Spellbinder"] = "LevelUpSpellbinder.bmp";
+		ItemNames["Crown"] = "LevelUpCrown.bmp";
+		ItemNames["HollowHeart"] = "LevelUpHollowHeart.bmp";
+		ItemNames["Armor"] = "LevelUpArmor.bmp";
 
-
-		LevelupItems.push_back("LevelupHp.bmp");
-		LevelupItems.push_back("LevelupKingBible.bmp");
-		LevelupItems.push_back("LevelupKnife.bmp");
-		LevelupItems.push_back("LevelupMagicwand.bmp");
-		LevelupItems.push_back("LevelupMagnet.bmp");
-
-
-		LevelupItems.push_back("LevelupMoney.bmp");
-		LevelupItems.push_back("LevelupWhip.bmp");
-		LevelupItems.push_back("LevelupRunetracer.bmp");
-		LevelupItems.push_back("LevelupSpinach.bmp");
-		LevelupItems.push_back("LevelupWing.bmp");
-
-		LevelupItems.push_back("LevelUpDuplicator.bmp");
-		LevelupItems.push_back("LevelUpPummarola.bmp");
-		LevelupItems.push_back("LevelUpSpellbinder.bmp");
-		LevelupItems.push_back("LevelUpCrown.bmp");
-		LevelupItems.push_back("LevelUpHollowHeart.bmp");
-		LevelupItems.push_back("LevelUpArmor.bmp");
 	}
-	//int index_ = 0;
-	for (std::string _Name : LevelupItems)
+
+
+	for (std::pair<std::string, std::string> _Name : ItemNames)
 	{
 		Button* NewCharBtn = GetLevel()->CreateActor<Button>(VSRenderOrder::LastUI);
-		NewCharBtn->setting(_Name, _Name, _Name, { 0,0 }, BtnScale, static_cast<int>(VSRenderOrder::LastUI), false);
-		//NewCharBtn->SetRenderOrder(static_cast<int>(VSRenderOrder::LastUI));
-		NewCharBtn->GetButtonRender()->SetImage(_Name);
+		NewCharBtn->setting(_Name.second, _Name.second, _Name.second, { 0,0 }, BtnScale, static_cast<int>(VSRenderOrder::LastUI), false);
+		NewCharBtn->GetButtonRender()->SetImage(_Name.second);
 		NewCharBtn->GetButtonRender()->EffectCameraOn();
-		Items.push_back(NewCharBtn);
+		Items[_Name.first] = (NewCharBtn);
 		NewCharBtn->Off();
 	}
+
+
+
+	std::map<std::string, Button*>::iterator itemiter = Items.begin();
+
 	{
-		Items[0]->SetClickCallBack(PushLevelupBracer);
-		Items[1]->SetClickCallBack(PushLevelupCandle);
-		Items[2]->SetClickCallBack(PushLevelupClover);
-		Items[3]->SetClickCallBack(PushLevelupEmptytome);
-		Items[4]->SetClickCallBack(PushLevelupFirewand);
-		Items[5]->SetClickCallBack(PushLevelupHp);
-		Items[6]->SetClickCallBack(PushLevelupKingBible);
-		Items[7]->SetClickCallBack(PushLevelupKnife);
-		Items[8]->SetClickCallBack(PushLevelupMagicwand);
-		Items[9]->SetClickCallBack(PushLevelupMagnet);
-		Items[10]->SetClickCallBack(PushLevelupMoney);
-		Items[11]->SetClickCallBack(PushLevelupWhip);
-		Items[12]->SetClickCallBack(PushLevelupRunetracer);
-		Items[13]->SetClickCallBack(PushLevelupSpinach);
-		Items[14]->SetClickCallBack(PushLevelupWing);
-		Items[15]->SetClickCallBack(PushLevelupDuplicator);
-		Items[16]->SetClickCallBack(PushLevelupPummarola);
-		Items[17]->SetClickCallBack(PushLevelupSpellbinder);
-		Items[18]->SetClickCallBack(PushLevelupCrown);
-		Items[19]->SetClickCallBack(PushLevelupHollowHeart);
-		Items[20]->SetClickCallBack(PushLevelupArmor);
+		itemiter++->second->SetClickCallBack(PushLevelupArmor		);		
+		itemiter++->second->SetClickCallBack(PushLevelupBracer		);		
+		itemiter++->second->SetClickCallBack(PushLevelupCandle		);		
+		itemiter++->second->SetClickCallBack(PushLevelupClover		);		
+		itemiter++->second->SetClickCallBack(PushLevelupCrown		);	
+				
+				
+		itemiter++->second->SetClickCallBack(PushLevelupDuplicator	 );
+		itemiter++->second->SetClickCallBack(PushLevelupEmptytome	 );
+		itemiter++->second->SetClickCallBack(PushLevelupFirewand	 );
+		itemiter++->second->SetClickCallBack(PushLevelupHollowHeart	 );
+		itemiter++->second->SetClickCallBack(PushLevelupHp			 );
+				
+				
+		itemiter++->second->SetClickCallBack(PushLevelupKingBible	);
+		itemiter++->second->SetClickCallBack(PushLevelupKnife		);
+		itemiter++->second->SetClickCallBack(PushLevelupMagicwand	);
+		itemiter++->second->SetClickCallBack(PushLevelupMagnet		);
+		itemiter++->second->SetClickCallBack(PushLevelupMoney		);
+				
+				
+		itemiter++->second->SetClickCallBack(PushLevelupPummarola	);
+		itemiter++->second->SetClickCallBack(PushLevelupRunetracer	);
+		itemiter++->second->SetClickCallBack(PushLevelupSpellbinder	);
+		itemiter++->second->SetClickCallBack(PushLevelupSpinach		);
+		itemiter++->second->SetClickCallBack(PushLevelupWhip		);
+		itemiter++->second->SetClickCallBack(PushLevelupWing		);
 	}
+
+	int a = 0;
+
 
 	this->Off();
 }
@@ -228,21 +244,19 @@ void AdditionItemUI::Update(float _DeltaTime)
 		IsReset = true;
 		ReSet();
 	}
+	if ("" != DeleteItemName)
+	{
+		DeletedItem[DeleteItemName] = Items[DeleteItemName];
+		UIOff();
+		Items.erase(DeleteItemName);
+		DeleteItemName = "";
 
-	//for (int i = 0;i < 4;i++)
-	//{
-	//	int ItemIndex = GameEngineRandom::MainRandom.RandomInt(0, LevelupItems.size() - 1);
-	//	Items[i]->SetPressImage(LevelupItems[ItemIndex]);
-	//	Items[i]->SetHoverImage(LevelupItems[ItemIndex]);
-	//	Items[i]->SetReleaseImage(LevelupItems[ItemIndex]);
-	//}
+	}
 
 }
 
 void AdditionItemUI::ReSet()
 {
-	//std::set<Button*> ShowedBtn;
-	//ShowedBtn.clear();
 	ShowedBtn.clear();
 	int i = 0;
 	while (true)
@@ -251,27 +265,26 @@ void AdditionItemUI::ReSet()
 		{
 			break;
 		}
+		std::map<std::string, Button*>::iterator iter = Items.begin();
 		int ItemIndex = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(Items.size()) - 1);
-		Button* Picked = Items[ItemIndex];
-		ShowedBtn.insert(Picked);
-		Items.erase(Items.begin() + ItemIndex);
+		std::advance(iter, ItemIndex);
+		Button* Picked = iter->second;
+		ShowedBtn.insert(*iter);
+		Items.erase(iter);
 		Picked->On();
 
 
 		float4 Cam_Pos = GetLevel()->GetCameraPos() + BtnPos[i++];
 		Picked->SetPos(Cam_Pos);
-		//Picked->GetButtonRender()->SetPosition(BtnPos[i++]);
-		//Picked->GetButtonCollision()->SetPosition(GetLevel()->GetCameraPos() + BtnPos[i++]);
+
 	}
 
-	std::set<Button*>::iterator startit = ShowedBtn.begin();
-	std::set<Button*>::iterator endit = ShowedBtn.end();
+	std::set<std::pair< std::string, Button*>>::iterator startit = ShowedBtn.begin();
+	std::set<std::pair< std::string, Button*>>::iterator endit = ShowedBtn.end();
 
 	for (;startit != endit;startit++)
 	{
-		//(*startit)->On();
-		Items.push_back(*startit);
-		//ShowedBtn.erase(*startit);
+		Items.insert(*startit);
 	}
 
 }
@@ -281,28 +294,15 @@ void AdditionItemUI::UIOn()
 	this->On();
 	LevelUpUIRender->On();
 	StatUI->On();
-	/*std::set<Button*>::iterator startit = ShowedBtn.begin();
-	std::set<Button*>::iterator endit = ShowedBtn.end();*/
-
-	/*for (;startit != endit;startit++)
-	{
-		(*startit)->On();
-	}*/
-	/*for (Button* _Btn : Items)
-	{
-		_Btn->On();
-		int a = 0;
-	}*/
-
 
 }
 void AdditionItemUI::UIOff()
 {
 	LevelUpUIRender->Off();
 	StatUI->Off();
-	for (Button* _Btn : Items)
+	for (std::pair<std::string, Button*> _Item : Items)
 	{
-		_Btn->Off();
+		(*_Item.second).Off();
 	}
 	this->Off();
 }

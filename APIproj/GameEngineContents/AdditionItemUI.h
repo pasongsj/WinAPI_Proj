@@ -1,11 +1,13 @@
 #pragma once
 #include <set>
+#include <unordered_map>
 #include <GameEngineCore/GameEngineActor.h>
 #include <GameEngineCore/Button.h>
 
 class AdditionItemUI : public GameEngineActor
 {
 public:
+	static std::string DeleteItemName;
 	static AdditionItemUI* SelectUI;
 	// constrcuter destructer
 	AdditionItemUI() ;
@@ -34,14 +36,19 @@ protected:
 private:
 	bool IsReset = false;
 
-	std::vector<Button*> Items;
-	std::vector<std::string> LevelupItems;
+
+	std::map<std::string, std::string> ItemNames;
+
+	std::map<std::string, Button*> Items;
+	std::map<std::string, Button*> DeletedItem;
+
+
 	float4 BtnScale = float4{ 456,127, };
 	std::vector<float4> BtnPos;
 	GameEngineRender* LevelUpUIRender = nullptr;
 	GameEngineRender* StatUI = nullptr;
 
-	std::set<Button*> ShowedBtn;
+	std::set<std::pair< std::string, Button*>> ShowedBtn;
 
 	void ReSet();
 };
