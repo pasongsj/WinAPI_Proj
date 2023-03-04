@@ -12,6 +12,34 @@ WeaponKingBible::~WeaponKingBible()
 {
 }
 
+void WeaponKingBible::LevelUp()
+{
+	Weapon::LevelUp();
+	if (2 == GetWeaponLevel() || 8 == GetWeaponLevel()) //발사체를 1개 더 발사합니다.
+	{
+		SetWeaponCount(GetOriginWeaponCount() + 1);
+	}
+	else if (3 == GetWeaponLevel() || 6 == GetWeaponLevel()) //기본 속도가 30% 증가합니다. 기본 면적이 25% 증가했습니다.
+	{
+		SetWeaponSpeed(GetWeaponSpeed() * 1.3f);
+		SetWeaponScale(GetWeaponRenderScale() * 1.25f, GetWeaponCollisionScale() * 1.25f);
+	}
+	else if (4 == GetWeaponLevel() || 7 == GetWeaponLevel()) //효과가 0.5초 더 오래 지속됩니다. 기본 데미지가 10 증가합니다.
+	{
+		SetRunTime(GetRunTime() + 0.5f);
+	}
+	if (8 == GetWeaponLevel())
+	{
+		AdditionItemUI::DeleteItemName.push_back(GetWeaponName());
+	}
+
+	if (8 == GetWeaponLevel())
+	{
+		AdditionItemUI::DeleteItemName.push_back(GetWeaponName());
+	}
+
+
+}
 
 void WeaponKingBible::ReSet()
 {
@@ -20,6 +48,7 @@ void WeaponKingBible::ReSet()
 	}
 	float4 StandardPos = { 0,-32 };
 	float4 WeaponDir = float4{ 0,1 } * WeaponRange;
+
 	while (WeaponRender.size() < GetWeaponCount())
 	{
 		Init();

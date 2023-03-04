@@ -12,6 +12,25 @@ WeaponKnife::~WeaponKnife()
 {
 }
 
+void WeaponKnife::LevelUp()
+{
+	Weapon::LevelUp();
+
+	if (2 == GetWeaponLevel() || 3 == GetWeaponLevel() || 4 == GetWeaponLevel() || 6 == GetWeaponLevel() || 7 == GetWeaponLevel()) //발사체를 1개 더 발사합니다.2 3 4 6 7
+	{
+		SetWeaponCount(GetOriginWeaponCount() + 1);
+	}
+	else if (5 == GetWeaponLevel() || 8 == GetWeaponLevel()) // 적 1명을 더 통과합니다.
+	{
+		SetWeaponPass(GetWeaponPass() + 1);
+	}
+
+	if (8 == GetWeaponLevel())
+	{
+		AdditionItemUI::DeleteItemName.push_back(GetWeaponName());
+	}
+}
+
 
 void WeaponKnife::ReSet()
 {

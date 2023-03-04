@@ -20,6 +20,7 @@ void Player::PushWeapon(const std::string_view& _Weapon)
 	}
 	else // 레벨업 하기
 	{
+		(*it)->LevelUp();
 
 	}
 }

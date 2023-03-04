@@ -8,19 +8,19 @@ void AdditionItemUI::SetItemImage()
 		ItemNames["Candle"] = "LevelupCandle.bmp";
 		ItemNames["Clover"] = "LevelupClover.bmp";
 		ItemNames["Emptytome"] = "LevelupEmptytome.bmp";
-		ItemNames["Firewand"] = "LevelupFirewand.bmp";
+		ItemNames["FireWand"] = "LevelupFirewand.bmp";
 
 
 		ItemNames["Hp"] = "LevelupHp.bmp";
 		ItemNames["KingBible"] = "LevelupKingBible.bmp";
 		ItemNames["Knife"] = "LevelupKnife.bmp";
-		ItemNames["Magicwand"] = "LevelupMagicwand.bmp";
+		ItemNames["MagicWand"] = "LevelupMagicwand.bmp";
 		ItemNames["Magnet"] = "LevelupMagnet.bmp";
 
 
 		ItemNames["Money"] = "LevelupMoney.bmp";
 		ItemNames["Whip"] = "LevelupWhip.bmp";
-		ItemNames["Runetracer"] = "LevelupRunetracer.bmp";
+		ItemNames["RuneTracer"] = "LevelupRunetracer.bmp";
 		ItemNames["Spinach"] = "LevelupSpinach.bmp";
 		ItemNames["Wing"] = "LevelupWing.bmp";
 

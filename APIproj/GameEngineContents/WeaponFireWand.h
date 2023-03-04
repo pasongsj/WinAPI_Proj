@@ -14,7 +14,6 @@ public:
 	WeaponFireWand& operator=(const WeaponFireWand& _Other) = delete;
 	WeaponFireWand& operator=(WeaponFireWand&& _Other) noexcept = delete;
 
-	void LevelUp() override;
 
 
 protected:
@@ -22,6 +21,7 @@ protected:
 	void Update(float _DeltaTime) override;
 	void Init() override;
 	void ReSet() override;
+	void LevelUp() override;
 
 private:
 	std::vector<GameEngineRender*> WeaponRender;

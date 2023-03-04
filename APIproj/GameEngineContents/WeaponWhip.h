@@ -22,6 +22,7 @@ protected:
 	void Update(float _DeltaTime) override;
 	void Init() override;
 	void ReSet() override;
+	void LevelUp() override;
 
 private:
 	std::string LastDir = "Right_";

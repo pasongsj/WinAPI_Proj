@@ -13,6 +13,28 @@ WeaponMagicWand::~WeaponMagicWand()
 {
 }
 
+void WeaponMagicWand::LevelUp()
+{
+	Weapon::LevelUp();
+	if (2 == GetWeaponLevel() || 4 == GetWeaponLevel() || 6 == GetWeaponLevel()) //발사체를 1개 더 발사합니다.2 4 6
+	{
+		SetWeaponCount(GetOriginWeaponCount() + 1);
+	}
+	if (3 == GetWeaponLevel() ) //재사용 대기시간이 0.2초 감소했습니다.3
+	{
+		SetCoolTime(GetCoolTime() - 0.2f);
+	}
+	else if (7 == GetWeaponLevel()) // 적 1명을 더 통과합니다. 7 
+	{
+		SetWeaponPass(GetWeaponPass() + 1);
+	}
+
+	if (8 == GetWeaponLevel())
+	{
+		AdditionItemUI::DeleteItemName.push_back(GetWeaponName());
+	}
+}
+
 void WeaponMagicWand::ReSet()
 {
 	if (0 == WeaponRender.size()) {
@@ -65,7 +87,7 @@ void WeaponMagicWand::ReSet()
 }
 
 
-std::vector<float4> WeaponMagicWand::GetWeaponDir(const float4& _Pos)
+std::vector<float4> WeaponMagicWand::GetWeaponDir(const float4& _Pos) // -- 방향 수정필요
 {
 	std::vector<float4> _Dir;
 	_Dir.clear();

@@ -41,11 +41,6 @@ public:
 	}
 
 	// ---- Level
-	virtual void LevelUp()
-	{
-		++WeaponLevel;
-	}
-
 	inline int GetWeaponLevel()
 	{
 		return WeaponLevel;
@@ -142,7 +137,6 @@ public:
 		return WeaponPass;
 	}
 
-	int GetNumberOfWeapon();
 	
 
 	inline void SetWeaponCount(int _Count)
@@ -152,17 +146,11 @@ public:
 	
 	int GetWeaponCount();
 
-	/*inline void AddNumOfWeapon()
+	int GetOriginWeaponCount()
 	{
-		NumOfWeapon++;
-	}*/
+		return WeaponCount;
+	}
 
-
-
-	/*inline int GetNumberOfWeapon()
-	{
-		return NumOfWeapon;
-	}*/
 
 
 protected:
@@ -173,6 +161,10 @@ protected:
 	virtual void Init() {};
 	virtual void ReSet() {};
 
+	virtual void LevelUp()
+	{
+		++WeaponLevel;
+	}
 
 
 private:

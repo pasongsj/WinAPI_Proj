@@ -18,10 +18,12 @@ public:
 
 
 protected:
+
 	void Start() override;
 	void Update(float _DeltaTime) override;
 	void Init() override;
 	void ReSet() override;
+	void LevelUp() override;
 
 private:
 

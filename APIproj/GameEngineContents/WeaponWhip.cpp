@@ -11,6 +11,11 @@ WeaponWhip::~WeaponWhip()
 {
 }
 
+void WeaponWhip::LevelUp()
+{
+	Weapon::LevelUp();
+}
+
 void WeaponWhip::ReSet()
 {
 	//this->On();

@@ -14,7 +14,31 @@ WeaponRuneTracer::~WeaponRuneTracer()
 {
 }
 
+void WeaponRuneTracer::LevelUp()
+{
+	Weapon::LevelUp();
+	if (2 == GetWeaponLevel() || 5 == GetWeaponLevel()) //기본 속도가 20% 증가합니다.2 5
+	{
+		SetWeaponSpeed(GetWeaponSpeed() * 1.2f);
+	}
+	if (3 == GetWeaponLevel() || 6 == GetWeaponLevel()) //효과가 0.3초 더 오래 지속됩니다. 3 6
+	{
+		SetRunTime(GetRunTime() + 0.3f);
+	}
+	else if (4 == GetWeaponLevel() || 7 == GetWeaponLevel()) // 발사체를 1개 더 발사합니다. 4 7
+	{
+		SetWeaponCount(GetOriginWeaponCount() + 1);
+	}
+	else if (8 == GetWeaponLevel()) // 효과가 0.5초 더 오래 지속됩니다. 8
+	{
+		SetRunTime(GetRunTime() + 0.5f);
+	}
 
+	if (8 == GetWeaponLevel())
+	{
+		AdditionItemUI::DeleteItemName.push_back(GetWeaponName());
+	}
+}
 
 //void WeaponRuneTracer::SetWeaponDir()
 //{

@@ -62,9 +62,9 @@ void Player::Start()
 	}
 
 	{
-		/*MyWeapon.push_back(Weapon::Weapons[BasicWeapon]);
+		MyWeapon.push_back(Weapon::Weapons[BasicWeapon]);
 		MyWeapon.back()->On();
-		MyWeapon.back()->ReSet();*/
+		MyWeapon.back()->ReSet();
 		/*MyWeapon.push_back(Weapon::Weapons["RuneTracer"]);
 		MyWeapon.back()->On();*/
 		/*MyWeapon.push_back(Weapon::Weapons["RuneTracer"]);
