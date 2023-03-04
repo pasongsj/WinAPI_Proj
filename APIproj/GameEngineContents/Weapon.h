@@ -6,6 +6,7 @@
 #include <GameEngineCore/GameEngineRender.h>
 
 
+
 #include "AdditionItemUI.h"
 
 
@@ -141,21 +142,24 @@ public:
 		return WeaponPass;
 	}
 
-	int GetNumOfWeapon();
+	int GetNumberOfWeapon();
 	
-	inline void SetNumOfWeapon(int _Num)
-	{
-		NumOfWeapon = _Num;
-	}
 
-	inline void AddNumOfWeapon()
+	inline void SetWeaponCount(int _Count)
+	{
+		WeaponCount = _Count;
+	}
+	
+	int GetWeaponCount();
+
+	/*inline void AddNumOfWeapon()
 	{
 		NumOfWeapon++;
-	}
+	}*/
 
 
 
-	/*inline int GetNumOfWeapon()
+	/*inline int GetNumberOfWeapon()
 	{
 		return NumOfWeapon;
 	}*/
@@ -189,8 +193,7 @@ private:
 	float4 WeaponRenderScale = float4::Zero;
 	float4 WeaponCollisionScale = float4::Zero;
 
-
-	int NumOfWeapon = 1;
+	int WeaponCount = 1;
 	int WeaponPass = 1;
 
 };

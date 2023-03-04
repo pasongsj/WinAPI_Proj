@@ -55,13 +55,14 @@ float4 Weapon::GetWeaponCollisionScale()
 	return (WeaponCollisionScale * ScalePerc);
 }
 
-
-
-int Weapon::GetNumOfWeapon()
+int Weapon::GetWeaponCount()
 {
-	/*int _Num = (Player::MainPlayer->GetPlayerActive()).Amount;*/
-	Player::MainPlayer->GetPlayerActive();
-	return NumOfWeapon;
+	if (nullptr == Player::MainPlayer)
+	{
+		return WeaponCount;
+	}
+	int Cnt = Player::MainPlayer->GetPlayerActive().Amount;
+	return WeaponCount + Cnt;
 }
 
 float Weapon::GetCoolTime()

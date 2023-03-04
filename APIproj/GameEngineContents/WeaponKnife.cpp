@@ -48,7 +48,7 @@ void WeaponKnife::ReSet()
 	
 	int _Num = 0; // reset한 Weapon 수
 	int index = 0; // 인덱스
-	while (_Num < GetNumOfWeapon())
+	while (_Num < GetWeaponCount())
 	{
 		if (WeaponRender.size() - 1 < index) // 투사체가 부족할 시
 		{
@@ -124,7 +124,7 @@ void WeaponKnife::Init()
 void WeaponKnife::Start() 
 {
 	SetWeaponName("Knife");
-	SetNumOfWeapon(1);
+	SetWeaponCount(1);
 	SetWeaponPass(1);
 	SetCoolTime(1.0f);
 	SetRunTime(10.0f);
@@ -133,7 +133,7 @@ void WeaponKnife::Start()
 	SetWeaponSpeed(800.0f);
 
 	Weapon::Weapons[GetWeaponName()] = this;
-	for (int i = 0;i < GetNumOfWeapon();i++)
+	for (int i = 0;i < GetWeaponCount();i++)
 	{
 		Init();
 	}

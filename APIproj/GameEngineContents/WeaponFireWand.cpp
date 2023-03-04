@@ -42,11 +42,11 @@ void WeaponFireWand::ReSet()
 
 	float4 MainDir = float4{ GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) ,GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) }.GetNormalize();
 
-	int _Num = 0;/*GetNumOfWeapon();*/
+	int _Num = 0;/*GetWeaponCount();*/
 	int index = 0;
 
 
-	while (_Num< GetNumOfWeapon())
+	while (_Num< GetWeaponCount())
 	{
 
 		if (WeaponRender.size() - 1 < index) // 투사체가 부족할 시
@@ -131,7 +131,7 @@ void WeaponFireWand::Init() // 투사체 생성
 void WeaponFireWand::Start()
 {
 	SetWeaponName("FireWand");
-	SetNumOfWeapon(3);
+	SetWeaponCount(3);
 	SetCoolTime(3.0f);
 	SetRunTime(10.0f);
 	float _Dmg[9] = { 0.0f,20.0f,30.0f,40.0f,50.0f,60.0f,70.0f,80.0f,90.0f };
@@ -141,7 +141,7 @@ void WeaponFireWand::Start()
 
 	Weapon::Weapons[GetWeaponName()] = this;
 
-	for (int i = 0;i < GetNumOfWeapon();i++)
+	for (int i = 0;i < GetWeaponCount();i++)
 	{
 		Init();
 	}

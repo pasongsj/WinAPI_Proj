@@ -38,10 +38,10 @@ void WeaponRuneTracer::ReSet()
 	_Pos.y -= 32;
 	//SetPos(_Pos);
 
-	int _Num = 0;/*GetNumOfWeapon();*/
+	int _Num = 0;/*GetWeaponCount();*/
 	int index = 0;
 
-	while (_Num < GetNumOfWeapon())
+	while (_Num < GetWeaponCount())
 	{
 		if (WeaponRender.size() - 1 < index) // 투사체가 부족할 시
 		{
@@ -115,7 +115,7 @@ void WeaponRuneTracer::Init()
 void WeaponRuneTracer::Start()
 {
 	SetWeaponName("RuneTracer");
-	SetNumOfWeapon(1);
+	SetWeaponCount(1);
 
 	SetCoolTime(3.0f);
 	SetRunTime(2.25f);
@@ -124,7 +124,7 @@ void WeaponRuneTracer::Start()
 	SetWeaponSpeed(1000.0f);
 
 	Weapon::Weapons[GetWeaponName()] = this;
-	for (int i = 0;i < GetNumOfWeapon();i++)
+	for (int i = 0;i < GetWeaponCount();i++)
 	{
 		Init();
 	}

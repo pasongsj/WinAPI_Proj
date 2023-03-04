@@ -26,7 +26,7 @@ void WeaponMagicWand::ReSet()
 
 	int _Num = 0;
 	int index = 0;
-	while (_Num < GetNumOfWeapon())
+	while (_Num < GetWeaponCount())
 	{
 		if (WeaponRender.size() - 1 < index) // 투사체가 부족할 시
 		{
@@ -80,7 +80,7 @@ std::vector<float4> WeaponMagicWand::GetWeaponDir(const float4& _Pos)
 		}
 	}
 	int lim = static_cast<int>(_Dir.size());
-	for (int i = 0;i < GetNumOfWeapon() - lim;i ++ )
+	for (int i = 0;i < GetWeaponCount() - lim;i ++ )
 	{
 		float4 RandomDir = float4{ GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) ,GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) }.GetNormalize();
 		_Dir.push_back(RandomDir);
@@ -125,7 +125,7 @@ void WeaponMagicWand::Init()
 void WeaponMagicWand::Start()
 {
 	SetWeaponName("MagicWand");
-	SetNumOfWeapon(1);
+	SetWeaponCount(1);
 
 	SetCoolTime(1.2f);
 	SetRunTime(10.0f);
@@ -135,7 +135,7 @@ void WeaponMagicWand::Start()
 	SetWeaponPass(1);
 
 	Weapon::Weapons[GetWeaponName()] = this;
-	for (int i = 0;i < GetNumOfWeapon();i++)
+	for (int i = 0;i < GetWeaponCount();i++)
 	{
 		Init();
 	}
