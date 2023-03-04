@@ -22,7 +22,7 @@ void WeaponFireWand::ReSet()
 	}
 	float4 _Pos = Player::MainPlayer->GetPos();
 	_Pos.y -= 32;
-	SetPos(_Pos);
+
 
 	float4 MainDir = float4{ GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) ,GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) }.GetNormalize();
 
@@ -44,8 +44,8 @@ void WeaponFireWand::ReSet()
 		}
 
 		// off한 투사체 reset
-		WeaponRender[index]->SetPosition(float4::Zero);   //위치 지정
-		WeaponCollision[index]->SetPosition(float4::Zero);
+		WeaponRender[index]->SetPosition(_Pos);   //위치 지정
+		WeaponCollision[index]->SetPosition(_Pos);
 
 		Passes[index] = GetWeaponPass(); // 관통 수 초기화
 		if (0 == (_Num & 1)) // 짝수라면?
@@ -120,6 +120,7 @@ void WeaponFireWand::Start()
 	float _Dmg[9] = { 0.0f,20.0f,30.0f,40.0f,50.0f,60.0f,70.0f,80.0f,90.0f };
 	SetDmg(_Dmg);
 	SetWeaponSpeed(400.0f);
+	SetWeaponPass(1);
 
 	Weapon::Weapons[GetWeaponName()] = this;
 
@@ -170,9 +171,9 @@ void WeaponFireWand::Update(float _DeltaTime)
 		if (true == WeaponCollision[i]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_CirCle }, Collision))
 		{
 
-			for (size_t i = 0; i < Collision.size(); i++)
+			for (size_t j = 0; j < Collision.size(); j++)
 			{
-				GameEngineActor* ColActor = Collision[i]->GetActor();
+				GameEngineActor* ColActor = Collision[j]->GetActor();
 				Monster* ColWeaponActor = dynamic_cast<Monster*> (ColActor);
 				ColWeaponActor->Attack(GetDmg());
 				--Passes[i];

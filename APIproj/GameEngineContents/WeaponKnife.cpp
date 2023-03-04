@@ -22,7 +22,7 @@ void WeaponKnife::ReSet()
 
 	float4 _Pos = Player::MainPlayer->GetPos();
 	_Pos.y -= 32;
-	SetPos(_Pos);
+	
 
 
 	// 방향 설정, 무기 각도 설정
@@ -61,13 +61,13 @@ void WeaponKnife::ReSet()
 		}
 		if (0 == (_Num & 1))
 		{
-			WeaponRender[index]->SetPosition(float4{ 0,static_cast<float>(_Num*5) });
-			WeaponCollision[index]->SetPosition(float4{ 0,static_cast<float>(_Num*5) });
+			WeaponRender[index]->SetPosition(_Pos + float4{ 0,static_cast<float>(_Num*5) });
+			WeaponCollision[index]->SetPosition(_Pos + float4{ 0,static_cast<float>(_Num*5) });
 		}
 		else
 		{
-			WeaponRender[index]->SetPosition(float4{ 0,static_cast<float>(-_Num*5) });
-			WeaponCollision[index]->SetPosition(float4{ 0,static_cast<float>(-_Num*5) });
+			WeaponRender[index]->SetPosition(_Pos + float4{ 0,static_cast<float>(-_Num*5) });
+			WeaponCollision[index]->SetPosition(_Pos + float4{ 0,static_cast<float>(-_Num*5) });
 		}
 		Passes[index] = GetWeaponPass();
 		WeaponRender[index]->SetScale(GetWeaponRenderScale());
@@ -83,21 +83,6 @@ void WeaponKnife::ReSet()
 		++_Num;
 	}
 	
-	// 무기 reset
-	/*for (int i = 0;i < WeaponRender.size();++i)
-	{
-		WeaponRender[i]->SetPosition(float4::Zero);
-		WeaponCollision[i]->SetPosition(float4::Zero);
-		Passes[i] = GetWeaponPass();
-
-		WeaponRender[i]->SetScale(GetWeaponRenderScale());
-		WeaponCollision[i]->SetScale(GetWeaponCollisionScale());
-
-		WeaponRender[i]->On();
-		WeaponCollision[i]->On();
-		WeaponDir[i] = _Dir;
-		WeaponRender[i]->SetAngle(KnifeAngle);
-	}*/
 	Player::MainPlayer->SetLastMoveVec(float4::Zero);
 	WaitTime = 0;
 
@@ -139,8 +124,8 @@ void WeaponKnife::Init()
 void WeaponKnife::Start() 
 {
 	SetWeaponName("Knife");
-	SetNumOfWeapon(5);
-
+	SetNumOfWeapon(1);
+	SetWeaponPass(1);
 	SetCoolTime(1.0f);
 	SetRunTime(10.0f);
 	float _Dmg[9] = { 0,6.5f,6.5f,11.5f,11.5f,11.5f,11.5f, 16.5f, 16.5f };
@@ -196,9 +181,9 @@ void WeaponKnife::Update(float _DeltaTime)
 		if (true == WeaponCollision[i]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_Rect }, Collision))
 		{
 
-			for (size_t i = 0; i < Collision.size(); i++)
+			for (size_t j = 0; j < Collision.size(); j++)
 			{
-				GameEngineActor* ColActor = Collision[i]->GetActor();
+				GameEngineActor* ColActor = Collision[j]->GetActor();
 				Monster* ColWeaponActor = dynamic_cast<Monster*> (ColActor);
 				ColWeaponActor->Attack(GetDmg());
 				--Passes[i];

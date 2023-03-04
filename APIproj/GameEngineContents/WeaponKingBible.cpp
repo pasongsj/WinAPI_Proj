@@ -113,9 +113,9 @@ void WeaponKingBible::Update(float _DeltaTime)
 		if (true == WeaponCollision[i]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_Rect }, Collision))
 		{
 
-			for (size_t i = 0; i < Collision.size(); i++)
+			for (size_t j = 0; j < Collision.size(); j++)
 			{
-				GameEngineActor* ColActor = Collision[i]->GetActor();
+				GameEngineActor* ColActor = Collision[j]->GetActor();
 				Monster* ColWeaponActor = dynamic_cast<Monster*> (ColActor);
 				ColWeaponActor->Attack(GetDmg());
 
