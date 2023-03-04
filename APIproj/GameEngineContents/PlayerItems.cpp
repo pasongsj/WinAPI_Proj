@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "AdditionItemUI.h"
+#include <vector>
 
 void Player::PushWeapon(const std::string_view& _Weapon)
 {
@@ -117,7 +118,7 @@ void Player::PushActive(const std::string_view& _Active)
 	}
 	if (5 == NextLevel)
 	{
-		AdditionItemUI::DeleteItemName = _Active;
+		AdditionItemUI::DeleteItemName.push_back(_Active.data());
 	}
 
 }

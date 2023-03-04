@@ -7,7 +7,7 @@
 class AdditionItemUI : public GameEngineActor
 {
 public:
-	static std::string DeleteItemName;
+	static std::vector<std::string> DeleteItemName;
 	static AdditionItemUI* SelectUI;
 	// constrcuter destructer
 	AdditionItemUI() ;

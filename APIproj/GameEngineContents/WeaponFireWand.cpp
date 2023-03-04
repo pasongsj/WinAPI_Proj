@@ -14,6 +14,22 @@ WeaponFireWand::~WeaponFireWand()
 {
 }
 
+void WeaponFireWand::LevelUp()
+{
+	Weapon::LevelUp();
+	if (3 == GetWeaponLevel() || 5 == GetWeaponLevel() || 7 == GetWeaponLevel())
+	{
+		SetWeaponSpeed(GetWeaponSpeed() * 1.2f);
+	}
+	if (8 == GetWeaponLevel())
+	{
+		AdditionItemUI::DeleteItemName.push_back(GetWeaponName());
+	}
+	//레벨 3	기본 손상이 10 증가합니다. 기본 속도가 20% 증가합니다.
+	//레벨 5	기본 손상이 10 증가합니다. 기본 속도가 20% 증가합니다.
+	//7레벨	기본 손상이 10 증가합니다. 기본 속도가 20% 증가합니다.
+
+}
 
 void WeaponFireWand::ReSet()
 {
@@ -28,6 +44,7 @@ void WeaponFireWand::ReSet()
 
 	int _Num = 0;/*GetNumOfWeapon();*/
 	int index = 0;
+
 
 	while (_Num< GetNumOfWeapon())
 	{

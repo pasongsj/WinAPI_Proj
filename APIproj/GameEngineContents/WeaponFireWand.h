@@ -14,6 +14,9 @@ public:
 	WeaponFireWand& operator=(const WeaponFireWand& _Other) = delete;
 	WeaponFireWand& operator=(WeaponFireWand&& _Other) noexcept = delete;
 
+	void LevelUp() override;
+
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

@@ -12,7 +12,7 @@
 
 
 AdditionItemUI* AdditionItemUI::SelectUI;
-std::string AdditionItemUI::DeleteItemName = "";
+std::vector<std::string> AdditionItemUI::DeleteItemName;
 
 AdditionItemUI::AdditionItemUI()
 {
@@ -75,13 +75,20 @@ void AdditionItemUI::Update(float _DeltaTime)
 		IsReset = true;
 		ReSet();
 	}
-	if ("" != DeleteItemName)
+	if (0 < DeleteItemName.size())
 	{
-		DeletedItem[DeleteItemName] = Items[DeleteItemName];
-		UIOff();
-		Items.erase(DeleteItemName);
-		DeleteItemName = "";
+		for (std::string _Name : DeleteItemName)
+		{
+			if (Items.find(_Name) == Items.end())
+			{
+				MsgAssert("리스트에 없는 무기를 제거하려 했습니다.");
+			}
+			DeletedItem[_Name] = Items[_Name];
+			DeletedItem[_Name]->Off();
+			Items.erase(_Name);
 
+		}
+		DeleteItemName.clear();
 	}
 
 }

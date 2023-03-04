@@ -6,6 +6,8 @@
 #include <GameEngineCore/GameEngineRender.h>
 
 
+#include "AdditionItemUI.h"
+
 
 class Weapon : public GameEngineActor
 {
@@ -38,7 +40,7 @@ public:
 	}
 
 	// ---- Level
-	inline void LevelUp()
+	virtual void LevelUp()
 	{
 		++WeaponLevel;
 	}
@@ -134,8 +136,13 @@ public:
 		WeaponPass = _Pass;
 	}
 
-	int GetWeaponPass();
+	int GetWeaponPass()
+	{
+		return WeaponPass;
+	}
 
+	int GetNumOfWeapon();
+	
 	inline void SetNumOfWeapon(int _Num)
 	{
 		NumOfWeapon = _Num;
@@ -146,10 +153,12 @@ public:
 		NumOfWeapon++;
 	}
 
-	inline int GetNumOfWeapon()
+
+
+	/*inline int GetNumOfWeapon()
 	{
 		return NumOfWeapon;
-	}
+	}*/
 
 
 protected:
@@ -181,7 +190,7 @@ private:
 	float4 WeaponCollisionScale = float4::Zero;
 
 
+	int NumOfWeapon = 1;
 	int WeaponPass = 1;
 
-	int NumOfWeapon = 1;
 };

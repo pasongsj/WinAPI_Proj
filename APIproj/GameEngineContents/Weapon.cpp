@@ -1,7 +1,6 @@
 #include "Weapon.h"
 #include "ContentsEnums.h"
 #include <GameEngineCore/GameEngineLevel.h>
-#include <utility>
 
 #include "Player.h"
 
@@ -57,12 +56,13 @@ float4 Weapon::GetWeaponCollisionScale()
 }
 
 
-int Weapon::GetWeaponPass()
-{
-	int AddPass = (Player::MainPlayer->GetPlayerActive().Amount);
-	return WeaponPass + AddPass;
-}
 
+int Weapon::GetNumOfWeapon()
+{
+	/*int _Num = (Player::MainPlayer->GetPlayerActive()).Amount;*/
+	Player::MainPlayer->GetPlayerActive();
+	return NumOfWeapon;
+}
 
 float Weapon::GetCoolTime()
 {
