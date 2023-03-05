@@ -1,15 +1,16 @@
 #include "Player.h"
-#include "ContentsEnums.h"
 
-#include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineCollision.h>
+//#include <GameEnginePlatform/GameEngineWindow.h>
 
 
 //#include "Weapon.h"
+#include "ContentsEnums.h"
+
 #include "Monster.h"
 #include "Items.h"
 
@@ -65,18 +66,18 @@ bool Player::CheckMonsterCollision()
 	std::vector<GameEngineCollision*> Collision;
 
 
-	// PlayerState가 변경될 수 있음을 인지해야한다. - 수정필요
+	// PlayerState가 변경될 수 있음을 인지해야한다. - 수정완료
 	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster) }, Collision))
 	{
 		for (size_t i = 0; i < Collision.size(); i++)
 		{
-			// Monster* FindMonster = Collision[i]->GetOwner<Monster>();
 			GameEngineActor* ColActor = Collision[i]->GetActor();
 			Monster* ColMonsterActor = dynamic_cast<Monster*> (ColActor);
-			Hp -= (ColMonsterActor->GetDmg() - static_cast<float>(PlayerActive.Armor));
-			ColMonsterActor->KnockBackLessAttack(ColMonsterActor->GetDmg()*(0.1f)*PlayerActive.Armor);
-			//ChangeState(PlayerState::DMGED);
-		//	ColActor->Death();
+
+			Hp -= (ColMonsterActor->GetDmg() - static_cast<float>(PlayerActive.Armor)); // 캐릭터데미지
+
+			ColMonsterActor->KnockBackLessAttack(ColMonsterActor->GetDmg()*(0.1f)*PlayerActive.Armor); // 아이템Armor로인한 반사데미지
+
 		}
 	}
 	return Collision.size() > 0;
@@ -89,10 +90,9 @@ void Player::Update(float _DeltaTime)
 		return;
 	}
 
-	InvincibleStateDelay -= _DeltaTime; // 피격시 무적타임
-	if (InvincibleStateDelay <= 0)
+	DmgedAnimationDelay -= _DeltaTime; // 피격시 무적타임
+	if (DmgedAnimationDelay < 0)
 	{
-		BodyCollision->On();
 		if (PlayerState::IDLE_DMGED == StateValue) // dmged 이미지에서 변경되지 않는 점 보완
 		{
 			ChangeState(PlayerState::IDLE);

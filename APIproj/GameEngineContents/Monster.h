@@ -24,12 +24,10 @@ public:
 	Monster& operator=(const Monster& _Other) = delete;
 	Monster& operator=(Monster&& _Other) noexcept = delete;
 
-	void Attack(float _Att);
+	void Attack(float _Att, float _KnockBack = 0.0f);
 
-	inline void KnockBackLessAttack(float _Att)
-	{
-		Hp -= _Att;
-	}
+	void KnockBackLessAttack(float _Att);
+
 
 	inline void SetHp(float _Hp) {
 		Hp = _Hp;
@@ -47,6 +45,11 @@ public:
 		return Dmg;
 	}
 
+	inline void SetInvincibleStateDelay(const float& _Time)
+	{
+		InvincibleStateDelay = _Time;
+	}
+
 
 protected:
 	void Start() override;
@@ -54,7 +57,10 @@ protected:
 
 private:
 
+	float InvincibleStateDelay = 0.0f;//무적상태
+
 	bool IsAttacked = false;
+	float KnockBack = 0.0f;
 	float CollisionOffTime = 0.0f;
 	float Hp = 0;
 	float Dmg = 0;

@@ -161,6 +161,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="MonsterSetting.cpp" />
     <ClCompile Include="MouseObject.cpp">
       <SubType>
       </SubType>

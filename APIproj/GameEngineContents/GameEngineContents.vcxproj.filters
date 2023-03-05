@@ -159,6 +159,9 @@
     <ClCompile Include="PlayerItems.cpp">
       <Filter>Player</Filter>
     </ClCompile>
+    <ClCompile Include="MonsterSetting.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

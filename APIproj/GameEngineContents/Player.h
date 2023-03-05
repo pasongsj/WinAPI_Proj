@@ -138,7 +138,7 @@ private:
 	float Hp = 100;
 	float PlayerExp = 0;
 	int PlayerLevel = 1;
-	float InvincibleStateDelay = 0.0f;//公利惑怕
+	float DmgedAnimationDelay = 0.0f;//公利惑怕
 	//float4 HpbarScale = { 70, 9 };
 
 	PlayerState StateValue = PlayerState::IDLE;

@@ -1,10 +1,10 @@
-#include <GameEngineBase/GameEnginePath.h>
-#include <GameEnginePlatform/GameEngineWindow.h>
+//#include <GameEngineBase/GameEnginePath.h>
+//#include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineInput.h>
-#include <GameEngineCore/GameEngineResources.h>
-#include <GameEngineCore/GameEngineLevel.h>
-#include <GameEngineCore/GameEngineRender.h>
-#include "ContentsEnums.h"
+//#include <GameEngineCore/GameEngineResources.h>
+//#include <GameEngineCore/GameEngineLevel.h>
+//#include <GameEngineCore/GameEngineRender.h>
+//#include "ContentsEnums.h"
 #include "Player.h"
 
 
@@ -89,20 +89,17 @@ void Player::IdleUpdate(float _Time)
 	{
 		if (true == is_Col)
 		{
-			InvincibleStateDelay = 0.5f;
-			BodyCollision->Off();
+			DmgedAnimationDelay = 0.5f;
 			ChangeState(PlayerState::MOVE_DMGED);
 		}
 		else
 		{
 			ChangeState(PlayerState::MOVE);
 		}
-		//return; // 보통 스테이트를 체인지하면 아래 코드를 실행되면 
 	}
 	else if (true == is_Col)
 	{
-		InvincibleStateDelay = 0.5f;
-		BodyCollision->Off();
+		DmgedAnimationDelay = 0.5f;
 		ChangeState(PlayerState::IDLE_DMGED);
 	}
 }
@@ -118,8 +115,7 @@ void Player::MoveUpdate(float _Time)
 {
 	if(true == CheckMonsterCollision()) //충돌했다면
 	{
-		InvincibleStateDelay = 0.5f;
-		BodyCollision->Off();
+		DmgedAnimationDelay = 0.5f;
 		ChangeState(PlayerState::MOVE_DMGED);
 	}
 	PressMove();
@@ -137,12 +133,24 @@ void Player::IdleDmgedStart()
 void Player::IdleDmgedUpdate(float _Time)
 {
 	DirCheck("Idle_Dmged");
-	PressMove();
-	/*DmgStateDelay -= _Time;
-	if (DmgStateDelay <= 0)
+
+	bool is_Col = CheckMonsterCollision(); //충돌했다면
+	if (GameEngineInput::IsPress("LeftMove") || GameEngineInput::IsPress("RightMove") || GameEngineInput::IsPress("DownMove") || GameEngineInput::IsPress("UpMove"))
 	{
-		ChangeState(PlayerState::IDLE);
-	}*/
+		if (true == is_Col)
+		{
+			DmgedAnimationDelay = 0.5f;
+			ChangeState(PlayerState::MOVE_DMGED);
+		}
+		else if (0 < DmgedAnimationDelay)
+		{
+			ChangeState(PlayerState::MOVE);
+		}
+	}
+	else if (true == is_Col)
+	{
+		DmgedAnimationDelay = 0.5f;
+	}
 }
 void Player::IdleDmgedEnd() {
 
@@ -155,14 +163,13 @@ void Player::MoveDmgedStart()
 }
 void Player::MoveDmgedUpdate(float _Time)
 {
+	if (true == CheckMonsterCollision()) //충돌했다면
+	{
+		DmgedAnimationDelay = 0.5f;
+	}
 	DirCheck("Move_Dmged");
 	PressMove();
 
-	/*DmgStateDelay -= _Time;
-	if (DmgStateDelay <= 0)
-	{
-		ChangeState(PlayerState::IDLE);
-	}*/
 }
 void Player::MoveDmgedEnd() {
 
