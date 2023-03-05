@@ -30,14 +30,14 @@ void Monster::KnockBackLessAttack(float _Att)
 {
 	Hp -= _Att;
 	BodyCollision->Off();
-	InvincibleStateDelay = 0.3f;
+	InvincibleStateDelay = 0.2f;
 }
 
 void Monster::Start()
 {
 	Setting();
 	AnimationRender = CreateRender(VSRenderOrder::Monster);
-	AnimationRender->SetScale({ 70, 140 });
+	AnimationRender->SetScale(MonsterRenderScale);
 
 	std::string RImage = "Right" + MonsterName + ".BMP";
 	std::string LImage = "Left" + MonsterName + ".BMP";
@@ -56,8 +56,8 @@ void Monster::Start()
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Dead",  .ImageName = DeadLImage, .Start = 0, .End = EndFrame[2], .InterTime = 0.05f, .Loop = false });
 	}
 	BodyCollision = CreateCollision(VSRenderOrder::Monster);
-	BodyCollision->SetScale({ 70, 140 });
-	BodyCollision->SetPosition({ 0, -30 });
+	BodyCollision->SetScale(MonsterCollisionScale);
+	BodyCollision->SetPosition({ 0, -(MonsterCollisionScale.hy()/2)});
 	AnimationRender->ChangeAnimation("Right_Move");
 
 	//srand(time(0));
@@ -70,13 +70,6 @@ void Monster::Start()
 
 void Monster::Update(float _DeltaTime)
 {
-	InvincibleStateDelay -= _DeltaTime;
-	if (InvincibleStateDelay < 0.0f)
-	{
-		BodyCollision->On();
-		InvincibleStateDelay = 0.0f;
-		ChangeState(MonsterState::MOVE);
-	}
 
 	UpdateState(_DeltaTime);
 	SetMove(MoveVec * MoveSpeed * _DeltaTime); // if state == attacted면 멈추게 한다.
@@ -112,16 +105,26 @@ void Monster::MoveUpdate(float _Time)
 	MoveVec = Player::MainPlayer->GetPos() - GetPos();
 	MoveVec.Normalize();
 	DirCheck("Move");
-
+	if (false == BodyCollision->IsUpdate())
+	{
+		InvincibleStateDelay -= _Time;
+		if (InvincibleStateDelay < 0.0f)
+		{
+			BodyCollision->On();
+			InvincibleStateDelay = 0.0f;
+		}
+	}
 	if (Hp <= 0) {
 		BodyCollision->Off();
 		ChangeState(MonsterState::DEAD);
+		return;
 	}
 	else if(true == IsAttacked){
 		IsAttacked = false;
 		BodyCollision->Off();
-		InvincibleStateDelay = 0.3f;
+		InvincibleStateDelay = 0.2f;
 		ChangeState(MonsterState::BEATEN);
+		return;
 	}
 
 }
@@ -143,11 +146,13 @@ void Monster::BeatenUpdate(float _Time)
 {
 	MoveVec = float4::Zero;
 	DirCheck("Beaten");
-	// 타격 애니메이션 돌리고 그동안 movevec 0으로 만듦
-	//if (AnimationRender->IsAnimationEnd())
-	//{
-	//	ChangeState(MonsterState::MOVE);
-	//}//IsAnimationEnd())
+	InvincibleStateDelay -= _Time;
+	if (InvincibleStateDelay < 0.0f)
+	{
+		BodyCollision->On();
+		InvincibleStateDelay = 0.0f;
+		ChangeState(MonsterState::MOVE);
+	}
 }
 void Monster::BeatenEnd()
 {

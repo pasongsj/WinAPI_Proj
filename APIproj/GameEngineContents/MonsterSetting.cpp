@@ -4,6 +4,8 @@
 
 void Monster::Setting()
 {
+	MonsterRenderScale = float4{ 70, 140 };
+
 	if ("Dust" == MonsterName)
 	{
 		Hp = 5;
@@ -63,7 +65,7 @@ void Monster::Setting()
 		EndFrame[2] = 3;
 
 	}
-	else if ("ColossalMedusaHead" == MonsterName)
+	else if ("SmallMedusaHead" == MonsterName)
 	{ // 추가설정 필요
 		Hp = 1;
 		Dmg = 1;
@@ -104,5 +106,197 @@ void Monster::Setting()
 		EndFrame[2] = 6;
 
 	}
+	// -- 추가된부분
+	else if ("GiantMedusa " == MonsterName)
+	{
+		Hp = 10;
+		Dmg = 5;
+		MoveSpeed = 200;
+		Exp = 2;
+
+		EndFrame[0] = 2;
+		EndFrame[1] = 2;
+		EndFrame[2] = 4;
+	}
+	else if ("QueenMedusa" == MonsterName)
+	{
+		Hp = 10;
+		Dmg = 5;
+		MoveSpeed = 200;
+		Exp = 2;
+
+		EndFrame[0] = 2;
+		EndFrame[1] = 2;
+		EndFrame[2] = 4;
+	}
+	else if ("BigMusc2 " == MonsterName)
+	{
+		Hp = 10;
+		Dmg = 5;
+		MoveSpeed = 200;
+		Exp = 2;
+
+		EndFrame[0] = 2;
+		EndFrame[1] = 2;
+		EndFrame[2] = 6;
+	}
+	else if ("BigLionHead" == MonsterName)
+	{
+		Hp = 10;
+		Dmg = 5;
+		MoveSpeed = 200;
+		Exp = 2;
+
+		EndFrame[0] = 2;
+		EndFrame[1] = 2;
+		EndFrame[2] = 3;
+	}
+	else if ("BigDust " == MonsterName)
+	{
+		Hp = 10;
+		Dmg = 5;
+		MoveSpeed = 200;
+		Exp = 2;
+
+		EndFrame[0] = 1;
+		EndFrame[1] = 1;
+		EndFrame[2] = 9;
+	}
+	else if ("MedusaHead" == MonsterName)
+	{
+		Hp = 10;
+		Dmg = 5;
+		MoveSpeed = 200;
+		Exp = 2;
+
+		EndFrame[0] = 3;
+		EndFrame[1] = 3;
+		EndFrame[2] = 4;
+	}
+	else if ("ApprenticeWitch" == MonsterName)
+	{
+		Hp = 10;
+		Dmg = 5;
+		MoveSpeed = 200;
+		Exp = 2;
+
+		EndFrame[0] = 3;
+		EndFrame[1] = 3;
+		EndFrame[2] = 4;
+	}
+	else if ("EliteDullahan" == MonsterName)
+	{
+		Hp = 10;
+		Dmg = 5;
+		MoveSpeed = 200;
+		Exp = 2;
+
+		EndFrame[0] = 2;
+		EndFrame[1] = 2;
+		EndFrame[2] = 3;
+	}
+	else if ("GiantBat" == MonsterName)
+	{
+		Hp = 10;
+		Dmg = 5;
+		MoveSpeed = 200;
+		Exp = 2;
+
+		EndFrame[0] = 3;
+		EndFrame[1] = 3;
+		EndFrame[2] = 4;
+	}
+	else if ("GiantMummy" == MonsterName)
+	{
+		Hp = 10;
+		Dmg = 5;
+		MoveSpeed = 200;
+		Exp = 2;
+
+		EndFrame[0] = 2;
+		EndFrame[1] = 2;
+		EndFrame[2] = 5;
+	}
+	else if ("GlowingBat" == MonsterName)
+	{
+		Hp = 10;
+		Dmg = 5;
+		MoveSpeed = 200;
+		Exp = 2;
+
+		EndFrame[0] = 2;
+		EndFrame[1] = 2;
+		EndFrame[2] = 3;
+	}
+	else if ("GlowingSkull" == MonsterName)
+	{
+		Hp = 10;
+		Dmg = 5;
+		MoveSpeed = 200;
+		Exp = 2;
+
+		EndFrame[0] = 3;
+		EndFrame[1] = 3;
+		EndFrame[2] = 3;
+	}
+	else if ("Hag" == MonsterName)
+	{
+		Hp = 10;
+		Dmg = 5;
+		MoveSpeed = 200;
+		Exp = 2;
+
+		EndFrame[0] = 2;
+		EndFrame[1] = 2;
+		EndFrame[2] = 3;
+	}
+	else if ("Musc2" == MonsterName)
+	{
+		Hp = 10;
+		Dmg = 5;
+		MoveSpeed = 200;
+		Exp = 2;
+
+		EndFrame[0] = 2;
+		EndFrame[1] = 2;
+		EndFrame[2] = 4;
+	}
+	else if ("Nesuferit" == MonsterName)
+	{
+		Hp = 10;
+		Dmg = 5;
+		MoveSpeed = 200;
+		Exp = 2;
+
+		EndFrame[0] = 3;
+		EndFrame[1] = 3;
+		EndFrame[2] = 4;
+	}
+	else if ("SilverBat" == MonsterName)
+	{
+		Hp = 10;
+		Dmg = 5;
+		MoveSpeed = 200;
+		Exp = 2;
+
+		EndFrame[0] = 2;
+		EndFrame[1] = 2;
+		EndFrame[2] = 3;
+	}
+	else if ("UndeadSassyWitch" == MonsterName)
+	{
+		Hp = 10;
+		Dmg = 5;
+		MoveSpeed = 200;
+		Exp = 2;
+
+		EndFrame[0] = 3;
+		EndFrame[1] = 3;
+		EndFrame[2] = 5;
+	}
+
+
+
+	
 
 }

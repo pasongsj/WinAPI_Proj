@@ -33,10 +33,6 @@ void WeaponKingBible::LevelUp()
 		AdditionItemUI::DeleteItemName.push_back(GetWeaponName());
 	}
 
-	if (8 == GetWeaponLevel())
-	{
-		AdditionItemUI::DeleteItemName.push_back(GetWeaponName());
-	}
 
 
 }

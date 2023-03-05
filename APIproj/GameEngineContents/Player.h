@@ -116,6 +116,20 @@ public:
 	{
 		return PlayerActive;
 	}
+
+	void CollisionOnOff()
+	{
+		BodyCollision->OnOffSwtich();
+	}
+
+	void GetHp(float _Hp)
+	{
+		if (Hp + _Hp > PlayerActive.MaxHealth)
+		{
+			Hp = PlayerActive.MaxHealth;
+		}
+		else Hp += _Hp;
+	}
  
 
 protected:
@@ -131,7 +145,7 @@ private:
 
 	//float AccTime = 0.0f;
 	int StartFrame = 0;
-	float MoveSpeed = 500.0f;
+	float MoveSpeed = 300.0f;
 	float4 MoveVec = float4::Zero;
 	float4 LastMoveVec = float4::Zero;
 

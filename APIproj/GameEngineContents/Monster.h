@@ -61,11 +61,17 @@ private:
 
 	bool IsAttacked = false;
 	float KnockBack = 0.0f;
-	float CollisionOffTime = 0.0f;
+	//float CollisionOffTime = 0.0f;
+
 	float Hp = 0;
 	float Dmg = 0;
 	float MoveSpeed = 200.0f;
+
 	int Exp = 0;
+	
+	float4 MonsterRenderScale = float4{ 70, 140 };
+	float4 MonsterCollisionScale = float4{ 70, 140 };
+
 	float4 MoveVec = float4::Zero;
 
 	GameEngineRender* AnimationRender = nullptr;

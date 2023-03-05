@@ -13,7 +13,7 @@
 #include "Monster.h"
 #include "PlayGameUI.h"
 #include "Weapon.h"
-#include  "Items.h"
+#include "Items.h"
 #include "AdditionItemUI.h"
 
 #include "MouseObject.h"
@@ -62,6 +62,7 @@ void InlaidLibraryLevel::Loading()
 		GameEngineInput::CreateKey("StopDebug", 'P');
 		GameEngineInput::CreateKey("SpeedUp", 'I');
 		GameEngineInput::CreateKey("SpeedReset", 'O');
+		GameEngineInput::CreateKey("Cheat", 'L');
 	}
 	MouseObject* MouseObjectInst = CreateActor<MouseObject>(); //마우스 오브젝트 생성
 
@@ -96,7 +97,7 @@ void InlaidLibraryLevel::Loading()
 
 	{
 		// 몬스터 액터 생성
-		for (int i = 0;i < 10 ;i++) 
+		for (int i = 0;i < 0 ;i++) 
 		{
 			Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
 		}
@@ -162,6 +163,11 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 			BGMPlayer.PauseOff();
 		}*/
 	}
+
+	if (GameEngineInput::IsDown("Cheat"))
+	{
+		Player::MainPlayer->CollisionOnOff();
+	}
 	if (GameEngineInput::IsDown("SpeedUp"))
 	{
 		float beforeSpeed = GameEngineCore::GetSpeed();
@@ -173,34 +179,45 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 		GameEngineCore::SetSpeedUp(beforeSpeed*0.2f);
 	}
 
-	SetState(_DeltaTime);
-	ReGenMonster(_DeltaTime);
+	SetState();
+	ReGenMonster();
 	CheckEnd();
 }
-void InlaidLibraryLevel::ReGenMonster(float _DeltaTime)
+void InlaidLibraryLevel::ReGenMonster()
 {
-	if (Player::IsStop == true)
+	if (Player::IsStop == true|| NewUI == nullptr|| SponableMonster.size() == 0)
 	{
 		return;
+	}
+	float StageTime = NewUI->GetStageTime();
+
+	if (StageTime - LastReGenTime >= RegenInterval)
+	{
+		LastReGenTime = StageTime;
+		for (int i = 0;i < MaxMonster- GetActors(VSRenderOrder::Monster).size();i++)
+		{
+			int RandNum = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(SponableMonster.size()) - 1);
+			Monster::MonsterName = SponableMonster[RandNum];
+
+			Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
+
+		}
 	}
 
-	MonsterReGenTime += _DeltaTime;
-	if (GetActors(VSRenderOrder::Monster).size() >= MaxMonster) {
-		return;
-	}
-	if (MonsterReGenTime >= RegenInterval)
+	//// - 몬스터 젠 테스트용입니다.
+	/*RegenInterval = 15.0f;
+	if (StageTime - LastReGenTime >= RegenInterval)
 	{
-		std::set<std::string>::iterator it = SponableMonster.begin();
-		int RandNum = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(SponableMonster.size()) - 1);
-		while (RandNum)
+		LastReGenTime = StageTime;
+		for (int i = 0;i < 1;i++)
 		{
-			it++;
-			--RandNum;
+			int RandNum = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(SponableMonster.size()) - 1);
+			Monster::MonsterName = SponableMonster[RandNum];
+
+			Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
+
 		}
-		Monster::MonsterName = *it;
-		MonsterReGenTime = 0.0f;
-		Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
-	}
+	}*/
 
 }
 
@@ -233,7 +250,9 @@ void InlaidLibraryLevel::CheckEnd()
 		SetTimeScale(VSRenderOrder::UI, 0);
 		SetTimeScale(VSRenderOrder::LastUI, 0);
 		//SetTimeScale(VSRenderOrder::MAX, 0);
-		if (LevelTime > 30 * 60)
+
+		float StageTime = NewUI->GetStageTime();
+		if (StageTime > 30 * 60)
 		{
 			BackGround->SetEndingRenderOn(true);
 			//stageComplete

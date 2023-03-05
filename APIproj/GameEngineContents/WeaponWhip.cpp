@@ -14,6 +14,10 @@ WeaponWhip::~WeaponWhip()
 void WeaponWhip::LevelUp()
 {
 	Weapon::LevelUp();
+	if (8 == GetWeaponLevel())
+	{
+		AdditionItemUI::DeleteItemName.push_back(GetWeaponName());
+	}
 }
 
 void WeaponWhip::ReSet()

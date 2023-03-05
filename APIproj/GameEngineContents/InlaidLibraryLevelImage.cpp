@@ -108,6 +108,16 @@ void InlaidLibraryLevel::ImageLoad()
 				Image->Cut(5, 2);
 			}
 		}
+		{
+			Dir.MoveParent();
+			Dir.Move("Cut61");
+			std::vector<GameEngineFile> Files = Dir.GetAllFile();
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
+				Image->Cut(6, 1);
+			}
+		}
 
 		{
 			Dir.MoveParent();

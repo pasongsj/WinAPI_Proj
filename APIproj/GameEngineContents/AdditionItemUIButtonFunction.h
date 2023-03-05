@@ -30,7 +30,8 @@ void PushLevelupFirewand()
 }
 void PushLevelupHp()
 {
-	//Player::MainPlayer->PushWeapon("Hp");
+	Player::MainPlayer->PushActive("Hp");
+	Player::IsStop = false;
 }
 void PushLevelupKingBible()
 {

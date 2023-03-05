@@ -57,30 +57,64 @@
 
 
 -- 없음
-EliteDullahan 
-ApprenticeWitch
-UndeadSassyWitch
-Medusa
+EliteDullahan 0
+ApprenticeWitch 0
+UndeadSassyWitch 0
+Medusa 0
 
-GiantBat
-GlowingSkull
+GiantBat 0
+GlowingSkull 0
 
 
 Reaper
 
 ShadeBomb(자폭)
 MasterWitch(보스)
-Nesuferit(Boss)
-Hag해그(Boss)
+Nesuferit(Boss) 0
+Hag해그(Boss) 0
 
 
 -- 있음
-SilverBat(보스)
-GlowingBat(보스)
+SilverBat(보스) 0
+GlowingBat(보스) 0
 
-메두사머리 -스몰, 일반 , 보스(일반과 같음)
+MedusaHead -스몰, 일반 , 보스(일반과 같음)
 Musc - 기본, 기본2, 보스(Big -기본2랑 같고 사이즈 차이)
-라이언머리 - 기본,  보스(Big -기본랑 같고 사이즈 차이)
-dust - 기본, 보스(Big -기본랑 같고 사이즈 차이)
+LionHead - 기본,  보스(Big -기본랑 같고 사이즈 차이)
+Dust - 기본, 보스(Big -기본랑 같고 사이즈 차이)
 Medusa- GiantMedusa기본, QueenMedusa보스(Big -기본랑 같고 사이즈 차이)
+Mummy
+Dullahan
+Ghost
 
+
+
+
+
+Dust
+Musc 
+Mummy
+Dullahan
+SmallMedusaHead
+LionHead
+Ghost
+
+추가 
+---
+GiantMedusa 
+QueenMedusa
+BigMusc2 
+BigLionHead
+BigDust 
+MedusaHead
+ApprenticeWitch
+EliteDullahan
+GiantBat
+GiantMummy
+GlowingBat
+GlowingSkull
+Hag
+Musc2
+Nesuferit
+SilverBat
+UndeadSassyWitch

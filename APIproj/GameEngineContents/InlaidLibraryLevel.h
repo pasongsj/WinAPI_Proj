@@ -31,13 +31,14 @@ protected:
 	GameEngineSoundPlayer BGMPlayer;
 
 private:
-	float LevelTime = 0.0f;
-	float MonsterReGenTime = 0.0f;
+	int NextSettingTime = 0;
+
+	float LastReGenTime = 0.0f;
 
 	float RegenInterval = 0.0f;
 	int MaxMonster = 0;
 
-	std::set<std::string> SponableMonster;
+	std::vector<std::string> SponableMonster;
 
 	float4 BGSize = float4::Zero;
 	void ImageLoad();
@@ -45,11 +46,13 @@ private:
 	PlayGameUI* NewUI = nullptr;
 	InlaidLibraryBack* BackGround = nullptr;
 
-	void ReGenMonster(float _DeltaTime);
-	void SetState(float _DeltaTime);
+	void ReGenMonster();
+	void SetState();
 
 	void CheckEnd();
 
 	Button* BackButton = nullptr;
+
+
 };
 

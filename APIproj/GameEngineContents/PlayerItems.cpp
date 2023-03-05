@@ -53,7 +53,7 @@ void Player::PushActive(const std::string_view& _Active)
 	}
 	else if ("Hp" == _Active)
 	{
-
+		GetHp(30.0f);
 	}
 	else if ("Magnet" == _Active)
 	{

@@ -21,6 +21,11 @@ public:
 		LevelUpUIRender->Off();
 	}*/
 
+	inline float GetStageTime()
+	{
+		return StageTime;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

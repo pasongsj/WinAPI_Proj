@@ -1,6 +1,7 @@
 #include "InlaidLibraryLevel.h"
 
 #include "Player.h"
+#include "PlayGameUI.h"
 //00분대 : Dust,
 //01분대 : Dust(물량)
 //02분대 : Dust, Musc(Ectoplasm)
@@ -32,13 +33,21 @@
 //28분대 : ApprenticeWitch,
 //29분대 : ColossalMedusaHead, BigDust, BigMusc, ColossalLionhead,
 
-void InlaidLibraryLevel::SetState(float _DeltaTime)
+void InlaidLibraryLevel::SetState()
 {
-	if (Player::IsStop == true)
+	if (Player::IsStop == true || nullptr == NewUI)
 	{
 		return;
 	}
-	LevelTime += _DeltaTime;
+	float LevelTime = NewUI->GetStageTime();
+	if (LevelTime > NextSettingTime * 60)
+	{
+		NextSettingTime++;
+	}
+	else
+	{
+		return;
+	}
 
 	if (0 <= LevelTime && LevelTime < 1 * 60)//00분대 : Dust,
 	{
@@ -46,7 +55,7 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 3.0f;
 
 		SponableMonster.clear();
-		SponableMonster.insert("Dust");
+		SponableMonster.push_back("Dust");
 	}
 	else if (1 * 60 <= LevelTime && LevelTime < 2 * 60)//01분대 : Dust(물량)
 	{
@@ -54,7 +63,7 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 3.0f;
 
 		SponableMonster.clear();
-		SponableMonster.insert("Dust");
+		SponableMonster.push_back("Dust");
 	}
 	else if (2 * 60 <= LevelTime && LevelTime < 3 * 60)//02분대 : Dust, Musc(Ectoplasm)
 	{
@@ -62,8 +71,8 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 4.0f;
 
 		SponableMonster.clear();
-		SponableMonster.insert("Dust");
-		SponableMonster.insert("Musc");
+		SponableMonster.push_back("Dust");
+		SponableMonster.push_back("Musc");
 	}
 	else if (3 * 60 <= LevelTime && LevelTime < 4 * 60)//03분대 : Mummy,
 	{
@@ -71,7 +80,7 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 4.0f;
 
 		SponableMonster.clear();
-		SponableMonster.insert("Mummy");
+		SponableMonster.push_back("Mummy");
 	}
 	else if (4 * 60 <= LevelTime && LevelTime < 5 * 60)//04분대 : Dust, Mummy
 	{
@@ -79,8 +88,8 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 4.0f;
 
 		SponableMonster.clear();
-		SponableMonster.insert("Dust");
-		SponableMonster.insert("Mummy");
+		SponableMonster.push_back("Dust");
+		SponableMonster.push_back("Mummy");
 	}
 	else if (5 * 60 <= LevelTime && LevelTime < 6 * 60)	//05분대 : Mummy,			
 	{																			   
@@ -88,7 +97,7 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 4.0f;		
 
 		SponableMonster.clear();
-		SponableMonster.insert("Mummy");										   
+		SponableMonster.push_back("Mummy");										   
 	}
 	else if (6 * 60 <= LevelTime && LevelTime < 7 * 60)//06분대 : Dullahan, Musc
 	{
@@ -96,8 +105,8 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 2.0f;
 
 		SponableMonster.clear();
-		SponableMonster.insert("Dullahan");
-		SponableMonster.insert("Musc");
+		SponableMonster.push_back("Dullahan");
+		SponableMonster.push_back("Musc");
 	}
 	else if (7 * 60 <= LevelTime && LevelTime < 8 * 60)//07분대 : Dullahan, Musc, Musc2
 	{
@@ -105,9 +114,9 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 2.0f;
 
 		SponableMonster.clear();
-		SponableMonster.insert("Musc");
-		//SponableMonster.insert("Musc2");
-		SponableMonster.insert("Mummy");
+		SponableMonster.push_back("Musc");
+		SponableMonster.push_back("Musc2");
+		SponableMonster.push_back("Dullahan");
 	}
 	else if (8 * 60 <= LevelTime && LevelTime < 9 * 60)//08분대 : Ghost, Musc,
 	{
@@ -116,8 +125,8 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		
 
 		SponableMonster.clear();
-		SponableMonster.insert("Ghost");
-		SponableMonster.insert("Musc");
+		SponableMonster.push_back("Ghost");
+		SponableMonster.push_back("Musc2");
 	}
 	else if (9 * 60 <= LevelTime && LevelTime < 10 * 60)//09분대 : Ghost, Mummy
 	{
@@ -125,8 +134,8 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 0.5f;
 
 		SponableMonster.clear();
-		SponableMonster.insert("Ghost");
-		SponableMonster.insert("Mummy");
+		SponableMonster.push_back("Ghost");
+		SponableMonster.push_back("Mummy");
 	}
 	else if (10 * 60 <= LevelTime && LevelTime < 11 * 60)//10분대 : Musc,
 	{
@@ -134,7 +143,7 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 0.5f;			
 
 		SponableMonster.clear();												 
-		SponableMonster.insert("Musc");											 
+		SponableMonster.push_back("Musc2");											 
 	}																			 
 	else if (11 * 60 <= LevelTime && LevelTime < 12 * 60)//11분대 : Lionhead, MedusaHead
 	{
@@ -142,8 +151,8 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 2.0f;
 
 		SponableMonster.clear();
-		SponableMonster.insert("MedusaHead");
-		SponableMonster.insert("LionHead");
+		SponableMonster.push_back("MedusaHead");
+		SponableMonster.push_back("LionHead");
 	}
 	else if (12 * 60 <= LevelTime && LevelTime < 13 * 60)//12분대 : Dullahan, MedusaHead
 	{
@@ -151,8 +160,8 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 1.0f;
 
 		SponableMonster.clear();
-		SponableMonster.insert("Dullahan");
-		//SponableMonster.insert("MedusaHead");
+		SponableMonster.push_back("Dullahan");
+		SponableMonster.push_back("MedusaHead");
 	}
 	else if (13 * 60 <= LevelTime && LevelTime < 14 * 60)//13분대 : Mummy, Dullahan,
 	{
@@ -160,8 +169,8 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 0.5f;
 		
 		SponableMonster.clear();
-		SponableMonster.insert("Mummy");
-		SponableMonster.insert("Dullahan");
+		SponableMonster.push_back("Mummy");
+		SponableMonster.push_back("Dullahan");
 	}
 	else if (14 * 60 <= LevelTime && LevelTime < 15 * 60) //14분대 : Mummy, Musc2, MedusaHead,
 	{
@@ -169,9 +178,9 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 0.1f;
 
 		SponableMonster.clear();
-		SponableMonster.insert("Mummy");
-		//SponableMonster.insert("Musc2");
-		//SponableMonster.insert("MedusaHead");
+		SponableMonster.push_back("Mummy");
+		SponableMonster.push_back("Musc2");
+		SponableMonster.push_back("MedusaHead");
 	}
 	else if (15 * 60 <= LevelTime && LevelTime < 16 * 60) //15분대 : MedusaHead,
 	{																							 
@@ -179,7 +188,7 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 0.1f;	
 
 		SponableMonster.clear();
-		//SponableMonster.insert("MedusaHead");
+		SponableMonster.push_back("MedusaHead");
 	}
 	else if (16 * 60 <= LevelTime && LevelTime < 17 * 60)//16분대 : Dullahan, EliteDullahan, ApprenticeWitch
 	{
@@ -187,18 +196,18 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 1.0f;
 		
 		SponableMonster.clear();
-		SponableMonster.insert("Dullahan");
-		//SponableMonster.insert("EliteDullahan");
-		//SponableMonster.insert("ApprenticeWitch");
+		SponableMonster.push_back("Dullahan");
+		SponableMonster.push_back("EliteDullahan");
+		SponableMonster.push_back("ApprenticeWitch");
 	}
 	else if (17 * 60 <= LevelTime && LevelTime < 18 * 60)//17분대 : Musc, Musc2, ApprenticeWitch,
 	{
 		MaxMonster = 200;
 		RegenInterval = 1.0f;
 		SponableMonster.clear();
-		//SponableMonster.insert("ApprenticWitch");
-		SponableMonster.insert("Musc");
-		//SponableMonster.insert("BigMusc");
+		SponableMonster.push_back("ApprenticeWitch");
+		SponableMonster.push_back("Musc");
+		SponableMonster.push_back("Musc2");
 	}
 	else if (18 * 60 <= LevelTime && LevelTime < 19 * 60)//18분대 : ApprenticeWitch, Lionhead
 	{
@@ -206,8 +215,8 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 0.5f;
 
 		SponableMonster.clear();
-		//SponableMonster.insert("ApprenticWitch");		  
-		SponableMonster.insert("LionHead");				
+		SponableMonster.push_back("ApprenticeWitch");		  
+		SponableMonster.push_back("LionHead");				
 	}
 	else if (19 * 60 <= LevelTime && LevelTime < 20 * 60)//19분대 : ApprenticeWitch, EliteDullahan,
 	{
@@ -215,8 +224,8 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 0.5f;
 
 		SponableMonster.clear();
-		//SponableMonster.insert("ApprenticWitch");
-		//SponableMonster.insert("EliteDullahan");
+		SponableMonster.push_back("ApprenticeWitch");
+		SponableMonster.push_back("EliteDullahan");
 	}
 	else if (20 * 60 <= LevelTime && LevelTime < 21 * 60) //20분대 : EliteDullahan, Lionhead,
 	{
@@ -224,8 +233,8 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 0.1f;									 
 																 
 		SponableMonster.clear();								 
-		//SponableMonster.insert("ApprenticWitch");				 
-		//SponableMonster.insert("EliteDullahan");
+		SponableMonster.push_back("ApprenticeWitch");				 
+		SponableMonster.push_back("EliteDullahan");
 	}
 	else if (21 * 60 <= LevelTime && LevelTime < 22 * 60) // 21분대 : Lionhead
 	{
@@ -233,7 +242,7 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 0.1f;
 
 		SponableMonster.clear();
-		SponableMonster.insert("Lionhead");
+		SponableMonster.push_back("Lionhead");
 	}
 	else if (22 * 60 <= LevelTime && LevelTime < 23 * 60)//22분대 : Lionhead, UndeadSassyWitch,
 	{
@@ -241,8 +250,8 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 1.0f;
 
 		SponableMonster.clear();
-		SponableMonster.insert("Lionhead");
-		//SponableMonster.insert("UndeadSassyWitch");
+		SponableMonster.push_back("Lionhead");
+		SponableMonster.push_back("UndeadSassyWitch");
 	}
 	else if (23 * 60 <= LevelTime && LevelTime < 24 * 60)//23분대 : EliteDullahan, Dullahan, UndeadSassyWitch
 	{
@@ -250,9 +259,9 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 0.1f;
 
 		SponableMonster.clear();
-		//SponableMonster.insert("EliteDullahan");
-		SponableMonster.insert("Dullahan");
-		//SponableMonster.insert("UndeadSassyWitch");
+		SponableMonster.push_back("EliteDullahan");
+		SponableMonster.push_back("Dullahan");
+		SponableMonster.push_back("UndeadSassyWitch");
 	}
 	else if (24 * 60 <= LevelTime && LevelTime < 25 * 60) // 24분대 : UndeadSassyWitch
 	{
@@ -260,7 +269,7 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 0.1f;
 
 		SponableMonster.clear();
-		//SponableMonster.insert("UndeadSassyWitch");
+		SponableMonster.push_back("UndeadSassyWitch");
 	}
 	else if (25 * 60 <= LevelTime && LevelTime < 26 * 60)//25분대 : GiantBat(흡혈박쥐), GlowingSkull(두개골), UndeadSassyWitch
 	{
@@ -268,9 +277,9 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 0.1f;
 
 		SponableMonster.clear();
-		//SponableMonster.insert("GiantBat");
-		//SponableMonster.insert("GlowingSkull");
-		//SponableMonster.insert("UndeadSassyWitch");
+		SponableMonster.push_back("GiantBat");
+		SponableMonster.push_back("GlowingSkull");
+		SponableMonster.push_back("UndeadSassyWitch");
 	}																				
 	else if (26 * 60 <= LevelTime && LevelTime < 27 * 60)	//26분대 : GiantMedusa,	
 	{																				
@@ -278,7 +287,7 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 0.1f;	
 
 		SponableMonster.clear();
-		//SponableMonster.insert("GiantMedusa");
+		SponableMonster.push_back("GiantMedusa");
 
 	}
 	else if (27 * 60 <= LevelTime && LevelTime < 28 * 60)//27분대 : GiantMedusa, MedusaHead
@@ -287,8 +296,8 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 0.1f;
 
 		SponableMonster.clear();
-		//SponableMonster.insert("GiantMedusa");
-		//SponableMonster.insert("MedusaHead");
+		SponableMonster.push_back("GiantMedusa");
+		SponableMonster.push_back("MedusaHead");
 	}
 	else if (28 * 60 <= LevelTime && LevelTime < 29 * 60)//28분대 : ApprenticeWitch,
 	{
@@ -296,7 +305,7 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 0.1f;
 
 		SponableMonster.clear();
-		//SponableMonster.insert("ApprenticWitch");
+		SponableMonster.push_back("ApprenticeWitch");
 	}
 	else if (29 * 60 <= LevelTime && LevelTime < 30 * 60) //29분대 : MedusaHead, BigDust, BigMusc, ColossalLionhead,
 	{
@@ -304,10 +313,10 @@ void InlaidLibraryLevel::SetState(float _DeltaTime)
 		RegenInterval = 0.1f;
 
 		SponableMonster.clear();
-		SponableMonster.insert("MedusaHead");
-		//SponableMonster.insert("BigDust");
-		//SponableMonster.insert("BigMusc");
-		//SponableMonster.insert("ColossalLionhead");
+		SponableMonster.push_back("MedusaHead");
+		SponableMonster.push_back("BigDust");
+		SponableMonster.push_back("BigMusc2");
+		SponableMonster.push_back("BigLionhead");
 	}
 	else
 	{
