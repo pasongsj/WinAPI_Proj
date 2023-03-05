@@ -1,0 +1,86 @@
+
+기본 Wave																			Event
+																					Name					Time	perc	amount	repeat	delay
+00분대: Dust,																		ShadeBomb(자폭)			00		100%	1		x
+01분대: Dust(물량)
+02분대: Dust, Musc(Ectoplasm)
+03분대: Mummy,																		GiantMummy(Boss)
+04분대: Dust, Mummy
+
+
+05분대:	Mummy,																		GiantMummy(Boss)	
+																					SmallMedusaHead(wave)	00		100%	6		x
+																					SmallMedusaHead(wave)	05		70%		12		4		05
+
+06분대: Dullahan, Musc																ShadeBomb(자폭)			10		50%	
+07분대: Dullahan, Musc,	Musc2														
+08분대: Ghost, Musc,																BigMusc(Boss)
+09분대: Ghost, Mummy
+
+
+10분대: Musc,																		ShadeBomb(자폭),ColossalLionhead(Boss)
+11분대: Lionhead, MedusaHead
+12분대: Dullahan, MedusaHead,														GlowingBat(Boss)
+13분대: Mummy, Dullahan,															BigDust(Boss)
+14분대: Mummy, Musc2, MedusaHead,													SilverBat(Boss)
+
+
+15분대: MedusaHead,																	QueenMedusa(Boss) MedusaHead
+																					이 웨이브의 메두사 머리들은 플레이어를 적극적으로 추격하며, 
+																					QueenMedusa는 넉백에 50% 저항이 있고 회중 시계 효과에 면역이다.
+
+16분대: Dullahan, EliteDullahan, ApprenticeWitch
+17분대: Musc,Musc2, ApprenticeWitch,												ShadeBomb(자폭)
+18분대: ApprenticeWitch, Lionhead
+19분대: ApprenticeWitch, EliteDullahan,												MasterWitch(Boss) - 거대 빗자루 마녀
+																					보스 UndeadSassyWitch는 넉백을 100% 더 받으며, 회중 시계 효과에 면역이다.
+
+
+20분대: EliteDullahan, Lionhead,													ShadeBomb(자폭), 두개골 무리, 네스페리트Nesuferit(Boss)
+																						두개골 무리는 다른 무리 종류 적군과 동일하며 넉백 효과에 면역이 있다.
+21분대: Lionhead
+22분대: Lionhead, UndeadSassyWitch,													ShadeBomb(자폭), GlowingBat(Boss)
+23분대: EliteDullahan, Dullahan, UndeadSassyWitch
+24분대: UndeadSassyWitch
+
+
+25분대: GiantBat(흡혈박쥐), GlowingSkull(두개골), UndeadSassyWitch,					두개골 무리, Hag해그(Boss)
+26분대: GiantMedusa,																QueenMedusa(Boss)
+27분대: GiantMedusa, MedusaHead
+28분대: ApprenticeWitch,															QueenMedusa(Boss)
+29분대: MedusaHead, BigDust,  BigMusc,  ColossalLionhead,					ShadeBomb(자폭)
+
+
+
+
+
+
+
+-- 없음
+EliteDullahan 
+ApprenticeWitch
+UndeadSassyWitch
+Medusa
+
+GiantBat
+GlowingSkull
+
+
+Reaper
+
+ShadeBomb(자폭)
+MasterWitch(보스)
+Nesuferit(Boss)
+Hag해그(Boss)
+
+
+-- 있음
+SilverBat(보스)
+GlowingBat(보스)
+
+메두사머리 -스몰, 일반 , 보스(일반과 같음)
+Musc - 기본, 기본2, 보스(Big -기본2랑 같고 사이즈 차이)
+라이언머리 - 기본,  보스(Big -기본랑 같고 사이즈 차이)
+dust - 기본, 보스(Big -기본랑 같고 사이즈 차이)
+Medusa- GiantMedusa기본, QueenMedusa보스(Big -기본랑 같고 사이즈 차이)
+

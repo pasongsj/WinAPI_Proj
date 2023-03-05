@@ -129,7 +129,7 @@ void Monster::MoveEnd() {
 
 	if (0.0f != KnockBack)
 	{
-		MoveVec = (- MoveVec) * KnockBack; // ³Ë¹é?
+		SetMove((- MoveVec) * KnockBack); // ³Ë¹é?
 		KnockBack = 0;
 	}
 }

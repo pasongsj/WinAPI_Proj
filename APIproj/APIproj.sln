@@ -33,6 +33,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEngineCore", "GameEngin
 		{A6E9BFEE-96EC-4FC9-9219-12202F5126CC} = {A6E9BFEE-96EC-4FC9-9219-12202F5126CC}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루션 항목", "{A9DE6308-3F7C-417F-AE3C-62EF58DE6161}"
+	ProjectSection(SolutionItems) = preProject
+		TextFile1.txt = TextFile1.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
