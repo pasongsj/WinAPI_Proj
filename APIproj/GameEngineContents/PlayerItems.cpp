@@ -77,7 +77,7 @@ void Player::PushActive(const std::string_view& _Active)
 		float Value[6] = { 100,92,88,80,72,68 };
 		PlayerActive.Cooldown = Value[++PlayerActiveLevel.LevelEmptytome];
 		NextLevel = PlayerActiveLevel.LevelEmptytome;
-		//AdditionItemUI::SelectUI->SetActiveStatUIValue(9, static_cast<int>(PlayerActive.Cooldown - 100)); // minus img
+		AdditionItemUI::SelectUI->SetActiveStatUIValue(9, static_cast<int>(PlayerActive.Cooldown)-100); // minus img
 	}
 	else if ("Hp" == _Active)
 	{

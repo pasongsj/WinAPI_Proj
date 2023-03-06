@@ -77,7 +77,7 @@ void AdditionItemUI::Start()
 
 	float interval = 18.6f;
 
-	float4 ActiveStatUIPos = { 180,205 };
+	float4 ActiveStatUIPos = { 210,205 };
 	for (int i = 0; i < 17; i++)
 	{
 		//NumberRenderObject* _Num = new NumberRenderObject();
@@ -88,9 +88,9 @@ void AdditionItemUI::Start()
 		float4 BarPos = GameEngineWindow::GetScreenSize().half();
 		//BarPos.y -= 55;
 		ActiveStatUI[i].SetOwner(this);
-		ActiveStatUI[i].SetImage("Number.BMp", { 12, 15 }, static_cast<int>(VSRenderOrder::MAX), RGB(255, 0, 255));
+		ActiveStatUI[i].SetImage("Number.BMp", { 12, 15 }, static_cast<int>(VSRenderOrder::MAX), RGB(255, 0, 255),"Negative.bmp", "Percent.bmp");
 		ActiveStatUI[i].SetRenderPos(ActiveStatUIPos);
-		ActiveStatUI[i].SetAlign(Align::Left);
+		ActiveStatUI[i].SetAlign(Align::Right);
 		ActiveStatUI[i].SetValue(0);
 
 
@@ -103,23 +103,23 @@ void AdditionItemUI::Start()
 
 	Active Originactive;
 	int index = 0;
-	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.MaxHealth)	);
+	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.MaxHealth));
 	ActiveStatUI[index++].SetValue(/*Originactive.Recovery*/0	 );  // ¼Ò¼öÁ¡
 	ActiveStatUI[index++].SetValue(Originactive.Armor		 );
-	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.ActiveSpeed)	-100);
+	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.ActiveSpeed)	-100);
 								
-	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Might) - 100);
-	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Area) - 100);
-	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Speed) - 100);
-	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Duration) - 100);
+	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Might) - 100);
+	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Area) - 100);
+	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Speed) - 100);
+	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Duration) - 100);
 	ActiveStatUI[index++].SetValue(Originactive.Amount	 );
-	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Cooldown) - 100);
+	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Cooldown) - 100);
 								 
-	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Luck) - 100);
-	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Growth)	 );
-	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Greed) - 100);
+	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Luck) - 100);
+	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Growth)	 );
+	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Greed) - 100);
 								
-	ActiveStatUI[index++].SetValue(Originactive.Magnet	 );
+	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(Originactive.Magnet	 );
 								  
 	ActiveStatUI[index++].SetValue(Originactive.Revival	 );
 	ActiveStatUI[index++].SetValue(Originactive.Reroll 	 );

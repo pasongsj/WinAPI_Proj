@@ -210,6 +210,7 @@ void Monster::DeadUpdate(float _Time)
 		}
 		Actor->SetPos(GetPos());
 		Actor->SetExp(Exp);
+		Actor->SetOwner(GetLevel());
 
 
 		this->Off();

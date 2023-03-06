@@ -13,7 +13,7 @@ NumberRenderObject::~NumberRenderObject()
 }
 
 
-void NumberRenderObject::SetImage(const std::string_view& _ImageName, float4 _Scale, int _Order, int _TransColor, const std::string_view& _NegativeName)
+void NumberRenderObject::SetImage(const std::string_view& _ImageName, float4 _Scale, int _Order, int _TransColor, const std::string_view& _NegativeName, const std::string_view& _PercentName , bool _IsPercent)
 {
 	GameEngineImage* FindNumberImage = GameEngineResources::GetInst().ImageFind(_ImageName);
 
@@ -33,6 +33,8 @@ void NumberRenderObject::SetImage(const std::string_view& _ImageName, float4 _Sc
 	Order = _Order;
 	TransColor = _TransColor;
 	NegativeName = _NegativeName;
+	PercentName = _PercentName;
+	IsPercent = _IsPercent;
 }
 
 void NumberRenderObject::SetNumberRenders(size_t _Index, int _TransColor, float4 _Pos, const std::string_view& _ImageName, float4 _Scale, bool _CameraEffect, int _Frame)
@@ -70,7 +72,7 @@ void NumberRenderObject::SetValue(int _Value)
 		MsgAssert("NumOfDigits이 value값 보다 작습니다.");
 	}
 
-	if (-1 != NumOfDigits && Value < 0) //
+	if (-1 != NumOfDigits && (Value < 0 || IsPercent)) //
 	{
 		ResetDigits(); // 음수면서 digits길이를 설정한 경우 
 		MsgAssert("Value가 음수인 동시에 Digits길이가 설정되었습니다.");
@@ -78,8 +80,11 @@ void NumberRenderObject::SetValue(int _Value)
 
 	Negative = _Value >= 0 ? false : true;
 
-	size_t Digits = (NumOfDigits == -1 ? Numbers.size() : NumOfDigits);
-	
+	size_t Digits = (NumOfDigits == -1 ? Numbers.size() : NumOfDigits) + (Negative ? 1 : 0) + (IsPercent ? 1 : 0);
+	if (IsPercent)
+	{
+		int a = 0;
+	}
 	//            자리수가 바뀌었고                  3자리 랜더하고 있었는데 5자리가 됐다면
 	if (NumberRenders.size() < Digits)
 	{
@@ -121,21 +126,29 @@ void NumberRenderObject::SetValue(int _Value)
 		break;
 	}
 
-	if (true == Negative && nullptr == NegativeRender)
+	if (true == Negative)
 	{
 		SetNumberRenders(NumRenderIndex++, TransColor, RenderPos, NegativeName, NumberScale, CameraEffect);
 		RenderPos.x += NumberScale.x;
 	}
-	for (; NumRenderIndex < Digits - Numbers.size(); ++NumRenderIndex)
+	if (-1 != NumOfDigits)
 	{
-		SetNumberRenders(NumRenderIndex, TransColor, RenderPos, ImageName, NumberScale, CameraEffect, 0);
-		RenderPos.x += NumberScale.x;
+		for (; NumRenderIndex < Digits - Numbers.size(); ++NumRenderIndex)
+		{
+			SetNumberRenders(NumRenderIndex, TransColor, RenderPos, ImageName, NumberScale, CameraEffect, 0);
+			RenderPos.x += NumberScale.x;
+		}
 	}
-	for (int i = 0; NumRenderIndex < NumberRenders.size(); ++NumRenderIndex)
+	for (int i = 0; i < Numbers.size(); ++NumRenderIndex)
 	{
 		SetNumberRenders(NumRenderIndex, TransColor, RenderPos, ImageName, NumberScale, CameraEffect, Numbers[i++]);
 		RenderPos.x += NumberScale.x;
 	}
+	if (true == IsPercent)
+	{
+		SetNumberRenders(NumRenderIndex, TransColor, RenderPos, PercentName, NumberScale, CameraEffect);
+	}
+
 }
 
 //void NumberRenderObject::SetMove(float4 _RenderPos)

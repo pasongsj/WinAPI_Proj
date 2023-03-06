@@ -25,7 +25,7 @@ public:
 	NumberRenderObject& operator=(const NumberRenderObject& _Other) = delete;
 	NumberRenderObject& operator=(NumberRenderObject&& _Other) noexcept = delete;
 
-	void SetImage(const std::string_view& _ImageName, float4 _Scale, int _Order, int _TransColor, const std::string_view& _NegativeName = "");
+	void SetImage(const std::string_view& _ImageName, float4 _Scale, int _Order, int _TransColor, const std::string_view& _NegativeName = "", const std::string_view& _PercentName = "", bool _IsPercent = false);
 	void SetValue(int _Value);
 
 	//void SetMove(float4 _RenderPos);
@@ -57,6 +57,10 @@ public:
 	inline void ResetDigits() { // 숫자길이 리셋 (Value만큼 랜더)
 		SetNumOfDigits(-1);
 	}
+	inline void SetPercent()
+	{
+		IsPercent = true;
+	}
 
 protected:
 
@@ -68,6 +72,8 @@ private:
 	int TransColor = RGB(255, 0, 255);
 	Align AlignState = Align::Left;
 	// GameEngineImage* NumberImage;
+
+	bool IsPercent = false;
 	bool Negative = false;
 
 	int NumOfDigits = -1;
@@ -78,8 +84,10 @@ private:
 
 	std::string_view NegativeName = std::string_view();
 
+	std::string_view PercentName = std::string_view();
+
 	std::vector<GameEngineRender*> NumberRenders = std::vector<GameEngineRender*>(Order);
-	GameEngineRender* NegativeRender = nullptr;
+	//GameEngineRender* NegativeRender = nullptr;
 
 	void SetNumberRenders(size_t _Index, int _TransColor, float4 _Pos, const std::string_view& _ImageName, float4 _Scale, bool _CameraEffect, int _Frame = -1);
 

@@ -197,8 +197,11 @@ void InlaidLibraryLevel::ReGenMonster()
 		int DeadMonsterCnt = static_cast<int>(Monster::DeadMonsters.size());
 		int MonsterCnt = static_cast<int>(GetActors(VSRenderOrder::Monster).size()) - DeadMonsterCnt;
 		int ReGenCnt = ((MaxMonster - MonsterCnt) > (MaxMonster / 2) ? (MaxMonster / 2) : (MaxMonster - MonsterCnt));
-		
-		for (int i = 0;i < MaxMonster- GetActors(VSRenderOrder::Monster).size();i++)
+		if (ReGenCnt <= 0)
+		{
+			return;
+		}
+		for (int i = 0;i < ReGenCnt;i++)
 		{
 			int RandNum = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(SponableMonster.size()) - 1);
 			Monster::MonsterName = SponableMonster[RandNum];
