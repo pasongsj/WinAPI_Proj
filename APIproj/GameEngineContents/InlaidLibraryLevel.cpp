@@ -193,9 +193,9 @@ void InlaidLibraryLevel::ReGenMonster()
 	if (StageTime - LastReGenTime >= RegenInterval)
 	{
 		LastReGenTime = StageTime;
-		int MonsterCnt = static_cast<int>(GetActors(VSRenderOrder::Monster).size());
+		int DeadMonsterCnt = static_cast<int>(Monster::DeadMonsters.size());
+		int MonsterCnt = static_cast<int>(GetActors(VSRenderOrder::Monster).size()) - DeadMonsterCnt;
 		int ReGenCnt = ((MaxMonster - MonsterCnt) > (MaxMonster / 2) ? (MaxMonster / 2) : (MaxMonster - MonsterCnt));
-		int DeadMonsterCnt = (Monster::DeadMonsters).size();
 		
 		for (int i = 0;i < MaxMonster- GetActors(VSRenderOrder::Monster).size();i++)
 		{

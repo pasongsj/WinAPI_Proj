@@ -16,7 +16,7 @@ Items::~Items()
 {
 }
 
-void Items::SetExp(int _Exp)
+void Items::SetExp(float _Exp)
 {
 	Exp = _Exp;
 	if (Exp >= 10)

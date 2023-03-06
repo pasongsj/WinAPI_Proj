@@ -118,3 +118,6 @@ Musc2
 Nesuferit
 SilverBat
 UndeadSassyWitch
+
+MasterWitch
+MedusaHead- > 보스모드

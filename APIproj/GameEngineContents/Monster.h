@@ -66,11 +66,11 @@ private:
 	float KnockBack = 0.0f;
 	//float CollisionOffTime = 0.0f;
 
-	float Hp = 0;
-	float Dmg = 0;
-	float MoveSpeed = 200.0f;
+	float Hp = 0.0f;
+	float Dmg = 0.0f;
+	float MoveSpeed = 100.0f;
 
-	int Exp = 0;
+	float Exp = 0.0f;
 	
 	float4 MonsterRenderScale = float4{ 70, 140 };
 	float4 MonsterCollisionScale = float4{ 70, 140 };

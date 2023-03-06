@@ -16,7 +16,7 @@ public:
 	Items(Items&& _Other) noexcept = delete;
 	Items& operator=(const Items& _Other) = delete;
 	Items& operator=(Items&& _Other) noexcept = delete;
-	void SetExp(int _Exp); 
+	void SetExp(float _Exp); 
 	inline int GetExp() {
 		return Exp;
 	}
@@ -35,7 +35,7 @@ protected:
 private:
 	GameEngineRender* ItemRender = nullptr;
 	GameEngineCollision* ItemCollision = nullptr; // æ∆¿Ã≈€ »πµÊ ªÁ∞≈∏Æ
-	int Exp = 1;
+	float Exp = 1;
 	/*static std::map<std::string, Items> AllItems;*/
 };
 
