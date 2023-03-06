@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <GameEngineCore/GameEngineActor.h>
 #include <GameEngineCore/Button.h>
+#include <GameEngineCore/NumberRenderObject.h>
 
 class AdditionItemUI : public GameEngineActor
 {
@@ -27,6 +28,11 @@ public:
 
 	void UIOn();
 	void UIOff();
+
+	void SetActiveStatUIValue(int _Index, int _Value)
+	{
+		ActiveStatUI[_Index].SetValue(_Value);
+	}
 
 protected:
 
@@ -55,5 +61,9 @@ private:
 	void SetItemImage();
 	
 	void SetItemFunction();
+
+	NumberRenderObject ActiveStatUI[17];
+	
+
 };
 

@@ -2,6 +2,27 @@
 #include "AdditionItemUI.h"
 #include "Player.h"
 
+//0MaxHealth
+//1Recovery
+//2Armor
+//3ActiveSpeed
+//
+//4Might
+//5Area
+//6Speed
+//7Duration
+//8Amount
+//9Cooldown
+//
+//10Luck
+//11Growth
+//12Greed
+//
+//13Magnet
+//
+//14Revival
+//15Reroll
+//16Skip
 
 void PushLevelupBracer()
 {

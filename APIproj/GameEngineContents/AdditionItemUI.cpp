@@ -1,5 +1,5 @@
 #include "AdditionItemUI.h"
-
+#include <vector>
 //#include <set>
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
@@ -9,10 +9,11 @@
 #include "ContentsEnums.h"
 
 //#include "AdditionItemUIButtonFunction.h"
-
+#include "Player.h"
 
 AdditionItemUI* AdditionItemUI::SelectUI;
 std::vector<std::string> AdditionItemUI::DeleteItemName;
+
 
 AdditionItemUI::AdditionItemUI()
 {
@@ -20,6 +21,16 @@ AdditionItemUI::AdditionItemUI()
 
 AdditionItemUI::~AdditionItemUI()
 {
+	/*for (NumberRenderObject* _UI : AdditionItemUI::ActiveStatUI)
+	{
+		if (nullptr == _UI)
+		{
+			return;
+		}
+		delete _UI;
+		_UI = nullptr;
+	}*/
+
 }
 
 void AdditionItemUI::Start()
@@ -63,6 +74,56 @@ void AdditionItemUI::Start()
 	}
 
 	SetItemFunction();
+
+	float interval = 18.6f;
+
+	float4 ActiveStatUIPos = { 180,205 };
+	for (int i = 0; i < 17; i++)
+	{
+		//NumberRenderObject* _Num = new NumberRenderObject();
+
+		//NumberRenderObject* _Num = GetLevel()->CreateActor(VSRenderOrder::MAX);
+
+		ActiveStatUI[i].SetOrder(static_cast<int> (VSRenderOrder::MAX));
+		float4 BarPos = GameEngineWindow::GetScreenSize().half();
+		//BarPos.y -= 55;
+		ActiveStatUI[i].SetOwner(this);
+		ActiveStatUI[i].SetImage("Number.BMp", { 12, 15 }, static_cast<int>(VSRenderOrder::MAX), RGB(255, 0, 255));
+		ActiveStatUI[i].SetRenderPos(ActiveStatUIPos);
+		ActiveStatUI[i].SetAlign(Align::Left);
+		ActiveStatUI[i].SetValue(0);
+
+
+		ActiveStatUIPos.y += interval;
+		if ((3 == i) || (i == 9) || (i == 12) || (i == 13))
+		{
+			ActiveStatUIPos.y += interval;
+		}
+	}
+
+	Active Originactive;
+	int index = 0;
+	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.MaxHealth)	);
+	ActiveStatUI[index++].SetValue(/*Originactive.Recovery*/0	 );  // ¼Ò¼öÁ¡
+	ActiveStatUI[index++].SetValue(Originactive.Armor		 );
+	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.ActiveSpeed)	-100);
+								
+	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Might) - 100);
+	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Area) - 100);
+	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Speed) - 100);
+	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Duration) - 100);
+	ActiveStatUI[index++].SetValue(Originactive.Amount	 );
+	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Cooldown) - 100);
+								 
+	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Luck) - 100);
+	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Growth)	 );
+	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Greed) - 100);
+								
+	ActiveStatUI[index++].SetValue(Originactive.Magnet	 );
+								  
+	ActiveStatUI[index++].SetValue(Originactive.Revival	 );
+	ActiveStatUI[index++].SetValue(Originactive.Reroll 	 );
+	ActiveStatUI[index++].SetValue(Originactive.Skip 		 );
 
 	this->Off();
 }
