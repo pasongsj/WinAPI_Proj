@@ -76,11 +76,11 @@ float4 Monster::GetReGenPos()
 	int RandNum = GameEngineRandom::MainRandom.RandomInt(0, 9);
 	if (0 == (RandNum & 1))
 	{
-		PosX += GameEngineWindow::GetScreenSize().hx() * 1.0f;
+		PosX += GameEngineWindow::GetScreenSize().hx() * 1.1f;
 	}
 	else
 	{
-		PosX -= GameEngineWindow::GetScreenSize().hx() * 1.0f;
+		PosX -= GameEngineWindow::GetScreenSize().hx() * 1.1f;
 	}
 	float PosY = GameEngineRandom::MainRandom.RandomFloat(480,1375);//임시
 	return float4{ PosX,PosY };
@@ -123,6 +123,11 @@ void Monster::MoveStart()
 void Monster::MoveUpdate(float _Time)
 {
 	MoveVec = Player::MainPlayer->GetPos() - GetPos();
+	if (MoveVec.Size() > GameEngineWindow::GetScreenSize().x * 2.5f) // 거리가 너무 멀어지는 경우 근처로 리젠
+	{
+		SetPos(GetReGenPos());
+		MoveVec = Player::MainPlayer->GetPos() - GetPos();
+	}
 	MoveVec.Normalize();
 	DirCheck("Move");
 	if (false == BodyCollision->IsUpdate())
