@@ -1,18 +1,22 @@
 #include "Player.h"
 #include <GameEnginePlatform/GameEngineInput.h>
+//#include <GameEngineCore/GameEngineLevel.h>
+
 #include "ContentsEnums.h"
 
 void Player::Start()
 {
+	if (nullptr != MainPlayer)
+	{
+		MainPlayer->Death();
+	}
 	MainPlayer = this;
+
 	if ("" == PlayerName) {
 		MsgAssert("플레이어가 선택되지 않았습니다.");
 		return;
 	}
 
-	//SetMove(GameEngineWindow::GetScreenSize().half());
-	//SetPos(GameEngineWindow::GetScreenSize().half());
-	//SetMove(float4{2048,948});
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{

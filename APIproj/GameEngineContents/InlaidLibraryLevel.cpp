@@ -70,7 +70,7 @@ void InlaidLibraryLevel::Loading()
 	{
 		GameEngineInput::CreateKey("DebugRenderSwitch", 'R');
 	}
-	SetCameraPos((BGSize - GameEngineWindow::GetScreenSize()).half()); // 카메라 위치 중간으로 이동
+	//SetCameraPos((BGSize - GameEngineWindow::GetScreenSize()).half()); // 카메라 위치 중간으로 이동
 
 	{
 		// 무기 액터생성
@@ -95,13 +95,13 @@ void InlaidLibraryLevel::Loading()
 	}
 
 
-	{
-		// 몬스터 액터 생성
-		for (int i = 0;i < 0 ;i++) 
-		{
-			Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
-		}
-	}
+	//{
+	//	// 몬스터 액터 생성
+	//	for (int i = 0;i < 10 ;i++) 
+	//	{
+	//		Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
+	//	}
+	//}
 
 	{
 		BackButton = CreateActor<Button>();
@@ -115,7 +115,6 @@ void InlaidLibraryLevel::Loading()
 		BackButton->SetClickCallBack(ChangeLevelToTitle);
 		BackButton->Off();
 	}
-
 }
 
 void InlaidLibraryLevel::Update(float _DeltaTime)
@@ -194,6 +193,8 @@ void InlaidLibraryLevel::ReGenMonster()
 	if (StageTime - LastReGenTime >= RegenInterval)
 	{
 		LastReGenTime = StageTime;
+		int MonsterCnt = static_cast<int>(GetActors(VSRenderOrder::Monster).size());
+		int ReGenCnt = ((MaxMonster - MonsterCnt) > (MaxMonster / 2) ? (MaxMonster / 2) : (MaxMonster - MonsterCnt));
 		for (int i = 0;i < MaxMonster- GetActors(VSRenderOrder::Monster).size();i++)
 		{
 			int RandNum = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(SponableMonster.size()) - 1);
@@ -226,6 +227,15 @@ void InlaidLibraryLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 	{
 		Player* NewPlayer = CreateActor<Player>(VSRenderOrder::Player); // 플레이어
 		NewPlayer->SetMove(BGSize.half()); // 화면 중간위치로 이동
+		SetCameraPos((BGSize - GameEngineWindow::GetScreenSize()).half());
+
+	}
+	{
+		// 몬스터 액터 생성
+		for (int i = 0;i < 20;i++)
+		{
+			Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
+		}
 	}
 	/*int a = 0;
 	BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("intro.mp3");

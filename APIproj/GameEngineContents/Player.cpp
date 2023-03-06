@@ -76,7 +76,7 @@ bool Player::CheckMonsterCollision()
 
 			Hp -= (ColMonsterActor->GetDmg() - static_cast<float>(PlayerActive.Armor)); // 캐릭터데미지
 
-			ColMonsterActor->KnockBackLessAttack(ColMonsterActor->GetDmg()*(0.1f)*PlayerActive.Armor); // 아이템Armor로인한 반사데미지
+			ColMonsterActor->KnockBackLessAttack(ColMonsterActor->GetDmg()*(0.1f)*PlayerActive.Armor, 0.3f); // 아이템Armor로인한 반사데미지
 
 		}
 	}

@@ -26,7 +26,7 @@ public:
 
 	void Attack(float _Att, float _KnockBack = 0.0f);
 
-	void KnockBackLessAttack(float _Att);
+	void KnockBackLessAttack(float _Att,float _StateDelay = 0.2f);
 
 
 	inline void SetHp(float _Hp) {
@@ -100,5 +100,7 @@ private:
 	void Setting();
 	//int* EndFrame = nullptr;
 	int EndFrame[3] = { 0,0,0 };
+
+	float4 GetReGenPos();
 };
 

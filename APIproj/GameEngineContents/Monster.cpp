@@ -26,11 +26,11 @@ void Monster::Attack(float _Att, float _KnockBack) {
 	KnockBack = _KnockBack;
 }
 
-void Monster::KnockBackLessAttack(float _Att)
+void Monster::KnockBackLessAttack(float _Att, float _StateDelay)
 {
 	Hp -= _Att;
 	BodyCollision->Off();
-	InvincibleStateDelay = 0.2f;
+	InvincibleStateDelay = _StateDelay;
 }
 
 void Monster::Start()
@@ -61,9 +61,27 @@ void Monster::Start()
 	AnimationRender->ChangeAnimation("Right_Move");
 
 	//srand(time(0));
-	float4 PlayerPos = GetLevel()->GetCameraPos() + GameEngineWindow::GetScreenSize().half();
-	float4 RandPos = PlayerPos + float4{ GameEngineRandom::MainRandom.RandomFloat(-1, 1) ,GameEngineRandom::MainRandom.RandomFloat(-1, 1) }*GameEngineWindow::GetScreenSize().hx();
-	SetPos(RandPos);
+	//float4 PlayerPos = GetLevel()->GetCameraPos() + GameEngineWindow::GetScreenSize().half(); // 플레이어 위치 x축 1.2배 +-
+																							// 임시 480~1375
+
+	//float4 RandPos = PlayerPos + float4{ GameEngineRandom::MainRandom.RandomFloat(-1, 1) ,GameEngineRandom::MainRandom.RandomFloat(-1, 1) }*GameEngineWindow::GetScreenSize().hx();
+	SetPos(GetReGenPos());
+}
+
+float4 Monster::GetReGenPos()
+{
+	float PosX = GetLevel()->GetCameraPos().x + GameEngineWindow::GetScreenSize().hx();
+	int RandNum = GameEngineRandom::MainRandom.RandomInt(0, 9);
+	if (0 == (RandNum & 1))
+	{
+		PosX += GameEngineWindow::GetScreenSize().hx() * 1.0f;
+	}
+	else
+	{
+		PosX -= GameEngineWindow::GetScreenSize().hx() * 1.0f;
+	}
+	float PosY = GameEngineRandom::MainRandom.RandomFloat(480,1375);//임시
+	return float4{ PosX,PosY };
 }
 
 

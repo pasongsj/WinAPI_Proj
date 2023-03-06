@@ -131,6 +131,10 @@ public:
 		else Hp += _Hp;
 	}
  
+	void SetBGSize(const float4& _Size)
+	{
+		BGSize = _Size;
+	}
 
 protected:
 	void Start() override;
@@ -138,7 +142,7 @@ protected:
 	void Render(float _DeltaTime) override;
 
 private:
-
+	float4 BGSize = float4::Zero;
 
 	Active PlayerActive;
 	ActiveLevel PlayerActiveLevel;
