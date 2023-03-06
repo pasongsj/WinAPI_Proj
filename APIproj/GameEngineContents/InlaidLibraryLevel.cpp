@@ -195,12 +195,22 @@ void InlaidLibraryLevel::ReGenMonster()
 		LastReGenTime = StageTime;
 		int MonsterCnt = static_cast<int>(GetActors(VSRenderOrder::Monster).size());
 		int ReGenCnt = ((MaxMonster - MonsterCnt) > (MaxMonster / 2) ? (MaxMonster / 2) : (MaxMonster - MonsterCnt));
+		int DeadMonsterCnt = (Monster::DeadMonsters).size();
+		
 		for (int i = 0;i < MaxMonster- GetActors(VSRenderOrder::Monster).size();i++)
 		{
 			int RandNum = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(SponableMonster.size()) - 1);
 			Monster::MonsterName = SponableMonster[RandNum];
-
-			Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
+			if (i < DeadMonsterCnt) // 죽은 몬스터 액터 재활용
+			{
+				Monster* _DeadMonster = Monster::DeadMonsters.front();
+				Monster::DeadMonsters.pop();
+				_DeadMonster->Reset();
+			}
+			else
+			{
+				Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
+			}
 
 		}
 	}

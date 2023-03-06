@@ -122,7 +122,9 @@ void Player::Update(float _DeltaTime)
 			Items* ColItemActor = dynamic_cast<Items*> (ColActor);
 			float ItemExp = static_cast<float>(ColItemActor->GetExp());
 			PlayerExp += ItemExp * (PlayerActive.Growth + 100.0f / 100);
-			ColItemActor->Death();
+			ColItemActor->Off();
+			Items::ObtainedItems.push(ColItemActor);
+			//ColItemActor->Death();
 			//	ColActor->Death();
 
 		}

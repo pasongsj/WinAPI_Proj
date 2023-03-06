@@ -1,10 +1,12 @@
 #pragma once
 #include <map>
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <queue>
 class Items : public GameEngineActor
 {
 public:
+
+	static std::queue<Items*> ObtainedItems; // ¿ÃπÃ »πµÊ«— æ∆¿Ã≈€
 	// constrcuter destructer
 	Items() ;
 	~Items();
@@ -19,10 +21,13 @@ public:
 		return Exp;
 	}
 
+	void Reset();
 	//Items GetItems(const std::string_view& _Name) {
 	//	//Items*;
 	//	return AllItems[_Name.data()];
 	//}
+
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

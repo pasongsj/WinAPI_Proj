@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <queue>
 
 enum class MonsterState
 {
@@ -11,8 +11,10 @@ enum class MonsterState
 
 class Monster : public GameEngineActor
 {
+
 public:
 	
+	static std::queue<Monster*> DeadMonsters;
 	static std::string MonsterName;
 	// constrcuter destructer
 	Monster() ;
@@ -50,6 +52,7 @@ public:
 		InvincibleStateDelay = _Time;
 	}
 
+	void Reset();
 
 protected:
 	void Start() override;

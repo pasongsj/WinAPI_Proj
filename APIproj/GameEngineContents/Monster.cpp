@@ -1,5 +1,6 @@
 #include "Monster.h"
 //#include <ctime>
+
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineRender.h>
@@ -8,7 +9,7 @@
 #include "Player.h"
 #include "Items.h"
 
-
+std::queue<Monster*> Monster::DeadMonsters;
 std::string Monster::MonsterName = "Dust";
 
 Monster::Monster()
@@ -32,8 +33,7 @@ void Monster::KnockBackLessAttack(float _Att, float _StateDelay)
 	BodyCollision->Off();
 	InvincibleStateDelay = _StateDelay;
 }
-
-void Monster::Start()
+void Monster::Reset()
 {
 	Setting();
 	AnimationRender = CreateRender(VSRenderOrder::Monster);
@@ -46,7 +46,7 @@ void Monster::Start()
 	std::string DeadRImage = "Right" + MonsterName + "Dead.BMP";
 	std::string DeadLImage = "Left" + MonsterName + "Dead.BMP";
 	{
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = RImage, .Start = 0, .End = EndFrame[0], .InterTime = 0.1f});
+		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = RImage, .Start = 0, .End = EndFrame[0], .InterTime = 0.1f });
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Beaten",  .ImageName = DmgRImage, .Start = 0, .End = EndFrame[1], .InterTime = 0.1f , .Loop = false });
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Dead",  .ImageName = DeadRImage, .Start = 0, .End = EndFrame[2], .InterTime = 0.05f, .Loop = false });
 	}
@@ -57,15 +57,17 @@ void Monster::Start()
 	}
 	BodyCollision = CreateCollision(VSRenderOrder::Monster);
 	BodyCollision->SetScale(MonsterCollisionScale);
-	BodyCollision->SetPosition({ 0, -(MonsterCollisionScale.hy()/2)});
-	AnimationRender->ChangeAnimation("Right_Move");
-
-	//srand(time(0));
-	//float4 PlayerPos = GetLevel()->GetCameraPos() + GameEngineWindow::GetScreenSize().half(); // 플레이어 위치 x축 1.2배 +-
-																							// 임시 480~1375
-
-	//float4 RandPos = PlayerPos + float4{ GameEngineRandom::MainRandom.RandomFloat(-1, 1) ,GameEngineRandom::MainRandom.RandomFloat(-1, 1) }*GameEngineWindow::GetScreenSize().hx();
+	BodyCollision->SetPosition({ 0, -(MonsterCollisionScale.hy() / 2) });
+	IsAttacked = false;
+	StateValue = MonsterState::MOVE;
+	//AnimationRender->ChangeAnimation("Right_Move");
 	SetPos(GetReGenPos());
+	this->On();
+}
+
+void Monster::Start()
+{
+	Reset();
 }
 
 float4 Monster::GetReGenPos()
@@ -189,10 +191,24 @@ void Monster::DeadUpdate(float _Time)
 	DirCheck("Dead");
 	if (AnimationRender->IsAnimationEnd())
 	{
-		Items* Actor = GetLevel()->CreateActor<Items>(VSRenderOrder::Item);
+		// 아이템설정
+		Items* Actor = nullptr;
+		if (true == Items::ObtainedItems.empty()) // 생성
+		{
+			Actor = GetLevel()->CreateActor<Items>(VSRenderOrder::Item);
+		}
+		else // 재사용
+		{
+			Actor = Items::ObtainedItems.front();
+			Items::ObtainedItems.pop();
+			Actor->Reset();
+		}
 		Actor->SetPos(GetPos());
 		Actor->SetExp(Exp);
-		this->Death();
+
+
+		this->Off();
+		DeadMonsters.push(this);
 	}
 }
 void Monster::DeadEnd() {
