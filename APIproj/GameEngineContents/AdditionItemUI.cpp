@@ -121,9 +121,9 @@ void AdditionItemUI::Start()
 								
 	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(Originactive.Magnet	 );
 								  
-	ActiveStatUI[index++].SetValue(Originactive.Revival	 );
-	ActiveStatUI[index++].SetValue(Originactive.Reroll 	 );
-	ActiveStatUI[index++].SetValue(Originactive.Skip 		 );
+	ActiveStatUI[index++].SetValue(Originactive.Revival	);
+	ActiveStatUI[index++].SetValue(Originactive.Reroll 	);
+	ActiveStatUI[index++].SetValue(Originactive.Skip 	);
 
 	this->Off();
 }

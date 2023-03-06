@@ -54,11 +54,18 @@ public:
 
 	void Reset();
 
+	void SetBoxBossOn()
+	{
+		IsBoxBoss = true;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
 private:
+
+	bool IsBoxBoss = false; // 박스를 return하는 보스
 
 	float InvincibleStateDelay = 0.0f;//무적상태
 

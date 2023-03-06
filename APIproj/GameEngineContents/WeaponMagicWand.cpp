@@ -95,6 +95,10 @@ std::vector<float4> WeaponMagicWand::GetWeaponDir(const float4& _Pos) // -- πÊ«‚
 	std::vector<GameEngineActor*> _Monsters = GetLevel()->GetActors(VSRenderOrder::Monster);
 	for (GameEngineActor* _Monster : _Monsters)
 	{
+		if (false == _Monster->IsUpdate())
+		{
+			continue;
+		}
 		float4 Diff = (_Monster->GetPos() - _Pos);
 		if (MinLen > Diff.Size()) {
 			MinLen = Diff.Size();

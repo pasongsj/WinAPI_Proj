@@ -30,7 +30,7 @@ void InlaidLibraryBack::Start()
 	}
 
 	{
-		EndingRender = CreateRender("introBG.bmp", VSRenderOrder::MAX);
+		EndingRender = CreateRender("introBG.bmp", VSRenderOrder::LastUI);
 		EndingRender->SetScaleToImage();
 		EndingRender->EffectCameraOff();
 		EndingRender->SetPosition(EndingRender->GetScale().half());

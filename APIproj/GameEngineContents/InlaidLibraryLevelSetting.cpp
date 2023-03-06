@@ -80,7 +80,8 @@ void InlaidLibraryLevel::SetState()
 	else if (3 * 60 <= LevelTime && LevelTime < 4 * 60)//03분대 : Mummy,
 	{
 		Monster::MonsterName = "GiantMummy";
-		CreateActor<Monster>(VSRenderOrder::Monster);
+		Monster* Boss = CreateActor<Monster>(VSRenderOrder::Monster);
+		Boss->SetBoxBossOn();
 
 		MaxMonster = 60;
 		RegenInterval = 4.0f;
@@ -100,7 +101,8 @@ void InlaidLibraryLevel::SetState()
 	else if (5 * 60 <= LevelTime && LevelTime < 6 * 60)	//05분대 : Mummy,			
 	{		
 		Monster::MonsterName = "GiantMummy";
-		CreateActor<Monster>(VSRenderOrder::Monster);
+		Monster* Boss = CreateActor<Monster>(VSRenderOrder::Monster);
+		Boss->SetBoxBossOn();
 
 		MaxMonster = 100;														   
 		RegenInterval = 4.0f;		
@@ -130,7 +132,8 @@ void InlaidLibraryLevel::SetState()
 	else if (8 * 60 <= LevelTime && LevelTime < 9 * 60)//08분대 : Ghost, Musc,
 	{
 		Monster::MonsterName = "BigMusc2";
-		CreateActor<Monster>(VSRenderOrder::Monster);
+		Monster* Boss = CreateActor<Monster>(VSRenderOrder::Monster);
+		Boss->SetBoxBossOn();
 
 		MaxMonster = 80;
 		RegenInterval = 1.0f;
@@ -152,7 +155,8 @@ void InlaidLibraryLevel::SetState()
 	else if (10 * 60 <= LevelTime && LevelTime < 11 * 60)//10분대 : Musc,
 	{
 		Monster::MonsterName = "BigLionHead";
-		CreateActor<Monster>(VSRenderOrder::Monster);
+		Monster* Boss = CreateActor<Monster>(VSRenderOrder::Monster);
+		Boss->SetBoxBossOn();
 
 		MaxMonster = 100;														 
 		RegenInterval = 0.5f;			
@@ -163,7 +167,8 @@ void InlaidLibraryLevel::SetState()
 	else if (11 * 60 <= LevelTime && LevelTime < 12 * 60)//11분대 : Lionhead, MedusaHead
 	{
 		Monster::MonsterName = "MedusaHeadBoss"; // 보스 추가 필요함
-		CreateActor<Monster>(VSRenderOrder::Monster);
+		Monster* Boss = CreateActor<Monster>(VSRenderOrder::Monster);
+		Boss->SetBoxBossOn();
 
 		MaxMonster = 120;
 		RegenInterval = 2.0f;
@@ -175,7 +180,8 @@ void InlaidLibraryLevel::SetState()
 	else if (12 * 60 <= LevelTime && LevelTime < 13 * 60)//12분대 : Dullahan, MedusaHead
 	{
 		Monster::MonsterName = "GlowingBat";
-		CreateActor<Monster>(VSRenderOrder::Monster);
+		Monster* Boss = CreateActor<Monster>(VSRenderOrder::Monster);
+		Boss->SetBoxBossOn();
 
 		MaxMonster = 80;
 		RegenInterval = 1.0f;
@@ -187,7 +193,8 @@ void InlaidLibraryLevel::SetState()
 	else if (13 * 60 <= LevelTime && LevelTime < 14 * 60)//13분대 : Mummy, Dullahan,
 	{
 		Monster::MonsterName = "BigDust";
-		CreateActor<Monster>(VSRenderOrder::Monster);
+		Monster* Boss = CreateActor<Monster>(VSRenderOrder::Monster);
+		Boss->SetBoxBossOn();
 
 		MaxMonster = 120;
 		RegenInterval = 0.5f;
@@ -199,7 +206,8 @@ void InlaidLibraryLevel::SetState()
 	else if (14 * 60 <= LevelTime && LevelTime < 15 * 60) //14분대 : Mummy, Musc2, MedusaHead,
 	{
 		Monster::MonsterName = "SilverBat";
-		CreateActor<Monster>(VSRenderOrder::Monster);
+		Monster* Boss = CreateActor<Monster>(VSRenderOrder::Monster);
+		Boss->SetBoxBossOn();
 
 		MaxMonster = 300;
 		RegenInterval = 0.1f;
@@ -212,7 +220,8 @@ void InlaidLibraryLevel::SetState()
 	else if (15 * 60 <= LevelTime && LevelTime < 16 * 60) //15분대 : MedusaHead,
 	{		
 		Monster::MonsterName = "QueenMedusa";
-		CreateActor<Monster>(VSRenderOrder::Monster);
+		Monster* Boss = CreateActor<Monster>(VSRenderOrder::Monster);
+		Boss->SetBoxBossOn();
 
 		MaxMonster = 100;																		 
 		RegenInterval = 0.1f;	
@@ -223,7 +232,8 @@ void InlaidLibraryLevel::SetState()
 	else if (16 * 60 <= LevelTime && LevelTime < 17 * 60)//16분대 : Dullahan, EliteDullahan, ApprenticeWitch
 	{
 		Monster::MonsterName = "GlowingBat";
-		CreateActor<Monster>(VSRenderOrder::Monster);
+		Monster* Boss = CreateActor<Monster>(VSRenderOrder::Monster);
+		Boss->SetBoxBossOn();
 
 		MaxMonster = 100;
 		RegenInterval = 1.0f;
@@ -245,7 +255,8 @@ void InlaidLibraryLevel::SetState()
 	else if (18 * 60 <= LevelTime && LevelTime < 19 * 60)//18분대 : ApprenticeWitch, Lionhead
 	{
 		Monster::MonsterName = "MasterWitch";
-		CreateActor<Monster>(VSRenderOrder::Monster);
+		Monster* Boss = CreateActor<Monster>(VSRenderOrder::Monster);
+		Boss->SetBoxBossOn();
 
 		MaxMonster = 60;
 		RegenInterval = 0.5f;
@@ -266,7 +277,8 @@ void InlaidLibraryLevel::SetState()
 	else if (20 * 60 <= LevelTime && LevelTime < 21 * 60) //20분대 : EliteDullahan, Lionhead,
 	{
 		Monster::MonsterName = "Nesuferit";
-		CreateActor<Monster>(VSRenderOrder::Monster);
+		Monster* Boss = CreateActor<Monster>(VSRenderOrder::Monster);
+		Boss->SetBoxBossOn();
 
 		MaxMonster = 100;										 
 		RegenInterval = 0.1f;									 
@@ -289,7 +301,8 @@ void InlaidLibraryLevel::SetState()
 	else if (22 * 60 <= LevelTime && LevelTime < 23 * 60)//22분대 : Lionhead, UndeadSassyWitch,
 	{
 		Monster::MonsterName = "GlowingBat";
-		CreateActor<Monster>(VSRenderOrder::Monster);
+		Monster* Boss = CreateActor<Monster>(VSRenderOrder::Monster);
+		Boss->SetBoxBossOn();
 
 		MaxMonster = 80;
 		RegenInterval = 1.0f;
@@ -301,7 +314,8 @@ void InlaidLibraryLevel::SetState()
 	else if (23 * 60 <= LevelTime && LevelTime < 24 * 60)//23분대 : EliteDullahan, Dullahan, UndeadSassyWitch
 	{
 		Monster::MonsterName = "BigLionHead";
-		CreateActor<Monster>(VSRenderOrder::Monster);
+		Monster* Boss = CreateActor<Monster>(VSRenderOrder::Monster);
+		Boss->SetBoxBossOn();
 
 		MaxMonster = 120;
 		RegenInterval = 0.1f;
@@ -322,7 +336,8 @@ void InlaidLibraryLevel::SetState()
 	else if (25 * 60 <= LevelTime && LevelTime < 26 * 60)//25분대 : GiantBat(흡혈박쥐), GlowingSkull(두개골), UndeadSassyWitch
 	{
 		Monster::MonsterName = "Hag";
-		CreateActor<Monster>(VSRenderOrder::Monster);
+		Monster* Boss = CreateActor<Monster>(VSRenderOrder::Monster);
+		Boss->SetBoxBossOn();
 
 		MaxMonster = 300;
 		RegenInterval = 0.1f;
@@ -335,7 +350,8 @@ void InlaidLibraryLevel::SetState()
 	else if (26 * 60 <= LevelTime && LevelTime < 27 * 60)	//26분대 : GiantMedusa,	
 	{			
 		Monster::MonsterName = "QueenMedusa";
-		CreateActor<Monster>(VSRenderOrder::Monster);
+		Monster* Boss = CreateActor<Monster>(VSRenderOrder::Monster);
+		Boss->SetBoxBossOn();
 
 		MaxMonster = 100;															
 		RegenInterval = 0.1f;	
@@ -347,7 +363,8 @@ void InlaidLibraryLevel::SetState()
 	else if (27 * 60 <= LevelTime && LevelTime < 28 * 60)//27분대 : GiantMedusa, MedusaHead
 	{
 		Monster::MonsterName = "QueenMedusa";
-		CreateActor<Monster>(VSRenderOrder::Monster);
+		Monster* Boss = CreateActor<Monster>(VSRenderOrder::Monster);
+		Boss->SetBoxBossOn();
 
 		MaxMonster = 300;
 		RegenInterval = 0.1f;
@@ -359,7 +376,8 @@ void InlaidLibraryLevel::SetState()
 	else if (28 * 60 <= LevelTime && LevelTime < 29 * 60)//28분대 : ApprenticeWitch,
 	{
 		Monster::MonsterName = "QueenMedusa";
-		CreateActor<Monster>(VSRenderOrder::Monster);
+		Monster* Boss = CreateActor<Monster>(VSRenderOrder::Monster);
+		Boss->SetBoxBossOn();
 
 		MaxMonster = 250;
 		RegenInterval = 0.1f;

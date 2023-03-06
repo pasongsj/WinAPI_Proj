@@ -16,16 +16,17 @@ public:
 	Items(Items&& _Other) noexcept = delete;
 	Items& operator=(const Items& _Other) = delete;
 	Items& operator=(Items&& _Other) noexcept = delete;
-	void SetExp(float _Exp); 
+	void SetExp(float _Exp, bool _IsBox = false); 
 	inline float GetExp() {
 		return Exp;
 	}
 
 	void Reset();
-	//Items GetItems(const std::string_view& _Name) {
-	//	//Items*;
-	//	return AllItems[_Name.data()];
-	//}
+
+	bool GetIsBox()
+	{
+		return IsBox;
+	}
 
 
 protected:
@@ -33,6 +34,7 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
+	bool IsBox = false;
 	GameEngineRender* ItemRender = nullptr;
 	GameEngineCollision* ItemCollision = nullptr; // æ∆¿Ã≈€ »πµÊ ªÁ∞≈∏Æ
 	float Exp = 1;

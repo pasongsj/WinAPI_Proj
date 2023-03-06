@@ -110,7 +110,7 @@ void InlaidLibraryLevel::Loading()
 		//float4 BtnScale = { 203,63 };
 		/*float4 BtnPos = GameEngineWindow::GetScreenSize().half();
 		BtnPos.y += BtnPos.y * (1.2f);*/
-		BackButton->setting("BackBtn.bmp", "BackBtn.bmp", "BackBtn.bmp", {0,0}, BtnScale, static_cast<int>(VSRenderOrder::MAX), false);
+		BackButton->setting("BackBtn.bmp", "BackBtn.bmp", "BackBtn.bmp", {0,0}, BtnScale, static_cast<int>(VSRenderOrder::UI), false);
 		BackButton->GetButtonRender()->SetImage("BackBtn.bmp");
 		BackButton->GetButtonRender()->EffectCameraOn();
 		BackButton->SetClickCallBack(ChangeLevelToTitle);
@@ -191,36 +191,36 @@ void InlaidLibraryLevel::ReGenMonster()
 	}
 	float StageTime = NewUI->GetStageTime();
 
-	if (StageTime - LastReGenTime >= RegenInterval)
-	{
-		LastReGenTime = StageTime;
-		int DeadMonsterCnt = static_cast<int>(Monster::DeadMonsters.size());
-		int MonsterCnt = static_cast<int>(GetActors(VSRenderOrder::Monster).size()) - DeadMonsterCnt;
-		int ReGenCnt = ((MaxMonster - MonsterCnt) > (MaxMonster / 2) ? (MaxMonster / 2) : (MaxMonster - MonsterCnt));
-		if (ReGenCnt <= 0)
-		{
-			return;
-		}
-		for (int i = 0;i < ReGenCnt;i++)
-		{
-			int RandNum = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(SponableMonster.size()) - 1);
-			Monster::MonsterName = SponableMonster[RandNum];
-			if (i < DeadMonsterCnt) // 죽은 몬스터 액터 재활용
-			{
-				Monster* _DeadMonster = Monster::DeadMonsters.front();
-				Monster::DeadMonsters.pop();
-				_DeadMonster->Reset();
-			}
-			else
-			{
-				Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
-			}
+	//if (StageTime - LastReGenTime >= RegenInterval)
+	//{
+	//	LastReGenTime = StageTime;
+	//	int DeadMonsterCnt = static_cast<int>(Monster::DeadMonsters.size());
+	//	int MonsterCnt = static_cast<int>(GetActors(VSRenderOrder::Monster).size()) - DeadMonsterCnt;
+	//	int ReGenCnt = ((MaxMonster - MonsterCnt) > (MaxMonster / 2) ? (MaxMonster / 2) : (MaxMonster - MonsterCnt));
+	//	if (ReGenCnt <= 0)
+	//	{
+	//		return;
+	//	}
+	//	for (int i = 0;i < ReGenCnt;i++)
+	//	{
+	//		int RandNum = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(SponableMonster.size()) - 1);
+	//		Monster::MonsterName = SponableMonster[RandNum];
+	//		if (i < DeadMonsterCnt) // 죽은 몬스터 액터 재활용
+	//		{
+	//			Monster* _DeadMonster = Monster::DeadMonsters.front();
+	//			Monster::DeadMonsters.pop();
+	//			_DeadMonster->Reset();
+	//		}
+	//		else
+	//		{
+	//			Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
+	//		}
 
-		}
-	}
+	//	}
+	//}
 
 	//// - 몬스터 젠 테스트용입니다.
-	/*RegenInterval = 15.0f;
+	RegenInterval = 15.0f;
 	if (StageTime - LastReGenTime >= RegenInterval)
 	{
 		LastReGenTime = StageTime;
@@ -232,7 +232,7 @@ void InlaidLibraryLevel::ReGenMonster()
 			Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
 
 		}
-	}*/
+	}
 
 }
 

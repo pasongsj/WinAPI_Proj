@@ -16,20 +16,25 @@ Items::~Items()
 {
 }
 
-void Items::SetExp(float _Exp)
+void Items::SetExp(float _Exp, bool _IsBox)
 {
 	Exp = _Exp;
-	if (Exp >= 10)
+	IsBox = _IsBox;
+	if (IsBox)
 	{
-		ItemRender->SetImage("ExperienceGemRed.bmp");
+		ItemRender->SetImageToScaleToImage("BronzeTreasureChest.bmp");
+	}
+	else if (Exp >= 10)
+	{
+		ItemRender->SetImageToScaleToImage("ExperienceGemRed.bmp");
 	}
 	else if (Exp >= 5)
 	{
-		ItemRender->SetImage("ExperienceGemGreen.bmp");
+		ItemRender->SetImageToScaleToImage("ExperienceGemGreen.bmp");
 	}
 	else
 	{
-		ItemRender->SetImage("ExperienceGemBlue.bmp");
+		ItemRender->SetImageToScaleToImage("ExperienceGemBlue.bmp");
 	}
 }
 

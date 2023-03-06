@@ -72,6 +72,9 @@
     <ClInclude Include="AdditionItemUIButtonFunction.h">
       <Filter>PlayUI</Filter>
     </ClInclude>
+    <ClInclude Include="ObtainBox.h">
+      <Filter>Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsGameCore.cpp" />
@@ -161,6 +164,9 @@
     </ClCompile>
     <ClCompile Include="MonsterSetting.cpp">
       <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="ObtainBox.cpp">
+      <Filter>Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -35,6 +35,7 @@ void Monster::KnockBackLessAttack(float _Att, float _StateDelay)
 }
 void Monster::Reset()
 {
+	IsBoxBoss = false;
 	Setting();
 	AnimationRender = CreateRender(VSRenderOrder::Monster);
 	AnimationRender->SetScale(MonsterRenderScale);
@@ -211,6 +212,14 @@ void Monster::DeadUpdate(float _Time)
 		Actor->SetPos(GetPos());
 		Actor->SetExp(Exp);
 		Actor->SetOwner(GetLevel());
+
+		if (true == IsBoxBoss)
+		{
+			Items* Box = GetLevel()->CreateActor<Items>(VSRenderOrder::Item);
+			Box->SetPos(GetPos());
+			Box->SetExp(0, true);
+			Box->SetOwner(GetLevel());
+		}
 
 
 		this->Off();
