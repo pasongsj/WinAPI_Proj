@@ -1,4 +1,5 @@
 #pragma once
+#include <GameEngineCore/GameEngineResources.h>
 #include <GameEngineCore/GameEngineActor.h>
 #include <vector>
 #include "Weapon.h"
@@ -205,5 +206,7 @@ private:
 	void UpdateActiveItem(float _DeltaTime);
 
 	void CheckObtainItems();
+
+
 };
 

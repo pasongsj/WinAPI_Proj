@@ -183,18 +183,16 @@ void InlaidLibraryLevel::CheckLevelUpUI()
 		{
 			AdditionItemUI::SelectUI->UIOn();
 			//GameEngineCore::GetInst()->ChangeLevel("TitleLevel");
-			BGMPlayer.PauseOn();
-			SetTimeScale(VSRenderOrder::BackGround, 0);
-			SetTimeScale(VSRenderOrder::Map, 0);
-			SetTimeScale(VSRenderOrder::Player, 0);
-			SetTimeScale(VSRenderOrder::Monster, 0);
-			SetTimeScale(VSRenderOrder::Item, 0);
-			SetTimeScale(VSRenderOrder::Weapon, 0);
-			SetTimeScale(VSRenderOrder::UI, 0);
-			GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("LevelUp.mp3");
-			Dwn.Volume(1.0f);
-			Dwn.LoopCount(1);
+			
 		}
+		BGMPlayer.PauseOn();
+		SetTimeScale(VSRenderOrder::BackGround, 0);
+		SetTimeScale(VSRenderOrder::Map, 0);
+		SetTimeScale(VSRenderOrder::Player, 0);
+		SetTimeScale(VSRenderOrder::Monster, 0);
+		SetTimeScale(VSRenderOrder::Item, 0);
+		SetTimeScale(VSRenderOrder::Weapon, 0);
+		SetTimeScale(VSRenderOrder::UI, 0);
 	}
 	else
 	{
@@ -220,48 +218,48 @@ void InlaidLibraryLevel::ReGenMonster()
 	}
 	float StageTime = NewUI->GetStageTime();
 
-	//if (StageTime - LastReGenTime >= RegenInterval)
-	//{
-	//	LastReGenTime = StageTime;
-	//	int DeadMonsterCnt = static_cast<int>(Monster::DeadMonsters.size());
-	//	int MonsterCnt = static_cast<int>(GetActors(VSRenderOrder::Monster).size()) - DeadMonsterCnt;
-	//	int ReGenCnt = ((MaxMonster - MonsterCnt) > (MaxMonster / 2) ? (MaxMonster / 2) : (MaxMonster - MonsterCnt));
-	//	if (ReGenCnt <= 0)
-	//	{
-	//		return;
-	//	}
-	//	for (int i = 0;i < ReGenCnt;i++)
-	//	{
-	//		int RandNum = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(SponableMonster.size()) - 1);
-	//		Monster::MonsterName = SponableMonster[RandNum];
-	//		if (i < DeadMonsterCnt) // 죽은 몬스터 액터 재활용
-	//		{
-	//			Monster* _DeadMonster = Monster::DeadMonsters.front();
-	//			Monster::DeadMonsters.pop();
-	//			_DeadMonster->Reset();
-	//		}
-	//		else
-	//		{
-	//			Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
-	//		}
-
-	//	}
-	//}
-
-	//// - 몬스터 젠 테스트용입니다.
-	RegenInterval = 15.0f;
 	if (StageTime - LastReGenTime >= RegenInterval)
 	{
 		LastReGenTime = StageTime;
-		for (int i = 0;i < 1;i++)
+		int DeadMonsterCnt = static_cast<int>(Monster::DeadMonsters.size());
+		int MonsterCnt = static_cast<int>(GetActors(VSRenderOrder::Monster).size()) - DeadMonsterCnt;
+		int ReGenCnt = ((MaxMonster - MonsterCnt) > (MaxMonster / 2) ? (MaxMonster / 2) : (MaxMonster - MonsterCnt));
+		if (ReGenCnt <= 0)
+		{
+			return;
+		}
+		for (int i = 0;i < ReGenCnt;i++)
 		{
 			int RandNum = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(SponableMonster.size()) - 1);
 			Monster::MonsterName = SponableMonster[RandNum];
-
-			Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
+			if (i < DeadMonsterCnt) // 죽은 몬스터 액터 재활용
+			{
+				Monster* _DeadMonster = Monster::DeadMonsters.front();
+				Monster::DeadMonsters.pop();
+				_DeadMonster->Reset();
+			}
+			else
+			{
+				Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
+			}
 
 		}
 	}
+
+	//// - 몬스터 젠 테스트용입니다.
+	//RegenInterval = 15.0f;
+	//if (StageTime - LastReGenTime >= RegenInterval)
+	//{
+	//	LastReGenTime = StageTime;
+	//	for (int i = 0;i < 1;i++)
+	//	{
+	//		int RandNum = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(SponableMonster.size()) - 1);
+	//		Monster::MonsterName = SponableMonster[RandNum];
+
+	//		Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
+
+	//	}
+	//}
 
 }
 
@@ -269,7 +267,7 @@ void InlaidLibraryLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 	BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("bgm_elrond_library.mp3");
 	BGMPlayer.LoopCount(0);
-	BGMPlayer.Volume(0.6f);
+	BGMPlayer.Volume(0.5f);
 
 	{ // 플레이어 생성
 		Player* NewPlayer = CreateActor<Player>(VSRenderOrder::Player); // 플레이어

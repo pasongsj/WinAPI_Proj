@@ -93,7 +93,7 @@ void Monster::Update(float _DeltaTime)
 {
 
 	UpdateState(_DeltaTime);
-	SetMove(MoveVec * MoveSpeed * _DeltaTime); // if state == attacted면 멈추게 한다.
+	SetMove(MoveVec * (MoveSpeed*0.8f) * _DeltaTime); // if state == attacted면 멈추게 한다.
 
 }
 
