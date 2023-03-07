@@ -1,6 +1,5 @@
 #include "Monster.h"
 //#include <ctime>
-
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineRender.h>
@@ -11,6 +10,7 @@
 
 std::queue<Monster*> Monster::DeadMonsters;
 std::string Monster::MonsterName = "Dust";
+
 
 Monster::Monster()
 {
@@ -179,6 +179,7 @@ void Monster::BeatenUpdate(float _Time)
 		InvincibleStateDelay = 0.0f;
 		ChangeState(MonsterState::MOVE);
 	}
+
 }
 void Monster::BeatenEnd()
 {

@@ -149,7 +149,14 @@ void InlaidLibraryLevel::ImageLoad()
 		Dir.Move("number");
 		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Number.BMP"));
 		Image2->Cut(10, 1);
+
+		Dir.MoveParent();
+		Dir.Move("Box");
+		GameEngineImage* Image3 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("openingBox1.BMP"));
+		Image3->Cut(8, 1);
 	}
+
+
 
 	{   //무기 이미지 로드
 		Dir.MoveParentToDirectory("Weapon");

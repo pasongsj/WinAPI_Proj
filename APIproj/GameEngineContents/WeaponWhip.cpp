@@ -127,6 +127,15 @@ void WeaponWhip::Update(float _DeltaTime)
 
 			}
 		}
+		if (Collision.size() > 0)
+		{
+			if (Collision.size() > 0)
+			{
+				GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("EnemyHit.mp3");
+				Dwn.Volume(1.0f);
+				Dwn.LoopCount(1);
+			}
+		}
 	}
 }
 

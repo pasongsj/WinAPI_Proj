@@ -204,5 +204,6 @@ private:
 	
 	void UpdateActiveItem(float _DeltaTime);
 
+	void CheckObtainItems();
 };
 

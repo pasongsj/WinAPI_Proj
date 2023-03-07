@@ -1,6 +1,8 @@
 #include "InlaidLibraryBack.h"
 #include "ContentsEnums.h"
+
 #include <GameEnginePlatform/GameEngineWindow.h>
+#include <GameEngineCore/GameEngineResources.h>
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <cmath>
@@ -84,6 +86,12 @@ void InlaidLibraryBack::SetEndingRenderOn(bool _IsComplete)
 	if (true == _IsComplete)
 	{
 		EndingUI->SetImage("stageComplete.bmp");
+	}
+	if (false == EndingRender->IsUpdate())
+	{
+		GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("GameOver.mp3");
+		Dwn.Volume(0.7f);
+		Dwn.LoopCount(1);
 	}
 	EndingRender->On();
 	EndingUI->On();

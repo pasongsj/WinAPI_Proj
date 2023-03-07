@@ -24,6 +24,10 @@ void Disable()
 	SelectCharacter::MainScreen->GetBackBtn()->Off();
 	SelectCharacter::MainScreen->Off();
 
+	GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("ButtonQuit.mp3");
+	Dwn.Volume(0.7f);
+	Dwn.LoopCount(1);
+
 }
 
 SelectCharacter::SelectCharacter()
@@ -41,6 +45,9 @@ void ClickAntonioButton()
 	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
 	Disable();
 	Player::BasicWeapon = "Whip";
+	GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("ButtonDown.mp3");
+	Dwn.Volume(0.7f);
+	Dwn.LoopCount(1);
 }
 
 void ClickImeldaButton()
@@ -49,6 +56,9 @@ void ClickImeldaButton()
 	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
 	Disable();
 	Player::BasicWeapon = "MagicWand";
+	GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("ButtonDown.mp3");
+	Dwn.Volume(0.7f);
+	Dwn.LoopCount(1);
 }
 
 void ClickPasqualinaButton()
@@ -57,6 +67,9 @@ void ClickPasqualinaButton()
 	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
 	Disable();
 	Player::BasicWeapon = "RuneTracer";
+	GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("ButtonDown.mp3");
+	Dwn.Volume(0.7f);
+	Dwn.LoopCount(1);
 }
 void ClickGennaroButton()
 {
@@ -64,6 +77,9 @@ void ClickGennaroButton()
 	GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
 	Disable();
 	Player::BasicWeapon = "Knife";
+	GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("ButtonDown.mp3");
+	Dwn.Volume(0.7f);
+	Dwn.LoopCount(1);
 }
 
 void SelectCharacter::Start()

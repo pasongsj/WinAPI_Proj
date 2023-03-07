@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+#include <GameEngineCore/GameEngineResources.h>
 #include <queue>
 
 enum class MonsterState
@@ -11,7 +12,6 @@ enum class MonsterState
 
 class Monster : public GameEngineActor
 {
-
 public:
 	
 	static std::queue<Monster*> DeadMonsters;

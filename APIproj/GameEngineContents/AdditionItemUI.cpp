@@ -7,6 +7,7 @@
 #include <GameEngineCore/NumberRenderObject.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include "ContentsEnums.h"
+#include <GameEngineCore/GameEngineResources.h>
 
 //#include "AdditionItemUIButtonFunction.h"
 #include "Player.h"
@@ -197,6 +198,7 @@ void AdditionItemUI::UIOn()
 }
 void AdditionItemUI::UIOff()
 {
+	IsUIOnOff = false;
 	LevelUpUIRender->Off();
 	StatUI->Off();
 	for (std::pair<std::string, Button*> _Item : Items)

@@ -33,6 +33,11 @@ public:
 	{
 		ActiveStatUI[_Index].SetValue(_Value);
 	}
+	
+	bool GetIsUIOnOff()
+	{
+		return IsUIOnOff;
+	}
 
 protected:
 
@@ -40,6 +45,7 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
+	bool IsUIOnOff = false;
 	bool IsReset = false;
 
 

@@ -76,9 +76,15 @@ bool Player::CheckMonsterCollision()
 
 			Hp -= (ColMonsterActor->GetDmg() - static_cast<float>(PlayerActive.Armor)); // 캐릭터데미지
 
-			ColMonsterActor->KnockBackLessAttack(ColMonsterActor->GetDmg()*(0.1f)*PlayerActive.Armor, 0.3f); // 아이템Armor로인한 반사데미지
+			ColMonsterActor->KnockBackLessAttack(ColMonsterActor->GetDmg()*(0.1f)*PlayerActive.Armor, 0.4f); // 아이템Armor로인한 반사데미지
 
 		}
+	}
+	if (Collision.size() > 0)
+	{
+		GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("PlayerAttacked.mp3");
+		Dwn.Volume(0.5f);
+		Dwn.LoopCount(1);
 	}
 	return Collision.size() > 0;
 }
@@ -112,9 +118,22 @@ void Player::Update(float _DeltaTime)
 	}
 
 	// 아이템 획득 콜리전
+	CheckObtainItems();
+
+
+	UpdateActiveItem(_DeltaTime);
+	WeaponUpdate(_DeltaTime); // Weapon의 on/off로 관리했는데 자체적으로 렌더를 교환하기 때문에 변경할 필요가 있음 -> 매직완드 교체후 삭제하기
+	UpdateState(_DeltaTime);
+	Movecalculation(_DeltaTime);
+	CheckLevelUp();
+}
+void Player::CheckObtainItems()
+{
+	/*Dwn.LoopCount(1);*/
+	// 아이템 획득 콜리전
 	std::vector<GameEngineCollision*> Collision;
 	Collision.clear();
-	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Item) , .TargetColType  = CollisionType::CT_Rect}, Collision))
+	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Item) , .TargetColType = CollisionType::CT_Rect }, Collision))
 	{
 		for (size_t i = 0; i < Collision.size(); i++)
 		{
@@ -124,22 +143,14 @@ void Player::Update(float _DeltaTime)
 			PlayerExp += ItemExp * (PlayerActive.Growth + 100.0f / 100);
 			ColItemActor->Off();
 			Items::ObtainedItems.push(ColItemActor);
+			GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("GetGem.mp3");
+			Dwn.Volume(0.7f);
+			Dwn.LoopCount(1);
 			//ColItemActor->Death();
 			//	ColActor->Death();
 
 		}
 	}
-
-	if (Hp <= 0) // GameOver -- > Level에서 체크하도록 변경 필요
-	{
-		int a = 0;
-	}
-
-	UpdateActiveItem(_DeltaTime);
-	WeaponUpdate(_DeltaTime); // Weapon의 on/off로 관리했는데 자체적으로 렌더를 교환하기 때문에 변경할 필요가 있음 -> 매직완드 교체후 삭제하기
-	UpdateState(_DeltaTime);
-	Movecalculation(_DeltaTime);
-	CheckLevelUp();
 }
 
 void Player::WeaponUpdate(float _DeltaTime)

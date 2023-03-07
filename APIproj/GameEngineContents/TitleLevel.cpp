@@ -15,6 +15,7 @@
 // test
 //
 SelectCharacter* TitleLevel::SelectScreen = nullptr;
+GameEngineSoundPlayer TitleLevel::ClickButtonDown;
 
 TitleLevel::TitleLevel()
 {
@@ -32,7 +33,9 @@ void ClickStartButton()
 		return;
 	}
 	TitleLevel::SelectScreen->Activate();
-	//GameEngineCore::GetInst()->ChangeLevel("InlaidLibraryLevel");
+	GameEngineSoundPlayer BtnDown = GameEngineResources::GetInst().SoundPlayToControl("ButtonDown.mp3");
+	BtnDown.Volume(0.7);
+	BtnDown.LoopCount(1);
 }
 
 
@@ -44,6 +47,8 @@ void TitleLevel::SoundLoad()
 	Dir.Move("Sound");
 
 	GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("intro.mp3"));
+	GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("ButtonDown.mp3"));
+	GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("ButtonQuit.mp3"));
 
 }
 void TitleLevel::ImageLoad()
@@ -102,6 +107,7 @@ void TitleLevel::Loading()
 
 	SelectScreen = CreateActor<SelectCharacter>(VSRenderOrder::UI);
 	//SelectScreen->Off();
+
 }
 
 void TitleLevel::Update(float _DeltaTime)
@@ -118,9 +124,17 @@ void TitleLevel::Update(float _DeltaTime)
 	
 }
 
+
 void TitleLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 	BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("intro.mp3");
 	BGMPlayer.LoopCount(1);
-	BGMPlayer.Volume(0.1f);
+	BGMPlayer.Volume(0.5f);
+
+
+}
+
+void TitleLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
+{
+	BGMPlayer.Stop();
 }

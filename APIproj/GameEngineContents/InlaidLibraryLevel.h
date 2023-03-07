@@ -53,6 +53,10 @@ private:
 
 	Button* BackButton = nullptr;
 
+	void CheckLevelUpUI();
+
+	void CheckDebugInput();
+
 
 };
 

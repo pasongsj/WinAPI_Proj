@@ -17,6 +17,8 @@
 #include "AdditionItemUI.h"
 
 #include "MouseObject.h"
+#include "ObtainBox.h"
+
 
 #include "WeaponWhip.h"
 #include "WeaponMagicWand.h"
@@ -29,6 +31,9 @@
 void ChangeLevelToTitle()
 {
 	GameEngineCore::GetInst()->ChangeLevel("TitleLevel"); // 결과창 띄워주고 나가기
+	GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("ButtonDown.mp3");
+	Dwn.Volume(0.7f);
+	Dwn.LoopCount(1);
 }
 
 InlaidLibraryLevel::InlaidLibraryLevel()
@@ -42,12 +47,21 @@ InlaidLibraryLevel::~InlaidLibraryLevel()
 
 void InlaidLibraryLevel::SoundLoad()
 {
-	//GameEngineDirectory Dir;
-	//Dir.MoveParentToDirectory("ContentsResources");
-	//Dir.Move("ContentsResources");
-	//Dir.Move("Sound");
+	GameEngineDirectory Dir;
+	Dir.MoveParentToDirectory("ContentsResources");
+	Dir.Move("ContentsResources");
+	Dir.Move("Sound");
 
-	//GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("intro.mp3"));
+	GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("bgm_elrond_library.mp3"));
+	GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("EnemyHit.mp3"));
+	GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("GameOver.mp3"));
+	GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("GetGem.mp3"));
+	GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("LevelUp.mp3"));
+	GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("PlayerAttacked.mp3"));
+	GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("ProjectileKnife.mp3"));
+	GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("ProjectileMagic.mp3"));
+	GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("TreasureFound.mp3"));
+	GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("TreasureOpening.mp3"));
 
 }
 
@@ -95,14 +109,10 @@ void InlaidLibraryLevel::Loading()
 		NewUI = CreateActor<PlayGameUI>(VSRenderOrder::UI);
 	}
 
+	{ // 박스 액터
+		//CreateActor<ObtainBox>(VSRenderOrder::UI);
 
-	//{
-	//	// 몬스터 액터 생성
-	//	for (int i = 0;i < 10 ;i++) 
-	//	{
-	//		Monster* Actor = CreateActor<Monster>(VSRenderOrder::Monster);
-	//	}
-	//}
+	}
 
 	{
 		BackButton = CreateActor<Button>();
@@ -125,32 +135,17 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 		Player::IsStop = !Player::IsStop;
 	}
 
-	if (true == Player::IsStop)
-	{
-		AdditionItemUI::SelectUI->UIOn();
-		//GameEngineCore::GetInst()->ChangeLevel("TitleLevel");
-		SetTimeScale(VSRenderOrder::BackGround, 0);
-		SetTimeScale(VSRenderOrder::Map, 0);
-		SetTimeScale(VSRenderOrder::Player, 0);
-		SetTimeScale(VSRenderOrder::Monster, 0);
-		SetTimeScale(VSRenderOrder::Item, 0);
-		SetTimeScale(VSRenderOrder::Weapon, 0);
-		SetTimeScale(VSRenderOrder::UI, 0);
-	}
-	else
-	{
-		AdditionItemUI::SelectUI->UIOff();
-		AdditionItemUI::SelectUI->ReSetOff();
-		//NewUI->LevelUpUIRenderOff();
-		SetTimeScale(VSRenderOrder::BackGround, 1);
-		SetTimeScale(VSRenderOrder::Map, 1);
-		SetTimeScale(VSRenderOrder::Player, 1);
-		SetTimeScale(VSRenderOrder::Monster, 1);
-		SetTimeScale(VSRenderOrder::Item, 1);
-		SetTimeScale(VSRenderOrder::Weapon, 1);
-		SetTimeScale(VSRenderOrder::UI, 1);
-	}
+	CheckLevelUpUI();
 
+	CheckDebugInput();
+
+	SetState();
+	ReGenMonster();
+	CheckEnd();
+}
+
+void InlaidLibraryLevel::CheckDebugInput()
+{
 	if (GameEngineInput::IsDown("DebugRenderSwitch"))
 	{
 		DebugRenderSwitch();
@@ -171,17 +166,51 @@ void InlaidLibraryLevel::Update(float _DeltaTime)
 	if (GameEngineInput::IsDown("SpeedUp"))
 	{
 		float beforeSpeed = GameEngineCore::GetSpeed();
-		GameEngineCore::SetSpeedUp(beforeSpeed*5.0f);
+		GameEngineCore::SetSpeedUp(beforeSpeed * 5.0f);
 	}
 	if (GameEngineInput::IsDown("SpeedReset"))
 	{
 		float beforeSpeed = GameEngineCore::GetSpeed();
-		GameEngineCore::SetSpeedUp(beforeSpeed*0.2f);
+		GameEngineCore::SetSpeedUp(beforeSpeed * 0.2f);
 	}
+}
 
-	SetState();
-	ReGenMonster();
-	CheckEnd();
+void InlaidLibraryLevel::CheckLevelUpUI()
+{
+	if (true == Player::IsStop)
+	{
+		if (false == AdditionItemUI::SelectUI->IsUpdate())
+		{
+			AdditionItemUI::SelectUI->UIOn();
+			//GameEngineCore::GetInst()->ChangeLevel("TitleLevel");
+			BGMPlayer.PauseOn();
+			SetTimeScale(VSRenderOrder::BackGround, 0);
+			SetTimeScale(VSRenderOrder::Map, 0);
+			SetTimeScale(VSRenderOrder::Player, 0);
+			SetTimeScale(VSRenderOrder::Monster, 0);
+			SetTimeScale(VSRenderOrder::Item, 0);
+			SetTimeScale(VSRenderOrder::Weapon, 0);
+			SetTimeScale(VSRenderOrder::UI, 0);
+			GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("LevelUp.mp3");
+			Dwn.Volume(1.0f);
+			Dwn.LoopCount(1);
+		}
+	}
+	else
+	{
+
+		BGMPlayer.PauseOff();
+		AdditionItemUI::SelectUI->UIOff();
+		AdditionItemUI::SelectUI->ReSetOff();
+		//NewUI->LevelUpUIRenderOff();
+		SetTimeScale(VSRenderOrder::BackGround, 1);
+		SetTimeScale(VSRenderOrder::Map, 1);
+		SetTimeScale(VSRenderOrder::Player, 1);
+		SetTimeScale(VSRenderOrder::Monster, 1);
+		SetTimeScale(VSRenderOrder::Item, 1);
+		SetTimeScale(VSRenderOrder::Weapon, 1);
+		SetTimeScale(VSRenderOrder::UI, 1);
+	}
 }
 void InlaidLibraryLevel::ReGenMonster()
 {
@@ -238,7 +267,11 @@ void InlaidLibraryLevel::ReGenMonster()
 
 void InlaidLibraryLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
-	{
+	BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("bgm_elrond_library.mp3");
+	BGMPlayer.LoopCount(0);
+	BGMPlayer.Volume(0.6f);
+
+	{ // 플레이어 생성
 		Player* NewPlayer = CreateActor<Player>(VSRenderOrder::Player); // 플레이어
 		NewPlayer->SetMove(BGSize.half()); // 화면 중간위치로 이동
 		SetCameraPos((BGSize - GameEngineWindow::GetScreenSize()).half());
@@ -260,7 +293,7 @@ void InlaidLibraryLevel::CheckEnd()
 {
 	if (Player::MainPlayer->GetHp() <= 0)
 	{
-	
+		BGMPlayer.Stop();
 		float4 BtnPos = Player::MainPlayer->GetPos();
 		BtnPos.y += (2.5f) * (BackButton->GetButtonRender()->GetScale()).y;
 		BackButton->On();

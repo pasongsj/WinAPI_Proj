@@ -21,18 +21,23 @@ public:
 
 
 protected:
+	static GameEngineSoundPlayer ClickButtonDown;
+
 	void Loading() override;
 	void Update(float _DeltaTime) override;
 
-	void LevelChangeEnd(GameEngineLevel* _NextLevel) override {}
-	void LevelChangeStart(GameEngineLevel* _PrevLevel);
+	void LevelChangeEnd(GameEngineLevel* _NextLevel) override;
+	void LevelChangeStart(GameEngineLevel* _PrevLevel) override;
 
 	GameEngineSoundPlayer BGMPlayer;
+
 
 
 private:
 	void SoundLoad();
 	void ImageLoad();
+
+
 
 
 };
