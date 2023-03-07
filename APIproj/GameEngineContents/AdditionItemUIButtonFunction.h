@@ -27,52 +27,52 @@
 void PushLevelupBracer()
 {
 	Player::MainPlayer->PushActive("Bracer");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupCandle()
 {
 	Player::MainPlayer->PushActive("Candle");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupClover()
 {
 	Player::MainPlayer->PushActive("Clover");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupEmptytome()
 {
 	Player::MainPlayer->PushActive("Emptytome");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupFirewand()
 {
 	Player::MainPlayer->PushWeapon("FireWand");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupHp()
 {
 	Player::MainPlayer->PushActive("Hp");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupKingBible()
 {
 	Player::MainPlayer->PushWeapon("KingBible");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupKnife()
 {
 	Player::MainPlayer->PushWeapon("Knife");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupMagicwand()
 {
 	Player::MainPlayer->PushWeapon("MagicWand");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupMagnet()
 {
 	Player::MainPlayer->PushActive("Magnet");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupMoney()
 {
@@ -81,50 +81,50 @@ void PushLevelupMoney()
 void PushLevelupWhip()
 {
 	Player::MainPlayer->PushWeapon("Whip");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupRunetracer()
 {
 	Player::MainPlayer->PushWeapon("RuneTracer");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupSpinach()
 {
 	Player::MainPlayer->PushActive("Spinach");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupWing()
 {
 	Player::MainPlayer->PushActive("Wing");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupDuplicator()
 {
 	Player::MainPlayer->PushActive("Duplicator");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupPummarola()
 {
 	Player::MainPlayer->PushActive("Pummarola");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupSpellbinder()
 {
 	Player::MainPlayer->PushActive("Spellbinder");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupCrown()
 {
 	Player::MainPlayer->PushActive("Crown");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupHollowHeart()
 {
 	Player::MainPlayer->PushActive("HollowHeart");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupArmor()
 {
 	Player::MainPlayer->PushActive("Armor");
-	Player::IsStop = false;
+	Player::MainPlayer->LevelUpUI = false;
 }

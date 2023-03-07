@@ -130,29 +130,31 @@ void Player::Update(float _DeltaTime)
 }
 void Player::CheckObtainItems()
 {
-	/*Dwn.LoopCount(1);*/
 	// 아이템 획득 콜리전
 	std::vector<GameEngineCollision*> Collision;
 	Collision.clear();
-	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Item) , .TargetColType = CollisionType::CT_Rect }, Collision))
+	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Item) , .TargetColType = CollisionType::CT_CirCle }, Collision))
 	{
 		for (size_t i = 0; i < Collision.size(); i++)
 		{
 			GameEngineActor* ColActor = Collision[i]->GetActor();
 			Items* ColItemActor = dynamic_cast<Items*> (ColActor);
-			float ItemExp = static_cast<float>(ColItemActor->GetExp());
-			PlayerExp += ItemExp * (PlayerActive.Growth + 100.0f / 100);
+			if (ColItemActor->GetIsBox()) // 박스
+			{
+				OpenBoxUI = true;
+			}
+			else // 경험치 잼
+			{
+				float ItemExp = static_cast<float>(ColItemActor->GetExp());
+				PlayerExp += ItemExp * (PlayerActive.Growth + 100.0f / 100);
+			}
 			ColItemActor->Off();
 			Items::ObtainedItems.push(ColItemActor);
-			//ColItemActor->Death();
-			//	ColActor->Death();
+
 
 		}
 		if (Collision.size() > 0)
 		{
-			/*ExpGemPlayer.PauseOff();
-			ExpGemPlayer.LoopCount(1);*/
-
 			GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("GetGem.mp3");
 			Dwn.Volume(0.5f);
 			Dwn.LoopCount(1);
@@ -261,7 +263,8 @@ void Player::CheckLevelUp()//레벨업 체크
 		GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("LevelUp.mp3");
 		Dwn.Volume(0.3f);
 		Dwn.LoopCount(1);
-		IsStop = true; // 레벨업에 의한 stop --> 아이템선택창 띄우기
+		LevelUpUI = true;
+		//IsStop = true; // 레벨업에 의한 stop --> 아이템선택창 띄우기
 	}
 }
 

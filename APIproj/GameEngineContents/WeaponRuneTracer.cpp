@@ -87,6 +87,8 @@ void WeaponRuneTracer::ReSet()
 		WeaponDir[index] = float4{ GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) ,GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) }.GetNormalize();
 		LuneLiveTime[index] = 0.0f;
 
+		DelayTime[index] = static_cast<float>(_Num) * -ProjectileInterval;
+
 		WeaponRender[index]->On();
 		WeaponCollision[index]->On();
 		
@@ -131,6 +133,7 @@ void WeaponRuneTracer::Init()
 		SetWeaponScale(Render->GetScale(), Collision->GetScale());
 
 		LuneLiveTime.push_back(0.0f);
+		DelayTime.push_back(0.0f);
 		Render->Off();
 		Collision->Off();
 	}
@@ -203,6 +206,11 @@ void WeaponRuneTracer::Update(float _DeltaTime)
 		{
 			WeaponRender[i]->Off();
 			WeaponCollision[i]->Off();
+			continue;
+		}
+		if (DelayTime[i] < 0.0f) // 투사체 딜레이타임 조절
+		{
+			DelayTime[i] += _DeltaTime;
 			continue;
 		}
 

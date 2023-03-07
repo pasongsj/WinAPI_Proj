@@ -40,6 +40,16 @@ void Items::SetExp(float _Exp, bool _IsBox)
 
 void Items::Reset()
 {
+	if (nullptr != ItemRender)
+	{
+		ItemRender->Death();
+		ItemRender = nullptr;
+	}
+	if (nullptr != ItemCollision)
+	{
+		ItemCollision->Death();
+		ItemCollision = nullptr;
+	}
 	ItemRender = CreateRender(VSRenderOrder::Item);
 	ItemCollision = CreateCollision(VSRenderOrder::Item);
 

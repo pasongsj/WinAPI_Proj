@@ -72,12 +72,13 @@ void InlaidLibraryLevel::Loading()
 	SoundLoad();
 	// 만들어야할 것들을 만드는 시점이 Loading시점
 
-	if (false == GameEngineInput::IsKey("StopDebug")) // - 임시 : 레벨체인지 
+	if (false == GameEngineInput::IsKey("GetItem")) // - 임시 : 레벨체인지 
 	{
-		GameEngineInput::CreateKey("StopDebug", 'P');
+		GameEngineInput::CreateKey("GetItem", 'P');
 		GameEngineInput::CreateKey("SpeedUp", 'I');
 		GameEngineInput::CreateKey("SpeedReset", 'O');
 		GameEngineInput::CreateKey("Cheat", 'L');
+		GameEngineInput::CreateKey("GetBox", 'M');
 	}
 	MouseObject* MouseObjectInst = CreateActor<MouseObject>(); //마우스 오브젝트 생성
 
@@ -110,8 +111,7 @@ void InlaidLibraryLevel::Loading()
 	}
 
 	{ // 박스 액터
-		//CreateActor<ObtainBox>(VSRenderOrder::UI);
-
+		ObtainBoxUI = CreateActor<ObtainBox>(VSRenderOrder::UI);
 	}
 
 	{
@@ -130,12 +130,18 @@ void InlaidLibraryLevel::Loading()
 
 void InlaidLibraryLevel::Update(float _DeltaTime)
 {
-	if (true == GameEngineInput::IsDown("StopDebug"))
+	if (true == GameEngineInput::IsDown("GetItem"))
 	{
-		Player::IsStop = !Player::IsStop;
+		Player::MainPlayer->LevelUpUI = !Player::MainPlayer->LevelUpUI;
+		//Player::IsStop = !Player::IsStop;
+	}
+	if (true == GameEngineInput::IsDown("GetBox"))
+	{
+		Player::MainPlayer->OpenBoxUI = !Player::MainPlayer->OpenBoxUI;
 	}
 
 	CheckLevelUpUI();
+	ControlTimeScale();
 
 	CheckDebugInput();
 
@@ -177,14 +183,51 @@ void InlaidLibraryLevel::CheckDebugInput()
 
 void InlaidLibraryLevel::CheckLevelUpUI()
 {
+	if (true == Player::MainPlayer->LevelUpUI || true == Player::MainPlayer->OpenBoxUI)
+	{
+		if (true == Player::MainPlayer->LevelUpUI)
+		{
+			if (false == AdditionItemUI::SelectUI->IsUpdate())
+			{
+				AdditionItemUI::SelectUI->UIOn();
+				//GameEngineCore::GetInst()->ChangeLevel("TitleLevel");
+			
+			}
+		}
+		else
+		{
+			ObtainBoxUI->UIOn();
+			Player::IsStop = true;
+		}
+		Player::IsStop = true;
+	}
+	else
+	{
+		AdditionItemUI::SelectUI->UIOff();
+		AdditionItemUI::SelectUI->ReSetOff();
+		ObtainBoxUI->UIOff();
+		Player::IsStop = false;
+	}
+
+}
+//void InlaidLibraryLevel::CheckBoxOpenUI()
+//{
+//	if (true == Player::MainPlayer->OpenBoxUI)
+//	{
+//		ObtainBoxUI->UIOn();
+//		Player::IsStop = true;
+//	}
+//	else
+//	{
+//		ObtainBoxUI->UIOff();
+//		Player::IsStop = false;
+//	}
+//}
+
+void InlaidLibraryLevel::ControlTimeScale()
+{
 	if (true == Player::IsStop)
 	{
-		if (false == AdditionItemUI::SelectUI->IsUpdate())
-		{
-			AdditionItemUI::SelectUI->UIOn();
-			//GameEngineCore::GetInst()->ChangeLevel("TitleLevel");
-			
-		}
 		BGMPlayer.PauseOn();
 		SetTimeScale(VSRenderOrder::BackGround, 0);
 		SetTimeScale(VSRenderOrder::Map, 0);
@@ -198,8 +241,6 @@ void InlaidLibraryLevel::CheckLevelUpUI()
 	{
 
 		BGMPlayer.PauseOff();
-		AdditionItemUI::SelectUI->UIOff();
-		AdditionItemUI::SelectUI->ReSetOff();
 		//NewUI->LevelUpUIRenderOff();
 		SetTimeScale(VSRenderOrder::BackGround, 1);
 		SetTimeScale(VSRenderOrder::Map, 1);

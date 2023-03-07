@@ -62,9 +62,13 @@ class Player : public GameEngineActor
 {
 public:
 	static bool IsStop;
+
 	static Player* MainPlayer;
 	static std::string PlayerName;
 	static std::string BasicWeapon;
+
+	bool LevelUpUI = false;
+	bool OpenBoxUI = false;
 	// constrcuter destructer
 	Player() ;
 	~Player();

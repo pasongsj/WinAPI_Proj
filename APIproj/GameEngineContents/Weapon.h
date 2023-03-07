@@ -151,6 +151,15 @@ public:
 		return WeaponCount;
 	}
 
+	float4 GetOriginRenderScale()
+	{
+		return WeaponRenderScale;
+	}
+	float4 GetOriginCollisionScale()
+	{
+		return WeaponCollisionScale;
+	}
+
 
 
 protected:

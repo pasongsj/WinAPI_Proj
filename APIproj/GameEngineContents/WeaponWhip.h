@@ -26,8 +26,10 @@ protected:
 
 private:
 	std::string LastDir = "Right_";
-	std::map<std::string,GameEngineRender*> WeaponRender;
-	std::map<std::string, GameEngineCollision*> WeaponCollision;
+	GameEngineRender* WeaponRender = nullptr;
+	GameEngineCollision* WeaponCollision = nullptr;
+	/*std::map<std::string,GameEngineRender*> WeaponRender;
+	std::map<std::string, GameEngineCollision*> WeaponCollision;*/
 	/*GameEngineRender* WeaponRender = nullptr;
 	GameEngineCollision* WeaponCollision = nullptr;*/
 };

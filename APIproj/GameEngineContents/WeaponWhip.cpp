@@ -14,6 +14,18 @@ WeaponWhip::~WeaponWhip()
 void WeaponWhip::LevelUp()
 {
 	Weapon::LevelUp();
+	if (2 == GetWeaponLevel())
+	{
+		WeaponRender->ChangeAnimation("Bi_Whip");
+		float4 Col_Scale = GetOriginCollisionScale();
+		Col_Scale.x *= 2;
+		SetWeaponCollisionScale(Col_Scale);
+		WeaponCollision->SetPosition(float4::Zero);
+	}
+	if (4 == GetWeaponLevel() || 6 == GetWeaponLevel())
+	{
+		SetWeaponScale(GetOriginRenderScale() * 1.1f, GetOriginCollisionScale() * 1.1f);
+	}
 	if (8 == GetWeaponLevel())
 	{
 		AdditionItemUI::DeleteItemName.push_back(GetWeaponName());
@@ -23,59 +35,87 @@ void WeaponWhip::LevelUp()
 void WeaponWhip::ReSet()
 {
 	//this->On();
-	if (0 == WeaponRender.size()) {
+	if (nullptr == WeaponRender) {
 		return;
 	}
 	else {
-		LastDir = Player::MainPlayer->GetDirString();
+		if (1 == GetWeaponLevel())
+		{
+			LastDir = Player::MainPlayer->GetDirString();
+			if ("Right_" == LastDir)
+			{
+				WeaponRender->ChangeAnimation("Right_Whip");
+				WeaponCollision->SetPosition({ 125, });
+			}
+			else if ("Left_" == LastDir)
+			{
+				WeaponRender->ChangeAnimation("Left_Whip");
+				WeaponCollision->SetPosition({ -125, });
+			}
+		}
 
-		WeaponRender[LastDir]->SetScale(GetWeaponRenderScale());
-		WeaponCollision[LastDir]->SetScale(GetWeaponCollisionScale());
+		WeaponRender->SetScale(GetWeaponRenderScale());
+		WeaponCollision->SetScale(GetWeaponCollisionScale());
 
-		WeaponRender[LastDir]->On();
-		WeaponCollision[LastDir]->On();
+		WeaponRender->On();
+		WeaponCollision->On();
 	}
 	WaitTime = 0;
 }
 
 void WeaponWhip::Init()
 {
-	{
-		GameEngineRender* Render = CreateRender(VSRenderOrder::Weapon);
-		Render->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "RightWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
-		Render->SetScale({ 600,60 });
-		Render->SetPosition({ 0, -60 });
-		Render->ChangeAnimation("Right_Whip");
+	WeaponRender = CreateRender(VSRenderOrder::Weapon);
+	WeaponRender->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "RightWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
+	WeaponRender->CreateAnimation({ .AnimationName = "Left_Whip",  .ImageName = "LeftWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
+	WeaponRender->CreateAnimation({ .AnimationName = "Bi_Whip",  .ImageName = "BidiWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
+	WeaponRender->SetScale({ 600,60 });
+	//WeaponRender->SetPosition({ 0,0 });
+	WeaponRender->ChangeAnimation("Right_Whip");
 
-		GameEngineCollision* Collision = CreateCollision(VSRenderOrder::Weapon);
-		float4 CollisionScale = Render->GetScale();
-		CollisionScale.x = CollisionScale.hx();
-		Collision->SetScale(CollisionScale);
-		Collision->SetPosition({ Collision->GetScale().hx(),-Collision->GetScale().y });
-		WeaponRender["Right_"] = Render;
-		WeaponCollision["Right_"] = Collision;
-		WeaponRender["Right_"]->Off();
-		WeaponCollision["Right_"]->Off();
-	}
-	{
-		GameEngineRender* Render = CreateRender(VSRenderOrder::Weapon);
-		Render->CreateAnimation({ .AnimationName = "Left_Whip",  .ImageName = "LeftWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
-		Render->SetScale({ 600,60 });
-		Render->SetPosition({ 0, -60 });
-		Render->ChangeAnimation("Left_Whip");
+	WeaponCollision = CreateCollision(VSRenderOrder::Weapon);
+	WeaponCollision->SetScale({ 250,50 });
+	WeaponCollision->SetPosition({ 125, 0 });
+	SetWeaponScale(WeaponRender->GetScale(), WeaponCollision->GetScale());
 
-		GameEngineCollision* Collision = CreateCollision(VSRenderOrder::Weapon);
-		float4 CollisionScale = Render->GetScale();
-		CollisionScale.x = CollisionScale.hx();
-		Collision->SetScale(CollisionScale);
-		Collision->SetPosition({ -Collision->GetScale().hx(),-Collision->GetScale().y });
-		WeaponRender["Left_"] = Render;
-		WeaponCollision["Left_"] = Collision;
-		WeaponRender["Left_"]->Off();
-		WeaponCollision["Left_"]->Off();
+	//{
+	//	GameEngineRender* Render = CreateRender(VSRenderOrder::Weapon);
+	//	Render->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "RightWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
+	//	Render->SetScale({ 600,60 });
+	//	Render->SetPosition({ 0, -60 });
+	//	Render->ChangeAnimation("Right_Whip");
 
-		SetWeaponScale(Render->GetScale(), Collision->GetScale());
-	}
+	//	GameEngineCollision* Collision = CreateCollision(VSRenderOrder::Weapon);
+	//	//float4 CollisionScale = Render->GetScale();
+	//	//CollisionScale.x = CollisionScale.hx();
+	//	float4 CollisionScale = { 250,50 };
+	//	Collision->SetScale(CollisionScale);
+	//	Collision->SetPosition({ Collision->GetScale().hx(),-Collision->GetScale().y });
+	//	WeaponRender["Right_"] = Render;
+	//	WeaponCollision["Right_"] = Collision;
+	//	WeaponRender["Right_"]->Off();
+	//	WeaponCollision["Right_"]->Off();
+	//}
+	//{
+	//	GameEngineRender* Render = CreateRender(VSRenderOrder::Weapon);
+	//	Render->CreateAnimation({ .AnimationName = "Left_Whip",  .ImageName = "LeftWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
+	//	Render->SetScale({ 600,60 });
+	//	Render->SetPosition({ 0, -60 });
+	//	Render->ChangeAnimation("Left_Whip");
+
+	//	GameEngineCollision* Collision = CreateCollision(VSRenderOrder::Weapon);
+	//	//float4 CollisionScale = Render->GetScale();
+	//	//CollisionScale.x = CollisionScale.hx();
+	//	float4 CollisionScale = { 250,50 };
+	//	Collision->SetScale(CollisionScale);
+	//	Collision->SetPosition({ -Collision->GetScale().hx(),-Collision->GetScale().y });
+	//	WeaponRender["Left_"] = Render;
+	//	WeaponCollision["Left_"] = Collision;
+	//	WeaponRender["Left_"]->Off();
+	//	WeaponCollision["Left_"]->Off();
+
+	//	SetWeaponScale(Render->GetScale(), Collision->GetScale());
+	//}
 }
 
 
@@ -99,7 +139,7 @@ void WeaponWhip::Start()
 
 void WeaponWhip::Update(float _DeltaTime)
 {
-	if (WeaponRender.size() == 0 || WeaponCollision.size() == 0)
+	if (nullptr == WeaponRender || nullptr == WeaponCollision)
 	{
 		MsgAssert("무기랜더가 생성되지 않았습니다.");
 		return;
@@ -107,17 +147,17 @@ void WeaponWhip::Update(float _DeltaTime)
 
 	if (WaitTime > GetRunTime())
 	{
-		WeaponRender[LastDir]->Off();
-		WeaponCollision[LastDir]->Off();
+		WeaponRender->Off();
+		WeaponCollision->Off();
 		return;
 		//this->Off();
 	}
-	SetPos(Player::MainPlayer->GetPos());
+	SetPos(Player::MainPlayer->GetPos() + float4{0, -50});
 
-	if (true == WeaponCollision[LastDir]->IsUpdate())
+	if (true == WeaponCollision->IsUpdate())
 	{
 		std::vector<GameEngineCollision*> Collision;
-		if (true == WeaponCollision[LastDir]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .TargetColType = CollisionType::CT_Rect, .ThisColType = CollisionType::CT_Rect }, Collision))
+		if (true == WeaponCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .TargetColType = CollisionType::CT_Rect, .ThisColType = CollisionType::CT_Rect }, Collision))
 		{
 			for (size_t j = 0; j < Collision.size(); j++)
 			{

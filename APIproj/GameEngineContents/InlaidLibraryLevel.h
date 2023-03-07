@@ -7,6 +7,7 @@
 class PlayGameUI;
 class InlaidLibraryBack;
 class Button;
+class ObtainBox;
 class InlaidLibraryLevel : public GameEngineLevel
 {
 public:
@@ -46,6 +47,8 @@ private:
 	PlayGameUI* NewUI = nullptr;
 	InlaidLibraryBack* BackGround = nullptr;
 
+	ObtainBox* ObtainBoxUI = nullptr;
+
 	void ReGenMonster();
 	void SetState();
 
@@ -55,8 +58,10 @@ private:
 
 	void CheckLevelUpUI();
 
+	//void CheckBoxOpenUI();
+
 	void CheckDebugInput();
 
-
+	void ControlTimeScale();
 };
 

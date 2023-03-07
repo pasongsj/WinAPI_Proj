@@ -15,6 +15,9 @@ public:
 	ObtainBox& operator=(const ObtainBox& _Other) = delete;
 	ObtainBox& operator=(ObtainBox&& _Other) noexcept = delete;
 
+	void UIOn();
+	void UIOff();
+
 protected:
 
 	void Start() override;
