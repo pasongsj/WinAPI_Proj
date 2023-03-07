@@ -3,7 +3,7 @@
 #include "Player.h"
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineRandom.h>
-
+#include <list>
 #include "Monster.h"
 WeaponMagicWand::WeaponMagicWand()
 {
@@ -85,14 +85,15 @@ void WeaponMagicWand::ReSet()
 	
 	WaitTime = 0;
 	GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("ProjectileMagic.mp3");
-	Dwn.Volume(1.0f);
+	Dwn.Volume(0.2f);
 	Dwn.LoopCount(1);
 }
 
 
 std::vector<float4> WeaponMagicWand::GetWeaponDir(const float4& _Pos) // -- 방향 수정필요
 {
-	std::vector<float4> _Dir;
+	std::list<float4> _Dir;
+	std::vector<float4> DirReturn;
 	_Dir.clear();
 	float MinLen = static_cast<float>(3.40282e+38); // float최댓값 3.402823466 E + 38
 	std::vector<GameEngineActor*> _Monsters = GetLevel()->GetActors(VSRenderOrder::Monster);
@@ -102,19 +103,25 @@ std::vector<float4> WeaponMagicWand::GetWeaponDir(const float4& _Pos) // -- 방향
 		{
 			continue;
 		}
-		float4 Diff = (_Monster->GetPos() - _Pos);
+		float4 Diff = (_Monster->GetPos() - Player::MainPlayer->GetPos());
 		if (MinLen > Diff.Size()) {
 			MinLen = Diff.Size();
-			_Dir.push_back(Diff.GetNormalize());
+			_Dir.push_front(Diff.GetNormalize());
 		}
 	}
 	int lim = static_cast<int>(_Dir.size());
+	std::list<float4>::iterator DirBegin = _Dir.begin();
+	std::list<float4>::iterator DirEnd = _Dir.end();
+	for (;DirBegin!= DirEnd;DirBegin++)
+	{
+		DirReturn.push_back(*DirBegin);
+	}
 	for (int i = 0;i < GetWeaponCount() - lim;i ++ )
 	{
 		float4 RandomDir = float4{ GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) ,GameEngineRandom::MainRandom.RandomFloat(-1.0f, 1.0f) }.GetNormalize();
-		_Dir.push_back(RandomDir);
+		DirReturn.push_back(RandomDir);
 	}
-	return _Dir;
+	return DirReturn;
 }
 
 
@@ -211,7 +218,7 @@ void WeaponMagicWand::Update(float _DeltaTime)
 		WeaponCollision[i]->SetMove(WeaponDir[i] * _DeltaTime * GetWeaponSpeed());
 
 		std::vector<GameEngineCollision*> Collision;
-		if (true == WeaponCollision[i]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_CirCle }, Collision))
+		if (true == WeaponCollision[i]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .TargetColType = CollisionType::CT_Rect, .ThisColType = CollisionType::CT_CirCle }, Collision))
 		{
 
 			for (size_t j = 0; j < Collision.size(); j++)

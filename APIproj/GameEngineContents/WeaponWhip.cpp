@@ -117,7 +117,7 @@ void WeaponWhip::Update(float _DeltaTime)
 	if (true == WeaponCollision[LastDir]->IsUpdate())
 	{
 		std::vector<GameEngineCollision*> Collision;
-		if (true == WeaponCollision[LastDir]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_Rect }, Collision))
+		if (true == WeaponCollision[LastDir]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .TargetColType = CollisionType::CT_Rect, .ThisColType = CollisionType::CT_Rect }, Collision))
 		{
 			for (size_t j = 0; j < Collision.size(); j++)
 			{

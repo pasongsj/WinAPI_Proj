@@ -259,7 +259,7 @@ void Player::CheckLevelUp()//레벨업 체크
 		++PlayerLevel;
 		PlayerExp -= ReqExpPoint;
 		GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("LevelUp.mp3");
-		Dwn.Volume(0.5f);
+		Dwn.Volume(0.3f);
 		Dwn.LoopCount(1);
 		IsStop = true; // 레벨업에 의한 stop --> 아이템선택창 띄우기
 	}

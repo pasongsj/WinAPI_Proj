@@ -135,7 +135,7 @@ void WeaponKingBible::Update(float _DeltaTime)
 		WeaponCollision[i]->SetPosition(StandardPos + WeaponPos[i]);
 
 		std::vector<GameEngineCollision*> Collision;
-		if (true == WeaponCollision[i]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_Rect }, Collision))
+		if (true == WeaponCollision[i]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .TargetColType = CollisionType::CT_Rect, .ThisColType = CollisionType::CT_Rect }, Collision))
 		{
 
 			for (size_t j = 0; j < Collision.size(); j++)

@@ -212,22 +212,13 @@ void WeaponRuneTracer::Update(float _DeltaTime)
 		WeaponCollision[i]->SetMove(WeaponDir[i] * _DeltaTime * GetWeaponSpeed());
 
 		std::vector<GameEngineCollision*> Collision;
-		if (true == WeaponCollision[i]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .ThisColType = CollisionType::CT_CirCle }, Collision))
+		if (true == WeaponCollision[i]->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .TargetColType = CollisionType::CT_Rect, .ThisColType = CollisionType::CT_CirCle }, Collision))
 		{
 			for (size_t j = 0; j < Collision.size(); j++)
 			{
 				GameEngineActor* ColActor = Collision[j]->GetActor();
 				Monster* ColWeaponActor = dynamic_cast<Monster*> (ColActor);
 				ColWeaponActor->Attack(GetDmg());
-			}
-		}
-		if (Collision.size() > 0)
-		{
-			if (Collision.size() > 0)
-			{
-				GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("EnemyHit.mp3");
-				Dwn.Volume(1.0f);
-				Dwn.LoopCount(1);
 			}
 		}
 	}

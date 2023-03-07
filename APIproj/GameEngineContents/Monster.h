@@ -80,7 +80,7 @@ private:
 	float Exp = 0.0f;
 	
 	float4 MonsterRenderScale = float4{ 70, 140 };
-	float4 MonsterCollisionScale = float4{ 70, 140 };
+	float4 MonsterCollisionScale = float4{ 40, 70 };
 
 	float4 MoveVec = float4::Zero;
 
@@ -112,5 +112,7 @@ private:
 	int EndFrame[3] = { 0,0,0 };
 
 	float4 GetReGenPos();
+
+	void MonsterMoveCheck(float _DeltaTime);
 };
 

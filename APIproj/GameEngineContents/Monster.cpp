@@ -35,6 +35,16 @@ void Monster::KnockBackLessAttack(float _Att, float _StateDelay)
 }
 void Monster::Reset()
 {
+	if (nullptr != AnimationRender)
+	{
+		AnimationRender->Death();
+		AnimationRender = nullptr;
+	}
+	if (nullptr != BodyCollision)
+	{
+		BodyCollision->Death();
+		BodyCollision = nullptr;
+	}
 	IsBoxBoss = false;
 	Setting();
 	AnimationRender = CreateRender(VSRenderOrder::Monster);
@@ -58,7 +68,7 @@ void Monster::Reset()
 	}
 	BodyCollision = CreateCollision(VSRenderOrder::Monster);
 	BodyCollision->SetScale(MonsterCollisionScale);
-	BodyCollision->SetPosition({ 0, -(MonsterCollisionScale.hy() / 2) });
+	BodyCollision->SetPosition({ 0, -(MonsterRenderScale.hy() / 2) });
 	IsAttacked = false;
 	StateValue = MonsterState::MOVE;
 	//AnimationRender->ChangeAnimation("Right_Move");
@@ -93,8 +103,33 @@ void Monster::Update(float _DeltaTime)
 {
 
 	UpdateState(_DeltaTime);
-	SetMove(MoveVec * (MoveSpeed*0.8f) * _DeltaTime); // if state == attacted¸é ¸ØÃß°Ô ÇÑ´Ù.
+	MonsterMoveCheck(_DeltaTime);
+	SetMove(MoveVec * (MoveSpeed * 0.6f) * _DeltaTime); // if state == attacted¸é ¸ØÃß°Ô ÇÑ´Ù.
 
+}
+void Monster::MonsterMoveCheck(float _DeltaTime)
+{
+	// ¸ó½ºÅÍ °ãÄ§ Ã¼Å©
+	float4 Rangethis = Player::MainPlayer->GetPos() - GetPos();
+	std::vector<GameEngineCollision*> Collision;
+	Collision.clear();
+	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(VSRenderOrder::Monster), .TargetColType = CollisionType::CT_Rect }, Collision))
+	{
+		for (size_t i = 0; i < Collision.size(); i++)
+		{
+			GameEngineActor* ColActor = Collision[i]->GetActor();
+			if (ColActor == this)
+			{
+				continue;
+			}
+			float4 RangeTar = Player::MainPlayer->GetPos() - ColActor->GetPos();
+			if (Rangethis.Size() > RangeTar.Size())
+			{
+				ColActor->SetMove((ColActor->GetPos() - GetPos()).GetNormalize() * (MoveSpeed*0.2)* _DeltaTime);
+			}			
+
+		}
+	}
 }
 
 void Monster::DirCheck(const std::string_view& _AnimationName)
