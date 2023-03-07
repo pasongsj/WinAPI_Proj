@@ -207,6 +207,6 @@ private:
 
 	void CheckObtainItems();
 
-
+	//GameEngineSoundPlayer ExpGemPlayer = GameEngineResources::GetInst().SoundPlayToControl("GetGem.mp3");
 };
 

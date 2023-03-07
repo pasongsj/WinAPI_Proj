@@ -34,7 +34,7 @@ void ClickStartButton()
 	}
 	TitleLevel::SelectScreen->Activate();
 	GameEngineSoundPlayer BtnDown = GameEngineResources::GetInst().SoundPlayToControl("ButtonDown.mp3");
-	BtnDown.Volume(0.7);
+	BtnDown.Volume(0.7f);
 	BtnDown.LoopCount(1);
 }
 
@@ -129,7 +129,7 @@ void TitleLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 	BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("intro.mp3");
 	BGMPlayer.LoopCount(1);
-	BGMPlayer.Volume(0.5f);
+	BGMPlayer.Volume(0.3f);
 
 
 }

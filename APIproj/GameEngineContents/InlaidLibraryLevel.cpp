@@ -32,7 +32,7 @@ void ChangeLevelToTitle()
 {
 	GameEngineCore::GetInst()->ChangeLevel("TitleLevel"); // 결과창 띄워주고 나가기
 	GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("ButtonDown.mp3");
-	Dwn.Volume(0.7f);
+	Dwn.Volume(0.5f);
 	Dwn.LoopCount(1);
 }
 
@@ -267,7 +267,7 @@ void InlaidLibraryLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 	BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("bgm_elrond_library.mp3");
 	BGMPlayer.LoopCount(0);
-	BGMPlayer.Volume(0.5f);
+	BGMPlayer.Volume(0.3f);
 
 	{ // 플레이어 생성
 		Player* NewPlayer = CreateActor<Player>(VSRenderOrder::Player); // 플레이어

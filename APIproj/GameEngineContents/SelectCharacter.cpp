@@ -46,7 +46,7 @@ void ClickAntonioButton()
 	Disable();
 	Player::BasicWeapon = "Whip";
 	GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("ButtonDown.mp3");
-	Dwn.Volume(0.7f);
+	Dwn.Volume(0.5f);
 	Dwn.LoopCount(1);
 }
 
@@ -57,7 +57,7 @@ void ClickImeldaButton()
 	Disable();
 	Player::BasicWeapon = "MagicWand";
 	GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("ButtonDown.mp3");
-	Dwn.Volume(0.7f);
+	Dwn.Volume(0.5f);
 	Dwn.LoopCount(1);
 }
 
@@ -68,7 +68,7 @@ void ClickPasqualinaButton()
 	Disable();
 	Player::BasicWeapon = "RuneTracer";
 	GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("ButtonDown.mp3");
-	Dwn.Volume(0.7f);
+	Dwn.Volume(0.5f);
 	Dwn.LoopCount(1);
 }
 void ClickGennaroButton()
@@ -78,7 +78,7 @@ void ClickGennaroButton()
 	Disable();
 	Player::BasicWeapon = "Knife";
 	GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("ButtonDown.mp3");
-	Dwn.Volume(0.7f);
+	Dwn.Volume(0.5f);
 	Dwn.LoopCount(1);
 }
 

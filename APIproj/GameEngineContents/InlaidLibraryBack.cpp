@@ -90,7 +90,7 @@ void InlaidLibraryBack::SetEndingRenderOn(bool _IsComplete)
 	if (false == EndingRender->IsUpdate())
 	{
 		GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("GameOver.mp3");
-		Dwn.Volume(0.7f);
+		Dwn.Volume(0.5f);
 		Dwn.LoopCount(1);
 	}
 	EndingRender->On();

@@ -6,7 +6,8 @@
 
 void Player::Start()
 {
-
+	//ExpGemPlayer.Volume(0.0f);
+	//ExpGemPlayer.PauseOn();
 	if (nullptr != MainPlayer)
 	{
 		MainPlayer->Death();
