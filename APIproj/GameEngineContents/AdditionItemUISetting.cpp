@@ -1,5 +1,8 @@
 #include "AdditionItemUI.h"
 #include "AdditionItemUIButtonFunction.h"
+#include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineBase/GameEngineRandom.h>
+#include "ContentsEnums.h"
 
 void AdditionItemUI::SetItemImage()
 {
@@ -32,6 +35,17 @@ void AdditionItemUI::SetItemImage()
 		ItemNames["HollowHeart"] = "LevelUpHollowHeart.bmp";
 		ItemNames["Armor"] = "LevelUpArmor.bmp";
 
+	}
+	{
+		for (std::pair<std::string, std::string> _Name : ItemNames)
+		{
+			Button* NewCharBtn = GetLevel()->CreateActor<Button>(VSRenderOrder::LastUI);
+			NewCharBtn->setting(_Name.second, _Name.second, _Name.second, { 0,0 }, BtnScale, static_cast<int>(VSRenderOrder::LastUI), false);
+			NewCharBtn->GetButtonRender()->SetImage(_Name.second);
+			NewCharBtn->GetButtonRender()->EffectCameraOn();
+			Items[_Name.first] = (NewCharBtn);
+			NewCharBtn->Off();
+		}
 	}
 
 }
@@ -68,6 +82,45 @@ void AdditionItemUI::SetItemFunction()
 		itemiter++->second->SetClickCallBack(PushLevelupSpinach);
 		itemiter++->second->SetClickCallBack(PushLevelupWhip);
 		itemiter++->second->SetClickCallBack(PushLevelupWing);
+	}
+
+}
+
+
+void AdditionItemUI::ReSet()
+{
+	ShowedBtn.clear();
+	int i = 0;
+	while (true)
+	{
+		if (ShowedBtn.size() == 4 || Items.size() == 0)
+		{
+			break;
+		}
+		std::map<std::string, Button*>::iterator iter = Items.begin();
+		int ItemIndex = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(Items.size()) - 1);
+		std::advance(iter, ItemIndex);
+		if (Items.size() > 2 && (iter->first == "Money" || iter->first == "Hp"))
+		{
+			continue;
+		}
+		Button* Picked = iter->second;
+		ShowedBtn.insert(*iter);
+		Items.erase(iter);
+		Picked->On();
+
+
+		float4 Cam_Pos = GetLevel()->GetCameraPos() + BtnPos[i++];
+		Picked->SetPos(Cam_Pos);
+
+	}
+
+	std::set<std::pair< std::string, Button*>>::iterator startit = ShowedBtn.begin();
+	std::set<std::pair< std::string, Button*>>::iterator endit = ShowedBtn.end();
+
+	for (;startit != endit;startit++)
+	{
+		Items.insert(*startit);
 	}
 
 }

@@ -307,7 +307,7 @@ void InlaidLibraryLevel::ReGenMonster()
 void InlaidLibraryLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 	BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("bgm_elrond_library.mp3");
-	BGMPlayer.LoopCount(0);
+	BGMPlayer.LoopCount(400);
 	BGMPlayer.Volume(0.2f);
 
 	{ // 플레이어 생성

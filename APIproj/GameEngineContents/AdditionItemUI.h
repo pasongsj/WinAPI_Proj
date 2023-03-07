@@ -62,6 +62,8 @@ private:
 
 	std::set<std::pair< std::string, Button*>> ShowedBtn;
 
+	//std::vector<std::pair<int, std::string>> Icon;
+
 	void ReSet();
 
 	void SetItemImage();
@@ -69,6 +71,10 @@ private:
 	void SetItemFunction();
 
 	NumberRenderObject ActiveStatUI[17];
+
+	void SetStatNumber();
+
+	void SetStatNumberValue();
 	
 
 };

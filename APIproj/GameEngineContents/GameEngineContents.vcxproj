@@ -139,6 +139,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="AdditionItemUISetting.cpp" />
+    <ClCompile Include="AdditionItemUIStat.cpp" />
     <ClCompile Include="ContentsGameCore.cpp">
       <SubType>
       </SubType>

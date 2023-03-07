@@ -125,7 +125,7 @@ void Monster::MonsterMoveCheck(float _DeltaTime)
 			float4 RangeTar = Player::MainPlayer->GetPos() - ColActor->GetPos();
 			if (Rangethis.Size() > RangeTar.Size())
 			{
-				ColActor->SetMove((ColActor->GetPos() - GetPos()).GetNormalize() * (MoveSpeed*0.2)* _DeltaTime);
+				ColActor->SetMove((ColActor->GetPos() - GetPos()).GetNormalize() * (MoveSpeed * 0.2f)* _DeltaTime);
 			}			
 
 		}

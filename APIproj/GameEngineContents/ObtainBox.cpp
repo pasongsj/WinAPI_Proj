@@ -22,10 +22,11 @@ void ObtainBox::Start()
 		ObtainBoxUI->SetPosition(GameEngineWindow::GetScreenSize().half());
 	}
 	{
-		float4 OpenBoxButtonPos = GameEngineWindow::GetScreenSize().half() + float4 { 0, 248 };;
+		/*float4 OpenBoxButtonPos = GameEngineWindow::GetScreenSize().half() + float4 { 0, 248 };;*/
 		OpenBoxButton = GetLevel()->CreateActor<Button>(VSRenderOrder::LastUI);
-		OpenBoxButton->setting("BoxOpenButton.bmp", "BoxOpenButton.bmp", "BoxOpenButton.bmp", OpenBoxButtonPos, {225, 71}, static_cast<int>(VSRenderOrder::LastUI), false);
+		OpenBoxButton->setting("BoxOpenButton.bmp", "BoxOpenButton.bmp", "BoxOpenButton.bmp", {0,0}/*OpenBoxButtonPos*/, { 225, 71 }, static_cast<int>(VSRenderOrder::LastUI), false);
 		OpenBoxButton->GetButtonRender()->SetImage("BoxOpenButton.bmp");
+		OpenBoxButton->GetButtonRender()->EffectCameraOn();
 		//NewCharBtn->GetButtonRender()->EffectCameraOn();
 	}
 	//{
@@ -58,9 +59,11 @@ void ObtainBox::Update(float _DeltaTime)
 
 void ObtainBox::UIOn()
 {
+	float4 OpenBoxButtonPos = GameEngineWindow::GetScreenSize().half() + float4{ 0, 248 } + GetLevel()->GetCameraPos();
+	OpenBoxButton->SetPos(OpenBoxButtonPos);
 	this->On();
 	OpenBoxButton->On();
-	CloseUIButton->On();
+	//CloseUIButton->On();
 
 }
 void ObtainBox::UIOff()

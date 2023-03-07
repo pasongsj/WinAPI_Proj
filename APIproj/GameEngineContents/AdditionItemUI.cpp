@@ -1,9 +1,9 @@
 #include "AdditionItemUI.h"
 #include <vector>
 //#include <set>
-#include <GameEngineBase/GameEngineRandom.h>
+//#include <GameEngineBase/GameEngineRandom.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
-#include <GameEngineCore/GameEngineLevel.h>
+//#include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/NumberRenderObject.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include "ContentsEnums.h"
@@ -22,15 +22,6 @@ AdditionItemUI::AdditionItemUI()
 
 AdditionItemUI::~AdditionItemUI()
 {
-	/*for (NumberRenderObject* _UI : AdditionItemUI::ActiveStatUI)
-	{
-		if (nullptr == _UI)
-		{
-			return;
-		}
-		delete _UI;
-		_UI = nullptr;
-	}*/
 
 }
 
@@ -63,70 +54,38 @@ void AdditionItemUI::Start()
 	}
 
 	SetItemImage();
-
-	for (std::pair<std::string, std::string> _Name : ItemNames)
-	{
-		Button* NewCharBtn = GetLevel()->CreateActor<Button>(VSRenderOrder::LastUI);
-		NewCharBtn->setting(_Name.second, _Name.second, _Name.second, { 0,0 }, BtnScale, static_cast<int>(VSRenderOrder::LastUI), false);
-		NewCharBtn->GetButtonRender()->SetImage(_Name.second);
-		NewCharBtn->GetButtonRender()->EffectCameraOn();
-		Items[_Name.first] = (NewCharBtn);
-		NewCharBtn->Off();
-	}
-
 	SetItemFunction();
-
-	float interval = 18.6f;
-
-	float4 ActiveStatUIPos = { 210,205 };
-	for (int i = 0; i < 17; i++)
-	{
-		//NumberRenderObject* _Num = new NumberRenderObject();
-
-		//NumberRenderObject* _Num = GetLevel()->CreateActor(VSRenderOrder::MAX);
-
-		ActiveStatUI[i].SetOrder(static_cast<int> (VSRenderOrder::MAX));
-		float4 BarPos = GameEngineWindow::GetScreenSize().half();
-		//BarPos.y -= 55;
-		ActiveStatUI[i].SetOwner(this);
-		ActiveStatUI[i].SetImage("Number.BMp", { 12, 15 }, static_cast<int>(VSRenderOrder::MAX), RGB(255, 0, 255),"Negative.bmp", "Percent.bmp");
-		ActiveStatUI[i].SetRenderPos(ActiveStatUIPos);
-		ActiveStatUI[i].SetAlign(Align::Right);
-		ActiveStatUI[i].SetValue(0);
+	SetStatNumber();
+	SetStatNumberValue();
 
 
-		ActiveStatUIPos.y += interval;
-		if ((3 == i) || (i == 9) || (i == 12) || (i == 13))
-		{
-			ActiveStatUIPos.y += interval;
-		}
-	}
-
+	this->Off();
+}
+void AdditionItemUI::SetStatNumberValue()
+{
 	Active Originactive;
 	int index = 0;
 	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.MaxHealth));
-	ActiveStatUI[index++].SetValue(/*Originactive.Recovery*/0	 );  // 소수점
-	ActiveStatUI[index++].SetValue(Originactive.Armor		 );
-	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.ActiveSpeed)	-100);
-								
+	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Recovery));  // 소수점
+	ActiveStatUI[index++].SetValue(Originactive.Armor);
+	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.ActiveSpeed) - 100);
+
 	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Might) - 100);
 	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Area) - 100);
 	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Speed) - 100);
 	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Duration) - 100);
-	ActiveStatUI[index++].SetValue(Originactive.Amount	 );
+	ActiveStatUI[index++].SetValue(Originactive.Amount);
 	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Cooldown) - 100);
-								 
-	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Luck) - 100);
-	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Growth)	 );
-	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Greed) - 100);
-								
-	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(Originactive.Magnet	 );
-								  
-	ActiveStatUI[index++].SetValue(Originactive.Revival	);
-	ActiveStatUI[index++].SetValue(Originactive.Reroll 	);
-	ActiveStatUI[index++].SetValue(Originactive.Skip 	);
 
-	this->Off();
+	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Luck) - 100);
+	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Growth));
+	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(static_cast<int>(Originactive.Greed) - 100);
+
+	ActiveStatUI[index].SetPercent();	ActiveStatUI[index++].SetValue(Originactive.Magnet);
+
+	ActiveStatUI[index++].SetValue(Originactive.Revival);
+	ActiveStatUI[index++].SetValue(Originactive.Reroll);
+	ActiveStatUI[index++].SetValue(Originactive.Skip);
 }
 
 
@@ -153,39 +112,18 @@ void AdditionItemUI::Update(float _DeltaTime)
 		DeleteItemName.clear();
 	}
 
-}
+	/*std::vector<std::pair<int, std::string>> WeaponList = Player::MainPlayer->GetWeapon();
 
-void AdditionItemUI::ReSet()
-{
-	ShowedBtn.clear();
-	int i = 0;
-	while (true)
+	int IconIndex = Icon.size()-1;
+	for (int i = 0;i < WeaponList.size();++i)
 	{
-		if (ShowedBtn.size() == 4 || Items.size() == 0)
+		if (IconIndex >= i)
 		{
-			break;
+			continue;
 		}
-		std::map<std::string, Button*>::iterator iter = Items.begin();
-		int ItemIndex = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(Items.size()) - 1);
-		std::advance(iter, ItemIndex);
-		Button* Picked = iter->second;
-		ShowedBtn.insert(*iter);
-		Items.erase(iter);
-		Picked->On();
-
-
-		float4 Cam_Pos = GetLevel()->GetCameraPos() + BtnPos[i++];
-		Picked->SetPos(Cam_Pos);
-
-	}
-
-	std::set<std::pair< std::string, Button*>>::iterator startit = ShowedBtn.begin();
-	std::set<std::pair< std::string, Button*>>::iterator endit = ShowedBtn.end();
-
-	for (;startit != endit;startit++)
-	{
-		Items.insert(*startit);
-	}
+		Icon.push_back(WeaponList[i]);
+		MakerIconRender(WeaponList[i].first, WeaponList[i].second);
+	}*/
 
 }
 

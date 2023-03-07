@@ -153,8 +153,16 @@ void Player::CheckObtainItems()
 
 
 		}
+		if (true)
+		{
+			GameEngineSoundPlayer Box = GameEngineResources::GetInst().SoundPlayToControl("TreasureFound.mp3");
+			Box.Volume(0.5f);
+			Box.LoopCount(1);
+			Collision.pop_back();
+		}
 		if (Collision.size() > 0)
 		{
+
 			GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("GetGem.mp3");
 			Dwn.Volume(0.5f);
 			Dwn.LoopCount(1);

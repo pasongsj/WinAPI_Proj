@@ -77,6 +77,7 @@ void PushLevelupMagnet()
 void PushLevelupMoney()
 {
 	//Player::MainPlayer->PushWeapon("Money");
+	Player::MainPlayer->LevelUpUI = false;
 }
 void PushLevelupWhip()
 {

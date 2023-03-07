@@ -142,6 +142,16 @@ public:
 		BGSize = _Size;
 	}
 
+	/*std::vector<std::pair<int, std::string>> GetWeapon()
+	{
+		std::vector<std::pair<int, std::string>> _Return;
+		for (Weapon* _Weapon : MyWeapon)
+		{
+			_Return.push_back(make_pair(_Weapon->GetWeaponLevel(), _Weapon->GetWeaponName()));
+		}
+
+	}*/
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

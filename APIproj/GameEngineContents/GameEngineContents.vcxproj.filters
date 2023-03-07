@@ -168,6 +168,9 @@
     <ClCompile Include="ObtainBox.cpp">
       <Filter>Item</Filter>
     </ClCompile>
+    <ClCompile Include="AdditionItemUIStat.cpp">
+      <Filter>PlayUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

@@ -1,7 +1,8 @@
 #include "Player.h"
 #include "AdditionItemUI.h"
 #include <vector>
-
+#include <GameEngineCore/GameEngineLevel.h>
+#include "ContentsEnums.h"
 void Player::PushWeapon(const std::string_view& _Weapon)
 {
 	std::string WeaponName = _Weapon.data();
@@ -98,13 +99,14 @@ void Player::PushActive(const std::string_view& _Active)
 	{
 		PlayerActive.Might = PercValue[++PlayerActiveLevel.LevelSpinach];
 		NextLevel = PlayerActiveLevel.LevelSpinach;
-		AdditionItemUI::SelectUI->SetActiveStatUIValue(4, static_cast<int>(PlayerActiveLevel.LevelSpinach - 100));
+		AdditionItemUI::SelectUI->SetActiveStatUIValue(4, static_cast<int>(PlayerActive.Might - 100));
+
 	}
 	else if ("Wing" == _Active)
 	{
 		PlayerActive.ActiveSpeed = PercValue[++PlayerActiveLevel.LevelWing];
 		NextLevel = PlayerActiveLevel.LevelWing;
-		AdditionItemUI::SelectUI->SetActiveStatUIValue(3, static_cast<int>(PlayerActiveLevel.LevelWing - 100));
+		AdditionItemUI::SelectUI->SetActiveStatUIValue(3, static_cast<int>(PlayerActive.ActiveSpeed - 100));
 	}
 	else if ("Duplicator" == _Active)
 	{
@@ -118,7 +120,7 @@ void Player::PushActive(const std::string_view& _Active)
 		float Value[6] = { 0,0.2f,0.4f,0.6f,0.8f,1.0f };
 		PlayerActive.Recovery = Value[++PlayerActiveLevel.LevelPummarola];
 		NextLevel = PlayerActiveLevel.LevelPummarola;
-		//AdditionItemUI::SelectUI->SetActiveStatUIValue(1, PlayerActive.Amount);// 소수점
+		AdditionItemUI::SelectUI->SetActiveStatUIValue(1, static_cast<int>(PlayerActive.Amount*10));// 소수점
 	}
 	else if ("Spellbinder" == _Active)
 	{
@@ -131,7 +133,7 @@ void Player::PushActive(const std::string_view& _Active)
 		float Value[6] = { 0, 8,16,24,32,40 };
 		PlayerActive.Growth = Value[++PlayerActiveLevel.LevelCrown];
 		NextLevel = PlayerActiveLevel.LevelCrown;
-		//AdditionItemUI::SelectUI->SetActiveStatUIValue(11, PlayerActive.Growth); 소수점
+		AdditionItemUI::SelectUI->SetActiveStatUIValue(11, static_cast<int>(PlayerActive.Growth));// 소수점
 	}
 	else if ("HollowHeart" == _Active)
 	{
