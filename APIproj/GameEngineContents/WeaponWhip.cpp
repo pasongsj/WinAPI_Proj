@@ -78,44 +78,6 @@ void WeaponWhip::Init()
 	WeaponCollision->SetPosition({ 125, 0 });
 	SetWeaponScale(WeaponRender->GetScale(), WeaponCollision->GetScale());
 
-	//{
-	//	GameEngineRender* Render = CreateRender(VSRenderOrder::Weapon);
-	//	Render->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "RightWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
-	//	Render->SetScale({ 600,60 });
-	//	Render->SetPosition({ 0, -60 });
-	//	Render->ChangeAnimation("Right_Whip");
-
-	//	GameEngineCollision* Collision = CreateCollision(VSRenderOrder::Weapon);
-	//	//float4 CollisionScale = Render->GetScale();
-	//	//CollisionScale.x = CollisionScale.hx();
-	//	float4 CollisionScale = { 250,50 };
-	//	Collision->SetScale(CollisionScale);
-	//	Collision->SetPosition({ Collision->GetScale().hx(),-Collision->GetScale().y });
-	//	WeaponRender["Right_"] = Render;
-	//	WeaponCollision["Right_"] = Collision;
-	//	WeaponRender["Right_"]->Off();
-	//	WeaponCollision["Right_"]->Off();
-	//}
-	//{
-	//	GameEngineRender* Render = CreateRender(VSRenderOrder::Weapon);
-	//	Render->CreateAnimation({ .AnimationName = "Left_Whip",  .ImageName = "LeftWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
-	//	Render->SetScale({ 600,60 });
-	//	Render->SetPosition({ 0, -60 });
-	//	Render->ChangeAnimation("Left_Whip");
-
-	//	GameEngineCollision* Collision = CreateCollision(VSRenderOrder::Weapon);
-	//	//float4 CollisionScale = Render->GetScale();
-	//	//CollisionScale.x = CollisionScale.hx();
-	//	float4 CollisionScale = { 250,50 };
-	//	Collision->SetScale(CollisionScale);
-	//	Collision->SetPosition({ -Collision->GetScale().hx(),-Collision->GetScale().y });
-	//	WeaponRender["Left_"] = Render;
-	//	WeaponCollision["Left_"] = Collision;
-	//	WeaponRender["Left_"]->Off();
-	//	WeaponCollision["Left_"]->Off();
-
-	//	SetWeaponScale(Render->GetScale(), Collision->GetScale());
-	//}
 }
 
 

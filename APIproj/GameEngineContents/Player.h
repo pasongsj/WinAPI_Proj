@@ -142,15 +142,21 @@ public:
 		BGSize = _Size;
 	}
 
-	/*std::vector<std::pair<int, std::string>> GetWeapon()
+	std::vector<std::pair<int, std::string>> GetWeapon()
 	{
 		std::vector<std::pair<int, std::string>> _Return;
 		for (Weapon* _Weapon : MyWeapon)
 		{
 			_Return.push_back(make_pair(_Weapon->GetWeaponLevel(), _Weapon->GetWeaponName()));
 		}
+		return _Return;
+	}
 
-	}*/
+	ActiveLevel GetActive()
+	{
+		ActiveLevel _Return = PlayerActiveLevel;
+		return _Return;
+	}
 
 protected:
 	void Start() override;

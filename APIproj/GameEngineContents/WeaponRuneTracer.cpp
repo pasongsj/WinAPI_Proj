@@ -130,7 +130,10 @@ void WeaponRuneTracer::Init()
 		WeaponCollision.push_back(Collision);
 		WeaponDir.push_back(float4::Zero);
 
-		SetWeaponScale(Render->GetScale(), Collision->GetScale());
+		if (GetOriginCollisionScale() == float4::Zero)
+		{
+			SetWeaponScale(Render->GetScale(), Collision->GetScale());
+		}
 
 		LuneLiveTime.push_back(0.0f);
 		DelayTime.push_back(0.0f);

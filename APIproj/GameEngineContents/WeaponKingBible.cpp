@@ -55,7 +55,7 @@ void WeaponKingBible::ReSet()
 		WeaponCollision[i]->SetPosition(StandardPos + WeaponDir);
 		WeaponPos[i] = WeaponDir;
 
-		WeaponRender[i]->SetScale(GetWeaponRenderScale());
+		WeaponRender[i]->SetScale(GetOriginRenderScale());
 		WeaponCollision[i]->SetScale(GetWeaponCollisionScale());
 
 		WeaponRender[i]->On();
@@ -80,7 +80,10 @@ void WeaponKingBible::Init()
 	WeaponRender.push_back(Render);
 	WeaponCollision.push_back(Collision);
 	WeaponPos.push_back(float4::Zero);
-	SetWeaponScale(Render->GetScale(), Collision->GetScale());
+	if (GetOriginCollisionScale() == float4::Zero)
+	{
+		SetWeaponScale(Render->GetScale(), Collision->GetScale());
+	}
 
 }
 

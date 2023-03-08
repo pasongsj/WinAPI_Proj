@@ -120,7 +120,10 @@ void WeaponFireWand::Init() // 투사체 생성
 		WeaponCollision.push_back(Collision);
 		WeaponDir.push_back(float4::Zero);
 		Passes.push_back(1);
-		SetWeaponScale(Render->GetScale(), Collision->GetScale());
+		if (GetOriginCollisionScale() == float4::Zero)
+		{
+			SetWeaponScale(Render->GetScale(), Collision->GetScale());
+		}
 		DelayTime.push_back(0.0f);
 		Render->Off();
 		Collision->Off();

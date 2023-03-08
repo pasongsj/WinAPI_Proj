@@ -154,6 +154,7 @@ void InlaidLibraryLevel::ImageLoad()
 		Dir.Move("Box");
 		GameEngineImage* Image3 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("openingBox1.BMP"));
 		Image3->Cut(8, 1);
+
 	}
 
 
@@ -176,6 +177,15 @@ void InlaidLibraryLevel::ImageLoad()
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
 			Image->Cut(1, 6);
+		}
+
+		Dir.MoveParent();
+		Dir.Move("Icon");
+		Files.clear();
+		Files = Dir.GetAllFile();
+		for (size_t i = 0; i < Files.size(); i++)
+		{
+			GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
 		}
 	}
 

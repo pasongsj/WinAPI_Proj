@@ -203,15 +203,15 @@ void Player::DirCheck(const std::string_view& _AnimationName)
 void Player::Render(float _DeltaTime)
 {
 	// -- 임시 Level에 Debug할 때 띄우기
-	float4 ForCheck = AnimationRender->GetPosition();
-	float4 _Pos = GetPos();
-	std::string MouseText = "Position : ";
-	MouseText += _Pos.ToString();
-	GameEngineLevel::DebugTextPush(MouseText);
+	//float4 ForCheck = AnimationRender->GetPosition();
+	//float4 _Pos = GetPos();
+	//std::string MouseText = "Position : ";
+	//MouseText += _Pos.ToString();
+	//GameEngineLevel::DebugTextPush(MouseText);
 
-	std::string CameraText = "CameraPosition : ";
-	CameraText += GetLevel()->GetCameraPos().ToString();
-	GameEngineLevel::DebugTextPush(CameraText);
+	//std::string CameraText = "CameraPosition : ";
+	//CameraText += GetLevel()->GetCameraPos().ToString();
+	//GameEngineLevel::DebugTextPush(CameraText);
 
 
 

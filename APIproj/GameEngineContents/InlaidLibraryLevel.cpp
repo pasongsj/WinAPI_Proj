@@ -15,6 +15,7 @@
 #include "Weapon.h"
 #include "Items.h"
 #include "AdditionItemUI.h"
+#include "ItemIcon.h"
 
 #include "MouseObject.h"
 #include "ObtainBox.h"
@@ -108,6 +109,7 @@ void InlaidLibraryLevel::Loading()
 		AdditionItemUI* SelectItemUI = CreateActor<AdditionItemUI>(VSRenderOrder::LastUI);
 		/*SelectItemUI->Off();*/
 		NewUI = CreateActor<PlayGameUI>(VSRenderOrder::UI);
+		CreateActor<ItemIcon>(VSRenderOrder::LastUI);
 	}
 
 	{ // 박스 액터

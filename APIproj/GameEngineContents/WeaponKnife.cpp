@@ -89,7 +89,7 @@ void WeaponKnife::ReSet()
 			WeaponCollision[index]->SetPosition(_Pos + float4{ 0,static_cast<float>(-_Num*5) });
 		}
 		Passes[index] = GetWeaponPass();
-		WeaponRender[index]->SetScale(GetWeaponRenderScale());
+		WeaponRender[index]->SetScale(GetOriginRenderScale());
 		WeaponCollision[index]->SetScale(GetWeaponCollisionScale());
 		WeaponDir[index] = _Dir;
 		WeaponRender[index]->SetAngle(KnifeAngle);
@@ -132,7 +132,10 @@ void WeaponKnife::Init()
 		WeaponCollision.push_back(Collision);
 		WeaponDir.push_back(float4::Zero);
 		Passes.push_back(1);
-		SetWeaponScale(Render->GetScale(), Collision->GetScale());
+		if (GetOriginCollisionScale() == float4::Zero)
+		{
+			SetWeaponScale(Render->GetScale(), Collision->GetScale());
+		}
 		DelayTime.push_back(0.0f);
 		Render->Off();
 		Collision->Off();
