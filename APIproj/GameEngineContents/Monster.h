@@ -82,7 +82,7 @@ private:
 	float Exp = 0.0f;
 	
 	float4 MonsterRenderScale = float4{ 70, 140 };
-	float4 MonsterCollisionScale = float4{ 40, 70 };
+	float4 MonsterCollisionScale = float4{ 40, 50 };
 
 	float4 MoveVec = float4::Zero;
 

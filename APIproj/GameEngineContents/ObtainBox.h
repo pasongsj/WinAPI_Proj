@@ -20,6 +20,7 @@ public:
 	void UIOff();
 
 	void OpeningBoxAnimation();
+	bool IsOpened = false;
 
 protected:
 
@@ -28,12 +29,12 @@ protected:
 
 private:
 	float GoldBox = 3.0f;
-	float SilverBox = 13.0f;
+	float SilverBox = /*13.0f;*/ 90.0f;
 	float BronzeBox = 100.0f;
 	float AnimationTime = 0.0f;
-	bool IsOpened = false;
 
 	GameEngineRender* ObtainBoxUI = nullptr;
+	GameEngineRender* OpenedBoxUI = nullptr;
 	GameEngineRender* OpeningAnimation = nullptr;
 
 	Button* OpenBoxButton = nullptr;
