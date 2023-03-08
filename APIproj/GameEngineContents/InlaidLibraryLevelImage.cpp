@@ -155,6 +155,10 @@ void InlaidLibraryLevel::ImageLoad()
 		GameEngineImage* Image3 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("openingBox1.BMP"));
 		Image3->Cut(8, 1);
 
+		Dir.MoveParent();
+		Dir.Move("Cut41");
+		GameEngineImage* Image4 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("BoxFoundUI.BMP"));
+		Image4->Cut(4, 1);
 	}
 
 

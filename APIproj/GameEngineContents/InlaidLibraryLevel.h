@@ -47,7 +47,7 @@ private:
 	PlayGameUI* NewUI = nullptr;
 	InlaidLibraryBack* BackGround = nullptr;
 
-	ObtainBox* ObtainBoxUI = nullptr;
+	//ObtainBox* ObtainBoxUI = nullptr;
 
 	void ReGenMonster();
 	void SetState();

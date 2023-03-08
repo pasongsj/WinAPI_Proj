@@ -21,6 +21,7 @@
 #include "ObtainBox.h"
 
 
+
 #include "WeaponWhip.h"
 #include "WeaponMagicWand.h"
 #include "WeaponKnife.h"
@@ -158,7 +159,7 @@ void InlaidLibraryLevel::CheckLevelUpUI()
 		}
 		else
 		{
-			ObtainBoxUI->UIOn();
+			ObtainBox::ObtainBoxAni->UIOn();
 			Player::IsStop = true;
 		}
 		Player::IsStop = true;
@@ -167,7 +168,7 @@ void InlaidLibraryLevel::CheckLevelUpUI()
 	{
 		AdditionItemUI::SelectUI->UIOff();
 		AdditionItemUI::SelectUI->ReSetOff();
-		ObtainBoxUI->UIOff();
+		ObtainBox::ObtainBoxAni->UIOff();
 		Player::IsStop = false;
 	}
 
@@ -296,7 +297,8 @@ void InlaidLibraryLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 	}
 
 	{ // 박스 액터
-		ObtainBoxUI = CreateActor<ObtainBox>(VSRenderOrder::UI);
+		CreateActor<ObtainBox>(VSRenderOrder::LastUI);
+
 	}
 
 	{
@@ -341,7 +343,7 @@ void InlaidLibraryLevel::CheckEnd()
 		SetTimeScale(VSRenderOrder::Item, 0);
 		SetTimeScale(VSRenderOrder::Weapon, 0);
 		SetTimeScale(VSRenderOrder::UI, 0);
-		SetTimeScale(VSRenderOrder::LastUI, 0);
+		//SetTimeScale(VSRenderOrder::LastUI, 0);
 		//SetTimeScale(VSRenderOrder::MAX, 0);
 
 		float StageTime = NewUI->GetStageTime();
@@ -370,20 +372,16 @@ void InlaidLibraryLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 		{
 			_Actor->Death();
 		}
-		/*CreateActor<WeaponWhip>(VSRenderOrder::Weapon);
-		CreateActor<WeaponMagicWand>(VSRenderOrder::Weapon);
-		CreateActor<WeaponKnife>(VSRenderOrder::Weapon);
-		CreateActor<WeaponRuneTracer>(VSRenderOrder::Weapon);
-		CreateActor<WeaponKingBible>(VSRenderOrder::Weapon);
-		CreateActor<WeaponFireWand>(VSRenderOrder::Weapon);*/
 	}
 
 	{
 		// 배경 액터 제거
-		for (GameEngineActor* _Actor : GetActors(VSRenderOrder::BackGround))
+		/*for (GameEngineActor* _Actor : GetActors(VSRenderOrder::BackGround))
 		{
 			_Actor->Death();
-		}
+		}*/
+		BackGround->Death();
+		NewUI->Death();
 		//BackGround = CreateActor<InlaidLibraryBack>(VSRenderOrder::BackGround); // 가시적 배경
 	}
 
@@ -391,7 +389,8 @@ void InlaidLibraryLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 	{	// 박스 제거
 		// UI 액터제거
 		// 버튼 제거
-		ObtainBoxUI->Death();
+		NewUI->Death();
+		ObtainBox::ObtainBoxAni->Death();
 		BackButton->Death();
 		for (GameEngineActor* _Actor : GetActors(VSRenderOrder::LastUI))
 		{
@@ -414,5 +413,7 @@ void InlaidLibraryLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 			_Actor->Death();
 		}
 		Player::MainPlayer->Death();
+		SponableMonster.clear();
+
 	}
 }

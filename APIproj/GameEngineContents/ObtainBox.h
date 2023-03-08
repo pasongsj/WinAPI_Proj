@@ -5,6 +5,7 @@ class Button;
 class ObtainBox : public GameEngineActor
 {
 public:
+	static ObtainBox* ObtainBoxAni;
 	// constrcuter destructer
 	ObtainBox() ;
 	~ObtainBox();
@@ -18,6 +19,8 @@ public:
 	void UIOn();
 	void UIOff();
 
+	void OpeningBoxAnimation();
+
 protected:
 
 	void Start() override;
@@ -27,6 +30,8 @@ private:
 	float GoldBox = 3.0f;
 	float SilverBox = 13.0f;
 	float BronzeBox = 100.0f;
+	float AnimationTime = 0.0f;
+	bool IsOpened = false;
 
 	GameEngineRender* ObtainBoxUI = nullptr;
 	GameEngineRender* OpeningAnimation = nullptr;
