@@ -6,7 +6,7 @@ class Items : public GameEngineActor
 {
 public:
 
-	static std::queue<Items*> ObtainedItems; // ¿ÃπÃ »πµÊ«— æ∆¿Ã≈€
+	static std::vector<Items*> ObtainedItems; // ¿ÃπÃ »πµÊ«— æ∆¿Ã≈€
 	// constrcuter destructer
 	Items() ;
 	~Items();

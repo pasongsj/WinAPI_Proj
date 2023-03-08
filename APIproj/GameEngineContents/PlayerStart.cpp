@@ -29,7 +29,8 @@ void Player::Start()
 	}
 	if ("Antonio" == PlayerName)
 	{
-		Hp = 120;
+		PlayerActive.MaxHealth = 120.0f;
+		Hp = 120.0f;
 	}
 
 	std::string RImage = "Right" + PlayerName + ".BMP";

@@ -6,7 +6,7 @@
 #include "Player.h"
 
 //std::map<std::string, Items> Items::AllItems;
-std::queue<Items*> Items::ObtainedItems;
+std::vector<Items*> Items::ObtainedItems;
 
 Items::Items()
 {
@@ -40,18 +40,18 @@ void Items::SetExp(float _Exp, bool _IsBox)
 
 void Items::Reset()
 {
-	if (nullptr != ItemRender)
+	if (nullptr == ItemRender)
 	{
-		ItemRender->Death();
-		ItemRender = nullptr;
+		ItemRender = CreateRender(VSRenderOrder::Item);
+		//ItemRender->Death();
+		//ItemRender = nullptr;
 	}
-	if (nullptr != ItemCollision)
+	if (nullptr == ItemCollision)
 	{
-		ItemCollision->Death();
-		ItemCollision = nullptr;
+		ItemCollision = CreateCollision(VSRenderOrder::Item);
+		//ItemCollision->Death();
+		//ItemCollision = nullptr;
 	}
-	ItemRender = CreateRender(VSRenderOrder::Item);
-	ItemCollision = CreateCollision(VSRenderOrder::Item);
 
 	ItemRender->SetImageToScaleToImage("ExperienceGemBlue.bmp");
 

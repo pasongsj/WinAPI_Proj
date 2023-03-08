@@ -86,6 +86,7 @@ void InlaidLibraryBack::SetEndingRenderOn(bool _IsComplete)
 	if (true == _IsComplete)
 	{
 		EndingUI->SetImage("stageComplete.bmp");
+		EndingUI->SetScaleToImage();
 	}
 	if (false == EndingRender->IsUpdate())
 	{

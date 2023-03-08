@@ -8,7 +8,7 @@
 #include "Player.h"
 #include "Items.h"
 
-std::queue<Monster*> Monster::DeadMonsters;
+std::vector<Monster*> Monster::DeadMonsters;
 std::string Monster::MonsterName = "Dust";
 
 
@@ -35,27 +35,31 @@ void Monster::KnockBackLessAttack(float _Att, float _StateDelay)
 }
 void Monster::Reset()
 {
+	Name = MonsterName;
+	if ("" == Name)
+	{
+		return;
+	}
 	if (nullptr != AnimationRender)
 	{
 		AnimationRender->Death();
 		AnimationRender = nullptr;
 	}
-	if (nullptr != BodyCollision)
+	if (nullptr == BodyCollision)
 	{
-		BodyCollision->Death();
-		BodyCollision = nullptr;
+		BodyCollision = CreateCollision(VSRenderOrder::Monster);
 	}
 	IsBoxBoss = false;
 	Setting();
 	AnimationRender = CreateRender(VSRenderOrder::Monster);
 	AnimationRender->SetScale(MonsterRenderScale);
 
-	std::string RImage = "Right" + MonsterName + ".BMP";
-	std::string LImage = "Left" + MonsterName + ".BMP";
-	std::string DmgRImage = "Right" + MonsterName + "Dmged.BMP";
-	std::string DmgLImage = "Left" + MonsterName + "Dmged.BMP";
-	std::string DeadRImage = "Right" + MonsterName + "Dead.BMP";
-	std::string DeadLImage = "Left" + MonsterName + "Dead.BMP";
+	std::string RImage = "Right" + Name + ".BMP";
+	std::string LImage = "Left" + Name + ".BMP";
+	std::string DmgRImage = "Right" + Name + "Dmged.BMP";
+	std::string DmgLImage = "Left" + Name + "Dmged.BMP";
+	std::string DeadRImage = "Right" + Name + "Dead.BMP";
+	std::string DeadLImage = "Left" + Name + "Dead.BMP";
 	{
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = RImage, .Start = 0, .End = EndFrame[0], .InterTime = 0.1f });
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Beaten",  .ImageName = DmgRImage, .Start = 0, .End = EndFrame[1], .InterTime = 0.1f , .Loop = false });
@@ -66,7 +70,6 @@ void Monster::Reset()
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Beaten",  .ImageName = DmgLImage, .Start = 0, .End = EndFrame[1], .InterTime = 0.1f, .Loop = false });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Dead",  .ImageName = DeadLImage, .Start = 0, .End = EndFrame[2], .InterTime = 0.05f, .Loop = false });
 	}
-	BodyCollision = CreateCollision(VSRenderOrder::Monster);
 	BodyCollision->SetScale(MonsterCollisionScale);
 	BodyCollision->SetPosition({ 0, -(MonsterRenderScale.hy() / 2) });
 	IsAttacked = false;
@@ -241,8 +244,8 @@ void Monster::DeadUpdate(float _Time)
 		}
 		else // Àç»ç¿ë
 		{
-			Actor = Items::ObtainedItems.front();
-			Items::ObtainedItems.pop();
+			Actor = Items::ObtainedItems.back();
+			Items::ObtainedItems.pop_back();
 			Actor->Reset();
 		}
 		Actor->SetPos(GetPos());
@@ -259,7 +262,7 @@ void Monster::DeadUpdate(float _Time)
 
 
 		this->Off();
-		DeadMonsters.push(this);
+		DeadMonsters.push_back(this);
 	}
 }
 void Monster::DeadEnd() {

@@ -25,7 +25,7 @@ void ItemIcon::Update(float _DeltaTime)
 		if (WeaponIconList.end() == WeaponIconList.find(WeaponList[i].second))
 		{
 			WeaponIconList.insert(WeaponList[i].second);
-			GameEngineRender* Render = CreateRender(VSRenderOrder::MAX);
+			GameEngineRender* Render = CreateRender(VSRenderOrder::LastUI);
 			std::string ImgName = WeaponList[i].second + "Icon.bmp";
 			Render->EffectCameraOff();
 			Render->SetImage(ImgName);
@@ -58,7 +58,7 @@ void ItemIcon::Update(float _DeltaTime)
 		if (startiter->second > 0 && ActiveIconList.end() == ActiveIconList.find(startiter->first))
 		{
 			ActiveIconList.insert(startiter->first);
-			GameEngineRender* Render = CreateRender(VSRenderOrder::MAX);
+			GameEngineRender* Render = CreateRender(VSRenderOrder::LastUI);
 			std::string ImgName = startiter->first + "Icon.bmp";
 			Render->EffectCameraOff();
 			Render->SetImage(ImgName);

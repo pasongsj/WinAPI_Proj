@@ -14,7 +14,7 @@ class Monster : public GameEngineActor
 {
 public:
 	
-	static std::queue<Monster*> DeadMonsters;
+	static std::vector<Monster*> DeadMonsters;
 	static std::string MonsterName;
 	// constrcuter destructer
 	Monster() ;
@@ -64,6 +64,8 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
+
+	std::string Name = "";
 
 	bool IsBoxBoss = false; // 박스를 return하는 보스
 

@@ -114,11 +114,11 @@ void Player::Update(float _DeltaTime)
 	}
 
 
-	{ // HP바 랜더
+	{ // HP바 랜더 HpBlackBar->SetPosition({ 0,HpBlackBar->GetScale().y }); -MaxHpScale.hx()+HpScalehx()
 		float4 HpScale = MaxHpScale;
 		HpScale.x = HpScale.x * (Hp / PlayerActive.MaxHealth);
 		HpRedBar->SetScale(HpScale);
-		HpRedBar->SetPosition({ HpScale.hx() - MaxHpScale.hx()-1, MaxHpScale.y}); // -1 pixel 보정
+		HpRedBar->SetPosition({ HpScale.hx() - MaxHpScale.hx(), MaxHpScale.y});
 	}
 
 	// 아이템 획득 콜리전
@@ -153,7 +153,7 @@ void Player::CheckObtainItems()
 				PlayerExp += ItemExp * (PlayerActive.Growth + 100.0f / 100);
 			}
 			ColItemActor->Off();
-			Items::ObtainedItems.push(ColItemActor);
+			Items::ObtainedItems.push_back(ColItemActor);
 
 
 		}
@@ -267,7 +267,7 @@ void Player::PressMove() // 입력관리
 
 void Player::CheckLevelUp()//레벨업 체크
 {
-	int ReqExpPoint = GetMaxExp()*2;
+	int ReqExpPoint = GetMaxExp();
 	if (PlayerExp >= ReqExpPoint)
 	{
 		++PlayerLevel;
@@ -306,7 +306,7 @@ int Player::GetMaxExp() {
 	{
 		ReqExpPoint = (NextLevel * 16) - 8;
 	}
-	return ReqExpPoint;
+	return ReqExpPoint * 2;
 
 }
 
@@ -315,5 +315,12 @@ int Player::GetMaxExp() {
 
 void Player::UpdateActiveItem(float _DeltaTime)
 {
-	Hp += PlayerActive.Recovery * _DeltaTime; // 초당 Recovery만큼 회복
+	if (Hp + PlayerActive.Recovery * _DeltaTime > PlayerActive.MaxHealth)
+	{
+		Hp = PlayerActive.MaxHealth;
+	}
+	else
+	{
+		Hp += PlayerActive.Recovery * _DeltaTime; // 초당 Recovery만큼 회복
+	}
 }

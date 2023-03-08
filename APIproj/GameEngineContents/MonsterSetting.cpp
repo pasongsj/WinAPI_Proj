@@ -6,7 +6,7 @@ void Monster::Setting()
 {
 	MonsterRenderScale = float4{ 70, 140 };
 
-	if ("Dust" == MonsterName)
+	if ("Dust" == Name)
 	{
 		Hp = 5;
 		Dmg = 5;
@@ -17,7 +17,7 @@ void Monster::Setting()
 		EndFrame[2] = 9;
 
 	}
-	else if ("Musc" == MonsterName)
+	else if ("Musc" == Name)
 	{
 		//1 - 2:00, 6:00, 7:00, 17:00
 		Hp = 1;
@@ -31,7 +31,7 @@ void Monster::Setting()
 		EndFrame[2] = 1;
 
 	}
-	else if ("Mummy" == MonsterName)
+	else if ("Mummy" == Name)
 	{
 		Hp = 15;
 		Dmg = 3;
@@ -43,7 +43,7 @@ void Monster::Setting()
 		EndFrame[2] = 4;
 
 	}
-	else if ("Dullahan" == MonsterName)
+	else if ("Dullahan" == Name)
 	{
 		//2 - 6:00, 7:00, 12:00, 13:00, 16:00, 23:00
 		Hp = 70;
@@ -56,7 +56,7 @@ void Monster::Setting()
 		EndFrame[2] = 3;
 
 	}
-	else if ("SmallMedusaHead" == MonsterName)
+	else if ("SmallMedusaHead" == Name)
 	{ // 추가설정 필요
 		Hp = 1;
 		Dmg = 1;
@@ -69,7 +69,7 @@ void Monster::Setting()
 		EndFrame[2] = 4;
 
 	}
-	else if ("LionHead" == MonsterName) // 
+	else if ("LionHead" == Name) // 
 	{
 		Hp = 3.0f * Player::MainPlayer->GetPlayerLevel();
 		Dmg = 3;
@@ -81,7 +81,7 @@ void Monster::Setting()
 		EndFrame[2] = 3;
 
 	}
-	else if ("Ghost" == MonsterName)
+	else if ("Ghost" == Name)
 	{
 		Hp = 10;
 		Dmg = 5;
@@ -94,7 +94,7 @@ void Monster::Setting()
 
 	}
 	// -- 추가된부분
-	else if ("GiantMedusa " == MonsterName)
+	else if ("GiantMedusa " == Name)
 	{
 		Hp = 800;
 		Dmg = 15;
@@ -105,7 +105,7 @@ void Monster::Setting()
 		EndFrame[1] = 2;
 		EndFrame[2] = 4;
 	}
-	else if ("QueenMedusa" == MonsterName)
+	else if ("QueenMedusa" == Name)
 	{
 		MonsterRenderScale = float4{ 104, 208 };
 		Hp = 150.0f * Player::MainPlayer->GetPlayerLevel();
@@ -117,7 +117,7 @@ void Monster::Setting()
 		EndFrame[1] = 2;
 		EndFrame[2] = 4;
 	}
-	else if ("BigMusc2 " == MonsterName)
+	else if ("BigMusc2 " == Name)
 	{
 		MonsterRenderScale = float4{ 104, 208 };
 		Hp = 50;
@@ -127,9 +127,9 @@ void Monster::Setting()
 
 		EndFrame[0] = 2;
 		EndFrame[1] = 2;
-		EndFrame[2] = 6;
+		EndFrame[2] = 4;
 	}
-	else if ("BigLionHead" == MonsterName)
+	else if ("BigLionHead" == Name)
 	{
 		MonsterRenderScale = float4{ 104, 208 };
 		Hp = 50;
@@ -141,7 +141,7 @@ void Monster::Setting()
 		EndFrame[1] = 2;
 		EndFrame[2] = 3;
 	}
-	else if ("BigDust " == MonsterName)
+	else if ("BigDust " == Name)
 	{
 		MonsterRenderScale = float4{ 104, 208 };
 		Hp = 50.0f;
@@ -153,7 +153,7 @@ void Monster::Setting()
 		EndFrame[1] = 1;
 		EndFrame[2] = 9;
 	}
-	else if ("MedusaHead" == MonsterName)
+	else if ("MedusaHead" == Name)
 	{
 		MonsterRenderScale = float4{ 80, 160 };
 		Hp = 25;
@@ -165,7 +165,7 @@ void Monster::Setting()
 		EndFrame[1] = 3;
 		EndFrame[2] = 4;
 	}
-	else if ("MedusaHeadBoss" == MonsterName)
+	else if ("MedusaHeadBoss" == Name)
 	{
 		MonsterRenderScale = float4{ 80, 160 };
 		Hp = 40.0f * Player::MainPlayer->GetPlayerLevel();
@@ -177,7 +177,7 @@ void Monster::Setting()
 		EndFrame[1] = 3;
 		EndFrame[2] = 4;
 	}
-	else if ("ApprenticeWitch" == MonsterName)
+	else if ("ApprenticeWitch" == Name)
 	{
 		Hp = 220;
 		Dmg = 14;
@@ -188,7 +188,7 @@ void Monster::Setting()
 		EndFrame[1] = 3;
 		EndFrame[2] = 4;
 	}
-	else if ("EliteDullahan" == MonsterName)
+	else if ("EliteDullahan" == Name)
 	{
 		Hp = 150;
 		Dmg = 8;
@@ -199,7 +199,7 @@ void Monster::Setting()
 		EndFrame[1] = 2;
 		EndFrame[2] = 3;
 	}
-	else if ("GiantBat" == MonsterName)
+	else if ("GiantBat" == Name)
 	{
 		MonsterRenderScale = float4{ 80, 160 };
 		Hp = 270;
@@ -211,7 +211,7 @@ void Monster::Setting()
 		EndFrame[1] = 3;
 		EndFrame[2] = 4;
 	}
-	else if ("GiantMummy" == MonsterName)
+	else if ("GiantMummy" == Name)
 	{
 		MonsterRenderScale = float4{ 104, 208 };
 		Hp = 500;
@@ -223,7 +223,7 @@ void Monster::Setting()
 		EndFrame[1] = 2;
 		EndFrame[2] = 5;
 	}
-	else if ("GlowingBat" == MonsterName)
+	else if ("GlowingBat" == Name)
 	{
 		Hp = 50.0f *Player::MainPlayer->GetPlayerLevel();
 		Dmg = 10;
@@ -234,7 +234,7 @@ void Monster::Setting()
 		EndFrame[1] = 2;
 		EndFrame[2] = 3;
 	}
-	else if ("GlowingSkull" == MonsterName)
+	else if ("GlowingSkull" == Name)
 	{
 		Hp = 6.5f * Player::MainPlayer->GetPlayerLevel();
 		Dmg = 14;
@@ -245,7 +245,7 @@ void Monster::Setting()
 		EndFrame[1] = 3;
 		EndFrame[2] = 3;
 	}
-	else if ("Hag" == MonsterName)
+	else if ("Hag" == Name)
 	{
 		MonsterRenderScale = float4{ 104, 208 };
 
@@ -258,7 +258,7 @@ void Monster::Setting()
 		EndFrame[1] = 2;
 		EndFrame[2] = 3;
 	}
-	else if ("Musc2" == MonsterName)
+	else if ("Musc2" == Name)
 	{
 		Hp = 13;
 		Dmg = 4;
@@ -269,7 +269,7 @@ void Monster::Setting()
 		EndFrame[1] = 2;
 		EndFrame[2] = 4;
 	}
-	else if ("Nesuferit" == MonsterName)
+	else if ("Nesuferit" == Name)
 	{
 		MonsterRenderScale = float4{ 104, 208 };
 
@@ -282,7 +282,7 @@ void Monster::Setting()
 		EndFrame[1] = 3;
 		EndFrame[2] = 4;
 	}
-	else if ("SilverBat" == MonsterName)
+	else if ("SilverBat" == Name)
 	{
 		Hp = 50.0f * Player::MainPlayer->GetPlayerLevel();
 		Dmg = 10;
@@ -293,7 +293,7 @@ void Monster::Setting()
 		EndFrame[1] = 2;
 		EndFrame[2] = 3;
 	}
-	else if ("UndeadSassyWitch" == MonsterName)
+	else if ("UndeadSassyWitch" == Name)
 	{
 		Hp = 500;
 		Dmg = 20;
@@ -304,7 +304,7 @@ void Monster::Setting()
 		EndFrame[1] = 3;
 		EndFrame[2] = 5;
 	}
-	else if ("MasterWitch" == MonsterName)
+	else if ("MasterWitch" == Name)
 	{
 		MonsterRenderScale = float4{ 104, 208 };
 		Hp = 150.0f *Player::MainPlayer->GetPlayerLevel();
