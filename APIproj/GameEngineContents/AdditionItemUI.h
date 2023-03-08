@@ -55,7 +55,7 @@ private:
 	std::map<std::string, Button*> DeletedItem;
 
 
-	float4 BtnScale = float4{ 456,127, };
+	float4 BtnScale = float4{ 547,153, };
 	std::vector<float4> BtnPos;
 	GameEngineRender* LevelUpUIRender = nullptr;
 	GameEngineRender* StatUI = nullptr;

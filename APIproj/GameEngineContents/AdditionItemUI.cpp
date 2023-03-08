@@ -46,7 +46,7 @@ void AdditionItemUI::Start()
 
 
 	float4 _Pos = GameEngineWindow::GetScreenSize().half();
-	_Pos.y -= (BtnScale.y * 1.06f);
+	_Pos.y -= (BtnScale.y * 1.075f);
 	for (int i = 0;i < 4;i++)
 	{
 		BtnPos.push_back(_Pos);
