@@ -63,6 +63,10 @@ void Player::Movecalculation(float _DeltaTime)
 
 bool Player::CheckMonsterCollision()
 {
+	if (Cheat)
+	{
+		return false;
+	}
 	std::vector<GameEngineCollision*> Collision;
 
 
@@ -153,7 +157,7 @@ void Player::CheckObtainItems()
 
 
 		}
-		if (true)
+		if (true == OpenBoxUI)
 		{
 			GameEngineSoundPlayer Box = GameEngineResources::GetInst().SoundPlayToControl("TreasureFound.mp3");
 			Box.Volume(0.5f);
@@ -263,7 +267,7 @@ void Player::PressMove() // 입력관리
 
 void Player::CheckLevelUp()//레벨업 체크
 {
-	int ReqExpPoint = GetMaxExp();
+	int ReqExpPoint = GetMaxExp()*2;
 	if (PlayerExp >= ReqExpPoint)
 	{
 		++PlayerLevel;

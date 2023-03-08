@@ -14,7 +14,7 @@ void AdditionItemUI::SetStatNumber()
 	{
 		if (1 == i)
 		{
-			ZeroPoint->SetPosition(ActiveStatUIPos - float4{25, 0});
+			ZeroPoint->SetPosition(ActiveStatUIPos - float4{27, 0});
 		}
 
 		ActiveStatUI[i].SetOrder(static_cast<int> (VSRenderOrder::MAX));

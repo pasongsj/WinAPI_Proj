@@ -125,7 +125,7 @@ public:
 
 	void CollisionOnOff()
 	{
-		BodyCollision->OnOffSwtich();
+		Cheat = !Cheat;
 	}
 
 	void GetHp(float _Hp)
@@ -164,6 +164,10 @@ protected:
 	void Render(float _DeltaTime) override;
 
 private:
+
+	bool Cheat = false;
+
+	
 	float4 BGSize = float4::Zero;
 
 	Active PlayerActive;
@@ -171,7 +175,7 @@ private:
 
 	//float AccTime = 0.0f;
 	int StartFrame = 0;
-	float MoveSpeed = 300.0f;
+	float MoveSpeed = 250.0f;
 	float4 MoveVec = float4::Zero;
 	float4 LastMoveVec = float4::Zero;
 
