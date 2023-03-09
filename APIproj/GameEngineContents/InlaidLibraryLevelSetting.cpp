@@ -398,11 +398,15 @@ void InlaidLibraryLevel::SetState()
 	}
 	else
 	{
+		NextSettingTime += 9;
+		Monster::MonsterName = "Sasin";
+		Monster* Boss = CreateActor<Monster>(VSRenderOrder::Monster);
+
 		MaxMonster = 1;
-		RegenInterval = 10.0f;
+		RegenInterval = 5.0f;
 
 		SponableMonster.clear();
-		//SponableMonster.insert("Reaper");
+		SponableMonster.push_back("Sasin");
 
 	}
 

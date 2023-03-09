@@ -207,7 +207,7 @@ void Monster::Setting()
 	}
 	else if ("GiantBat" == Name)
 	{
-		MonsterRenderScale = float4{ 80, 160 };
+		MonsterRenderScale = float4{ 110, 220 };
 		Hp = 270;
 		Dmg = 10;
 		MoveSpeed = 140;
@@ -253,7 +253,7 @@ void Monster::Setting()
 	}
 	else if ("Hag" == Name)
 	{
-		MonsterRenderScale = float4{ 104, 208 };
+		MonsterRenderScale = float4{ 150, 300 };
 
 		Hp = 250.0f * Player::MainPlayer->GetPlayerLevel();
 		Dmg = 30;
@@ -278,7 +278,7 @@ void Monster::Setting()
 	}
 	else if ("Nesuferit" == Name)
 	{
-		MonsterRenderScale = float4{ 104, 208 };
+		MonsterRenderScale = float4{ 150, 300 };
 
 		Hp = 200.0f * Player::MainPlayer->GetPlayerLevel();
 		Dmg = 30;
@@ -313,7 +313,7 @@ void Monster::Setting()
 	}
 	else if ("MasterWitch" == Name)
 	{
-		MonsterRenderScale = float4{ 104, 208 };
+		MonsterRenderScale = float4{ 150, 300 };
 		Hp = 150.0f *Player::MainPlayer->GetPlayerLevel();
 		Dmg = 30;
 		MoveSpeed = 200;
@@ -321,6 +321,18 @@ void Monster::Setting()
 
 		EndFrame[0] = 3;
 		EndFrame[1] = 3;
+		EndFrame[2] = 5;
+	}
+	else if ("Sasin" == Name)
+	{
+		MonsterRenderScale = float4{ 150, 300 };
+		Hp = 655350.0f * Player::MainPlayer->GetPlayerLevel();
+		Dmg = 65535;
+		MoveSpeed = 1200;
+		Exp = 0;
+
+		EndFrame[0] = 5;
+		EndFrame[1] = 5;
 		EndFrame[2] = 5;
 	}
 
