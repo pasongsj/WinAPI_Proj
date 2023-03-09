@@ -138,6 +138,7 @@ void Player::PushActive(const std::string_view& _Active)
 	else if ("HollowHeart" == _Active)
 	{
 		float Value[6] = { 0, 1.2f, 1.44f,1.728f ,2.0736f, 2.48832f };
+		float BeforeMax = PlayerActive.MaxHealth;
 		if (PlayerName == "Antonio")
 		{
 			PlayerActive.MaxHealth = 120.0f * Value[++PlayerActiveLevel.LevelHollowHeart];
@@ -147,6 +148,10 @@ void Player::PushActive(const std::string_view& _Active)
 			PlayerActive.MaxHealth = 100.0f * Value[++PlayerActiveLevel.LevelHollowHeart];
 		}
 		NextLevel = PlayerActiveLevel.LevelHollowHeart;
+		float AfterMax = PlayerActive.MaxHealth;
+		Hp += (AfterMax - BeforeMax);
+
+
 		AdditionItemUI::SelectUI->SetActiveStatUIValue(0, static_cast<int>(PlayerActive.MaxHealth));
 
 	}
