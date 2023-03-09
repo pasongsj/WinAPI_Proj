@@ -296,7 +296,7 @@ void InlaidLibraryLevel::SetState()
 		RegenInterval = 0.1f;
 
 		SponableMonster.clear();
-		SponableMonster.push_back("Lionhead");
+		SponableMonster.push_back("LionHead");
 	}
 	else if (22 * 60 <= LevelTime && LevelTime < 23 * 60)//22분대 : Lionhead, UndeadSassyWitch,
 	{
@@ -308,7 +308,7 @@ void InlaidLibraryLevel::SetState()
 		RegenInterval = 1.0f;
 
 		SponableMonster.clear();
-		SponableMonster.push_back("Lionhead");
+		//SponableMonster.push_back("Lionhead");
 		SponableMonster.push_back("UndeadSassyWitch");
 	}
 	else if (23 * 60 <= LevelTime && LevelTime < 24 * 60)//23분대 : EliteDullahan, Dullahan, UndeadSassyWitch
@@ -370,7 +370,7 @@ void InlaidLibraryLevel::SetState()
 		RegenInterval = 0.1f;
 
 		SponableMonster.clear();
-		SponableMonster.push_back("GiantMedusa");
+		//SponableMonster.push_back("GiantMedusa");
 		SponableMonster.push_back("MedusaHead");
 	}
 	else if (28 * 60 <= LevelTime && LevelTime < 29 * 60)//28분대 : ApprenticeWitch,

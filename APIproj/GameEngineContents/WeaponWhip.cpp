@@ -21,6 +21,7 @@ void WeaponWhip::LevelUp()
 		Col_Scale.x *= 2;
 		SetWeaponCollisionScale(Col_Scale);
 		WeaponCollision->SetPosition(float4::Zero);
+		SetRunTime(0.2f);
 	}
 	if (4 == GetWeaponLevel() || 6 == GetWeaponLevel())
 	{
@@ -66,10 +67,10 @@ void WeaponWhip::ReSet()
 void WeaponWhip::Init()
 {
 	WeaponRender = CreateRender(VSRenderOrder::Weapon);
-	WeaponRender->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "RightWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
-	WeaponRender->CreateAnimation({ .AnimationName = "Left_Whip",  .ImageName = "LeftWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
-	WeaponRender->CreateAnimation({ .AnimationName = "Bi_Whip",  .ImageName = "BidiWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.02f });
-	WeaponRender->SetScale({ 600,60 });
+	WeaponRender->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "RightWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.033f });
+	WeaponRender->CreateAnimation({ .AnimationName = "Left_Whip",  .ImageName = "LeftWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.033f });
+	WeaponRender->CreateAnimation({ .AnimationName = "Bi_Whip",  .ImageName = "BidiWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.033f });
+	WeaponRender->SetScale({ 530,60 });
 	//WeaponRender->SetPosition({ 0,0 });
 	WeaponRender->ChangeAnimation("Right_Whip");
 
@@ -87,7 +88,7 @@ void WeaponWhip::Start()
 	SetWeaponName("Whip");
 	Init();
 
-	SetCoolTime(2.0f);
+	SetCoolTime(2.7f);
 	SetRunTime(0.1f);
 	float _Dmg[9] = { 0.0f,10.0f,10.0f,15.0f,20.0f,25.0f,30.0f,35.0f,40.0f };
 	SetDmg(_Dmg);

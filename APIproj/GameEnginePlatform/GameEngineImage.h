@@ -87,6 +87,7 @@ public:
 
 	ImageCutData GetCutData(int _Index) const
 	{
+		this;
 		if (false == IsCutIndexValid(_Index))
 		{
 			MsgAssert("유효하지 않은 컷 인덱스 입니다.");

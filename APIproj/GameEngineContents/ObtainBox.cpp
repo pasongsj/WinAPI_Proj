@@ -1,5 +1,6 @@
 #include "ObtainBox.h"
 #include  "ContentsEnums.h"
+#include <GameEngineBase/GameEngineMath.h>
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -128,8 +129,10 @@ void ObtainBox::Update(float _DeltaTime)
 		AnimationTime += _DeltaTime;
 		if(OpeningAnimation->GetScale().y< 1026)
 		{
-			OpeningAnimation->SetScale(OpeningAnimation->GetScale() + float4{0, 3000.0f}*_DeltaTime);
+			float4 _Scale = float4::Zero.LerpClamp(float4{ 200,10 }, float4{ 576,1026 }, 2.0f*AnimationTime);
+			OpeningAnimation->SetScale(_Scale);
 		}
+
 	}
 	if (AnimationTime > 7.5f && false == CloseUIButton->IsUpdate())
 	{
