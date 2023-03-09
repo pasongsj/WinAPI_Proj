@@ -163,6 +163,11 @@ void InlaidLibraryLevel::ImageLoad()
 		Dir.Move("Cut41");
 		GameEngineImage* Image4 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("BoxFoundUI.BMP"));
 		Image4->Cut(4, 1);
+
+		Dir.MoveParent();
+		Dir.Move("Cut12");
+		GameEngineImage* Image5 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Animation.BMP"));
+		Image5->Cut(12, 1);
 	}
 
 

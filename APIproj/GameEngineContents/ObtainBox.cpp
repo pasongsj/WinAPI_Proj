@@ -66,16 +66,19 @@ void ObtainBox::Start()
 		OpeningAnimation->EffectCameraOff();
 		OpeningAnimation->SetPosition(GameEngineWindow::GetScreenSize().half() + float4{0,154});
 		OpeningAnimation->SetScale({ 576, 10 });
-	//	OpeningAnimation->CreateAnimation({ .AnimationName = "GlodBox",  .ImageName = "openingBox1.bmp", .Start = 0, .End =  7, .Loop = false }); // 5개줄 애니메이션
-	//	OpeningAnimation->CreateAnimation({ .AnimationName = "SilverBox",  .ImageName = "openingBox1.bmp", .Start = 0, .End = 7 , .Loop = false }); //3개줄 애니메이션
-	//	OpeningAnimation->CreateAnimation({ .AnimationName = "BronzeBox",  .ImageName = "openingBox1.bmp", .Start = 0, .End = 7 , .Loop = false }); // 1개줄 애니메이션
-	//	OpeningAnimation->ChangeAnimation("BronzeBox");
-	//	OpeningAnimation->EffectCameraOff();
-	//	OpeningAnimation->SetPosition(GameEngineWindow::GetScreenSize().half());
-	//	OpeningAnimation->SetScale({576,767}); //크기맞춤
 		OpeningAnimation->Off();
 	//}
 
+	{
+		Opening = CreateRender(VSRenderOrder::LastUI);
+		Opening->EffectCameraOff();
+		Opening->CreateAnimation({ .AnimationName = "Box",  .ImageName = "Animation.bmp", .Start = 0, .End = 11, .Loop = true }); // 5개줄 애니메이션
+		Opening->ChangeAnimation("Box");
+		Opening->SetPosition(GameEngineWindow::GetScreenSize().half() + float4{ 0,-90 });
+		Opening->SetScale({ 85.5f,513 });
+		Opening->Off();
+
+	}
 	{ // 나가기 버튼
 		CloseUIButton = GetLevel()->CreateActor<Button>(VSRenderOrder::LastUI);
 		CloseUIButton->setting("BackBtn.bmp", "BackBtn.bmp", "BackBtn.bmp", {0,0}, { 270, 85 }, static_cast<int>(VSRenderOrder::LastUI), false);
@@ -114,7 +117,11 @@ void ObtainBox::OpeningBoxAnimation()
 	OpenedBoxUI->On();
 	OpeningAnimation->SetScale({ 576, 10 });
 	OpeningAnimation->On();
-
+	//
+	//Opening->SetScale({ 100, 10 });
+	/*Opening->SetPosition(GameEngineWindow::GetScreenSize().half() + float4{ 0,154 });*/
+	Opening->On();
+	//
 	GameEngineSoundPlayer Dwn = GameEngineResources::GetInst().SoundPlayToControl("TreasureOpening.mp3");
 	Dwn.Volume(0.3f);
 	Dwn.LoopCount(1);
@@ -131,12 +138,15 @@ void ObtainBox::Update(float _DeltaTime)
 		{
 			float4 _Scale = float4::Zero.LerpClamp(float4{ 200,10 }, float4{ 576,1026 }, 3.0f*AnimationTime);
 			OpeningAnimation->SetScale(_Scale);
+			//float4 _Scale2 = float4::Zero.LerpClamp(float4{ 85.5f,10 }, float4{ 85.5f,513 }, 3.0f * AnimationTime);
+			//Opening->SetScale(_Scale2);
 		}
 
 	}
 	if (AnimationTime > 7.5f && false == CloseUIButton->IsUpdate())
 	{
 		OpeningAnimation->Off();
+		Opening->Off();
 		for (int i = 0;i < PickedItems.size();i++)
 		{
 			std::string ImgName = "Box" + PickedItems[i] + ".bmp";
@@ -161,7 +171,7 @@ void ObtainBox::CheckIsOpen(float _DeltaTime)
 		/*std::vector<std::string> PickedItems;*/
 		PickedItems.clear();
 
-		if (GoldBox >= _Num)
+		if (GoldBox > _Num)
 		{
 			int a = 0;
 			Cnt = 5;
@@ -258,6 +268,7 @@ void ObtainBox::UIOff()
 	ObtainBoxUI->Off();
 
 	OpeningAnimation->Off();
+	Opening->Off();
 	//OpeningAnimation->SetScale({ 576, 10 });
 	OpenedBoxUI->Off();
 

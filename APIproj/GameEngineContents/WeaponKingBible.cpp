@@ -22,7 +22,7 @@ void WeaponKingBible::LevelUp()
 	else if (3 == GetWeaponLevel() || 6 == GetWeaponLevel()) //기본 속도가 30% 증가합니다. 기본 면적이 25% 증가했습니다.
 	{
 		SetWeaponSpeed(GetWeaponSpeed() * 1.3f);
-		SetWeaponScale(GetOriginRenderScale(), GetWeaponCollisionScale() * 1.25f);
+		SetWeaponScale(GetOriginRenderScale(), GetOriginCollisionScale());
 		WeaponRange *= 1.25f;
 	}
 	else if (4 == GetWeaponLevel() || 7 == GetWeaponLevel()) //효과가 0.5초 더 오래 지속됩니다. 기본 데미지가 10 증가합니다.

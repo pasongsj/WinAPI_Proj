@@ -28,7 +28,7 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	float GoldBox = 3.0f;
+	float GoldBox = 0.0f;
 	float SilverBox = 13.0f;/* 90.0f;*/
 	float BronzeBox = 100.0f;
 	float AnimationTime = 0.0f;
@@ -36,6 +36,8 @@ private:
 	GameEngineRender* ObtainBoxUI = nullptr;
 	GameEngineRender* OpenedBoxUI = nullptr;
 	GameEngineRender* OpeningAnimation = nullptr;
+
+	GameEngineRender* Opening = nullptr;
 
 	Button* OpenBoxButton = nullptr;
 	Button* CloseUIButton = nullptr;
