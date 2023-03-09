@@ -101,6 +101,11 @@ public:
 		WeaponSpeed = _Speed;
 	}
 
+	float GetOriginWeaponSpeed()
+	{
+		return WeaponSpeed;
+	}
+
 	float GetWeaponSpeed();
 
 	//-- WeaponRenderScale

@@ -19,7 +19,7 @@ void WeaponRuneTracer::LevelUp()
 	Weapon::LevelUp();
 	if (2 == GetWeaponLevel() || 5 == GetWeaponLevel()) //기본 속도가 20% 증가합니다.2 5
 	{
-		SetWeaponSpeed(GetWeaponSpeed() * 1.2f);
+		SetWeaponSpeed(GetOriginWeaponSpeed() * 1.2f);
 	}
 	if (3 == GetWeaponLevel() || 6 == GetWeaponLevel()) //효과가 0.3초 더 오래 지속됩니다. 3 6
 	{

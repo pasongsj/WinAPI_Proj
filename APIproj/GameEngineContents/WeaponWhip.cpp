@@ -67,8 +67,8 @@ void WeaponWhip::ReSet()
 void WeaponWhip::Init()
 {
 	WeaponRender = CreateRender(VSRenderOrder::Weapon);
-	WeaponRender->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "RightWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.033f });
-	WeaponRender->CreateAnimation({ .AnimationName = "Left_Whip",  .ImageName = "LeftWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.033f });
+	WeaponRender->CreateAnimation({ .AnimationName = "Right_Whip",  .ImageName = "RightWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.016f });
+	WeaponRender->CreateAnimation({ .AnimationName = "Left_Whip",  .ImageName = "LeftWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.016f });
 	WeaponRender->CreateAnimation({ .AnimationName = "Bi_Whip",  .ImageName = "BidiWhip.bmp", .Start = 0, .End = 5, .InterTime = 0.033f });
 	WeaponRender->SetScale({ 530,60 });
 	//WeaponRender->SetPosition({ 0,0 });

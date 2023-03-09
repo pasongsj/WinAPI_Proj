@@ -38,9 +38,9 @@ void Monster::Setting()
 		MoveSpeed = 140;
 		Exp = 2;
 
-		EndFrame[0] = 3;
+		EndFrame[0] = 2;
 		EndFrame[1] = 2;
-		EndFrame[2] = 4;
+		EndFrame[2] = 3;
 
 	}
 	else if ("Dullahan" == Name)

@@ -19,7 +19,7 @@ void WeaponFireWand::LevelUp()
 	Weapon::LevelUp();
 	if (3 == GetWeaponLevel() || 5 == GetWeaponLevel() || 7 == GetWeaponLevel())
 	{
-		SetWeaponSpeed(GetWeaponSpeed() * 1.2f);
+		SetWeaponSpeed(GetOriginWeaponSpeed() * 1.2f);
 	}
 	if (8 == GetWeaponLevel())
 	{

@@ -21,7 +21,7 @@ void WeaponKingBible::LevelUp()
 	}
 	else if (3 == GetWeaponLevel() || 6 == GetWeaponLevel()) //기본 속도가 30% 증가합니다. 기본 면적이 25% 증가했습니다.
 	{
-		SetWeaponSpeed(GetWeaponSpeed() * 1.3f);
+		SetWeaponSpeed(GetOriginWeaponSpeed() * 1.3f);
 		SetWeaponScale(GetOriginRenderScale(), GetOriginCollisionScale());
 		WeaponRange *= 1.25f;
 	}
