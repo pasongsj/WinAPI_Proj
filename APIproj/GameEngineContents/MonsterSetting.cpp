@@ -8,6 +8,7 @@ void Monster::Setting()
 
 	if ("Dust" == Name)
 	{
+		MonsterRenderScale = float4{ 72, 144 };
 		Hp = 5;
 		Dmg = 5;
 		MoveSpeed = 140;
@@ -19,12 +20,13 @@ void Monster::Setting()
 	}
 	else if ("Musc" == Name)
 	{
+		MonsterRenderScale = float4{ 71, 142 };
 		//1 - 2:00, 6:00, 7:00, 17:00
 		Hp = 1;
 		Dmg = 2;
 		MoveSpeed = 160;
 		Exp = 1;
-		//2 - 7:00, 8:00, 10:00, 14:00, 17:00
+
 
 		EndFrame[0] = 3;
 		EndFrame[1] = 3;
@@ -33,6 +35,7 @@ void Monster::Setting()
 	}
 	else if ("Mummy" == Name)
 	{
+		MonsterRenderScale = float4{ 72, 144 };
 		Hp = 15;
 		Dmg = 3;
 		MoveSpeed = 140;
@@ -45,6 +48,7 @@ void Monster::Setting()
 	}
 	else if ("Dullahan" == Name)
 	{
+		MonsterRenderScale = float4{ 72, 144 };
 		//2 - 6:00, 7:00, 12:00, 13:00, 16:00, 23:00
 		Hp = 70;
 		Dmg = 8;
@@ -83,6 +87,7 @@ void Monster::Setting()
 	}
 	else if ("Ghost" == Name)
 	{
+		MonsterRenderScale = float4{ 70, 140 };
 		Hp = 10;
 		Dmg = 5;
 		MoveSpeed = 200;
@@ -94,8 +99,9 @@ void Monster::Setting()
 
 	}
 	// -- 추가된부분
-	else if ("GiantMedusa " == Name)
+	else if ("GiantMedusa" == Name)//GiantMedusa
 	{
+		MonsterRenderScale = float4{ 100, 200 };
 		Hp = 800;
 		Dmg = 15;
 		MoveSpeed = 150;
@@ -107,7 +113,7 @@ void Monster::Setting()
 	}
 	else if ("QueenMedusa" == Name)
 	{
-		MonsterRenderScale = float4{ 104, 208 };
+		MonsterRenderScale = float4{ 160, 320 };
 		Hp = 150.0f * Player::MainPlayer->GetPlayerLevel();
 		Dmg = 20;
 		MoveSpeed = 160;
@@ -117,7 +123,7 @@ void Monster::Setting()
 		EndFrame[1] = 2;
 		EndFrame[2] = 4;
 	}
-	else if ("BigMusc2 " == Name)
+	else if ("BigMusc2" == Name)
 	{
 		MonsterRenderScale = float4{ 104, 208 };
 		Hp = 50;
@@ -141,7 +147,7 @@ void Monster::Setting()
 		EndFrame[1] = 2;
 		EndFrame[2] = 3;
 	}
-	else if ("BigDust " == Name)
+	else if ("BigDust" == Name)
 	{
 		MonsterRenderScale = float4{ 104, 208 };
 		Hp = 50.0f;
@@ -153,7 +159,7 @@ void Monster::Setting()
 		EndFrame[1] = 1;
 		EndFrame[2] = 9;
 	}
-	else if ("MedusaHead" == Name)
+	else if ("MedusaHead" == Name)//MedusaHead
 	{
 		MonsterRenderScale = float4{ 80, 160 };
 		Hp = 25;
@@ -260,6 +266,7 @@ void Monster::Setting()
 	}
 	else if ("Musc2" == Name)
 	{
+		MonsterRenderScale = float4{ 70, 140 };
 		Hp = 13;
 		Dmg = 4;
 		MoveSpeed = 160;

@@ -49,6 +49,8 @@ void Monster::Reset()
 	{
 		BodyCollision = CreateCollision(VSRenderOrder::Monster);
 	}
+
+
 	IsBoxBoss = false;
 	Setting();
 	AnimationRender = CreateRender(VSRenderOrder::Monster);

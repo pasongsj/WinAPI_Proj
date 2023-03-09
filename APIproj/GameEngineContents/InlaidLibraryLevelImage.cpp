@@ -48,7 +48,6 @@ void InlaidLibraryLevel::ImageLoad()
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Files[i].GetFullPath());
 		}
-		int a = 0;
 
 	}
 
