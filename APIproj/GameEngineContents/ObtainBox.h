@@ -29,7 +29,7 @@ protected:
 
 private:
 	float GoldBox = 3.0f;
-	float SilverBox = /*13.0f;*/ 90.0f;
+	float SilverBox = 13.0f;/* 90.0f;*/
 	float BronzeBox = 100.0f;
 	float AnimationTime = 0.0f;
 
