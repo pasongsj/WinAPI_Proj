@@ -85,6 +85,23 @@ void ObtainBox::Start()
 		CloseUIButton->Off();//
 	}
 
+	
+	{
+		for (int i = 0;i < 5;i++)
+		{
+			GameEngineRender* _Render = CreateRender(VSRenderOrder::LastUI);
+			_Render->EffectCameraOff();
+			_Render->SetScale({ 90,90 });
+			_Render->Off();
+			BoxItemsRender.push_back(_Render);
+		}
+		BoxItemsRender[0]->SetPosition({ 768, 200 }); // 768
+		BoxItemsRender[1]->SetPosition({ 648, 250 });
+		BoxItemsRender[2]->SetPosition({ 888, 250 });
+		BoxItemsRender[3]->SetPosition({ 588, 400 });
+		BoxItemsRender[4]->SetPosition({ 948, 400 });
+	}
+
 	//this->Off();
 }
 
@@ -105,38 +122,121 @@ void ObtainBox::OpeningBoxAnimation()
 
 void ObtainBox::Update(float _DeltaTime)
 {
+	CheckIsOpen(_DeltaTime);
+	if (true == OpenedBoxUI->IsUpdate())
+	{
+		AnimationTime += _DeltaTime;
+		if(OpeningAnimation->GetScale().y< 1026)
+		{
+			OpeningAnimation->SetScale(OpeningAnimation->GetScale() + float4{0, 3000.0f}*_DeltaTime);
+		}
+	}
+	if (AnimationTime > 7.5f && false == CloseUIButton->IsUpdate())
+	{
+		OpeningAnimation->Off();
+		for (int i = 0;i < PickedItems.size();i++)
+		{
+			std::string ImgName = "Box" + PickedItems[i] + ".bmp";
+			BoxItemsRender[i]->SetImage(ImgName);
+			BoxItemsRender[i]->On();
+		}
+		CloseUIButton->On();
+	}
+}
+
+void ObtainBox::CheckIsOpen(float _DeltaTime)
+{
+
 	if (false == IsOpened)
 	{
 		ObtainBoxUI->On();
 		OpenBoxButton->On();
 		IsOpened = true;
 		float _Num = GameEngineRandom::MainRandom.RandomFloat(0, 100);
+		int Cnt = 0;
+
+		/*std::vector<std::string> PickedItems;*/
+		PickedItems.clear();
+
 		if (GoldBox >= _Num)
 		{
 			int a = 0;
+			Cnt = 5;
 		}
 		else if (SilverBox >= _Num)
 		{
 			OpeningAnimation->SetImage("OpeningSilver.bmp");
+			Cnt = 3;
 		}
 		else
 		{
 			OpeningAnimation->SetImage("OpeningBronze.bmp");
+			Cnt = 1;
 		}
-	}
-	//else if (true == IsOpened)
-	if (true == OpenedBoxUI->IsUpdate())
-	{
-		AnimationTime += _DeltaTime;
-		if(OpeningAnimation->GetScale().y< 1026)
+		for (int i = 0;i < Cnt;++i)
 		{
-			OpeningAnimation->SetScale(OpeningAnimation->GetScale() + float4{0, 1000.0f}*_DeltaTime);
+			std::vector<std::string> ItemsList = GetItems();
+			if (ItemsList.size() == 0)
+			{
+				Player::MainPlayer->PushActive("Money");
+				PickedItems.push_back("Money");
+				continue;
+			}
+			int _Ran = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(ItemsList.size())-1);
+
+
+			if (ItemsList[_Ran] == "FireWand" || ItemsList[_Ran] == "KingBible" || ItemsList[_Ran] == "Knife" ||
+				ItemsList[_Ran] == "MagicWand" || ItemsList[_Ran] == "RuneTracer" || ItemsList[_Ran] == "Whip")
+			{
+				Player::MainPlayer->PushWeapon(ItemsList[_Ran]);
+			}
+			else
+			{
+				Player::MainPlayer->PushActive(ItemsList[_Ran]);
+			}
+			PickedItems.push_back(ItemsList[_Ran]);
 		}
 	}
-	if (AnimationTime > 9.0f && false == CloseUIButton->IsUpdate())
+}
+std::vector<std::string> ObtainBox::GetItems()
+{
+	std::vector<std::string> _Return;
+	std::vector<std::pair<int, std::string>> WeaponList = Player::MainPlayer->GetWeapon();
+
+	for (std::pair<int, std::string> _Weap : WeaponList)
 	{
-		CloseUIButton->On();
+		if (_Weap.first < 8)
+		{
+			_Return.push_back(_Weap.second);
+		}
 	}
+	ActiveLevel ActiveList = Player::MainPlayer->GetActive();
+	std::map<std::string, int> _Active;
+	_Active["Bracer"] = ActiveList.LevelBracer;
+	_Active["Candle"] = ActiveList.LevelCandle;
+	_Active["Clover"] = ActiveList.LevelClover;
+	_Active["Emptytome"] = ActiveList.LevelEmptytome;
+	_Active["Magnet"] = ActiveList.LevelMagnet;
+	_Active["Spinach"] = ActiveList.LevelSpinach;
+	_Active["Wing"] = ActiveList.LevelWing;
+	_Active["Duplicator"] = ActiveList.LevelDuplicator;
+	_Active["Pummarola"] = ActiveList.LevelPummarola;
+	_Active["Spellbinder"] = ActiveList.LevelSpellbinder;
+	_Active["Crown"] = ActiveList.LevelCrown;
+	_Active["HollowHeart"] = ActiveList.LevelHollowHeart;
+	_Active["Armor"] = ActiveList.LevelArmor;
+	std::map<std::string, int>::iterator startiter = _Active.begin();
+	std::map<std::string, int>::iterator enditer = _Active.end();
+
+	for (;startiter != enditer;++startiter)
+	{
+		if (startiter->second > 0 && startiter->second < 5)
+		{
+			_Return.push_back(startiter->first);
+		}
+	}
+
+	return _Return;
 }
 
 void ObtainBox::UIOn()
@@ -160,5 +260,10 @@ void ObtainBox::UIOff()
 
 	IsOpened = false;
 	AnimationTime = 0.0f;
+
+	for (int i = 0;i < 5;i++)
+	{
+		BoxItemsRender[i]->Off();
+	}
 	this->Off();
 }
