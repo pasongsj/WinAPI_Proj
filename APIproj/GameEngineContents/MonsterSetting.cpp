@@ -76,9 +76,9 @@ void Monster::Setting()
 		MoveSpeed = 200;
 		Exp = 2;
 
-		EndFrame[0] = 1;
-		EndFrame[1] = 1;
-		EndFrame[2] = 2;
+		EndFrame[0] = 2;
+		EndFrame[1] = 2;
+		EndFrame[2] = 3;
 
 	}
 	else if ("Ghost" == Name)
@@ -101,9 +101,9 @@ void Monster::Setting()
 		MoveSpeed = 150;
 		Exp = 3;
 
-		EndFrame[0] = 1;
-		EndFrame[1] = 1;
-		EndFrame[2] = 3;
+		EndFrame[0] = 2;
+		EndFrame[1] = 2;
+		EndFrame[2] = 4;
 	}
 	else if ("QueenMedusa" == Name)
 	{
@@ -137,9 +137,9 @@ void Monster::Setting()
 		MoveSpeed = 170;
 		Exp = 30;
 
-		EndFrame[0] = 1;
-		EndFrame[1] = 1;
-		EndFrame[2] = 2;
+		EndFrame[0] = 2;
+		EndFrame[1] = 2;
+		EndFrame[2] = 3;
 	}
 	else if ("BigDust " == Name)
 	{
@@ -161,9 +161,9 @@ void Monster::Setting()
 		MoveSpeed = 240;
 		Exp = 2;
 
-		EndFrame[0] = 2;
-		EndFrame[1] = 2;
-		EndFrame[2] = 3;
+		EndFrame[0] = 3;
+		EndFrame[1] = 3;
+		EndFrame[2] = 4;
 	}
 	else if ("MedusaHeadBoss" == Name)
 	{

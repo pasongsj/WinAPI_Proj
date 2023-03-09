@@ -129,7 +129,7 @@ void ObtainBox::Update(float _DeltaTime)
 		AnimationTime += _DeltaTime;
 		if(OpeningAnimation->GetScale().y< 1026)
 		{
-			float4 _Scale = float4::Zero.LerpClamp(float4{ 200,10 }, float4{ 576,1026 }, 2.0f*AnimationTime);
+			float4 _Scale = float4::Zero.LerpClamp(float4{ 200,10 }, float4{ 576,1026 }, 3.0f*AnimationTime);
 			OpeningAnimation->SetScale(_Scale);
 		}
 

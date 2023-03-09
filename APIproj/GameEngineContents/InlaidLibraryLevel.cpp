@@ -272,7 +272,6 @@ void InlaidLibraryLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 	BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("bgm_elrond_library.mp3");
 	BGMPlayer.LoopCount(400);
 	BGMPlayer.Volume(0.5f);
-
 	{
 		// 무기 액터생성
 		CreateActor<WeaponWhip>(VSRenderOrder::Weapon);
@@ -415,5 +414,13 @@ void InlaidLibraryLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 		Player::MainPlayer->Death();
 		SponableMonster.clear();
 
+
+	}
+	{
+		Monster::MonsterName = "Dust";
+		MaxMonster = 50;
+		RegenInterval = 3.0f;
+		NextSettingTime = 0;
+		LastReGenTime = 0;
 	}
 }
