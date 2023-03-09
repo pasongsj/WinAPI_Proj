@@ -81,6 +81,7 @@ void InlaidLibraryLevel::Loading()
 		GameEngineInput::CreateKey("SpeedReset", 'O');
 		GameEngineInput::CreateKey("Cheat", 'L');
 		GameEngineInput::CreateKey("GetBox", 'M');
+		GameEngineInput::CreateKey("KillItems", 'K');
 	}
 	MouseObject* MouseObjectInst = CreateActor<MouseObject>(VSRenderOrder::MAX); //마우스 오브젝트 생성
 
@@ -141,6 +142,10 @@ void InlaidLibraryLevel::CheckDebugInput()
 	{
 		float beforeSpeed = GameEngineCore::GetSpeed();
 		GameEngineCore::SetSpeedUp(beforeSpeed * 0.2f);
+	}
+	if (GameEngineInput::IsDown("KillItems"))
+	{
+		Monster::IsItemDrop = !Monster::IsItemDrop;
 	}
 }
 

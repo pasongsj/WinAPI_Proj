@@ -10,7 +10,7 @@
 
 std::vector<Monster*> Monster::DeadMonsters;
 std::string Monster::MonsterName = "Dust";
-
+bool Monster::IsItemDrop = true;
 
 Monster::Monster()
 {
@@ -239,30 +239,33 @@ void Monster::DeadUpdate(float _Time)
 	DirCheck("Dead");
 	if (AnimationRender->IsAnimationEnd())
 	{
-		// 아이템설정
-		Items* Actor = nullptr;
-		if (true == Items::ObtainedItems.empty()) // 생성
+		if (true == IsItemDrop)
 		{
-			Actor = GetLevel()->CreateActor<Items>(VSRenderOrder::Item);
-		}
-		else // 재사용
-		{
-			Actor = Items::ObtainedItems.back();
-			Items::ObtainedItems.pop_back();
-			Actor->Reset();
-		}
-		Actor->SetPos(GetPos());
-		Actor->SetExp(Exp);
-		Actor->SetOwner(GetLevel());
+			// 아이템설정
+			Items* Actor = nullptr;
+			if (true == Items::ObtainedItems.empty()) // 생성
+			{
+				Actor = GetLevel()->CreateActor<Items>(VSRenderOrder::Item);
+			}
+			else // 재사용
+			{
+				Actor = Items::ObtainedItems.back();
+				Items::ObtainedItems.pop_back();
+				Actor->Reset();
+			}
+			Actor->SetPos(GetPos());
+			Actor->SetExp(Exp);
+			Actor->SetOwner(GetLevel());
 
-		if (true == IsBoxBoss)
-		{
-			Items* Box = GetLevel()->CreateActor<Items>(VSRenderOrder::Item);
-			Box->SetPos(GetPos());
-			Box->SetExp(0, true);
-			Box->SetOwner(GetLevel());
-		}
+			if (true == IsBoxBoss)
+			{
+				Items* Box = GetLevel()->CreateActor<Items>(VSRenderOrder::Item);
+				Box->SetPos(GetPos());
+				Box->SetExp(0, true);
+				Box->SetOwner(GetLevel());
+			}
 
+		}
 
 		this->Off();
 		DeadMonsters.push_back(this);

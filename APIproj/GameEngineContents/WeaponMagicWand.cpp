@@ -228,7 +228,7 @@ void WeaponMagicWand::Update(float _DeltaTime)
 			{
 				GameEngineActor* ColActor = Collision[j]->GetActor();
 				Monster* ColWeaponActor = dynamic_cast<Monster*> (ColActor);
-				ColWeaponActor->Attack(GetDmg());
+				ColWeaponActor->Attack(GetDmg(),1);
 				--Passes[i];
 				if (Passes[i] <= 0) {
 					WeaponRender[i]->Off();

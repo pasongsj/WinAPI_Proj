@@ -32,6 +32,10 @@ void Player::Start()
 		PlayerActive.MaxHealth = 120.0f;
 		Hp = 120.0f;
 	}
+	else if ("Imelda" == PlayerName)
+	{
+		PlayerActive.Growth = 10;
+	}
 
 	std::string RImage = "Right" + PlayerName + ".BMP";
 	std::string LImage = "Left" + PlayerName + ".BMP";

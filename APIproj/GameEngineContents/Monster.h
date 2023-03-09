@@ -13,6 +13,8 @@ enum class MonsterState
 class Monster : public GameEngineActor
 {
 public:
+
+	static bool IsItemDrop;
 	
 	static std::vector<Monster*> DeadMonsters;
 	static std::string MonsterName;

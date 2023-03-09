@@ -31,6 +31,11 @@ public:
 
 	void SetActiveStatUIValue(int _Index, int _Value)
 	{
+		//1, static_cast<int>(PlayerActive.Recovery *10)
+		if (1 == _Index && 1 == _Value && nullptr != ZeroPoint)
+		{
+			ZeroPoint->Off();
+		}
 		ActiveStatUI[_Index].SetValue(_Value);
 	}
 	
@@ -59,6 +64,7 @@ private:
 	std::vector<float4> BtnPos;
 	GameEngineRender* LevelUpUIRender = nullptr;
 	GameEngineRender* StatUI = nullptr;
+	GameEngineRender* ZeroPoint = nullptr;
 
 	std::set<std::pair< std::string, Button*>> ShowedBtn;
 

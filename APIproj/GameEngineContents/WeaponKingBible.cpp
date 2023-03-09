@@ -149,7 +149,7 @@ void WeaponKingBible::Update(float _DeltaTime)
 			{
 				GameEngineActor* ColActor = Collision[j]->GetActor();
 				Monster* ColWeaponActor = dynamic_cast<Monster*> (ColActor);
-				ColWeaponActor->Attack(GetDmg());
+				ColWeaponActor->Attack(GetDmg(),1);
 
 			}
 		}

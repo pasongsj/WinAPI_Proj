@@ -5,7 +5,7 @@
 void AdditionItemUI::SetStatNumber()
 {
 	float interval = 18.6f;
-	GameEngineRender* ZeroPoint = CreateRender("0point.bmp",VSRenderOrder::LastUI);
+	ZeroPoint = CreateRender("0point.bmp",VSRenderOrder::LastUI);
 	ZeroPoint->SetScaleToImage();
 	ZeroPoint->EffectCameraOff();
 

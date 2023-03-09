@@ -120,7 +120,8 @@ void Player::PushActive(const std::string_view& _Active)
 		float Value[6] = { 0,0.2f,0.4f,0.6f,0.8f,1.0f };
 		PlayerActive.Recovery = Value[++PlayerActiveLevel.LevelPummarola];
 		NextLevel = PlayerActiveLevel.LevelPummarola;
-		AdditionItemUI::SelectUI->SetActiveStatUIValue(1, static_cast<int>(PlayerActive.Recovery *10));// 소수점
+		float _Value = PlayerActive.Recovery < 1 ? PlayerActive.Recovery * 10 : PlayerActive.Recovery;
+		AdditionItemUI::SelectUI->SetActiveStatUIValue(1, static_cast<int>(_Value));// 소수점
 	}
 	else if ("Spellbinder" == _Active)
 	{
@@ -132,6 +133,10 @@ void Player::PushActive(const std::string_view& _Active)
 	{
 		float Value[6] = { 0, 8,16,24,32,40 };
 		PlayerActive.Growth = Value[++PlayerActiveLevel.LevelCrown];
+		if (PlayerName == "Imelda")
+		{
+			PlayerActive.Growth += 10;
+		}
 		NextLevel = PlayerActiveLevel.LevelCrown;
 		AdditionItemUI::SelectUI->SetActiveStatUIValue(11, static_cast<int>(PlayerActive.Growth));// 소수점
 	}
