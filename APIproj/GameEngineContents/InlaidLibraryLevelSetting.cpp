@@ -45,6 +45,14 @@ void InlaidLibraryLevel::SetState()
 	float LevelTime = NewUI->GetStageTime();
 	if (LevelTime > NextSettingTime * 60)
 	{
+		if (NextSettingTime == 30)
+		{
+			Monster::DeadMonsters.clear();
+			for (GameEngineActor* _Actor : GetActors(VSRenderOrder::Monster))
+			{
+				_Actor->Death();
+			}
+		}
 		NextSettingTime++;
 	}
 	else
