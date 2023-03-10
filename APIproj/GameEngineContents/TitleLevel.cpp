@@ -101,9 +101,9 @@ void TitleLevel::Loading()
 	NewStartButton->SetClickCallBack(ClickStartButton);
 
 
-	Button* NewReinForceButton = CreateActor<Button>();
-	float4 ReinForceBPos = { 768, 780 };
-	NewReinForceButton->setting("ReinforceButton.BMP", "ReinforceButton.BMP", "ReinforceButton.BMP", ReinForceBPos, { 221, 83 }, static_cast<int>(VSRenderOrder::UI), false);
+	//Button* NewReinForceButton = CreateActor<Button>();
+	//float4 ReinForceBPos = { 768, 780 };
+	//NewReinForceButton->setting("ReinforceButton.BMP", "ReinforceButton.BMP", "ReinforceButton.BMP", ReinForceBPos, { 221, 83 }, static_cast<int>(VSRenderOrder::UI), false);
 
 	SelectScreen = CreateActor<SelectCharacter>(VSRenderOrder::UI);
 	//SelectScreen->Off();
