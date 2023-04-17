@@ -4,10 +4,10 @@
 #include <string_view>
 #include <GameEngineBase/GameEngineDebug.h>
 
-// core도 여러개 만들어진다고 생각하지는 않을겁니다.
+// 단 한개의 코어를 사용한다고 생각한다.
 
 // 설명 : 엔진에서 응당 로드해야할 필수적인 리소스나 
-// 순수가상함수가 있으니까 추상클래이다.
+// 순수가상함수가 있으니까 추상클래스이다.
 class GameEngineLevel;
 class GameEngineCore
 {
@@ -56,11 +56,10 @@ protected:
 			return;
 		}
 
-		// 업캐스팅이 벌어지죠?
 		GameEngineLevel* Level = new LevelType();
 		LevelLoading(Level);
 		// Level->Loading();
-		// insert할때마다 새로운 string이 생기면서 자신만의 메모리를 가지게 됩니다.
+		// insert할때마다 새로운 string이 생기면서 자신만의 메모리를 가지게 된다.
 		Levels.insert(std::make_pair(_Name.data(), Level));
 	}
 

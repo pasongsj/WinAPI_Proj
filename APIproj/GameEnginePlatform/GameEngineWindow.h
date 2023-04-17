@@ -4,8 +4,8 @@
 #include <GameEngineBase/GameEngineMath.h>
 
 // 윈도우는 핸들 방식이라는것을 이용한다.
-// 핸들방식이란 우리에게 os가 관리한다는 증명으로 숫자 1를 줍니다.
-// 그 숫자를 핸들이라고 합니다.
+// 핸들방식이란 우리에게 os가 관리한다는 증명으로 숫자를 준다.
+// 그 숫자를 핸들이라고 한다.
 
 // 설명 :
 class GameEngineImage;

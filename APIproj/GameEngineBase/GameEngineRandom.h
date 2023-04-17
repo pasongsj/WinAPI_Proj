@@ -1,7 +1,7 @@
 #pragma once
 #include <random>
 
-// 설명 :
+// 설명 :	메르센 트위스터 알고리즘을 사용하여 최댓값과 최솟값을 통해 난수를 만들 수 있도록 하였다. 여기서 사용한 seed값은 현재 시각적용하였다.
 class GameEngineRandom
 {
 

@@ -4,7 +4,7 @@
 #include <string>
 #include <conio.h>
 
-// 설명 :
+// 설명 : 키입력과 관련된 내용을 관리한다.
 class GameEngineWindow;
 class GameEngineInput
 {

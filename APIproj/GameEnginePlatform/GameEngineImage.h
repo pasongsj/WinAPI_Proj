@@ -25,7 +25,7 @@ struct ImageCutData
 	}
 };
 
-// 설명 :
+// 설명 : 이미지에 해당하는 파일을 관리한다.
 class GameEnginePath;
 class GameEngineImage
 {
