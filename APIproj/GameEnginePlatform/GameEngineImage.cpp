@@ -56,7 +56,7 @@ bool GameEngineImage::ImageCreate(const float4& _Scale)
 		MsgAssert("크기가 0인 이미지를 만들 수는 없습니다");
 		return false;
 	}
-
+	// 비트맵 생성
 	BitMap = CreateCompatibleBitmap(GameEngineWindow::GetWindowBackBufferHdc(), _Scale.ix(), _Scale.iy());
 
 	if (nullptr == BitMap)
@@ -64,7 +64,8 @@ bool GameEngineImage::ImageCreate(const float4& _Scale)
 		MsgAssert("이미지 생성에 실패했습니다.");
 		return false;
 	}
-
+	// 임의의 DC 생성
+	// ImageDC는 DC혼자 자체적으로 생성될 수 없기 때문에 1,1사이즈의 비트맵을 만들 수 밖에 없다
 	ImageDC = CreateCompatibleDC(nullptr);
 
 	if (nullptr == ImageDC)
@@ -75,7 +76,8 @@ bool GameEngineImage::ImageCreate(const float4& _Scale)
 
 	// ImageDC 1,1 배열이랑 연결되어 있다. 
 
-	// 1, 1
+	// ImageDC가  _Scale크기로 생성한 BitMap을 수정할 수 있는 권한을 가지도록 변경한다
+	
 	OldBitMap = static_cast<HBITMAP>(SelectObject(ImageDC, BitMap));
 
 	ImageScaleCheck();
@@ -123,6 +125,7 @@ bool GameEngineImage::ImageLoad(const std::string_view& _Path)
 
 void GameEngineImage::ImageScaleCheck()
 {
+	// 비트맵의 정보를 가져올 수 있도록 한다.
 	HBITMAP CurrentBitMap = static_cast<HBITMAP>(GetCurrentObject(ImageDC, OBJ_BITMAP));
 	GetObject(CurrentBitMap, sizeof(BITMAP), &Info);
 }

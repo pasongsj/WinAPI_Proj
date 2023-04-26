@@ -20,14 +20,14 @@
     <ClCompile Include="GameEngineCollision.cpp">
       <Filter>Object\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngineComponent.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="NumberRenderObject.cpp">
       <Filter>BasicContents\SubClass</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
       <Filter>BasicContents\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineComponent.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,14 +50,14 @@
     <ClInclude Include="GameEngineCollision.h">
       <Filter>Object\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineComponent.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="NumberRenderObject.h">
       <Filter>BasicContents\SubClass</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>BasicContents\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineComponent.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

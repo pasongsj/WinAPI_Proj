@@ -1,4 +1,4 @@
-#include <GameEngineBase/GameEngineString.h>
+ï»¿#include <GameEngineBase/GameEngineString.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineResources.h>
 #include "GameEngineLevel.h"
@@ -29,7 +29,7 @@ void GameEngineRender::SetScaleToImage()
 {
 	if (nullptr == Image)
 	{
-		MsgAssert("ÀÌ¹ÌÁö¸¦ ¼¼ÆÃÇÏÁö ¾Ê¾Ò´Âµ¥ ÀÌ¹ÌÁöÀÇ Å©±â·Î º¯°æÇÏ·Á°í Çß½À´Ï´Ù.");
+		MsgAssert("ì´ë¯¸ì§€ë¥¼ ì„¸íŒ…í•˜ì§€ ì•Šì•˜ëŠ”ë° ì´ë¯¸ì§€ì˜ í¬ê¸°ë¡œ ë³€ê²½í•˜ë ¤ê³  í–ˆìŠµë‹ˆë‹¤.");
 	}
 
 	SetScale(Image->GetImageScale());
@@ -45,17 +45,17 @@ void GameEngineRender::SetFrame(int _Frame)
 {
 	if (nullptr == Image)
 	{
-		MsgAssert("ÀÌ¹ÌÁö°¡ Á¸ÀçÇÏÁö ¾Ê´Â ·£´õ·¯¿¡ ÇÁ·¹ÀÓÀ» ÁöÁ¤ÇÏ·Á°í Çß½À´Ï´Ù.");
+		MsgAssert("ì´ë¯¸ì§€ê°€ ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ëœë”ëŸ¬ì— í”„ë ˆì„ì„ ì§€ì •í•˜ë ¤ê³  í–ˆìŠµë‹ˆë‹¤.");
 	}
 
 	if (false == Image->IsImageCutting())
 	{
-		MsgAssert("Àß·ÁÀÖ´Â ÀÌ¹ÌÁö¸¸ ÇÁ·¹ÀÓÀ» ÁöÁ¤ÇØÁÙ ¼ö ÀÖ½À´Ï´Ù.");
+		MsgAssert("ì˜ë ¤ìˆëŠ” ì´ë¯¸ì§€ë§Œ í”„ë ˆì„ì„ ì§€ì •í•´ì¤„ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 	}
 
 	if (false == Image->IsCutIndexValid(_Frame))
 	{
-		MsgAssert("À¯¿äÇÏÁö ¾ÊÀº ÀÌ¹ÌÁöÀÎµ¦½º ÀÔ´Ï´Ù.");
+		MsgAssert("ìœ ìš”í•˜ì§€ ì•Šì€ ì´ë¯¸ì§€ì¸ë±ìŠ¤ ì…ë‹ˆë‹¤.");
 	}
 
 	Frame = _Frame;
@@ -93,7 +93,10 @@ void GameEngineRender::SetText(const std::string_view& _Text)
 {
 	RenderText = _Text;
 }
-
+1. BitCopy â€“ ì´ë¯¸ì§€ ë¹„íŠ¸ë§µ ìì²´ë¥¼ ë³µì‚¬
+2. TransCopy â€“ ì´ë¯¸ì§€ í¬ê¸°ë¥¼ ë³€í™˜í•´ì„œ ë³µì‚¬
+3. AlphaCopy â€“ ì´ë¯¸ì§€ì˜ Alphaì„ ë³€ê²½í•˜ì—¬ ë³µì‚¬
+4. PlgCopy â€“ ì´ë¯¸ì§€ë¥¼ Angleê°’ë§Œí¼ íšŒì „í•˜ì—¬ ë³µì‚¬
 void GameEngineRender::SetRotFilter(const std::string_view& _ImageName)
 {
 	RotationFilter = GameEngineResources::GetInst().ImageFind(_ImageName);
@@ -140,7 +143,7 @@ void GameEngineRender::ImageRender(float _DeltaTime)
 
 	if (nullptr == Image)
 	{
-		MsgAssert("ÀÌ¹ÌÁö¸¦ ¼¼ÆÃÇØÁÖÁö ¾Ê¾Ò½À´Ï´Ù.");
+		MsgAssert("ì´ë¯¸ì§€ë¥¼ ì„¸íŒ…í•´ì£¼ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 	}
 
 	float4 CameraPos = float4::Zero;
@@ -158,7 +161,7 @@ void GameEngineRender::ImageRender(float _DeltaTime)
 		{
 			if (nullptr == RotationFilter)
 			{
-				MsgAssert("È¸Àü½ÃÅ³¼ö ¾ø´Â ÀÌ¹ÌÁö ÀÔ´Ï´Ù. ÇÊÅÍ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+				MsgAssert("íšŒì „ì‹œí‚¬ìˆ˜ ì—†ëŠ” ì´ë¯¸ì§€ ì…ë‹ˆë‹¤. í•„í„°ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 			}
 
 			GameEngineWindow::GetDoubleBufferImage()->PlgCopy(Image, Frame, RenderPos, GetScale(), Angle, RotationFilter);
@@ -178,7 +181,7 @@ void GameEngineRender::ImageRender(float _DeltaTime)
 		{
 			if (nullptr == RotationFilter)
 			{
-				MsgAssert("È¸Àü½ÃÅ³¼ö ¾ø´Â ÀÌ¹ÌÁö ÀÔ´Ï´Ù. ÇÊÅÍ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+				MsgAssert("íšŒì „ì‹œí‚¬ìˆ˜ ì—†ëŠ” ì´ë¯¸ì§€ ì…ë‹ˆë‹¤. í•„í„°ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 			}
 			//PlgCopy(const GameEngineImage * _OtherImage, float4 _CopyCenterPos, float4 _CopySize, float4 _OtherImagePos, float4 _OtherImageSize, float _Angle, GameEngineImage * _FilterImage)
 			GameEngineWindow::GetDoubleBufferImage()->PlgCopy(Image,RenderPos, GetScale(), { 0, 0 }, Image->GetImageScale(),  Angle, RotationFilter);
@@ -202,24 +205,24 @@ bool GameEngineRender::IsAnimationEnd()
 
 void GameEngineRender::CreateAnimation(const FrameAnimationParameter& _Paramter)
 {
-	// ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ¸¸µé±â À§ÇØ¼­ ÀÌ¹ÌÁö¸¦ °ËÁõÇÑ´Ù.
+	// ì• ë‹ˆë©”ì´ì…˜ì„ ë§Œë“¤ê¸° ìœ„í•´ì„œ ì´ë¯¸ì§€ë¥¼ ê²€ì¦í•œë‹¤.
 	//GameEngineImage* Image = GameEngineResources::GetInst().ImageFind(_Paramter.ImageName);
 	Image = GameEngineResources::GetInst().ImageFind(_Paramter.ImageName);
 	if (nullptr == Image)
 	{
-		MsgAssert("Á¸ÀçÇÏÁö ¾Ê´Â ÀÌ¹ÌÁö·Î ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ¸¸µé·Á°í Çß½À´Ï´Ù.");
+		MsgAssert("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì´ë¯¸ì§€ë¡œ ì• ë‹ˆë©”ì´ì…˜ì„ ë§Œë“¤ë ¤ê³  í–ˆìŠµë‹ˆë‹¤.");
 	}
 
 	if (false == Image->IsImageCutting())
 	{
-		MsgAssert("Àß·ÁÀÖ´Â ÀÌ¹ÌÁö¸¸ ÇÁ·¹ÀÓÀ» ÁöÁ¤ÇØÁÙ ¼ö ÀÖ½À´Ï´Ù.");
+		MsgAssert("ì˜ë ¤ìˆëŠ” ì´ë¯¸ì§€ë§Œ í”„ë ˆì„ì„ ì§€ì •í•´ì¤„ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 	}
 
 	std::string UpperName = GameEngineString::ToUpper(_Paramter.AnimationName);
 
 	if (Animation.end() != Animation.find(UpperName))
 	{
-		MsgAssert("ÀÌ¹Ì Á¸ÀçÇÏ´Â ÀÌ¸§ÀÇ ¾Ö´Ï¸ŞÀÌ¼Ç ÀÔ´Ï´Ù." + UpperName);
+		MsgAssert("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì´ë¦„ì˜ ì• ë‹ˆë©”ì´ì…˜ ì…ë‹ˆë‹¤." + UpperName);
 	}
 
 
@@ -233,7 +236,7 @@ void GameEngineRender::CreateAnimation(const FrameAnimationParameter& _Paramter)
 
 		if (nullptr == NewAnimation.FilterImage)
 		{
-			MsgAssert("Á¸ÀçÇÏÁö ¾Ê´Â ÀÌ¹ÌÁö·Î ·ÎÅ×ÀÌ¼Ç ÇÊÅÍ¸¦ »ç¿ëÇÒ¼ö ¾ø½À´Ï´Ù.");
+			MsgAssert("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì´ë¯¸ì§€ë¡œ ë¡œí…Œì´ì…˜ í•„í„°ë¥¼ ì‚¬ìš©í• ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 		}
 	}
 
@@ -249,7 +252,7 @@ void GameEngineRender::CreateAnimation(const FrameAnimationParameter& _Paramter)
 		}
 	}
 
-	// °¢ ÇÁ·¹ÀÓº° ½Ã°£À» °è»êÇÑ´Ù.
+	// ê° í”„ë ˆì„ë³„ ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
 	if (0 != _Paramter.FrameTime.size())
 	{
 		NewAnimation.FrameTime = _Paramter.FrameTime;
@@ -268,13 +271,13 @@ void GameEngineRender::CreateAnimation(const FrameAnimationParameter& _Paramter)
 
 void GameEngineRender::ChangeAnimation(const std::string_view& _AnimationName)
 {
-	// ÀÌ¹Ì °°Àº ¾Ö´Ï¸ŞÀÌ¼ÇÀ¸·Î ¹Ù²Ù¶ó°í ¸®ÅÏÇÒ²®´Ï´Ù.
+	// ì´ë¯¸ ê°™ì€ ì• ë‹ˆë©”ì´ì…˜ìœ¼ë¡œ ë°”ê¾¸ë¼ê³  ë¦¬í„´í• ê»ë‹ˆë‹¤.
 
 	std::string UpperName = GameEngineString::ToUpper(_AnimationName);
 
 	if (Animation.end() == Animation.find(UpperName))
 	{
-		MsgAssert("Á¸ÀçÇÏÁö ¾Ê´Â ¾Ö´Ï¸ŞÀÌ¼ÇÀ¸·Î ¹Ù²Ù·Á°í Çß½À´Ï´Ù." + UpperName);
+		MsgAssert("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì• ë‹ˆë©”ì´ì…˜ìœ¼ë¡œ ë°”ê¾¸ë ¤ê³  í–ˆìŠµë‹ˆë‹¤." + UpperName);
 	}
 
 	if (CurrentAnimation == &Animation[UpperName])

@@ -21,23 +21,19 @@ LRESULT CALLBACK GameEngineWindow::MessageFunction(HWND _hWnd, UINT _message, WP
     {
     case WM_MOUSEMOVE:
     {
-        int a = 0;
         break;
     }
         // 내 윈도우가 선택되었다.
     case WM_SETFOCUS:
     {
-        int a = 0;
         break;
     }
     case WM_ACTIVATE:
     {
-        int a = 0;
         break;
     }
     case WM_KILLFOCUS:
     {
-        int a = 0;
         break;
     }
     case WM_KEYDOWN:
@@ -49,7 +45,7 @@ LRESULT CALLBACK GameEngineWindow::MessageFunction(HWND _hWnd, UINT _message, WP
     {
         // Message함수가 0을 리턴하게 만들어라.
         PostQuitMessage(0);
-        IsWindowUpdate = false;
+        IsWindowUpdate = false; // loop함수를 멈추도록 함
         break;
     }
     default:
@@ -70,8 +66,8 @@ GameEngineWindow::~GameEngineWindow()
 
 void GameEngineWindow::WindowCreate(HINSTANCE _hInstance, const std::string_view& _TitleName, float4 _Size, float4 _Pos)
 {
-    // 윈도우를 찍어낼수 있는 class를 만들어내는 것이다.
-    // 나는 이러이러한 윈도우를 만들어줘...
+    // 윈도우를 찍어낼수 있는 class를 만드는 것
+    // 나는 이러이러한 윈도우를 만들어줘.
     WNDCLASSEX wcex;
 
     wcex.cbSize = sizeof(WNDCLASSEX);
@@ -81,7 +77,6 @@ void GameEngineWindow::WindowCreate(HINSTANCE _hInstance, const std::string_view
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = _hInstance;
-    // 넣어주지 않으면 윈도우 기본Icon이 됩니다.
     wcex.hIcon = nullptr;//LoadIcon(_hInstance, MAKEINTRESOURCE(IDI_WINDOWSPROJECT1));
     wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1); // 흰색 
@@ -97,8 +92,10 @@ void GameEngineWindow::WindowCreate(HINSTANCE _hInstance, const std::string_view
         return;
     }
 
-    // hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
+    // hInstance : 프로그램 자체의 핸들
+    // HWND : 프로그램안의 윈도우창의 번호
 
+    // ex)
     // 1000번 프로그램이 윈도우를 띄워달라고 요청했다.
     // 윈도우는 다시 특정 숫자이라는 윈도우가 만들어졌다고 우리에게 알려주는데.
     // 특정 숫자로 인식되는 우리의 윈도우에게 크기변경 떠라
@@ -108,13 +105,13 @@ void GameEngineWindow::WindowCreate(HINSTANCE _hInstance, const std::string_view
     HWnd = CreateWindow("GameEngineWindowDefault", _TitleName.data(), WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, _hInstance, nullptr);
 
-    if (nullptr == HWnd)
+    if (nullptr == HWnd)    
     {
         MsgAssert("윈도우 클래스 생성에 실패했습니다.");
         return;
     }
 
-    // 윈도우가 만들어지면서부터 만들어진 색깔의 2차원배열의 수정권한을 얻어오는 것이다.
+    // 윈도우가 만들어지면서부터 만들어진 색깔의 2차원배열의 수정권한(HDC)을 얻어오는 것이다.
     WindowBackBufferHdc = GetDC(HWnd);
 
 
@@ -134,16 +131,21 @@ void GameEngineWindow::WindowCreate(HINSTANCE _hInstance, const std::string_view
 
 void GameEngineWindow::DoubleBufferClear()
 {
+    // 매 프레임마다 화면 전체를 지워주는 과정이다.
     DoubleBufferImage->ImageClear();
 }
 
 void GameEngineWindow::DoubleBufferRender()
 {
-    //static GameEngineImage* BackBufferImage;
-    //static GameEngineImage* DoubleBufferImage;
+    // 백버퍼에 저장된 이미지를 더블버퍼에 옮기는 작업이다
     BackBufferImage->BitCopy(DoubleBufferImage, WindowSize.half(), WindowSize);
+    // 왜????
+    // 백버퍼를 클리어 하지 않고 이미지를 올리기만 한다면 매 프레임마다 한 번씩만 출력되므로 깜박임이나 잔상이 있다
+    // 이를 해결하기 위해 백버퍼이미지를 더블버퍼에 옮기고 더블버퍼를 출력하는 방식을 사용하였다.
 }
 
+
+// 함수포인터를 사용하여 컨텐츠 종류에 영향을 받지 않고 진행될 수 있도록 하였다.
 int GameEngineWindow::WindowLoop(void(*_Start)(), void(*_Loop)(), void(*_End)())
 {
     // 단축키인데. 안써도 문제가 되지는 않는다.
@@ -161,13 +163,9 @@ int GameEngineWindow::WindowLoop(void(*_Start)(), void(*_Loop)(), void(*_End)())
 
     // 기본 메시지 루프입니다:
     // GetMessage는 내 윈도우에 무슨일이 생기는지 체크해줘.
-    // GetMessage는 윈도우의 특별한 일이 생길대까지 멈추는 함수인겁니다.
+    // GetMessage는 윈도우의 특별한 일이 생길때까지 loop를 돌리는 함수
     while (IsWindowUpdate)
     {
-        //if (!TranslateAccelerator(msg.hwnd, nullptr, &msg))
-        //{
-        //}
-
         // 윈도우 메세지를 처리한다.
         // GetMessage는 동기함수이기 때문에 애초에 게임을 만들수 있는 메세지 방식이 아니다
         // => 게임은 쉴새없이 돌아야 하는데
@@ -231,13 +229,15 @@ void GameEngineWindow::SettingWindowSize(float4 _Size)
     ScreenSize = _Size;
 
     // 내가 원하는 크기를 넣으면 타이틀바까지 고려한 크기를 리턴주는 함수.
+    // 이 과정을 거치지 않으면 설정한 위도우 사이즈는 타이틀바를 포함한 사이즈를 가르킨다.
     AdjustWindowRect(&Rc, WS_OVERLAPPEDWINDOW, FALSE);
 
     WindowSize = { static_cast<float>(Rc.right - Rc.left), static_cast<float>(Rc.bottom - Rc.top)};
     // 0을 넣어주면 기존의 크기를 유지한다.
     SetWindowPos(HWnd, nullptr, WindowPos.ix(), WindowPos.iy(), WindowSize.ix(), WindowSize.iy(), SWP_NOZORDER);
 
-    // 완전히 똑같은 크기의 이미지입니다.
+    // 완전히 똑같은 크기의 이미지
+
 
     if (nullptr != DoubleBufferImage)
     {
