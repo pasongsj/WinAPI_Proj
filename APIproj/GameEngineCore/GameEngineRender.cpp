@@ -93,10 +93,10 @@ void GameEngineRender::SetText(const std::string_view& _Text)
 {
 	RenderText = _Text;
 }
-1. BitCopy – 이미지 비트맵 자체를 복사
-2. TransCopy – 이미지 크기를 변환해서 복사
-3. AlphaCopy – 이미지의 Alpha을 변경하여 복사
-4. PlgCopy – 이미지를 Angle값만큼 회전하여 복사
+//1. BitCopy – 이미지 비트맵 자체를 복사
+//2. TransCopy – 이미지 크기를 변환해서 복사
+//3. AlphaCopy – 이미지의 Alpha을 변경하여 복사
+//4. PlgCopy – 이미지를 Angle값만큼 회전하여 복사
 void GameEngineRender::SetRotFilter(const std::string_view& _ImageName)
 {
 	RotationFilter = GameEngineResources::GetInst().ImageFind(_ImageName);
