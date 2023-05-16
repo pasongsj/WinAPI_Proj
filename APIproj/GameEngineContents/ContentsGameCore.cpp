@@ -25,7 +25,7 @@ void ContentsGameCore::Start()
 
 	GameEngineWindow::SettingWindowSize({ 1536.0f, 960.0f });  // // 1536 x 960 1280x800
 
-	new int(); // leak체크용
+	//new int(); // leak체크용
 
 	//CreateLevel<MadForestLevel>("MadForestLevelt");
 	CreateLevel<InlaidLibraryLevel>("InlaidLibraryLevel");
