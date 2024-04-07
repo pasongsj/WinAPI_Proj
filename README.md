@@ -4,22 +4,25 @@
 
 [![Video Label](http://img.youtube.com/vi/lretIdeI5z4/0.jpg)](https://youtu.be/lretIdeI5z4?t=0s)
 
----
-## 실행방법
+Vampire Survivors모작 (2023.01.04~2023.03.10)
 
-```
-// 1
-git clone https://github.com/pasongsj/WinAPI_Proj.git
-// 2
-APIproj.sln 실행
-// 3
-Level4 - APImain 시작프로그램 설정
-// 4
-실행
-```
+> Window API와 게임 엔진에 대해 공부하기 위해 만든 게임
+> 
+- Github 주소 **:** https://github.com/pasongsj/WinAPI_Proj.git
+- 스택 : C++, WinAPI
+- 개발인 인원 : 1
+- YouTube **:** https://www.youtube.com/watch?v=lretIdeI5z4
+
 ---
-## 환경
-#### Visual Studio Code, Github
+
+### **Environment**
+
+- 플랫폼 OS : Windows(64bit)
+- C++ Version: C++20
+- Windows SDK version : 10.0
+
 ---
-## 기술스택
-#### C++, WinAPI, FMOD
+
+### ThirdParty
+
+- FMOD
